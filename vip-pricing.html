@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP 购买</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--edu-background);
+    --color-foreground: var(--edu-foreground);
+    --color-card: var(--edu-card);
+    --color-card-foreground: var(--edu-card-foreground);
+    --color-popover: var(--edu-popover);
+    --color-popover-foreground: var(--edu-popover-foreground);
+    --color-primary: var(--edu-primary);
+    --color-primary-foreground: var(--edu-primary-foreground);
+    --color-muted: var(--edu-muted);
+    --color-muted-foreground: var(--edu-muted-foreground);
+    --color-border: var(--edu-border);
+    --color-input: var(--edu-input);
+    --color-ring: var(--edu-ring);
+    --radius-sm: var(--edu-radius-sm);
+    --radius-md: var(--edu-radius-md);
+    --radius-lg: var(--edu-radius-lg);
+  }
+  @layer base {
+    body { background: var(--edu-background); color: var(--edu-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    
+    
+</head>
+<body class="min-h-screen flex flex-col antialiased" style="font-family: Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;">
+  <header class="sticky top-0 z-50 w-full border-b border-[var(--edu-border)] bg-white/80 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-[var(--edu-primary)] font-semibold text-lg">
+        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <span>浙招智达</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-[var(--edu-foreground)] hover:bg-[var(--edu-muted)] transition-colors">首页</a>
+        <a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="ai-chat" data-dom-id="nav-ai-chat">智能问答</a>
+        <a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-[var(--edu-foreground)] hover:bg-[var(--edu-muted)] transition-colors">学考规划</a>
+        <a href="ai-interview.html" class="px-3 py-2 rounded-md text-sm font-medium text-[var(--edu-foreground)] hover:bg-[var(--edu-muted)] transition-colors">AI 面试</a>
+        <a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-[var(--edu-foreground)] hover:bg-[var(--edu-muted)] transition-colors">题库</a>
+        <a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-[var(--edu-foreground)] hover:bg-[var(--edu-muted)] transition-colors">用户中心</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button type="button" data-theme-toggle class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" aria-label="切换主题"><i data-lucide="sun" class="w-4 h-4" data-icon-name="sun"></i><i data-lucide="moon" class="w-4 h-4 hidden" data-icon-name="moon"></i></button>
+        <a href="vip-pricing.html" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[var(--edu-primary)] text-white hover:bg-[var(--edu-primary-700)] transition-colors">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>VIP
+        </a>
+        <a href="user-center.html" class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-[var(--edu-primary)] transition-colors">
+          <i data-lucide="user" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="ai-interview.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">AI 面试</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">题库</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
+  </header>
+
+  <main id="page-content" class="flex-1">
+    <!-- value-proposition -->
+    <section class="relative overflow-hidden">
+      <div class="mx-auto max-w-7xl px-6 py-16 md:py-24 text-center">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--edu-primary-50)] text-[var(--edu-primary-700)] text-sm font-medium mb-6">
+          <i data-lucide="crown" class="w-4 h-4"></i> VIP 会员
+        </span>
+        <h1 class="edu-h1 text-[var(--edu-foreground)] mb-4">浙江三一/高职提招全流程 AI 智能体</h1>
+        <p class="edu-body text-[var(--edu-muted-foreground)] max-w-2xl mx-auto mb-6">
+          从政策问答、学考规划、AI 面试到题库刷题，VIP 权益覆盖升学关键节点，让备考更高效、决策更从容。
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-10">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-sm font-medium border border-amber-100">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 智能问答无限次
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--edu-primary-50)] text-[var(--edu-primary-700)] text-sm font-medium border border-[var(--edu-primary-100)]">
+            <i data-lucide="clipboard-list" class="w-3.5 h-3.5"></i> 志愿方案生成
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--edu-primary-50)] text-[var(--edu-primary-700)] text-sm font-medium border border-[var(--edu-primary-100)]">
+            <i data-lucide="mic" class="w-3.5 h-3.5"></i> AI 面试模拟
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--edu-primary-50)] text-[var(--edu-primary-700)] text-sm font-medium border border-[var(--edu-primary-100)]">
+            <i data-lucide="book-open" class="w-3.5 h-3.5"></i> 题库刷题全量
+          </span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div class="p-5 rounded-xl bg-card border border-[var(--edu-border)] text-center">
+            <div class="w-10 h-10 mx-auto mb-3 rounded-lg bg-[var(--edu-primary-50)] text-[var(--edu-primary)] flex items-center justify-center">
+              <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+            </div>
+            <h3 class="edu-h3 mb-1">AI 智能规划</h3>
+            <p class="edu-body-sm text-[var(--edu-muted-foreground)]">基于学考成绩与目标院校，生成个性化冲稳保志愿方案。</p>
+          </div>
+          <div class="p-5 rounded-xl bg-card border border-[var(--edu-border)] text-center">
+            <div class="w-10 h-10 mx-auto mb-3 rounded-lg bg-[var(--edu-primary-50)] text-[var(--edu-primary)] flex items-center justify-center">
+              <i data-lucide="mic" class="w-5 h-5"></i>
+            </div>
+            <h3 class="edu-h3 mb-1">AI 面试模拟</h3>
+            <p class="edu-body-sm text-[var(--edu-muted-foreground)]">结构化/半结构化面试演练，多维度评分与改进建议。</p>
+          </div>
+          <div class="p-5 rounded-xl bg-card border border-[var(--edu-border)] text-center">
+            <div class="w-10 h-10 mx-auto mb-3 rounded-lg bg-[var(--edu-primary-50)] text-[var(--edu-primary)] flex items-center justify-center">
+              <i data-lucide="target" class="w-5 h-5"></i>
+            </div>
+            <h3 class="edu-h3 mb-1">精准定位</h3>
+            <p class="edu-body-sm text-[var(--edu-muted-foreground)]">院校录取概率测算，志愿梯度科学匹配。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- promotions -->
+    <section class="py-5 bg-amber-50 border-y border-amber-100">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-red-500 text-white text-xs font-bold">
+              <i data-lucide="flame" class="w-3 h-3"></i> 限时
+            </span>
+            <span class="text-amber-900 font-semibold">开学季限时优惠 · 年卡低至 5 折</span>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-xs font-medium">
+              <i data-lucide="users" class="w-3 h-3"></i> 3 人成团再减 30 元
+            </span>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-medium">
+              <i data-lucide="tag" class="w-3 h-3"></i> 限量 100 份
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-amber-900 edu-body-sm font-medium">
+            <i data-lucide="clock" class="w-4 h-4"></i>
+            距结束
+            <span id="promo-countdown" class="edu-number font-mono text-base">23:59:59</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- pricing-cards -->
+    <section id="pricing" class="py-16 md:py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="text-center mb-10">
+          <h2 class="edu-h1 text-[var(--edu-foreground)] mb-3">选择适合你的 VIP 方案</h2>
+          <p class="edu-body text-[var(--edu-muted-foreground)]">年卡更划算，开通即解锁对应权益</p>
+        </div>
+
+        <!-- cycle toggle -->
+        <div class="flex items-center justify-center mb-10">
+          <div class="inline-flex items-center gap-1 p-1 rounded-xl bg-muted border border-[var(--edu-border)]">
+            <button id="cycle-quarter" type="button" class="cycle-btn px-5 py-2 rounded-lg text-sm font-medium transition-colors text-muted-foreground hover:bg-muted" onclick="setCycle('quarter')">季卡</button>
+            <button id="cycle-year" type="button" class="cycle-btn px-5 py-2 rounded-lg text-sm font-medium transition-colors bg-primary text-primary-foreground" onclick="setCycle('year')">年卡 <span class="ml-1 text-xs opacity-90">省50%</span></button>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
+          <article class="relative flex flex-col rounded-xl border border-[var(--edu-border)] bg-card p-8">
+            <h2 class="edu-h2 mb-2">基础 VIP</h2>
+            <p class="edu-body-sm text-muted-foreground mb-6">适合刚开始了解政策、需要志愿方案的学生</p>
+            <div class="flex items-baseline gap-1 mb-6">
+              <span class="text-2xl text-muted-foreground">¥</span>
+              <span id="basic-price" class="edu-display text-foreground edu-number">199</span>
+              <span id="basic-unit" class="text-muted-foreground">/ 年</span>
+            </div>
+            <ul class="space-y-3 mb-8 flex-1">
+              <li class="flex items-start gap-3 edu-body-sm text-foreground">
+                <i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i>
+                智能问答无限次
+              </li>
+              <li class="flex items-start gap-3 edu-body-sm text-foreground">
+                <i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i>
+                志愿方案生成
+              </li>
+              <li class="flex items-start gap-3 edu-body-sm text-foreground">
+                <i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i>
+                院校多维度对比
+              </li>
+              <li class="flex items-start gap-3 edu-body-sm text-foreground">
+                <i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i>
+                录取概率预估
+              </li>
+              <li class="flex items-start gap-3 edu-body-sm text-muted-foreground">
+                <i data-lucide="lock" class="w-4 h-4 mt-0.5 shrink-0"></i>
+                AI 面试模拟（全能 VIP 解锁）
+              </li>
+              <li class="flex items-start gap-3 edu-body-sm text-muted-foreground">
+                <i data-lucide="lock" class="w-4 h-4 mt-0.5 shrink-0"></i>
+                题库刷题全量（全能 VIP 解锁）
+              </li>
+              <li class="flex items-start gap-3 edu-body-sm text-muted-foreground">
+                <i data-lucide="lock" class="w-4 h-4 mt-0.5 shrink-0"></i>
+                1 对 1 智能志愿方案（全能 VIP 解锁）
+              </li>
+            </ul>
+            <button onclick="choosePlan('basic','基础 VIP')" class="w-full py-3 rounded-lg border border-primary text-primary font-medium hover:bg-[var(--edu-primary-50)] transition-colors">
+              选择基础 VIP
+            </button>
+          </article>
+
+          <article class="relative flex flex-col rounded-xl border-2 border-primary bg-card p-8 shadow-[var(--edu-shadow-2)]">
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary text-primary-foreground text-sm font-semibold flex items-center gap-1.5">
+              <i data-lucide="star" class="w-3.5 h-3.5"></i> 推荐
+            </div>
+            <h2 class="edu-h2 mb-2">全能 VIP</h2>
+            <p class="edu-body-sm text-muted-foreground mb-6">覆盖面试、题库、志愿全流程</p>
+            <div class="flex items-baseline gap-1 mb-6">
+              <span class="text-2xl text-muted-foreground">¥</span>
+              <span id="omni-price" class="edu-display text-foreground edu-number">399</span>
+              <span id="omni-unit" class="text-muted-foreground">/ 年</span>
+            </div>
+            <ul class="space-y-3 mb-8 flex-1">
+              <li class="flex items-start gap-3 edu-body-sm text-foreground">
+                <i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i>
+                包含基础 VIP 全部权益
+              </li>
+              <li class="flex items-start gap-3 edu-body-sm text-foreground">
+                <i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i>
+                AI 面试模拟无限次
+              </li>
+              <li class="flex items-start gap-3 edu-body-sm text-foreground">
+                <i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i>
+                题库刷题全量解锁
+              </li>
+              <li class="flex items-start gap-3 edu-body-sm text-foreground">
+                <i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i>
+                1 对 1 智能志愿方案
+              </li>
+              <li class="flex items-start gap-3 edu-body-sm text-foreground">
+                <i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i>
+                优先客服与资料更新
+              </li>
+              <li class="flex items-start gap-3 edu-body-sm text-foreground">
+                <i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i>
+                续费专属 9 折优惠
+              </li>
+            </ul>
+            <button onclick="choosePlan('omni','全能 VIP')" class="w-full py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-[var(--edu-primary-700)] transition-colors">
+              选择全能 VIP
+            </button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- feature-table -->
+    <section class="py-16 md:py-20 bg-muted">
+      <div class="mx-auto max-w-7xl px-6">
+        <h2 class="edu-h1 text-center text-foreground mb-4">功能对比一览</h2>
+        <p class="edu-body text-muted-foreground text-center mb-10 max-w-2xl mx-auto">根据备考阶段选择合适会员，随时可升级。</p>
+        <div class="overflow-x-auto rounded-xl border border-[var(--edu-border)] bg-card">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-[var(--edu-border)] bg-muted">
+                <th class="px-6 py-4 edu-h3 font-medium text-foreground">功能权益</th>
+                <th class="px-6 py-4 edu-h3 font-medium text-center text-foreground">基础 VIP</th>
+                <th class="px-6 py-4 edu-h3 font-medium text-center text-primary">全能 VIP</th>
+              </tr>
+            </thead>
+            <tbody class="edu-body-sm">
+              <tr class="border-b border-[var(--edu-border)]">
+                <td class="px-6 py-4 text-foreground">智能问答无限次</td>
+                <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-primary mx-auto"></i></td>
+                <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-primary mx-auto"></i></td>
+              </tr>
+              <tr class="border-b border-[var(--edu-border)]">
+                <td class="px-6 py-4 text-foreground">志愿方案生成</td>
+                <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-primary mx-auto"></i></td>
+                <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-primary mx-auto"></i></td>
+              </tr>
+              <tr class="border-b border-[var(--edu-border)]">
+                <td class="px-6 py-4 text-foreground">院校多维度对比</td>
+                <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-primary mx-auto"></i></td>
+                <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-primary mx-auto"></i></td>
+              </tr>
+              <tr class="border-b border-[var(--edu-border)]">
+                <td class="px-6 py-4 text-foreground">录取概率预估</td>
+                <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-primary mx-auto"></i></td>
+                <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-primary mx-auto"></i></td>
+              </tr>
+              <tr class="border-b border-[var(--edu-border)]">
+                <td class="px-6 py-4 text-foreground">AI 面试模拟（无限次）</td>
+                <td class="px-6 py-4 text-center"><i data-lucide="x" class="w-5 h-5 text-muted-foreground mx-auto"></i></td>
+                <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-primary mx-auto"></i></td>
+              </tr>
+              <tr class="border-b border-[var(--edu-border)]">
+                <td class="px-6 py-4 text-foreground">题库刷题（全量）</td>
+                <td class="px-6 py-4 text-center"><i data-lucide="x" class="w-5 h-5 text-muted-foreground mx-auto"></i></td>
+                <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-primary mx-auto"></i></td>
+              </tr>
+              <tr class="border-b border-[var(--edu-border)]">
+                <td class="px-6 py-4 text-foreground">1 对 1 智能志愿方案</td>
+                <td class="px-6 py-4 text-center"><i data-lucide="x" class="w-5 h-5 text-muted-foreground mx-auto"></i></td>
+                <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-primary mx-auto"></i></td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 text-foreground">续费提醒 + 9 折优惠</td>
+                <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-primary mx-auto"></i></td>
+                <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-5 h-5 text-primary mx-auto"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- payment flow -->
+    <section id="payment" class="py-16 md:py-20">
+      <div class="mx-auto max-w-3xl px-6">
+        <h2 class="edu-h1 text-center text-foreground mb-3">支付开通</h2>
+        <p class="edu-body text-muted-foreground text-center mb-10">选择套餐 → 选择支付方式 → 扫码支付 → 成功解锁</p>
+
+        <!-- steps indicator -->
+        <div id="payment-steps" class="flex items-center justify-between mb-10 text-sm">
+          <div class="step-item flex flex-col items-center gap-2 text-primary" data-step="1">
+            <div class="step-circle w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold">1</div>
+            <span class="step-label font-medium">选择套餐</span>
+          </div>
+          <div class="step-line h-0.5 flex-1 bg-border mx-2" data-step="1"></div>
+          <div class="step-item flex flex-col items-center gap-2 text-muted-foreground" data-step="2">
+            <div class="step-circle w-8 h-8 rounded-full bg-muted flex items-center justify-center font-semibold">2</div>
+            <span class="step-label">选择支付方式</span>
+          </div>
+          <div class="step-line h-0.5 flex-1 bg-border mx-2" data-step="2"></div>
+          <div class="step-item flex flex-col items-center gap-2 text-muted-foreground" data-step="3">
+            <div class="step-circle w-8 h-8 rounded-full bg-muted flex items-center justify-center font-semibold">3</div>
+            <span class="step-label">扫码支付</span>
+          </div>
+          <div class="step-line h-0.5 flex-1 bg-border mx-2" data-step="3"></div>
+          <div class="step-item flex flex-col items-center gap-2 text-muted-foreground" data-step="4">
+            <div class="step-circle w-8 h-8 rounded-full bg-muted flex items-center justify-center font-semibold">4</div>
+            <span class="step-label">支付成功</span>
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-[var(--edu-border)] bg-card p-6 md:p-8">
+          <div id="payment-empty" class="text-center py-10 text-muted-foreground">
+            <i data-lucide="shopping-cart" class="w-10 h-10 mx-auto mb-3 opacity-50"></i>
+            <p>请先在上方选择要开通的 VIP 套餐</p>
+          </div>
+
+          <div id="payment-form" class="hidden space-y-6">
+            <div class="flex items-center justify-between p-4 rounded-xl bg-muted">
+              <div>
+                <p class="text-sm text-muted-foreground">已选套餐</p>
+                <p id="selected-plan-name" class="edu-h3 font-semibold text-foreground">全能 VIP</p>
+              </div>
+              <div class="text-right">
+                <p class="text-sm text-muted-foreground">应付金额</p>
+                <p class="edu-h2 text-primary">¥<span id="selected-plan-price" class="edu-number">399</span></p>
+              </div>
+            </div>
+
+            <div>
+              <p class="edu-body-sm font-medium text-foreground mb-3">选择支付方式</p>
+              <div class="grid grid-cols-2 gap-4">
+                <button type="button" onclick="selectPayMethod('wechat')" id="btn-wechat" class="pay-method-btn flex items-center justify-center gap-2 py-3 rounded-xl border border-border transition-colors">
+                  <i data-lucide="message-circle" class="w-5 h-5 text-green-600"></i> 微信支付
+                </button>
+                <button type="button" onclick="selectPayMethod('alipay')" id="btn-alipay" class="pay-method-btn flex items-center justify-center gap-2 py-3 rounded-xl border border-border transition-colors">
+                  <i data-lucide="credit-card" class="w-5 h-5 text-blue-500"></i> 支付宝
+                </button>
+              </div>
+            </div>
+
+            <div id="qr-area" class="hidden">
+              <div class="flex flex-col items-center justify-center p-6 rounded-xl border border-dashed border-[var(--edu-border)] bg-muted">
+                <div class="w-40 h-40 rounded-lg bg-white flex items-center justify-center mb-3">
+                  <i data-lucide="qr-code" class="w-24 h-24 text-foreground"></i>
+                </div>
+                <p class="edu-body-sm text-muted-foreground mb-4">请使用 <span id="qr-method-name">微信</span> 扫一扫完成支付</p>
+                <button onclick="completePayment()" class="px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-[var(--edu-primary-700)] transition-colors">
+                  我已完成支付
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- payment success -->
+    <div id="success-modal" class="hidden">
+      <section class="py-16 md:py-20 bg-[var(--edu-primary-50)]">
+        <div class="mx-auto max-w-3xl px-6 text-center">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-[var(--edu-state-success)] text-white flex items-center justify-center">
+            <i data-lucide="check-circle" class="w-8 h-8"></i>
+          </div>
+          <h2 class="edu-h1 text-foreground mb-3">支付成功</h2>
+          <p class="edu-body text-muted-foreground mb-8">VIP 权益已即时解锁，到期后自动降级为免费用户</p>
+
+          <div id="unlock-basic" class="hidden">
+            <div class="rounded-2xl border border-[var(--edu-border)] bg-card p-6 text-left mb-8">
+              <h3 class="edu-h3 mb-4 text-foreground">已解锁基础 VIP 功能</h3>
+              <ul class="space-y-3 edu-body-sm text-foreground">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[var(--edu-state-success)]"></i> 智能问答无限次</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[var(--edu-state-success)]"></i> 志愿方案生成</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[var(--edu-state-success)]"></i> 院校多维度对比</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[var(--edu-state-success)]"></i> 录取概率预估</li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="unlock-omni" class="hidden">
+            <div class="rounded-2xl border border-[var(--edu-border)] bg-card p-6 text-left mb-8">
+              <h3 class="edu-h3 mb-4 text-foreground">已解锁全能 VIP 功能</h3>
+              <ul class="space-y-3 edu-body-sm text-foreground">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[var(--edu-state-success)]"></i> 基础 VIP 全部权益</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[var(--edu-state-success)]"></i> AI 面试模拟无限次</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[var(--edu-state-success)]"></i> 题库刷题全量解锁</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[var(--edu-state-success)]"></i> 1 对 1 智能志愿方案</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            <a href="direction.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-[var(--edu-primary-700)] transition-colors">
+              立即体验 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="user-center.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-primary text-primary font-medium hover:bg-[var(--edu-primary-50)] transition-colors">
+              查看 VIP 状态
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- order management -->
+    <section class="py-16 md:py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <h2 class="edu-h1 text-center text-foreground mb-4">订单管理</h2>
+        <p class="edu-body text-muted-foreground text-center mb-10">展示所有订单记录，支持查看详情</p>
+        <div class="overflow-x-auto rounded-xl border border-[var(--edu-border)] bg-card">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-[var(--edu-border)] bg-muted">
+                <th class="px-6 py-4 edu-body-sm font-semibold text-foreground whitespace-nowrap">订单号</th>
+                <th class="px-6 py-4 edu-body-sm font-semibold text-foreground whitespace-nowrap">套餐</th>
+                <th class="px-6 py-4 edu-body-sm font-semibold text-foreground whitespace-nowrap">金额</th>
+                <th class="px-6 py-4 edu-body-sm font-semibold text-foreground whitespace-nowrap">支付方式</th>
+                <th class="px-6 py-4 edu-body-sm font-semibold text-foreground whitespace-nowrap">状态</th>
+                <th class="px-6 py-4 edu-body-sm font-semibold text-foreground whitespace-nowrap">时间</th>
+                <th class="px-6 py-4 edu-body-sm font-semibold text-foreground whitespace-nowrap">操作</th>
+              </tr>
+            </thead>
+            <tbody class="edu-body-sm">
+              <tr class="border-b border-[var(--edu-border)]">
+                <td class="px-6 py-4 font-mono text-foreground">VIP202608150001</td>
+                <td class="px-6 py-4 text-foreground">全能 VIP · 年卡</td>
+                <td class="px-6 py-4 text-foreground">¥399</td>
+                <td class="px-6 py-4 text-foreground">微信支付</td>
+                <td class="px-6 py-4">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-[var(--edu-state-success-bg)] text-[var(--edu-state-success)] text-xs font-medium">支付成功</span>
+                </td>
+                <td class="px-6 py-4 text-muted-foreground">2026-08-15 10:23</td>
+                <td class="px-6 py-4">
+                  <a href="#" class="text-primary hover:underline">查看详情</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 font-mono text-foreground">VIP202608010002</td>
+                <td class="px-6 py-4 text-foreground">基础 VIP · 季卡</td>
+                <td class="px-6 py-4 text-foreground">¥99</td>
+                <td class="px-6 py-4 text-foreground">支付宝</td>
+                <td class="px-6 py-4">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-[var(--edu-state-warning-bg)] text-[var(--edu-state-warning)] text-xs font-medium">待支付</span>
+                </td>
+                <td class="px-6 py-4 text-muted-foreground">2026-08-01 14:07</td>
+                <td class="px-6 py-4">
+                  <a href="#" class="text-primary hover:underline">查看详情</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- service info -->
+    <section class="py-16 md:py-20 bg-muted">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- refund -->
+          <div class="p-6 rounded-xl bg-card border border-[var(--edu-border)]">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-9 h-9 rounded-lg bg-[var(--edu-primary-50)] text-primary flex items-center justify-center">
+                <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+              </div>
+              <h3 class="edu-h3 text-foreground">退款政策</h3>
+            </div>
+            <ul class="space-y-2 edu-body-sm text-muted-foreground">
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i> 7 天内未使用付费功能可全额退款</li>
+              <li class="flex items-start gap-2"><i data-lucide="x" class="w-4 h-4 text-muted-foreground mt-0.5 shrink-0"></i> 已使用付费功能不支持退款</li>
+              <li class="flex items-start gap-2"><i data-lucide="list-ordered" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i> 流程 ≤3 步：申请 → 审核 → 原路退回</li>
+            </ul>
+          </div>
+          <!-- invoice -->
+          <div class="p-6 rounded-xl bg-card border border-[var(--edu-border)]">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-9 h-9 rounded-lg bg-[var(--edu-primary-50)] text-primary flex items-center justify-center">
+                <i data-lucide="file-text" class="w-5 h-5"></i>
+              </div>
+              <h3 class="edu-h3 text-foreground">发票管理</h3>
+            </div>
+            <ul class="space-y-2 edu-body-sm text-muted-foreground">
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i> 支持电子发票申请</li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i> 抬头类型：个人 / 企业</li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i> 申请后 3 个工作日内开具</li>
+            </ul>
+          </div>
+          <!-- renewal -->
+          <div class="p-6 rounded-xl bg-card border border-[var(--edu-border)]">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-9 h-9 rounded-lg bg-[var(--edu-primary-50)] text-primary flex items-center justify-center">
+                <i data-lucide="bell" class="w-5 h-5"></i>
+              </div>
+              <h3 class="edu-h3 text-foreground">续费提醒</h3>
+            </div>
+            <ul class="space-y-2 edu-body-sm text-muted-foreground">
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i> 到期前 7 天 / 3 天 / 1 天推送提醒</li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i> 续费享 9 折优惠</li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-primary mt-0.5 shrink-0"></i> 到期后自动降级为免费用户</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- faq -->
+    <section class="py-16 md:py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="edu-h1 text-center text-foreground mb-4">常见问题</h2>
+          <p class="edu-body text-muted-foreground text-center mb-10">关于支付、退款与 VIP 权益</p>
+          <div class="space-y-4">
+            <details class="group rounded-xl border border-[var(--edu-border)] bg-card p-5">
+              <summary class="flex items-center justify-between cursor-pointer edu-h3 font-medium text-foreground list-none">
+                <span>VIP 购买后多久生效？</span>
+                <i data-lucide="chevron-down" class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-180"></i>
+              </summary>
+              <p class="mt-3 edu-body-sm text-muted-foreground">支付成功后系统即时更新 VIP 状态，刷新页面或返回对应功能即可使用。</p>
+            </details>
+            <details class="group rounded-xl border border-[var(--edu-border)] bg-card p-5">
+              <summary class="flex items-center justify-between cursor-pointer edu-h3 font-medium text-foreground list-none">
+                <span>支持哪些支付方式？</span>
+                <i data-lucide="chevron-down" class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-180"></i>
+              </summary>
+              <p class="mt-3 edu-body-sm text-muted-foreground">目前支持微信支付与支付宝支付，支付成功后自动开通权益。</p>
+            </details>
+            <details class="group rounded-xl border border-[var(--edu-border)] bg-card p-5">
+              <summary class="flex items-center justify-between cursor-pointer edu-h3 font-medium text-foreground list-none">
+                <span>退款流程怎么走？</span>
+                <i data-lucide="chevron-down" class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-180"></i>
+              </summary>
+              <p class="mt-3 edu-body-sm text-muted-foreground">购买 7 天内未使用付费功能，可在订单管理中申请退款；审核通过后款项原路退回，通常 ≤3 个工作日。</p>
+            </details>
+            <details class="group rounded-xl border border-[var(--edu-border)] bg-card p-5">
+              <summary class="flex items-center justify-between cursor-pointer edu-h3 font-medium text-foreground list-none">
+                <span>如何申请发票？</span>
+                <i data-lucide="chevron-down" class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-180"></i>
+              </summary>
+              <p class="mt-3 edu-body-sm text-muted-foreground">在订单详情页点击「申请发票」，选择个人或企业抬头并填写税号，我们将在 3 个工作日内开具电子发票。</p>
+            </details>
+            <details class="group rounded-xl border border-[var(--edu-border)] bg-card p-5">
+              <summary class="flex items-center justify-between cursor-pointer edu-h3 font-medium text-foreground list-none">
+                <span>基础 VIP 与全能 VIP 可以切换吗？</span>
+                <i data-lucide="chevron-down" class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-180"></i>
+              </summary>
+              <p class="mt-3 edu-body-sm text-muted-foreground">可以。升级时按剩余天数折算差价；降级将在下一计费周期生效，当前周期权益不受影响。</p>
+            </details>
+            <details class="group rounded-xl border border-[var(--edu-border)] bg-card p-5">
+              <summary class="flex items-center justify-between cursor-pointer edu-h3 font-medium text-foreground list-none">
+                <span>到期后会怎样？</span>
+                <i data-lucide="chevron-down" class="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-180"></i>
+              </summary>
+              <p class="mt-3 edu-body-sm text-muted-foreground">到期前 7/3/1 天会推送续费提醒，续费享 9 折；到期未续费将自动降级为免费用户，恢复每日问答等免费额度限制。</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- payment-cta -->
+    <section class="py-16 md:py-20">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="relative overflow-hidden rounded-xl bg-[var(--edu-primary-600)] text-white p-8 md:p-12 text-center">
+          <div class="relative z-10">
+            <h2 class="edu-h1 mb-4">准备好提升录取概率了吗？</h2>
+            <p class="edu-body text-white/90 mb-8 max-w-2xl mx-auto">开通全能 VIP，立即解锁全部 AI 工具与专家资源，为升学冲刺加一份保障。</p>
+            <button onclick="choosePlan('omni','全能 VIP')" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-[var(--edu-primary-700)] font-semibold text-lg hover:bg-[var(--edu-primary-50)] transition-colors">
+              <i data-lucide="credit-card" class="w-5 h-5"></i> 立即开通全能 VIP
+            </button>
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-6 text-white/80 edu-body-sm">
+              <span class="inline-flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4"></i> 安全支付</span>
+              <span class="inline-flex items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4"></i> 7 天未使用可退款</span>
+              <span class="inline-flex items-center gap-2"><i data-lucide="headphones" class="w-4 h-4"></i> 专属客服</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const prices = {
+        basic: { quarter: 99, year: 199 },
+        omni: { quarter: 199, year: 399 }
+      };
+      let currentCycle = 'year';
+      let selectedLevel = null;
+
+      function setCycle(cycle) {
+        currentCycle = cycle;
+        document.getElementById('basic-price').textContent = prices.basic[cycle];
+        document.getElementById('omni-price').textContent = prices.omni[cycle];
+        document.getElementById('basic-unit').textContent = cycle === 'year' ? '/ 年' : '/ 季';
+        document.getElementById('omni-unit').textContent = cycle === 'year' ? '/ 年' : '/ 季';
+        const quarterBtn = document.getElementById('cycle-quarter');
+        const yearBtn = document.getElementById('cycle-year');
+        if (cycle === 'year') {
+          yearBtn.classList.add('bg-primary', 'text-primary-foreground');
+          yearBtn.classList.remove('text-muted-foreground', 'hover:bg-muted');
+          quarterBtn.classList.remove('bg-primary', 'text-primary-foreground');
+          quarterBtn.classList.add('text-muted-foreground', 'hover:bg-muted');
+        } else {
+          quarterBtn.classList.add('bg-primary', 'text-primary-foreground');
+          quarterBtn.classList.remove('text-muted-foreground', 'hover:bg-muted');
+          yearBtn.classList.remove('bg-primary', 'text-primary-foreground');
+          yearBtn.classList.add('text-muted-foreground', 'hover:bg-muted');
+        }
+        if (selectedLevel) updateSelectedPrice();
+      }
+
+      function choosePlan(level, name) {
+        selectedLevel = level;
+        document.getElementById('payment-empty').classList.add('hidden');
+        document.getElementById('payment-form').classList.remove('hidden');
+        document.getElementById('selected-plan-name').textContent = name;
+        updateSelectedPrice();
+        document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('qr-area').classList.add('hidden');
+        document.querySelectorAll('.pay-method-btn').forEach(b => {
+          b.classList.remove('border-primary', 'ring-2', 'ring-primary');
+          b.classList.add('border-border');
+        });
+        setStep(1);
+      }
+
+      function updateSelectedPrice() {
+        const price = prices[selectedLevel][currentCycle];
+        document.getElementById('selected-plan-price').textContent = price;
+      }
+
+      function selectPayMethod(method) {
+        document.querySelectorAll('.pay-method-btn').forEach(b => {
+          b.classList.remove('border-primary', 'ring-2', 'ring-primary');
+          b.classList.add('border-border');
+        });
+        const active = document.getElementById('btn-' + method);
+        active.classList.remove('border-border');
+        active.classList.add('border-primary', 'ring-2', 'ring-primary');
+        document.getElementById('qr-area').classList.remove('hidden');
+        document.getElementById('qr-method-name').textContent = method === 'wechat' ? '微信' : '支付宝';
+        setStep(3);
+      }
+
+      function completePayment() {
+        document.getElementById('success-modal').classList.remove('hidden');
+        document.getElementById('success-modal').scrollIntoView({ behavior: 'smooth' });
+        if (selectedLevel === 'basic') {
+          document.getElementById('unlock-basic').classList.remove('hidden');
+          document.getElementById('unlock-omni').classList.add('hidden');
+        } else {
+          document.getElementById('unlock-basic').classList.add('hidden');
+          document.getElementById('unlock-omni').classList.remove('hidden');
+        }
+        setStep(4);
+      }
+
+      function setStep(n) {
+        document.querySelectorAll('.step-item').forEach(item => {
+          const step = parseInt(item.dataset.step, 10);
+          const circle = item.querySelector('.step-circle');
+          const label = item.querySelector('.step-label');
+          if (step <= n) {
+            item.classList.remove('text-muted-foreground');
+            item.classList.add('text-primary');
+            circle.classList.remove('bg-muted');
+            circle.classList.add('bg-primary', 'text-primary-foreground');
+            label.classList.add('font-medium');
+          } else {
+            item.classList.add('text-muted-foreground');
+            item.classList.remove('text-primary');
+            circle.classList.add('bg-muted');
+            circle.classList.remove('bg-primary', 'text-primary-foreground');
+            label.classList.remove('font-medium');
+          }
+        });
+        document.querySelectorAll('.step-line').forEach(line => {
+          const step = parseInt(line.dataset.step, 10);
+          if (step < n) {
+            line.classList.remove('bg-border');
+            line.classList.add('bg-primary');
+          } else {
+            line.classList.add('bg-border');
+            line.classList.remove('bg-primary');
+          }
+        });
+      }
+
+      function startCountdown() {
+        let seconds = 24 * 60 * 60 - 1;
+        const el = document.getElementById('promo-countdown');
+        setInterval(() => {
+          if (seconds <= 0) seconds = 24 * 60 * 60 - 1;
+          const h = String(Math.floor(seconds / 3600)).padStart(2, '0');
+          const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+          const s = String(seconds % 60).padStart(2, '0');
+          el.textContent = h + ':' + m + ':' + s;
+          seconds--;
+        }, 1000);
+      }
+      startCountdown();
+    </script>
+  </main>
+
+  <footer class="border-t border-[var(--edu-border)] bg-muted">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-[var(--edu-primary)] font-medium">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <span>浙招智达</span>
+        </div>
+        <p class="text-sm text-[var(--edu-muted-foreground)]">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p>
+        <div class="flex items-center gap-4 text-sm text-[var(--edu-muted-foreground)]">
+          <a href="#" class="hover:text-[var(--edu-primary)] transition-colors">隐私政策</a>
+          <a href="#" class="hover:text-[var(--edu-primary)] transition-colors">使用条款</a>
+          <a href="#" class="hover:text-[var(--edu-primary)] transition-colors">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>lucide.createIcons();</script>
+  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/pages.js" defer></script>
+</body>
+</html>

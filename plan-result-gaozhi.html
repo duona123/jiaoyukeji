@@ -1,0 +1,1972 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高职提招 · 志愿方案结果</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--edu-background);
+    --color-foreground: var(--edu-foreground);
+    --color-card: var(--edu-card);
+    --color-card-foreground: var(--edu-card-foreground);
+    --color-popover: var(--edu-popover);
+    --color-popover-foreground: var(--edu-popover-foreground);
+    --color-primary: var(--edu-primary);
+    --color-primary-foreground: var(--edu-primary-foreground);
+    --color-muted: var(--edu-muted);
+    --color-muted-foreground: var(--edu-muted-foreground);
+    --color-border: var(--edu-border);
+    --color-input: var(--edu-input);
+    --color-ring: var(--edu-ring);
+    --radius-sm: var(--edu-radius-sm);
+    --radius-md: var(--edu-radius-md);
+    --radius-lg: var(--edu-radius-lg);
+  }
+  @layer base {
+    body { background: var(--edu-background); color: var(--edu-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    
+    
+</head>
+<body class="min-h-screen font-sans antialiased flex flex-col bg-background text-foreground">
+  <header class="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur relative"><div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between"><button id="nav-mobile-toggle" type="button" class="md:hidden p-2 rounded-md text-muted-foreground hover:bg-muted transition-colors" aria-label="打开菜单"><i data-lucide="menu" class="w-5 h-5"></i></button><a href="index.html" class="flex items-center gap-2 text-primary font-semibold text-lg"><i data-lucide="graduation-cap" class="w-6 h-6"></i><span>浙招智达</span></a><nav class="hidden md:flex items-center gap-1"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="ai-interview.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">AI 面试</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">题库</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a></nav><div class="flex items-center gap-3"><button type="button" data-theme-toggle class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" aria-label="切换主题"><i data-lucide="sun" class="w-4 h-4" data-icon-name="sun"></i><i data-lucide="moon" class="w-4 h-4 hidden" data-icon-name="moon"></i></button><a href="vip-pricing.html" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"><i data-lucide="crown" class="w-3.5 h-3.5"></i>VIP</a><a href="user-center.html" class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"><i data-lucide="user" class="w-4 h-4"></i></a></div></div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="ai-interview.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">AI 面试</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">题库</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div></header>
+
+    <main id="page-content" class="flex-1 bg-background text-foreground py-8 md:py-10">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <!-- 页面标题 -->
+            <div class="mb-6 md:mb-8">
+                <nav aria-label="面包屑" class="flex items-center gap-2 text-muted-foreground edu-body-sm mb-2">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                    <a href="index.html" class="hover:text-primary transition-colors">首页</a>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    <a href="direction.html" class="hover:text-primary transition-colors">学考规划</a>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    <a href="grade-input-gaozhi.html" class="hover:text-primary transition-colors">高职提招成绩录入</a>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    <span>志愿方案结果</span>
+                </nav>
+                <h1 class="edu-h1 text-foreground flex items-center gap-3">
+                    <i data-lucide="clipboard-list" class="w-8 h-8 text-primary"></i>
+                    高职提招 · 志愿方案结果
+                </h1>
+                <p class="edu-body text-muted-foreground mt-2">面向浙江省 47 所高职提前招生院校，基于学考折算与校测匹配生成推荐方案。请特别关注一档多投规则：确认录取后将不再参加当年高考。</p>
+            </div>
+
+            <!-- score-summary：成绩概览 -->
+            <section class="score-summary bg-card border border-border rounded-lg p-5 md:p-6 mb-6 md:mb-8" style="box-shadow: var(--edu-shadow-1);">
+                <div class="flex items-center gap-2 mb-4">
+                    <i data-lucide="user-circle" class="w-5 h-5 text-primary"></i>
+                    <h2 class="edu-h3 text-foreground">考生成绩概览</h2>
+                    <span class="ml-auto edu-caption edu-number">方案生成时间：2026-08-15 14:32</span>
+                    <span class="edu-caption edu-number">数据更新时间：2026-08-15 10:00</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                    <div class="p-5 bg-muted/50 rounded-xl border border-border flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                            <i data-lucide="award" class="w-5 h-5 text-primary"></i>
+                        </div>
+                        <div>
+                            <p class="edu-caption mb-1 text-muted-foreground">学考等级</p>
+                            <p class="edu-body-sm font-medium text-foreground leading-relaxed">语B 数B 英B 物C 化C 生B 政C 史C 地B 技B</p>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-muted/50 rounded-xl border border-border flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                            <i data-lucide="languages" class="w-5 h-5 text-primary"></i>
+                        </div>
+                        <div>
+                            <p class="edu-caption mb-1 text-muted-foreground">外语种类</p>
+                            <p class="edu-h3 text-foreground">英语</p>
+                            <p class="edu-caption mt-1">按英语科目折算；小语种需单独确认院校要求</p>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-muted/50 rounded-xl border border-border flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                            <i data-lucide="graduation-cap" class="w-5 h-5 text-primary"></i>
+                        </div>
+                        <div>
+                            <p class="edu-caption mb-1 text-muted-foreground">招生类型</p>
+                            <p class="edu-h3 text-foreground">高职提前招生</p>
+                            <p class="edu-caption mt-1">一档多投 · 47 所院校</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 免费用户差异提示 -->
+            <section class="free-upsell bg-[var(--edu-state-warning-bg)] border border-[var(--edu-state-warning)] rounded-lg p-4 mb-6 md:mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-start gap-3">
+                    <i data-lucide="lock" class="w-5 h-5 text-[var(--edu-state-warning)] shrink-0 mt-0.5"></i>
+                    <div>
+                        <p class="edu-body-sm font-semibold text-foreground">当前为免费预览模式</p>
+                        <p class="edu-caption mt-1">完整折算分、录取概率、校测时间、学费、就业率及专业招生计划等详细数据已模糊处理，升级 VIP 后可查看全部内容并导出 PDF / 分享方案。</p>
+                    </div>
+                </div>
+                <a href="vip-pricing.html" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium bg-[var(--edu-state-warning)] text-white hover:opacity-90 transition-colors shrink-0" data-dom-id="plan-result-upsell-vip">
+                    <i data-lucide="crown" class="w-4 h-4"></i>
+                    升级 VIP 解锁完整方案
+                </a>
+            </section>
+
+            <!-- 时间冲突检测 -->
+            <section class="conflict-alert bg-[var(--edu-state-error-bg)] border border-[var(--edu-state-error)] rounded-lg p-4 mb-6 md:mb-8">
+                <div class="flex items-start gap-3">
+                    <i data-lucide="alert-triangle" class="w-5 h-5 text-[var(--edu-state-error)] shrink-0 mt-0.5"></i>
+                    <div class="flex-1">
+                        <h3 class="edu-body-sm font-semibold text-[var(--edu-state-error)]">检测到 2 所院校校测时间重叠</h3>
+                        <p class="edu-caption mt-1">金华职业技术学院（机械制造及自动化）与浙江机电职业技术大学（智能制造工程技术）校测均安排在 <strong class="text-foreground">2026-04-20 09:00-12:00</strong>，无法同时参加。</p>
+                        <ul class="mt-2 space-y-1 edu-caption">
+                            <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-3 h-3 mt-0.5"></i>建议优先准备专业满意度更高的金华职业技术学院，将浙江机电职业技术大学替换为同档时间不冲突院校。</li>
+                            <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-3 h-3 mt-0.5"></i>若两所均为意向院校，可关注院校是否提供下午场次或线上测试。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <div class="grid grid-cols-1 gap-6 md:gap-8 items-start">
+                <!-- 左侧：院校卡片 -->
+                <div class="space-y-6">
+                    <!-- 对比工具栏 -->
+                    <section class="compare-toolbar bg-card border border-border rounded-lg p-3 flex flex-wrap items-center justify-between gap-3" style="box-shadow: var(--edu-shadow-1);">
+                        <div class="flex items-center gap-2 text-muted-foreground edu-body-sm">
+                            <i data-lucide="scale" class="w-4 h-4"></i>
+                            <span>已选 <strong id="compare-count" class="text-foreground edu-number">0</strong>/4 所院校进行对比</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button type="button" id="clear-compare" class="hidden px-3 py-1.5 rounded-md text-xs font-medium text-muted-foreground hover:bg-muted transition-colors">清空</button>
+                            <button type="button" id="compare-btn" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                <i data-lucide="scale" class="w-4 h-4"></i>开始对比
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- 列表筛选面板 -->
+                    <section class="filter-panel bg-card border border-border rounded-lg p-4" style="box-shadow: var(--edu-shadow-1);">
+                        <div class="flex items-center gap-2 mb-4">
+                            <i data-lucide="sliders-horizontal" class="w-4 h-4 text-primary"></i>
+                            <h3 class="edu-body-sm font-semibold text-foreground">列表筛选</h3>
+                        </div>
+
+                        <!-- 所在城市 -->
+                        <div class="filter-row mb-4">
+                            <label class="filter-label edu-caption text-muted-foreground">所在城市：</label>
+                            <div class="filter-options flex flex-wrap gap-x-4 gap-y-2">
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-city" value="杭州" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>杭州</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-city" value="宁波" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>宁波</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-city" value="温州" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>温州</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-city" value="绍兴" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>绍兴</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-city" value="湖州" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>湖州</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-city" value="嘉兴" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>嘉兴</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-city" value="金华" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>金华</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-city" value="衢州" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>衢州</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-city" value="台州" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>台州</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-city" value="丽水" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>丽水</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-city" value="舟山" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>舟山</span></label>
+                            </div>
+                        </div>
+
+                        <!-- 院校性质 -->
+                        <div class="filter-row mb-4">
+                            <label class="filter-label edu-caption text-muted-foreground">院校性质：</label>
+                            <div class="filter-options flex flex-wrap gap-x-4 gap-y-2">
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-nature" value="公办" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>公办</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-nature" value="民办" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>民办</span></label>
+                            </div>
+                        </div>
+
+                        <!-- 办学性质 -->
+                        <div class="filter-row mb-4">
+                            <label class="filter-label edu-caption text-muted-foreground">办学性质：</label>
+                            <div class="filter-options flex flex-wrap gap-x-4 gap-y-2">
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-cooperation" value="中外合作" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>中外合作</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-cooperation" value="非中外合作" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>非中外合作</span></label>
+                            </div>
+                        </div>
+
+                        <!-- 综合考核形式 -->
+                        <div class="filter-row mb-4">
+                            <label class="filter-label edu-caption text-muted-foreground">综合考核形式：</label>
+                            <div class="filter-options flex flex-wrap gap-x-4 gap-y-2">
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-exam" value="笔试" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>笔试</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-exam" value="面试" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>面试</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-exam" value="笔试+面试" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>笔试+面试</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-exam" value="笔试(美术)" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>笔试(美术)</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-exam" value="技能测试+英语测试" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>技能测试+英语测试</span></label>
+                                <label class="inline-flex items-center gap-1.5 text-sm text-foreground cursor-pointer"><input type="checkbox" name="filter-exam" value="体测+面试" class="w-4 h-4 rounded border-border text-primary focus:ring-primary"><span>体测+面试</span></label>
+                            </div>
+                        </div>
+
+                        <!-- 学校名称 / 专业名称 -->
+                        <div class="filter-row mb-5 flex flex-wrap items-center gap-4">
+                            <label class="filter-label edu-caption text-muted-foreground">学校名称：</label>
+                            <input type="text" id="filter-school-name" placeholder="请输入" class="px-3 py-1.5 rounded-md border border-border bg-background text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary w-40">
+                            <label class="filter-label edu-caption text-muted-foreground">专业名称：</label>
+                            <input type="text" id="filter-major-name" placeholder="请输入" class="px-3 py-1.5 rounded-md border border-border bg-background text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary w-40">
+                        </div>
+
+                        <!-- 操作按钮 -->
+                        <div class="flex items-center gap-3">
+                            <button type="button" id="reset-filters" class="px-4 py-2 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors">重置</button>
+                            <button type="button" id="apply-filters" class="px-4 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-[var(--edu-primary-700)] transition-colors">确定</button>
+                        </div>
+
+                        <p class="edu-caption text-muted-foreground mt-4">已筛选出 <strong id="filter-count" class="text-foreground edu-number">6</strong> 所院校</p>
+                    </section>
+
+                    <!-- 一档多投规则说明 -->
+                    <section class="bg-[var(--edu-state-info-bg)] border border-[var(--edu-state-info)] rounded-lg p-5 md:p-6">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="info" class="w-5 h-5 text-[var(--edu-state-info)] shrink-0 mt-0.5"></i>
+                            <div>
+                                <h2 class="edu-h3 text-foreground mb-2">一档多投规则说明</h2>
+                                <ul class="mt-2 space-y-2 edu-body-sm text-muted-foreground">
+                                    <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-[var(--edu-state-success)] shrink-0 mt-0.5"></i><span>考生可同时向多所高职院校报名并参加校测。</span></li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-[var(--edu-state-success)] shrink-0 mt-0.5"></i><span>被多所院校“拟录取”后，须在规定时间选择 1 所确认，确认后视为正式录取。</span></li>
+                                    <li class="flex items-start gap-2"><i data-lucide="alert-circle" class="w-4 h-4 text-[var(--edu-state-warning)] shrink-0 mt-0.5"></i><span>一旦确认录取，将不再参加当年高考；未确认或放弃不影响后续普通高考。</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 高职提招院校列表 -->
+                    <section class="bg-card border border-border rounded-lg p-5 md:p-6" style="box-shadow: var(--edu-shadow-1);">
+                        <div class="flex items-center justify-between gap-3 mb-4">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="graduation-cap" class="w-5 h-5 text-primary"></i>
+                                <h2 class="edu-h3 text-foreground">高职提招院校推荐</h2>
+                            </div>
+                            <span class="edu-caption">覆盖 47 所高职提招院校</span>
+                        </div>
+                        <div id="gaozhi-schools" class="school-cards space-y-4">
+                            <article data-category="gaozhi" data-level="双高计划" data-location="金华" data-type="理工类" data-mode="majors" data-school-index="gz1" data-school-name="金华职业技术学院" data-nature="公办" data-cooperation="非中外合作" data-exam="笔试+面试" data-has-intent="true" class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" style="box-shadow: var(--edu-shadow-1);">
+                                <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-start justify-between gap-3">
+                                            <div class="flex items-start gap-3">
+                                                <div class="w-12 h-12 rounded-lg bg-muted border border-border flex items-center justify-center text-primary shrink-0" aria-hidden="true">
+                                                    <i data-lucide="building" class="w-6 h-6"></i>
+                                                </div>
+                                                <div>
+                                                    <h3 class="edu-h3 text-foreground flex items-center gap-2 flex-wrap">
+                                                        金华职业技术学院
+                                                        <span class="category-badge inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[var(--edu-primary-100)] text-[var(--edu-primary-700)] border border-[var(--edu-primary-200)] ml-1">高职提招</span>
+                                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[var(--edu-state-error-bg)] text-[var(--edu-state-error)] border-[var(--edu-state-error)]">冲刺</span>
+                                                    </h3>
+                                                    <p class="edu-body-sm text-muted-foreground mt-1">金华 · 双高计划 · 理工类</p>
+                                                </div>
+                                            </div>
+                                            <span class="probability-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold bg-[var(--edu-state-warning-bg)] text-[var(--edu-state-warning)] border border-[var(--edu-state-warning)]">
+                                                <i data-lucide="percent" class="w-3.5 h-3.5"></i>
+                                                <span class="edu-number vip-blur">38%</span>
+                                                <span class="text-xs font-normal border-l border-current/30 pl-1.5 ml-0.5">置信度中</span>
+                                            </span>
+                                        </div>
+                                        <p class="edu-body-sm text-foreground mt-3"><strong>匹配理由：</strong>折算分接近该校机械制造专业近年入围低位，技术科目优势明显，职业适应性测试与动手能力匹配。</p>
+                                                                                <div class="major-block border-t border-border pt-4 mt-4 first:border-t-0 first:pt-0 first:mt-0">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="金华职业技术学院" data-major="机械制造及自动化" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">机械制造及自动化</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：物理/技术</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">45</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">180</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">75</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">255</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-15 至 04-05</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">48</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">182</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">78</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">258</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-15 至 04-05</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">46</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">184</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">76</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">260</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-15 至 04-05</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="major-block border-t border-border pt-4 mt-4">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="金华职业技术学院" data-major="电气自动化技术" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">电气自动化技术</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：物理/技术</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">40</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">178</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">74</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">252</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-15 至 04-05</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">42</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">180</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">76</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">256</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-15 至 04-05</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">41</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">182</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">75</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">258</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-15 至 04-05</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="major-block border-t border-border pt-4 mt-4">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="金华职业技术学院" data-major="模具设计与制造" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">模具设计与制造</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：物理/技术</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">35</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">175</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">72</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">247</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-15 至 04-05</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">36</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">177</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">74</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">251</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-15 至 04-05</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">36</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">179</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">73</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">253</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-15 至 04-05</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article data-category="gaozhi" data-level="双高计划" data-location="杭州" data-type="理工类" data-mode="majors" data-school-index="gz2" data-school-name="浙江机电职业技术大学" data-nature="公办" data-cooperation="非中外合作" data-exam="笔试+面试" data-has-intent="true" class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" style="box-shadow: var(--edu-shadow-1);">
+                                <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-start justify-between gap-3">
+                                            <div class="flex items-start gap-3">
+                                                <div class="w-12 h-12 rounded-lg bg-muted border border-border flex items-center justify-center text-primary shrink-0" aria-hidden="true">
+                                                    <i data-lucide="building" class="w-6 h-6"></i>
+                                                </div>
+                                                <div>
+                                                    <h3 class="edu-h3 text-foreground flex items-center gap-2 flex-wrap">
+                                                        浙江机电职业技术大学
+                                                        <span class="category-badge inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[var(--edu-primary-100)] text-[var(--edu-primary-700)] border border-[var(--edu-primary-200)] ml-1">高职提招</span>
+                                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[var(--edu-state-error-bg)] text-[var(--edu-state-error)] border-[var(--edu-state-error)]">冲刺</span>
+                                                    </h3>
+                                                    <p class="edu-body-sm text-muted-foreground mt-1">杭州 · 双高计划 · 理工类</p>
+                                                </div>
+                                            </div>
+                                            <span class="probability-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold bg-[var(--edu-state-warning-bg)] text-[var(--edu-state-warning)] border border-[var(--edu-state-warning)]">
+                                                <i data-lucide="percent" class="w-3.5 h-3.5"></i>
+                                                <span class="edu-number vip-blur">35%</span>
+                                                <span class="text-xs font-normal border-l border-current/30 pl-1.5 ml-0.5">置信度中</span>
+                                            </span>
+                                        </div>
+                                        <p class="edu-body-sm text-foreground mt-3"><strong>匹配理由：</strong>物理与技术等级支撑折算分，智能制造方向与意向专业匹配，建议重点准备职业适应性测试。</p>
+                                                                                <div class="major-block border-t border-border pt-4 mt-4 first:border-t-0 first:pt-0 first:mt-0">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="浙江机电职业技术大学" data-major="智能制造工程技术" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">智能制造工程技术</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：物理/技术</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">40</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">190</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">80</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">270</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-18 至 04-08</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">42</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">192</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">82</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">272</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-18 至 04-08</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">41</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">194</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">81</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">274</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-18 至 04-08</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="major-block border-t border-border pt-4 mt-4">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="浙江机电职业技术大学" data-major="机电一体化技术" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">机电一体化技术</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：物理/技术</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">45</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">188</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">79</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">267</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-18 至 04-08</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">46</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">190</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">80</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">270</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-18 至 04-08</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">46</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">192</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">81</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">272</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-18 至 04-08</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="major-block border-t border-border pt-4 mt-4">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="浙江机电职业技术大学" data-major="数控技术" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">数控技术</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：物理/技术</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">38</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">185</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">77</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">262</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-18 至 04-08</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">39</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">187</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">78</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">265</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-18 至 04-08</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">39</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">189</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">79</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">268</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-18 至 04-08</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article data-category="gaozhi" data-level="双高计划" data-location="杭州" data-type="财经类" data-mode="majors" data-school-index="gz3" data-school-name="浙江金融职业学院" data-nature="公办" data-cooperation="非中外合作" data-exam="笔试+面试" data-has-intent="false" class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" style="box-shadow: var(--edu-shadow-1);">
+                                <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-start justify-between gap-3">
+                                            <div class="flex items-start gap-3">
+                                                <div class="w-12 h-12 rounded-lg bg-muted border border-border flex items-center justify-center text-primary shrink-0" aria-hidden="true">
+                                                    <i data-lucide="building" class="w-6 h-6"></i>
+                                                </div>
+                                                <div>
+                                                    <h3 class="edu-h3 text-foreground flex items-center gap-2 flex-wrap">
+                                                        浙江金融职业学院
+                                                        <span class="category-badge inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[var(--edu-primary-100)] text-[var(--edu-primary-700)] border border-[var(--edu-primary-200)] ml-1">高职提招</span>
+                                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[var(--edu-state-success-bg)] text-[var(--edu-state-success)] border-[var(--edu-state-success)]">稳妥</span>
+                                                    </h3>
+                                                    <p class="edu-body-sm text-muted-foreground mt-1">杭州 · 双高计划 · 财经类</p>
+                                                </div>
+                                            </div>
+                                            <span class="probability-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold bg-[var(--edu-state-success-bg)] text-[var(--edu-state-success)] border border-[var(--edu-state-success)]">
+                                                <i data-lucide="percent" class="w-3.5 h-3.5"></i>
+                                                <span class="edu-number vip-blur">62%</span>
+                                                <span class="text-xs font-normal border-l border-current/30 pl-1.5 ml-0.5">置信度高</span>
+                                            </span>
+                                        </div>
+                                        <p class="edu-body-sm text-foreground mt-3"><strong>匹配理由：</strong>语文、数学等级稳定，折算分高于近年入围线，录取概率较高。</p>
+                                                                                <div class="major-block border-t border-border pt-4 mt-4 first:border-t-0 first:pt-0 first:mt-0">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="浙江金融职业学院" data-major="大数据与会计" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">大数据与会计</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：不限</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">50</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6000元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">185</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">77</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">262</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-20 至 04-06</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">52</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6000元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">188</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">79</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">265</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-20 至 04-06</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">51</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6000元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">190</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">78</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">268</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-20 至 04-06</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="major-block border-t border-border pt-4 mt-4">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="浙江金融职业学院" data-major="金融服务与管理" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">金融服务与管理</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：不限</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">48</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6000元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">182</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">75</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">257</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-20 至 04-06</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">50</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6000元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">185</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">77</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">262</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-20 至 04-06</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">49</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6000元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">187</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">76</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">264</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-20 至 04-06</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="major-block border-t border-border pt-4 mt-4">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="浙江金融职业学院" data-major="国际经济与贸易" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">国际经济与贸易</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：不限</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">45</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6000元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">180</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">74</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">254</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-20 至 04-06</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">47</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6000元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">183</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">76</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">259</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-20 至 04-06</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">46</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6000元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">185</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">75</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">261</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-20 至 04-06</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article data-category="gaozhi" data-level="国家示范" data-location="宁波" data-type="理工类" data-mode="majors" data-school-index="gz4" data-school-name="宁波职业技术学院" data-nature="公办" data-cooperation="非中外合作" data-exam="笔试+面试" data-has-intent="true" class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" style="box-shadow: var(--edu-shadow-1);">
+                                <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-start justify-between gap-3">
+                                            <div class="flex items-start gap-3">
+                                                <div class="w-12 h-12 rounded-lg bg-muted border border-border flex items-center justify-center text-primary shrink-0" aria-hidden="true">
+                                                    <i data-lucide="building" class="w-6 h-6"></i>
+                                                </div>
+                                                <div>
+                                                    <h3 class="edu-h3 text-foreground flex items-center gap-2 flex-wrap">
+                                                        宁波职业技术学院
+                                                        <span class="category-badge inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[var(--edu-primary-100)] text-[var(--edu-primary-700)] border border-[var(--edu-primary-200)] ml-1">高职提招</span>
+                                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[var(--edu-state-success-bg)] text-[var(--edu-state-success)] border-[var(--edu-state-success)]">稳妥</span>
+                                                    </h3>
+                                                    <p class="edu-body-sm text-muted-foreground mt-1">宁波 · 国家示范 · 理工类</p>
+                                                </div>
+                                            </div>
+                                            <span class="probability-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold bg-[var(--edu-state-success-bg)] text-[var(--edu-state-success)] border border-[var(--edu-state-success)]">
+                                                <i data-lucide="percent" class="w-3.5 h-3.5"></i>
+                                                <span class="edu-number vip-blur">58%</span>
+                                                <span class="text-xs font-normal border-l border-current/30 pl-1.5 ml-0.5">置信度高</span>
+                                            </span>
+                                        </div>
+                                        <p class="edu-body-sm text-foreground mt-3"><strong>匹配理由：</strong>计算机类意向匹配，技术科目优势明显，校测时间与已选院校错开。</p>
+                                                                                <div class="major-block border-t border-border pt-4 mt-4 first:border-t-0 first:pt-0 first:mt-0">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="宁波职业技术学院" data-major="计算机应用技术" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">计算机应用技术</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：物理/技术</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">55</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">178</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">74</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">252</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-12 至 04-02</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">58</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">180</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">76</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">255</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-12 至 04-02</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">56</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">182</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">75</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">257</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-12 至 04-02</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="major-block border-t border-border pt-4 mt-4">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="宁波职业技术学院" data-major="应用电子技术" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">应用电子技术</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：物理/技术</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">42</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">175</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">72</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">247</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-12 至 04-02</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">44</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">177</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">74</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">251</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-12 至 04-02</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">43</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">179</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">73</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">253</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-12 至 04-02</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="major-block border-t border-border pt-4 mt-4">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="宁波职业技术学院" data-major="建筑工程技术" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">建筑工程技术</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：物理/地理</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">38</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">172</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">70</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">242</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-12 至 04-02</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">40</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">174</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">72</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">246</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-12 至 04-02</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">39</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">176</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">71</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">248</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-12 至 04-02</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article data-category="gaozhi" data-level="省示范" data-location="温州" data-type="理工类" data-mode="majors" data-school-index="gz5" data-school-name="温州职业技术学院" data-nature="公办" data-cooperation="非中外合作" data-exam="笔试+面试" data-has-intent="true" class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" style="box-shadow: var(--edu-shadow-1);">
+                                <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-start justify-between gap-3">
+                                            <div class="flex items-start gap-3">
+                                                <div class="w-12 h-12 rounded-lg bg-muted border border-border flex items-center justify-center text-primary shrink-0" aria-hidden="true">
+                                                    <i data-lucide="building" class="w-6 h-6"></i>
+                                                </div>
+                                                <div>
+                                                    <h3 class="edu-h3 text-foreground flex items-center gap-2 flex-wrap">
+                                                        温州职业技术学院
+                                                        <span class="category-badge inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[var(--edu-primary-100)] text-[var(--edu-primary-700)] border border-[var(--edu-primary-200)] ml-1">高职提招</span>
+                                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[var(--edu-state-info-bg)] text-[var(--edu-state-info)] border-[var(--edu-state-info)]">保底</span>
+                                                    </h3>
+                                                    <p class="edu-body-sm text-muted-foreground mt-1">温州 · 省示范 · 理工类</p>
+                                                </div>
+                                            </div>
+                                            <span class="probability-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold bg-[var(--edu-state-info-bg)] text-[var(--edu-state-info)] border border-[var(--edu-state-info)]">
+                                                <i data-lucide="percent" class="w-3.5 h-3.5"></i>
+                                                <span class="edu-number vip-blur">78%</span>
+                                                <span class="text-xs font-normal border-l border-current/30 pl-1.5 ml-0.5">置信度高</span>
+                                            </span>
+                                        </div>
+                                        <p class="edu-body-sm text-foreground mt-3"><strong>匹配理由：</strong>折算分远高于入围线，可作为保底志愿，降低整体风险。</p>
+                                                                                <div class="major-block border-t border-border pt-4 mt-4 first:border-t-0 first:pt-0 first:mt-0">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="温州职业技术学院" data-major="新能源汽车技术" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">新能源汽车技术</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：物理/技术</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">40</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">170</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">72</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">242</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-22 至 04-07</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">42</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">172</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">74</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">245</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-22 至 04-07</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">41</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">174</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">73</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">247</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-22 至 04-07</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="major-block border-t border-border pt-4 mt-4">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="温州职业技术学院" data-major="机械设计与制造" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">机械设计与制造</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：物理/技术</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">35</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">168</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">70</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">238</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-22 至 04-07</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">37</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">170</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">72</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">242</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-22 至 04-07</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">36</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">172</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">71</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">244</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-22 至 04-07</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="major-block border-t border-border pt-4 mt-4">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="温州职业技术学院" data-major="电子信息工程技术" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">电子信息工程技术</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：物理/技术</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">32</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">165</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">69</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">234</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-22 至 04-07</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">34</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">167</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">71</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">238</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-22 至 04-07</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">33</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">6600元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">169</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">70</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">240</td>
+                                                            <td class="p-2.5 whitespace-nowrap">笔试+面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-22 至 04-07</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article data-category="gaozhi" data-level="公办高职" data-location="绍兴" data-type="综合类" data-mode="majors" data-school-index="gz6" data-school-name="绍兴职业技术学院" data-nature="民办" data-cooperation="非中外合作" data-exam="面试" data-has-intent="false" class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" style="box-shadow: var(--edu-shadow-1);">
+                                <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-start justify-between gap-3">
+                                            <div class="flex items-start gap-3">
+                                                <div class="w-12 h-12 rounded-lg bg-muted border border-border flex items-center justify-center text-primary shrink-0" aria-hidden="true">
+                                                    <i data-lucide="building" class="w-6 h-6"></i>
+                                                </div>
+                                                <div>
+                                                    <h3 class="edu-h3 text-foreground flex items-center gap-2 flex-wrap">
+                                                        绍兴职业技术学院
+                                                        <span class="category-badge inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[var(--edu-primary-100)] text-[var(--edu-primary-700)] border border-[var(--edu-primary-200)] ml-1">高职提招</span>
+                                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[var(--edu-state-info-bg)] text-[var(--edu-state-info)] border-[var(--edu-state-info)]">保底</span>
+                                                    </h3>
+                                                    <p class="edu-body-sm text-muted-foreground mt-1">绍兴 · 公办高职 · 综合类</p>
+                                                </div>
+                                            </div>
+                                            <span class="probability-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold bg-[var(--edu-state-info-bg)] text-[var(--edu-state-info)] border border-[var(--edu-state-info)]">
+                                                <i data-lucide="percent" class="w-3.5 h-3.5"></i>
+                                                <span class="edu-number vip-blur">82%</span>
+                                                <span class="text-xs font-normal border-l border-current/30 pl-1.5 ml-0.5">置信度高</span>
+                                            </span>
+                                        </div>
+                                        <p class="edu-body-sm text-foreground mt-3"><strong>匹配理由：</strong>折算分优势明显，录取概率高，可作为稳妥保底选择。</p>
+                                                                                <div class="major-block border-t border-border pt-4 mt-4 first:border-t-0 first:pt-0 first:mt-0">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="绍兴职业技术学院" data-major="电子商务" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">电子商务</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：不限</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">60</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">13800元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">165</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">70</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">235</td>
+                                                            <td class="p-2.5 whitespace-nowrap">面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-25 至 04-10</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">62</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">13800元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">168</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">72</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">238</td>
+                                                            <td class="p-2.5 whitespace-nowrap">面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-25 至 04-10</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">61</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">13800元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">170</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">71</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">240</td>
+                                                            <td class="p-2.5 whitespace-nowrap">面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-25 至 04-10</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="major-block border-t border-border pt-4 mt-4">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="绍兴职业技术学院" data-major="大数据与会计" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">大数据与会计</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：不限</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">55</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">13800元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">162</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">68</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">230</td>
+                                                            <td class="p-2.5 whitespace-nowrap">面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-25 至 04-10</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">57</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">13800元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">165</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">70</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">234</td>
+                                                            <td class="p-2.5 whitespace-nowrap">面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-25 至 04-10</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">56</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">13800元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">167</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">69</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">236</td>
+                                                            <td class="p-2.5 whitespace-nowrap">面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-25 至 04-10</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="major-block border-t border-border pt-4 mt-4">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <label class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors cursor-pointer compare-checkbox">
+                                                    <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-primary" data-school="绍兴职业技术学院" data-major="护理" onchange="toggleCompare(this)">
+                                                </label>
+                                                <h4 class="edu-body font-semibold text-foreground">护理</h4>
+                                                <a href="major-detail.html" class="major-detail-btn inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-[var(--edu-primary-700)] ml-auto" data-dom-id="link-page-major-detail">
+                                                    <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>专业详情
+                                                </a>
+                                            </div>
+                                            <p class="edu-caption text-muted-foreground mb-2">选考要求：生物/化学</p>
+                                            <div class="overflow-x-auto">
+                                                <table class="w-full text-sm border border-border rounded-lg">
+                                                    <thead class="bg-muted">
+                                                        <tr>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">年份</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">招生计划</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学费</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">学考折算分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">校测最低分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">录取综合分</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">综合考核形式</th>
+                                                            <th class="text-left p-2.5 border-b border-border whitespace-nowrap">报名时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-border">
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2024</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">50</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">15000元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">170</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">72</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">242</td>
+                                                            <td class="p-2.5 whitespace-nowrap">面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-25 至 04-10</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2025</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">52</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">15000元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">173</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">74</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">246</td>
+                                                            <td class="p-2.5 whitespace-nowrap">面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-25 至 04-10</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="p-2.5 font-medium edu-number whitespace-nowrap">2026（预估）</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">51</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">15000元/年</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">175</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">73</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">248</td>
+                                                            <td class="p-2.5 whitespace-nowrap">面试</td>
+                                                            <td class="p-2.5 edu-number whitespace-nowrap">03-25 至 04-10</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+
+                    <!-- 意向专业匹配提示 -->
+                    <section class="intent-major bg-[var(--edu-primary-50)] border border-[var(--edu-primary-200)] rounded-lg p-4 flex items-start gap-3">
+                        <i data-lucide="book-open" class="w-5 h-5 text-primary shrink-0 mt-0.5"></i>
+                        <div>
+                            <h3 class="edu-body-sm font-semibold text-foreground">意向专业匹配</h3>
+                            <p class="edu-caption mt-1">已根据你设置的意向专业 <strong class="text-foreground">机械制造及自动化、计算机类</strong> 筛选招生计划院校。如需调整意向专业，可前往 <a href="grade-input-gaozhi.html" class="text-primary hover:underline">高职提招成绩录入</a> 修改。</p>
+                        </div>
+                    </section>
+
+                    <!-- 高职提招重要时间节点 -->
+                    <section class="timeline-section bg-card border border-border rounded-lg p-5 md:p-6" style="box-shadow: var(--edu-shadow-1);">
+                        <div class="flex items-center gap-2 mb-4">
+                            <i data-lucide="calendar-days" class="w-5 h-5 text-primary"></i>
+                            <h2 class="edu-h3 text-foreground">高职提招重要时间节点</h2>
+                        </div>
+                        <div class="relative pl-4 border-l-2 border-border space-y-6">
+                            <div class="relative pl-6">
+                                <span class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary border-2 border-background"></span>
+                                <p class="edu-body-sm font-semibold text-foreground">2026-03-10 院校章程发布</p>
+                                <p class="edu-caption text-muted-foreground">各高校陆续发布招生章程，明确折算规则、校测方式与招生计划。</p>
+                            </div>
+                            <div class="relative pl-6">
+                                <span class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary border-2 border-background"></span>
+                                <p class="edu-body-sm font-semibold text-foreground">2026-03-15 至 04-05 网上报名</p>
+                                <p class="edu-caption text-muted-foreground">登录各高校招生网完成报名信息填写与材料上传，注意不同院校截止时间。</p>
+                            </div>
+                            <div class="relative pl-6">
+                                <span class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary border-2 border-background"></span>
+                                <p class="edu-body-sm font-semibold text-foreground">2026-04-10 初审结果公布</p>
+                                <p class="edu-caption text-muted-foreground">查询入围状态，按要求缴纳报名费并打印准考证。</p>
+                            </div>
+                            <div class="relative pl-6">
+                                <span class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary border-2 border-background"></span>
+                                <p class="edu-body-sm font-semibold text-foreground">2026-04-15 至 04-20 综合测试</p>
+                                <p class="edu-caption text-muted-foreground">按准考证时间参加职业适应性测试或面试，避免时间冲突。</p>
+                            </div>
+                            <div class="relative pl-6">
+                                <span class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary border-2 border-background"></span>
+                                <p class="edu-body-sm font-semibold text-foreground">2026-05-05 前 拟录取确认</p>
+                                <p class="edu-caption text-muted-foreground">被多所院校拟录取的考生须选择 1 所确认，逾期未确认视为放弃。</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- strategy-note：填报策略 + 风险提示 -->
+                    <section class="strategy-note bg-[var(--edu-primary-50)] border border-[var(--edu-primary-200)] rounded-lg p-5 md:p-6">
+                        <div class="flex items-start gap-3 mb-4">
+                            <i data-lucide="lightbulb" class="w-5 h-5 text-primary shrink-0 mt-0.5"></i>
+                            <div>
+                                <h3 class="edu-h3 text-foreground">填报策略建议</h3>
+                                <ul class="mt-3 space-y-2 edu-body-sm text-muted-foreground">
+                                    <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-[var(--edu-state-success)] shrink-0 mt-0.5"></i><span>优先关注折算分与自身学考等级匹配度高的院校，作为核心志愿重点准备校测。</span></li>
+                                    <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-[var(--edu-state-success)] shrink-0 mt-0.5"></i><span>“冲刺”院校录取概率偏低，可放在前段争取，但需搭配保底志愿控制风险。</span></li>
+                                    <li class="flex items-start gap-2"><i data-lucide="alert-circle" class="w-4 h-4 text-[var(--edu-state-warning)] shrink-0 mt-0.5"></i><span>关注上方时间轴节点，避免错过报名截止与材料提交时间。</span></li>
+                                    <li class="flex items-start gap-2"><i data-lucide="alert-circle" class="w-4 h-4 text-[var(--edu-state-warning)] shrink-0 mt-0.5"></i><span>校测时间冲突院校建议优先保留录取概率高、专业更满意的志愿。</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="border-t border-[var(--edu-primary-200)] pt-4 flex items-start gap-3">
+                            <i data-lucide="shield-alert" class="w-5 h-5 text-[var(--edu-state-error)] shrink-0 mt-0.5"></i>
+                            <div>
+                                <h3 class="edu-h3 text-foreground">风险提示</h3>
+                                <ul class="mt-3 space-y-2 edu-body-sm text-muted-foreground">
+                                    <li class="flex items-start gap-2"><i data-lucide="x" class="w-4 h-4 text-[var(--edu-state-error)] shrink-0 mt-0.5"></i><span>录取概率基于近 3 年历史数据估算，2026 年招生计划、报考人数变化可能导致实际结果偏离。</span></li>
+                                    <li class="flex items-start gap-2"><i data-lucide="x" class="w-4 h-4 text-[var(--edu-state-error)] shrink-0 mt-0.5"></i><span>各校折算规则、校测方式以 2026 年招生章程为准，报名前请再次核对。</span></li>
+                                    <li class="flex items-start gap-2"><i data-lucide="x" class="w-4 h-4 text-[var(--edu-state-error)] shrink-0 mt-0.5"></i><span>高职提招确认录取后将不再参加高考，请结合自身升学目标谨慎选择。</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 方案版本管理 -->
+                    <section class="version-section bg-card border border-border rounded-lg p-5" style="box-shadow: var(--edu-shadow-1);">
+                        <div class="flex items-center justify-between gap-3 mb-3">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="history" class="w-5 h-5 text-primary"></i>
+                                <h2 class="edu-h3 text-foreground">方案版本</h2>
+                            </div>
+                            <button type="button" id="save-version-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium border border-border bg-card text-foreground hover:bg-muted transition-colors">
+                                <i data-lucide="plus" class="w-4 h-4"></i>保存为新版本
+                            </button>
+                        </div>
+                        <ul class="space-y-2">
+                            <li class="flex items-center justify-between p-3 bg-muted/40 rounded-md border border-border">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary text-primary-foreground">当前</span>
+                                    <span class="edu-body-sm font-medium text-foreground">v1.0 · 高职提前招生</span>
+                                </div>
+                                <span class="edu-caption edu-number">2026-08-15 14:32</span>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 方案操作 -->
+                    <section class="plan-actions flex flex-wrap gap-3">
+                        <button type="button" id="export-pdf-btn" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-[var(--edu-primary-700)] transition-colors">
+                            <i data-lucide="file-text" class="w-4 h-4"></i>导出 PDF
+                        </button>
+                        <button type="button" id="share-btn" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-md text-sm font-medium border border-border bg-card text-foreground hover:bg-muted transition-colors">
+                            <i data-lucide="share-2" class="w-4 h-4"></i>生成分享链接 / 二维码
+                        </button>
+                        <button type="button" id="save-plan-btn" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-md text-sm font-medium border border-border bg-card text-foreground hover:bg-muted transition-colors">
+                            <i data-lucide="bookmark" class="w-4 h-4"></i>保存到方案收藏
+                        </button>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- 折算公式说明浮层 -->
+        <div id="formula-modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="formula-title">
+            <div class="absolute inset-0 bg-black/40" onclick="closeFormulaModal()"></div>
+            <div class="absolute inset-0 flex items-center justify-center p-4">
+                <div class="bg-card border border-border rounded-lg max-w-2xl w-full max-h-[80vh] overflow-auto p-6" style="box-shadow: var(--edu-shadow-3);">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 id="formula-title" class="edu-h3 text-foreground flex items-center gap-2"><i data-lucide="calculator" class="w-5 h-5 text-primary"></i>各校折算公式示例</h3>
+                        <button type="button" onclick="closeFormulaModal()" class="p-1 rounded-md hover:bg-muted"><i data-lucide="x" class="w-5 h-5 text-muted-foreground"></i></button>
+                    </div>
+                    <p class="edu-body-sm text-muted-foreground mb-4">系统已覆盖浙江省 47 所高职提前招生院校的折算规则，以下为部分院校示例。最终折算以 2026 年各校招生章程为准。</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm border border-border rounded-lg">
+                            <thead class="bg-muted">
+                                <tr><th class="text-left p-3 border-b border-border">院校</th><th class="text-left p-3 border-b border-border">折算科目</th><th class="text-left p-3 border-b border-border">A/B/C/D 计分</th></tr>
+                            </thead>
+                            <tbody class="divide-y divide-border">
+                                <tr><td class="p-3 font-medium">金华职业技术学院</td><td class="p-3">语数外+技术</td><td class="p-3 edu-number">30 / 25 / 20 / 10</td></tr>
+                                <tr><td class="p-3 font-medium">浙江机电职业技术大学</td><td class="p-3">语数外+物/技最高2门</td><td class="p-3 edu-number">40 / 32 / 24 / 12</td></tr>
+                                <tr><td class="p-3 font-medium">浙江金融职业学院</td><td class="p-3">语数外</td><td class="p-3 edu-number">50 / 40 / 30 / 15</td></tr>
+                                <tr><td class="p-3 font-medium">宁波职业技术学院</td><td class="p-3">语数外+技术</td><td class="p-3 edu-number">30 / 24 / 18 / 9</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-6 flex justify-end">
+                        <button type="button" onclick="closeFormulaModal()" class="px-4 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-[var(--edu-primary-700)] transition-colors">知道了</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 院校对比模态框 -->
+        <div id="compare-modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="compare-title">
+            <div class="absolute inset-0 bg-black/40" onclick="closeCompareModal()"></div>
+            <div class="absolute inset-0 flex items-center justify-center p-4">
+                <div class="bg-card border border-border rounded-lg max-w-6xl w-full max-h-[90vh] overflow-auto p-6" style="box-shadow: var(--edu-shadow-3);">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 id="compare-title" class="edu-h3 text-foreground flex items-center gap-2"><i data-lucide="scale" class="w-5 h-5 text-primary"></i>院校多维度对比</h3>
+                        <button type="button" onclick="closeCompareModal()" class="p-1 rounded-md hover:bg-muted"><i data-lucide="x" class="w-5 h-5 text-muted-foreground"></i></button>
+                    </div>
+                    <p class="edu-body-sm text-muted-foreground mb-4">已高亮显示差异项，帮助你快速定位适合院校。</p>
+                    <div id="compare-content" class="overflow-x-auto">
+                        <p class="edu-body-sm text-muted-foreground">请选择 2-4 所院校后点击“开始对比”。</p>
+                    </div>
+                    <div class="mt-6 flex justify-end">
+                        <button type="button" onclick="closeCompareModal()" class="px-4 py-2 rounded-md text-sm font-medium border border-border bg-card text-foreground hover:bg-muted transition-colors">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 分享链接 / 二维码模态框 -->
+        <div id="share-modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="share-title">
+            <div class="absolute inset-0 bg-black/40" onclick="closeShareModal()"></div>
+            <div class="absolute inset-0 flex items-center justify-center p-4">
+                <div class="bg-card border border-border rounded-lg max-w-md w-full p-6" style="box-shadow: var(--edu-shadow-3);">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 id="share-title" class="edu-h3 text-foreground flex items-center gap-2"><i data-lucide="share-2" class="w-5 h-5 text-primary"></i>分享方案</h3>
+                        <button type="button" onclick="closeShareModal()" class="p-1 rounded-md hover:bg-muted"><i data-lucide="x" class="w-5 h-5 text-muted-foreground"></i></button>
+                    </div>
+                    <p class="edu-body-sm text-muted-foreground mb-4">家长无需登录即可通过链接查看该方案，链接 <strong class="text-foreground">7 天有效</strong>。</p>
+                    <div class="flex flex-col items-center gap-4 p-4 bg-muted/50 rounded-lg border border-border">
+                        <div class="w-32 h-32 bg-card rounded-lg border border-border flex items-center justify-center text-primary">
+                            <i data-lucide="qr-code" class="w-20 h-20"></i>
+                        </div>
+                        <p class="edu-caption text-center">二维码示例</p>
+                    </div>
+                    <div class="mt-4 flex items-center gap-2">
+                        <input type="text" readonly value="https://zhezhao.example.com/share/plan/abc123" class="flex-1 px-3 py-2 rounded-md border border-border bg-muted text-sm text-foreground edu-number">
+                        <button type="button" onclick="copyShareLink()" class="px-3 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-[var(--edu-primary-700)] transition-colors">复制</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI 志愿助手 -->
+        <div id="ai-assistant-root" class="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3 pointer-events-none">
+            <button type="button" data-dom-id="ai-assistant-toggle" class="pointer-events-auto w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-[var(--edu-primary-700)] transition-colors" aria-label="打开 AI 志愿助手">
+                <i data-lucide="sparkles" class="w-6 h-6"></i>
+            </button>
+            <div data-dom-id="ai-assistant-panel" class="pointer-events-auto hidden w-[calc(100vw-2rem)] sm:w-[400px] max-h-[70vh] bg-card border border-border rounded-lg flex flex-col overflow-hidden" style="box-shadow: var(--edu-shadow-3);">
+                <div class="flex items-center justify-between gap-3 px-4 py-3 border-b border-border bg-muted/40">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="bot" class="w-5 h-5 text-primary"></i>
+                        <h3 class="edu-body-sm font-semibold text-foreground">AI 志愿助手</h3>
+                    </div>
+                    <button type="button" data-dom-id="ai-assistant-close" class="p-1.5 rounded-md hover:bg-muted transition-colors" aria-label="关闭">
+                        <i data-lucide="x" class="w-4 h-4 text-muted-foreground"></i>
+                    </button>
+                </div>
+                <div data-dom-id="ai-assistant-messages" class="no-scrollbar flex-1 overflow-y-auto p-4 space-y-3 min-h-[16rem]">
+                    <div class="flex gap-2">
+                        <div class="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                            <i data-lucide="bot" class="w-4 h-4 text-primary"></i>
+                        </div>
+                        <div class="bg-muted text-foreground edu-body-sm rounded-lg rounded-tl-none px-3 py-2 max-w-[85%]">
+                            你好！我可以帮你筛选院校、调整志愿顺序、或者按专业偏好重新推荐。试试说『只保留杭州的院校』或『增加双高计划院校』。
+                        </div>
+                    </div>
+                    <div class="flex gap-2 flex-wrap pl-9">
+                        <button type="button" class="ai-quick-prompt px-2.5 py-1 rounded-full text-xs font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors">只保留杭州的院校</button>
+                        <button type="button" class="ai-quick-prompt px-2.5 py-1 rounded-full text-xs font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors">保留有计算机类/软件工程的专业</button>
+                        <button type="button" class="ai-quick-prompt px-2.5 py-1 rounded-full text-xs font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors">增加双高计划院校</button>
+                        <button type="button" class="ai-quick-prompt px-2.5 py-1 rounded-full text-xs font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors">按录取概率从高到低排序</button>
+                        <button type="button" class="ai-quick-prompt px-2.5 py-1 rounded-full text-xs font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors">排除校测时间为 4 月 20 日的院校</button>
+                    </div>
+                </div>
+                <div class="border-t border-border p-3 bg-muted/30">
+                    <div class="flex items-center gap-2">
+                        <input type="text" data-dom-id="ai-assistant-input" class="flex-1 px-3 py-2 rounded-md border border-border bg-background text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary" placeholder="描述你的筛选或调整需求…">
+                        <button type="button" data-dom-id="ai-assistant-send" class="px-3 py-2 rounded-md bg-primary text-primary-foreground hover:bg-[var(--edu-primary-700)] transition-colors">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>lucide.createIcons();</script>
+    <script>
+    (function() {
+        // 收藏按钮
+        document.querySelectorAll('.favorite-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const icon = btn.querySelector('i');
+                const span = btn.querySelector('span');
+                const faved = btn.dataset.faved === 'true';
+                btn.dataset.faved = String(!faved);
+                icon.setAttribute('data-lucide', !faved ? 'heart-off' : 'heart');
+                span.textContent = !faved ? '已收藏' : '收藏';
+                lucide.createIcons();
+            });
+        });
+
+        // 对比功能
+        const compareBtn = document.getElementById('compare-btn');
+        const clearBtn = document.getElementById('clear-compare');
+        const countEl = document.getElementById('compare-count');
+
+        function updateCompare() {
+            const selected = Array.from(document.querySelectorAll('.compare-checkbox input:checked'));
+            countEl.textContent = selected.length;
+            compareBtn.disabled = selected.length < 2 || selected.length > 4;
+            clearBtn.classList.toggle('hidden', selected.length === 0);
+        }
+        window.toggleCompare = function() { updateCompare(); };
+        if (clearBtn) {
+            clearBtn.addEventListener('click', function() {
+                document.querySelectorAll('.compare-checkbox input').forEach(function(c) { c.checked = false; });
+                updateCompare();
+            });
+        }
+        if (compareBtn) {
+            compareBtn.addEventListener('click', function() {
+                const selected = Array.from(document.querySelectorAll('.compare-checkbox input:checked')).map(function(c) { return c.dataset; });
+                renderCompare(selected);
+                document.getElementById('compare-modal').classList.remove('hidden');
+                lucide.createIcons();
+            });
+        }
+
+        function renderCompare(items) {
+            const dims = [
+                { key: 'school', label: '院校' },
+                { key: 'major', label: '专业' },
+                { key: 'score', label: '折算分要求' },
+                { key: 'method', label: '校测方式' },
+                { key: 'time', label: '报名时间' }
+            ];
+            const colWidth = items.length >= 4 ? 'min-w-[10rem]' : 'min-w-[12rem]';
+            let html = '<table class="w-full text-sm border border-border rounded-lg"><thead class="bg-muted"><tr><th class="text-left p-3 border-b border-border sticky left-0 bg-muted z-10">对比维度</th>';
+            items.forEach(function(it) {
+                html += '<th class="text-left p-3 border-b border-border ' + colWidth + '">' + escapeHtml(it.school) + '<br><span class="text-xs font-normal text-muted-foreground">' + escapeHtml(it.major) + '</span></th>';
+            });
+            html += '</tr></thead><tbody class="divide-y divide-border">';
+            dims.forEach(function(dim) {
+                const values = items.map(function(it) { return it[dim.key] || '-'; });
+                const unique = new Set(values);
+                const highlight = unique.size > 1 ? 'compare-diff' : '';
+                html += '<tr><td class="p-3 font-medium border-b border-border sticky left-0 bg-card z-10">' + dim.label + '</td>';
+                values.forEach(function(v) {
+                    html += '<td class="p-3 border-b border-border ' + highlight + '">' + escapeHtml(v) + '</td>';
+                });
+                html += '</tr>';
+            });
+            html += '</tbody></table>';
+            document.getElementById('compare-content').innerHTML = html;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 列表筛选
+        const filterCities = document.querySelectorAll('input[name="filter-city"]');
+        const filterNatures = document.querySelectorAll('input[name="filter-nature"]');
+        const filterCooperations = document.querySelectorAll('input[name="filter-cooperation"]');
+        const filterExams = document.querySelectorAll('input[name="filter-exam"]');
+        const filterSchoolName = document.getElementById('filter-school-name');
+        const filterMajorName = document.getElementById('filter-major-name');
+        const filterCount = document.getElementById('filter-count');
+        const resetFilters = document.getElementById('reset-filters');
+        const applyFiltersBtn = document.getElementById('apply-filters');
+
+        function getCheckedValues(inputs) {
+            return Array.from(inputs).filter(function(input) { return input.checked; }).map(function(input) { return input.value; });
+        }
+
+        function applyFilters() {
+            if (!filterCount) return;
+            const cities = getCheckedValues(filterCities);
+            const natures = getCheckedValues(filterNatures);
+            const cooperations = getCheckedValues(filterCooperations);
+            const exams = getCheckedValues(filterExams);
+            const schoolName = filterSchoolName ? filterSchoolName.value.trim().toLowerCase() : '';
+            const majorName = filterMajorName ? filterMajorName.value.trim().toLowerCase() : '';
+
+            let totalVisible = 0;
+            document.querySelectorAll('.school-card').forEach(function(card) {
+                let visible = true;
+                if (cities.length > 0 && !cities.includes(card.dataset.location)) visible = false;
+                if (natures.length > 0 && !natures.includes(card.dataset.nature)) visible = false;
+                if (cooperations.length > 0 && !cooperations.includes(card.dataset.cooperation)) visible = false;
+                if (exams.length > 0 && !exams.includes(card.dataset.exam)) visible = false;
+                if (schoolName && !(card.dataset.schoolName || '').toLowerCase().includes(schoolName)) visible = false;
+                if (majorName) {
+                    const majorBlocks = card.querySelectorAll('.major-block h4');
+                    const matched = Array.from(majorBlocks).some(function(h) {
+                        return h.textContent.trim().toLowerCase().includes(majorName);
+                    });
+                    if (!matched) visible = false;
+                }
+                card.style.display = visible ? '' : 'none';
+                if (visible) totalVisible++;
+            });
+            filterCount.textContent = totalVisible;
+        }
+
+        [filterCities, filterNatures, filterCooperations, filterExams].forEach(function(group) {
+            group.forEach(function(input) {
+                input.addEventListener('change', applyFilters);
+            });
+        });
+        if (filterSchoolName) filterSchoolName.addEventListener('input', applyFilters);
+        if (filterMajorName) filterMajorName.addEventListener('input', applyFilters);
+        if (applyFiltersBtn) applyFiltersBtn.addEventListener('click', applyFilters);
+        if (resetFilters) {
+            resetFilters.addEventListener('click', function() {
+                [filterCities, filterNatures, filterCooperations, filterExams].forEach(function(group) {
+                    group.forEach(function(input) { input.checked = false; });
+                });
+                if (filterSchoolName) filterSchoolName.value = '';
+                if (filterMajorName) filterMajorName.value = '';
+                applyFilters();
+            });
+        }
+
+        // 导出 PDF / 保存 / 分享 占位交互
+        const exportPdfBtn = document.getElementById('export-pdf-btn');
+        const savePlanBtn = document.getElementById('save-plan-btn');
+        const saveVersionBtn = document.getElementById('save-version-btn');
+        const shareBtn = document.getElementById('share-btn');
+        if (exportPdfBtn) exportPdfBtn.addEventListener('click', function() { alert('VIP 功能：导出 A4 版 PDF 方案（含院校列表、策略说明、风险提示），请先升级 VIP。'); });
+        if (savePlanBtn) savePlanBtn.addEventListener('click', function() { alert('方案已保存到“方案收藏”，可在用户中心查看。'); });
+        if (saveVersionBtn) saveVersionBtn.addEventListener('click', function() { alert('已保存新版本，当前方案版本更新为 v1.1。'); });
+        if (shareBtn) shareBtn.addEventListener('click', function() { document.getElementById('share-modal').classList.remove('hidden'); });
+
+        window.openFormulaModal = function() { document.getElementById('formula-modal').classList.remove('hidden'); };
+        window.closeFormulaModal = function() { document.getElementById('formula-modal').classList.add('hidden'); };
+        window.closeCompareModal = function() { document.getElementById('compare-modal').classList.add('hidden'); };
+        window.closeShareModal = function() { document.getElementById('share-modal').classList.add('hidden'); };
+        window.copyShareLink = function() {
+            const input = document.querySelector('#share-modal input[type="text"]');
+            if (input) {
+                input.select();
+                document.execCommand('copy');
+                alert('链接已复制到剪贴板，7 天内有效。');
+            }
+        };
+
+        // --- AI 志愿助手 ---
+        const aiToggle = document.querySelector('[data-dom-id="ai-assistant-toggle"]');
+        const aiPanel = document.querySelector('[data-dom-id="ai-assistant-panel"]');
+        const aiClose = document.querySelector('[data-dom-id="ai-assistant-close"]');
+        const aiInput = document.querySelector('[data-dom-id="ai-assistant-input"]');
+        const aiSend = document.querySelector('[data-dom-id="ai-assistant-send"]');
+        const aiMessages = document.querySelector('[data-dom-id="ai-assistant-messages"]');
+
+        function toggleAiPanel() {
+            if (!aiPanel) return;
+            const show = aiPanel.classList.contains('hidden');
+            aiPanel.classList.toggle('hidden', !show);
+            if (show && aiInput) aiInput.focus();
+        }
+
+        if (aiToggle) aiToggle.addEventListener('click', toggleAiPanel);
+        if (aiClose) aiClose.addEventListener('click', function() { if (aiPanel) aiPanel.classList.add('hidden'); });
+
+        function appendUserMessage(text) {
+            if (!aiMessages) return;
+            const div = document.createElement('div');
+            div.className = 'flex justify-end';
+            div.innerHTML = '<div class="bg-[var(--edu-primary-100)] text-[var(--edu-primary-900)] edu-body-sm rounded-lg rounded-tr-none px-3 py-2 max-w-[85%]">' + escapeHtml(text) + '</div>';
+            aiMessages.appendChild(div);
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+            lucide.createIcons();
+        }
+
+        function appendAiMessage(text) {
+            if (!aiMessages) return;
+            const div = document.createElement('div');
+            div.className = 'flex gap-2';
+            div.innerHTML = '<div class="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0"><i data-lucide="bot" class="w-4 h-4 text-primary"></i></div><div class="bg-muted text-foreground edu-body-sm rounded-lg rounded-tl-none px-3 py-2 max-w-[85%]">' + escapeHtml(text) + '</div>';
+            aiMessages.appendChild(div);
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+            lucide.createIcons();
+        }
+
+        function simulateAiReply(userText) {
+            const t = userText.trim();
+            let reply = '收到，我已记录你的需求。由于当前为演示模式，我会在后续版本中接入真实 AI 能力，为你自动筛选并调整志愿方案。';
+            if (t.includes('杭州')) reply = '已为你筛选，当前列表仅保留位于杭州的院校，共 2 所。如需加入宁波、温州，请告诉我。';
+            else if (t.includes('计算机') || t.includes('软件工程')) reply = '已保留包含计算机类、软件工程相关专业的院校，共 2 所。需要进一步只看双高计划院校吗？';
+            else if (t.includes('双高计划') || t.includes('增加')) reply = '已增加双高计划院校展示，当前列表共 3 所双高计划院校。';
+            else if (t.includes('概率') || t.includes('排序')) reply = '已按录取概率从高到低排序：保底档概率最高，稳妥档次之，冲刺档在前。';
+            else if (t.includes('4 月 20 日') || t.includes('4月20日') || t.includes('04-20')) reply = '已排除校测时间为 4 月 20 日的院校，剩余方案时间冲突风险降低。';
+            setTimeout(function() { appendAiMessage(reply); }, 600);
+        }
+
+        function handleAiSend() {
+            if (!aiInput) return;
+            const text = aiInput.value.trim();
+            if (!text) return;
+            appendUserMessage(text);
+            aiInput.value = '';
+            simulateAiReply(text);
+        }
+
+        if (aiSend) aiSend.addEventListener('click', handleAiSend);
+        if (aiInput) aiInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') handleAiSend(); });
+
+        document.querySelectorAll('.ai-quick-prompt').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const text = btn.textContent;
+                appendUserMessage(text);
+                simulateAiReply(text);
+            });
+        });
+    })();
+    </script>
+
+    
+
+  <footer class="border-t border-border bg-muted/40"><div class="mx-auto max-w-7xl px-6 py-8"><div class="flex flex-col md:flex-row items-center justify-between gap-4"><div class="flex items-center gap-2 text-primary font-medium"><i data-lucide="graduation-cap" class="w-5 h-5"></i><span>浙招智达</span></div><p class="text-sm text-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p><div class="flex items-center gap-4 text-sm text-muted-foreground"><a href="#" class="hover:text-primary transition-colors">隐私政策</a><a href="#" class="hover:text-primary transition-colors">使用条款</a><a href="#" class="hover:text-primary transition-colors">联系我们</a></div></div></div></footer>
+  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/pages.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学考成绩录入</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--edu-background);
+    --color-foreground: var(--edu-foreground);
+    --color-card: var(--edu-card);
+    --color-card-foreground: var(--edu-card-foreground);
+    --color-popover: var(--edu-popover);
+    --color-popover-foreground: var(--edu-popover-foreground);
+    --color-primary: var(--edu-primary);
+    --color-primary-foreground: var(--edu-primary-foreground);
+    --color-muted: var(--edu-muted);
+    --color-muted-foreground: var(--edu-muted-foreground);
+    --color-border: var(--edu-border);
+    --color-input: var(--edu-input);
+    --color-ring: var(--edu-ring);
+    --radius-sm: var(--edu-radius-sm);
+    --radius-md: var(--edu-radius-md);
+    --radius-lg: var(--edu-radius-lg);
+  }
+  @layer base {
+    body { background: var(--edu-background); color: var(--edu-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    
+    
+</head>
+<body class="min-h-screen font-sans antialiased bg-background text-foreground flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-border bg-white/80 backdrop-blur relative">
+    <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <button id="nav-mobile-toggle" type="button" class="md:hidden p-2 rounded-md text-muted-foreground hover:bg-muted transition-colors" aria-label="打开菜单"><i data-lucide="menu" class="w-5 h-5"></i></button>
+        <a href="index.html" class="flex items-center gap-2 text-primary font-semibold text-lg" data-dom-id="nav-logo">
+        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <span>浙招智达</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="home" data-dom-id="nav-home">首页</a>
+        <a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="ai-chat" data-dom-id="nav-ai-chat">智能问答</a>
+        <a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground bg-muted/60" data-nav-key="plan" data-dom-id="nav-plan">学考规划</a>
+        <a href="ai-interview.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="interview" data-dom-id="nav-interview">AI 面试</a>
+        <a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="bank" data-dom-id="nav-bank">题库</a>
+        <a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="user" data-dom-id="nav-user">用户中心</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button type="button" data-theme-toggle class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" aria-label="切换主题"><i data-lucide="sun" class="w-4 h-4" data-icon-name="sun"></i><i data-lucide="moon" class="w-4 h-4 hidden" data-icon-name="moon"></i></button>
+        <a href="vip-pricing.html" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-colors" data-dom-id="nav-vip">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>VIP
+        </a>
+        <a href="user-center.html" class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" data-dom-id="nav-avatar">
+          <i data-lucide="user" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="ai-interview.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">AI 面试</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">题库</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
+  </header>
+
+  <main id="page-content" class="flex-1">
+    <!-- Hero -->
+    <section class="border-b border-border bg-gradient-to-b from-primary/5 to-background">
+      <div class="mx-auto max-w-7xl px-6 py-10 md:py-14 text-center">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-4">
+          <i data-lucide="route" class="w-3.5 h-3.5"></i>
+          <span>选择招生类型</span>
+        </div>
+        <h1 class="edu-h1 text-foreground mb-3">学考规划 · 选择招生类型</h1>
+        <p class="edu-body text-muted-foreground max-w-2xl mx-auto">请选择你要生成的报考方案类型，系统将分别进入独立的成绩录入与志愿规划流程。</p>
+      </div>
+    </section>
+
+    <!-- Selection cards -->
+    <section class="mx-auto max-w-7xl px-6 py-8 md:py-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- 三位一体 -->
+        <a href="grade-input-sanyi.html" data-dom-id="link-sanyi" class="group flex flex-col bg-card border border-border rounded-xl p-6 shadow-[var(--edu-shadow-1)] hover:border-primary/30 hover:bg-muted transition-colors focus-visible:ring-2 focus-visible:ring-ring outline-none">
+          <div class="flex items-start justify-between gap-4 mb-5">
+            <div class="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+              <i data-lucide="graduation-cap" class="w-7 h-7"></i>
+            </div>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
+              <i data-lucide="building-2" class="w-3.5 h-3.5"></i>
+              32 所本科高校
+            </span>
+          </div>
+          <h2 class="edu-h3 text-foreground mb-2">三位一体（综合评价招生）</h2>
+          <p class="edu-body-sm text-muted-foreground mb-6 flex-1">需要录入 10 门学考等级、高考“7 选 3”选考科目，以及高考预估分。适用于浙江大学城市学院、浙江工业大学等本科高校。</p>
+          <span class="inline-flex items-center justify-center gap-2 w-full px-6 py-2.5 rounded-lg text-sm font-semibold bg-primary text-primary-foreground group-hover:opacity-90 transition-opacity">
+            进入三位一体流程
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </span>
+        </a>
+
+        <!-- 高职提前招生 -->
+        <a href="grade-input-gaozhi.html" data-dom-id="link-gaozhi" class="group flex flex-col bg-card border border-border rounded-xl p-6 shadow-[var(--edu-shadow-1)] hover:border-primary/30 hover:bg-muted transition-colors focus-visible:ring-2 focus-visible:ring-ring outline-none">
+          <div class="flex items-start justify-between gap-4 mb-5">
+            <div class="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+              <i data-lucide="school" class="w-7 h-7"></i>
+            </div>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
+              <i data-lucide="building" class="w-3.5 h-3.5"></i>
+              47 所高职院校
+            </span>
+          </div>
+          <h2 class="edu-h3 text-foreground mb-2">高职提前招生</h2>
+          <p class="edu-body-sm text-muted-foreground mb-6 flex-1">需要录入 10 门学考等级，并选择外语种类（英语 / 日语 / 其他）。适用于金华职业技术学院、浙江机电职业技术学院等高职院校。</p>
+          <span class="inline-flex items-center justify-center gap-2 w-full px-6 py-2.5 rounded-lg text-sm font-semibold bg-primary text-primary-foreground group-hover:opacity-90 transition-opacity">
+            进入高职提招流程
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </span>
+        </a>
+      </div>
+
+      <!-- Helper note -->
+      <div class="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+        <i data-lucide="help-circle" class="w-4 h-4 text-primary"></i>
+        <span>不确定选哪个？可先</span>
+        <a href="ai-chat.html" class="font-medium text-primary hover:underline">了解政策差异</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-border bg-muted/40">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-primary font-medium">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <span>浙招智达</span>
+        </div>
+        <p class="text-sm text-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p>
+        <div class="flex items-center gap-4 text-sm text-muted-foreground">
+          <a href="#" class="hover:text-primary transition-colors">隐私政策</a>
+          <a href="#" class="hover:text-primary transition-colors">使用条款</a>
+          <a href="#" class="hover:text-primary transition-colors">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    })();
+  </script>
+  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/pages.js" defer></script>
+</body>
+</html>

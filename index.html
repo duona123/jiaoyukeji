@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页 · 浙招智达</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--edu-background);
+    --color-foreground: var(--edu-foreground);
+    --color-card: var(--edu-card);
+    --color-card-foreground: var(--edu-card-foreground);
+    --color-popover: var(--edu-popover);
+    --color-popover-foreground: var(--edu-popover-foreground);
+    --color-primary: var(--edu-primary);
+    --color-primary-foreground: var(--edu-primary-foreground);
+    --color-muted: var(--edu-muted);
+    --color-muted-foreground: var(--edu-muted-foreground);
+    --color-border: var(--edu-border);
+    --color-input: var(--edu-input);
+    --color-ring: var(--edu-ring);
+    --radius-sm: var(--edu-radius-sm);
+    --radius-md: var(--edu-radius-md);
+    --radius-lg: var(--edu-radius-lg);
+  }
+  @layer base {
+    body { background: var(--edu-background); color: var(--edu-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    
+    
+</head>
+<body class="min-h-screen font-sans antialiased flex flex-col bg-background text-foreground">
+  <header class="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur relative">
+    <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <button id="nav-mobile-toggle" type="button" class="md:hidden p-2 rounded-md text-muted-foreground hover:bg-muted transition-colors" aria-label="打开菜单"><i data-lucide="menu" class="w-5 h-5"></i></button>
+        <a href="index.html" class="flex items-center gap-2 text-primary font-semibold text-lg">
+        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <span>浙招智达</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" id="nav-home" data-dom-id="nav-home" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a>
+        <a href="ai-chat.html" id="nav-ai-chat" data-dom-id="nav-ai-chat" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a>
+        <a href="direction.html" id="nav-plan" data-dom-id="link-page-grade-input" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a>
+        <a href="ai-interview.html" id="nav-interview" data-dom-id="link-page-ai-interview" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">AI 面试</a>
+        <a href="question-bank.html" id="nav-bank" data-dom-id="link-page-question-bank" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">题库</a>
+        <a href="user-center.html" id="nav-user" data-dom-id="nav-user" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button type="button" data-theme-toggle class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" aria-label="切换主题"><i data-lucide="sun" class="w-4 h-4" data-icon-name="sun"></i><i data-lucide="moon" class="w-4 h-4 hidden" data-icon-name="moon"></i></button>
+        <a href="vip-pricing.html" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>VIP
+        </a>
+        <a href="user-center.html" class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors">
+          <i data-lucide="user" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="ai-interview.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">AI 面试</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">题库</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
+  </header>
+
+  <main id="page-content" class="flex-1">
+    <!-- 3-screen onboarding guide (new user first visit) -->
+    <section id="onboarding" class="relative bg-gradient-to-b from-primary/5 to-background border-b border-border">
+      <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-primary/10 blur-3xl"></div>
+      <div class="absolute top-32 -left-24 w-72 h-72 rounded-full bg-primary/10 blur-3xl"></div>
+      <div class="relative mx-auto max-w-7xl px-6 py-14 md:py-20">
+        <div class="text-center mb-10">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            浙江省唯一覆盖「三位一体 + 高职提招」全流程的 AI 智能体
+          </span>
+          <h1 class="edu-display mt-6 text-foreground">3 分钟了解浙招智达</h1>
+          <p class="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">政策问答 · 学考折算 · 志愿方案 · AI 面试 · 题库刷题，一个智能体全搞定。</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Slide 1 -->
+          <div class="onboard-slide bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5">
+              <i data-lucide="message-square-text" class="w-6 h-6"></i>
+            </div>
+            <div class="text-sm font-semibold text-primary mb-2">第 1 步</div>
+            <h3 class="edu-h3 text-foreground mb-2">随时问政策</h3>
+            <p class="text-muted-foreground text-sm leading-relaxed">自然语言多轮对话，连续 5 轮上下文不丢失。覆盖 32 所三位一体 + 47 所高职提招院校政策，响应时间 ≤3 秒。</p>
+            <ul class="mt-4 space-y-2 text-sm text-foreground">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>报名条件 / 折算规则 / 校测方式</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>录取规则 / 时间节点 / 一档多投</li>
+            </ul>
+          </div>
+          <!-- Slide 2 -->
+          <div class="onboard-slide bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5">
+              <i data-lucide="clipboard-list" class="w-6 h-6"></i>
+            </div>
+            <div class="text-sm font-semibold text-primary mb-2">第 2 步</div>
+            <h3 class="edu-h3 text-foreground mb-2">录成绩出方案</h3>
+            <p class="text-muted-foreground text-sm leading-relaxed">输入 10 门学考等级与 7 选 3 科目，自动按各校规则折算，生成「冲 / 稳 / 保」三档志愿方案。</p>
+            <ul class="mt-4 space-y-2 text-sm text-foreground">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>折算分精准计算</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>录取概率 + 时间冲突检测</li>
+            </ul>
+          </div>
+          <!-- Slide 3 -->
+          <div class="onboard-slide bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5">
+              <i data-lucide="video" class="w-6 h-6"></i>
+            </div>
+            <div class="text-sm font-semibold text-primary mb-2">第 3 步</div>
+            <h3 class="edu-h3 text-foreground mb-2">备考到录取</h3>
+            <p class="text-muted-foreground text-sm leading-relaxed">AI 面试模拟、校测题库刷题、每日推荐练习，系统提升校测能力；VIP 解锁无限问答与完整方案。</p>
+            <ul class="mt-4 space-y-2 text-sm text-foreground">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>文字 / 语音 / 视频面试</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>错题本 + 进步曲线</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="ai-chat.html" id="hero-cta-ai-chat" data-dom-id="hero-cta-ai-chat" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors">
+            开始智能问答
+            <i data-lucide="message-square-text" class="w-4 h-4"></i>
+          </a>
+          <a href="direction.html" id="hero-cta-grade" data-dom-id="hero-cta-grade" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border bg-card text-foreground font-medium hover:bg-muted transition-colors">
+            先录入学考成绩
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+        <p class="text-center mt-4 text-xs text-muted-foreground">新用户无需登录即可体验 1 次智能问答；注册后解锁每日 3 次免费额度。</p>
+      </div>
+    </section>
+
+    <!-- AI Q&A feature promo -->
+    <section id="ai-chat-promo" class="py-12 md:py-16">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              浙招智达 AI
+            </span>
+            <h2 class="edu-h2 text-foreground">有问题，随时问</h2>
+            <p class="mt-4 text-muted-foreground text-lg">像聊天一样提出你的升学问题，AI 基于最新政策和你的学考成绩，给出可执行的建议与方案。</p>
+            <ul class="mt-6 space-y-3 text-foreground">
+              <li class="flex items-center gap-3"><span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0"><i data-lucide="check" class="w-4 h-4"></i></span>政策解读 / 院校推荐 / 折算规则</li>
+              <li class="flex items-center gap-3"><span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0"><i data-lucide="check" class="w-4 h-4"></i></span>生成冲稳保志愿方案</li>
+              <li class="flex items-center gap-3"><span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0"><i data-lucide="check" class="w-4 h-4"></i></span>面试 / 笔试备考建议</li>
+              <li class="flex items-center gap-3"><span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0"><i data-lucide="check" class="w-4 h-4"></i></span>免费每日 3 次，VIP 无限问答</li>
+            </ul>
+            <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <a href="ai-chat.html" id="promo-cta-ai-chat" data-dom-id="promo-cta-ai-chat" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors">
+                开始智能问答
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+              <span class="text-sm text-muted-foreground">新用户无需登录即可体验 1 次</span>
+            </div>
+          </div>
+          <div class="relative">
+            <div class="absolute -top-10 -right-10 w-64 h-64 rounded-full bg-primary/10 blur-3xl"></div>
+            <div class="relative bg-card border border-border rounded-2xl shadow-sm p-5 space-y-4">
+              <div class="flex gap-3">
+                <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0"><i data-lucide="bot" class="w-4 h-4"></i></div>
+                <div class="bg-muted rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-foreground max-w-[85%]">
+                  <p>你好，我是浙招智达 AI。我可以帮你解读三位一体 / 高职提招政策、按学考成绩推荐院校、生成志愿方案等。</p>
+                </div>
+              </div>
+              <div class="flex justify-end gap-3">
+                <div class="bg-primary text-primary-foreground rounded-2xl rounded-tr-sm px-4 py-3 text-sm max-w-[80%]">我的学考 2A8B 能报哪些学校？</div>
+                <div class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground shrink-0"><i data-lucide="user" class="w-4 h-4"></i></div>
+              </div>
+              <div class="flex gap-3">
+                <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0"><i data-lucide="bot" class="w-4 h-4"></i></div>
+                <div class="bg-muted rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-foreground max-w-[85%] space-y-2">
+                  <p>根据你的 2A8B，可以重点关注以下院校：</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="px-2 py-1 rounded-md bg-card border border-border text-xs">浙江工业大学</span>
+                    <span class="px-2 py-1 rounded-md bg-card border border-border text-xs">浙江师范大学</span>
+                    <span class="px-2 py-1 rounded-md bg-card border border-border text-xs">宁波大学</span>
+                  </div>
+                  <p class="text-xs text-muted-foreground">点击「开始智能问答」获取完整推荐与折算分析。</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 pt-2 border-t border-border">
+                <i data-lucide="message-circle" class="w-4 h-4 text-muted-foreground ml-1"></i>
+                <span class="text-sm text-muted-foreground">输入你的升学问题…</span>
+                <span class="ml-auto px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-xs">发送</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick questions (≥10) -->
+    <section id="quick-questions" class="py-12 md:py-16 bg-muted/30">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+          <div>
+            <h2 class="edu-h2 text-foreground">热门常见问题</h2>
+            <p class="mt-2 text-muted-foreground">按热度排序，点击即可进入智能问答获取完整回答</p>
+          </div>
+          <span class="inline-flex items-center gap-1.5 text-xs text-muted-foreground bg-card border border-border rounded-full px-3 py-1.5">
+            <i data-lucide="flame" class="w-3.5 h-3.5 text-[var(--edu-state-warning)]"></i>
+            实时更新热门问题
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <a href="ai-chat.html" class="group text-left bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/30 transition-all">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0"><i data-lucide="school" class="w-5 h-5"></i></span>
+                <span class="font-medium text-foreground">我的成绩能报哪些学校？</span>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-3"></i>
+            </div>
+          </a>
+          <a href="ai-chat.html" class="group text-left bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/30 transition-all">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0"><i data-lucide="award" class="w-5 h-5"></i></span>
+                <span class="font-medium text-foreground">三位一体对学考有什么要求？</span>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-3"></i>
+            </div>
+          </a>
+          <a href="ai-chat.html" class="group text-left bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/30 transition-all">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0"><i data-lucide="calendar-days" class="w-5 h-5"></i></span>
+                <span class="font-medium text-foreground">高职提前招生的流程是什么？</span>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-3"></i>
+            </div>
+          </a>
+          <a href="ai-chat.html" class="group text-left bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/30 transition-all">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0"><i data-lucide="mic" class="w-5 h-5"></i></span>
+                <span class="font-medium text-foreground">面试应该怎么准备？</span>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-3"></i>
+            </div>
+          </a>
+          <a href="ai-chat.html" class="group text-left bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/30 transition-all">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0"><i data-lucide="pie-chart" class="w-5 h-5"></i></span>
+                <span class="font-medium text-foreground">测算一下我的录取概率</span>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-3"></i>
+            </div>
+          </a>
+          <a href="ai-chat.html" class="group text-left bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/30 transition-all">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0"><i data-lucide="map-pin" class="w-5 h-5"></i></span>
+                <span class="font-medium text-foreground">推荐适合我的院校和专业</span>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-3"></i>
+            </div>
+          </a>
+          <a href="ai-chat.html" class="group text-left bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/30 transition-all">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0"><i data-lucide="scale" class="w-5 h-5"></i></span>
+                <span class="font-medium text-foreground">三位一体和普通高考有什么区别？</span>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-3"></i>
+            </div>
+          </a>
+          <a href="ai-chat.html" class="group text-left bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/30 transition-all">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0"><i data-lucide="layers" class="w-5 h-5"></i></span>
+                <span class="font-medium text-foreground">一档多投是什么意思？</span>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-3"></i>
+            </div>
+          </a>
+          <a href="ai-chat.html" class="group text-left bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/30 transition-all">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0"><i data-lucide="clock" class="w-5 h-5"></i></span>
+                <span class="font-medium text-foreground">各校报名时间节点汇总</span>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-3"></i>
+            </div>
+          </a>
+          <a href="ai-chat.html" class="group text-left bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/30 transition-all">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0"><i data-lucide="file-check" class="w-5 h-5"></i></span>
+                <span class="font-medium text-foreground">报名需要准备哪些材料？</span>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-3"></i>
+            </div>
+          </a>
+          <a href="ai-chat.html" class="group text-left bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/30 transition-all">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0"><i data-lucide="percent" class="w-5 h-5"></i></span>
+                <span class="font-medium text-foreground">学考折算分怎么计算？</span>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-3"></i>
+            </div>
+          </a>
+          <a href="ai-chat.html" class="group text-left bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/30 transition-all">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0"><i data-lucide="bookmark" class="w-5 h-5"></i></span>
+                <span class="font-medium text-foreground">三位一体录取后还能放弃吗？</span>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-3"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Today's recommendations (US-10) -->
+    <section id="today-recommend" class="py-12 md:py-16">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+          <div>
+            <h2 class="edu-h2 text-foreground">今日推荐</h2>
+            <p class="mt-2 text-muted-foreground">小孙的备考日常：每天 2 道面试题 + 3 道笔试题 + 1 个时政热点</p>
+          </div>
+          <a href="question-bank.html" class="inline-flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
+            进入题库
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Interview recommendation -->
+          <div class="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--edu-state-info-bg)] text-[var(--edu-state-info)]">
+                <i data-lucide="mic" class="w-4 h-4"></i>
+              </span>
+              <h3 class="font-semibold text-foreground">面试题</h3>
+              <span class="ml-auto text-xs text-muted-foreground">2 道</span>
+            </div>
+            <div class="space-y-3">
+              <div class="p-3 rounded-lg bg-muted/50 text-sm text-foreground">
+                <span class="text-xs text-muted-foreground block mb-1">浙江工业大学 · 结构化</span>
+                请用 1 分钟介绍自己，并说明为什么选择报考本专业。
+              </div>
+              <div class="p-3 rounded-lg bg-muted/50 text-sm text-foreground">
+                <span class="text-xs text-muted-foreground block mb-1">浙江师范大学 · 综合素质</span>
+                你如何看待 AI 技术对未来教育的影响？
+              </div>
+            </div>
+            <a href="ai-interview.html" class="mt-4 inline-flex items-center justify-center w-full gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors">
+              开始模拟面试
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Written test recommendation -->
+          <div class="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--edu-state-success-bg)] text-[var(--edu-state-success)]">
+                <i data-lucide="pen-tool" class="w-4 h-4"></i>
+              </span>
+              <h3 class="font-semibold text-foreground">笔试题</h3>
+              <span class="ml-auto text-xs text-muted-foreground">3 道</span>
+            </div>
+            <div class="space-y-3">
+              <div class="p-3 rounded-lg bg-muted/50 text-sm text-foreground">
+                <span class="text-xs text-muted-foreground block mb-1">逻辑推理 · 中等</span>
+                如果所有 A 都是 B，有些 B 是 C，那么下列哪项一定为真？
+              </div>
+              <div class="p-3 rounded-lg bg-muted/50 text-sm text-foreground">
+                <span class="text-xs text-muted-foreground block mb-1">语言表达 · 简单</span>
+                请概括这段材料的核心观点（不超过 50 字）。
+              </div>
+              <div class="p-3 rounded-lg bg-muted/50 text-sm text-foreground">
+                <span class="text-xs text-muted-foreground block mb-1">数量关系 · 较难</span>
+                某校三一招生计划 120 人，初审通过 600 人，求初审通过率。
+              </div>
+            </div>
+            <a href="question-bank.html" class="mt-4 inline-flex items-center justify-center w-full gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors">
+              去刷题
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Current affairs + stats -->
+          <div class="space-y-6">
+            <div class="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex items-center gap-2 mb-4">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--edu-state-warning-bg)] text-[var(--edu-state-warning)]">
+                  <i data-lucide="globe" class="w-4 h-4"></i>
+                </span>
+                <h3 class="font-semibold text-foreground">时政热点</h3>
+                <span class="ml-auto text-xs text-muted-foreground">1 个</span>
+              </div>
+              <div class="p-3 rounded-lg bg-muted/50 text-sm text-foreground">
+                <span class="text-xs text-muted-foreground block mb-1">2025 年 8 月 · 科技创新</span>
+                浙江发布「人工智能 +」行动计划，提出到 2027 年培育 10 个以上行业大模型。结合你报考的专业，谈谈 AI 将如何影响相关行业发展。
+              </div>
+            </div>
+
+            <div class="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex items-center gap-2 mb-4">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary">
+                  <i data-lucide="trending-up" class="w-4 h-4"></i>
+                </span>
+                <h3 class="font-semibold text-foreground">练习统计</h3>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="text-center p-3 rounded-lg bg-muted/50">
+                  <div class="text-2xl font-semibold text-foreground edu-number">42</div>
+                  <div class="text-xs text-muted-foreground">本周已练习</div>
+                </div>
+                <div class="text-center p-3 rounded-lg bg-muted/50">
+                  <div class="text-2xl font-semibold text-[var(--edu-state-success)] edu-number">78%</div>
+                  <div class="text-xs text-muted-foreground">正确率</div>
+                </div>
+              </div>
+              <p class="mt-3 text-xs text-muted-foreground">本周正确率从 65% 提升到 78%，继续保持！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIP upgrade prompt / free quota exhausted modal (static demo) -->
+    <section class="py-12 md:py-16 bg-muted/30">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary/10 to-background border border-primary/20 p-8 md:p-12">
+          <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-primary/10 blur-3xl"></div>
+          <div class="vip-shimmer absolute inset-0 pointer-events-none opacity-30"></div>
+          <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div class="max-w-2xl">
+              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4">
+                <i data-lucide="crown" class="w-3.5 h-3.5"></i>
+                VIP 权益
+              </div>
+              <h2 class="edu-h2 text-foreground">免费额度用完后，升级 VIP 解锁完整功能</h2>
+              <p class="mt-3 text-muted-foreground">免费用户每日 3 次问答；VIP 用户可享受无限问答、完整志愿方案、AI 面试无限次、题库全量刷题等全部权益。</p>
+              <div class="mt-5 flex flex-wrap gap-4 text-sm text-foreground">
+                <span class="inline-flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-primary"></i>基础 VIP ¥199/年：问答无限 + 志愿方案 + 院校对比 + 录取概率</span>
+                <span class="inline-flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-primary"></i>全能 VIP ¥399/年：基础全部 + AI 面试无限 + 题库全量</span>
+              </div>
+            </div>
+            <div class="flex flex-col gap-3 shrink-0">
+              <a href="vip-pricing.html" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors">
+                查看 VIP 方案
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+              <p class="text-center text-xs text-muted-foreground">7 天内未使用付费功能可退款</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature highlights -->
+    <section class="py-12 md:py-16">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="text-center mb-12">
+          <h2 class="edu-h2 text-foreground">一站式升学工具</h2>
+          <p class="mt-2 text-muted-foreground">从成绩诊断到志愿填报，每个环节都有 AI 辅助</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 text-primary mb-4"><i data-lucide="message-square-text" class="w-5 h-5"></i></span>
+            <h3 class="edu-h3 text-foreground">智能问答</h3>
+            <p class="mt-2 text-sm text-muted-foreground">7×24 小时在线，解答政策、院校、专业、流程等各类升学问题。免费每日 3 次，VIP 无限。</p>
+          </div>
+          <div class="bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 text-primary mb-4"><i data-lucide="clipboard-list" class="w-5 h-5"></i></span>
+            <h3 class="edu-h3 text-foreground">学考规划</h3>
+            <p class="mt-2 text-sm text-muted-foreground">录入学考成绩，自动匹配 32 所三一 + 47 所高职提招院校，生成冲刺/稳健/保底方案。</p>
+          </div>
+          <div class="bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 text-primary mb-4"><i data-lucide="video" class="w-5 h-5"></i></span>
+            <h3 class="edu-h3 text-foreground">AI 面试模拟</h3>
+            <p class="mt-2 text-sm text-muted-foreground">还原三位一体/高职提招面试场景，文字/语音/视频三模式，生成五维评估报告。</p>
+          </div>
+          <div class="bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 text-primary mb-4"><i data-lucide="target" class="w-5 h-5"></i></span>
+            <h3 class="edu-h3 text-foreground">题库刷题</h3>
+            <p class="mt-2 text-sm text-muted-foreground">历年真题回忆版 + 模拟题，自动批改、错题本、进步曲线，系统提升校测能力。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA banner -->
+    <section class="py-12 md:py-16 bg-muted/30">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary/10 to-background border border-primary/20 p-8 md:p-12">
+          <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-primary/10 blur-3xl"></div>
+          <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+              <h2 class="edu-h2 text-foreground">准备好开始规划了吗？</h2>
+              <p class="mt-2 text-muted-foreground">输入学考成绩，3 分钟生成你的专属浙江升学方案。</p>
+            </div>
+            <a href="direction.html" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors">
+              立即开始
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-border bg-muted/40">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-primary font-medium">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <span>浙招智达</span>
+        </div>
+        <p class="text-sm text-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p>
+        <div class="flex items-center gap-4 text-sm text-muted-foreground">
+          <a href="#" class="hover:text-primary transition-colors">隐私政策</a>
+          <a href="#" class="hover:text-primary transition-colors">使用条款</a>
+          <a href="#" class="hover:text-primary transition-colors">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>lucide.createIcons();</script>
+
+    
+  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/pages.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能问答 | 浙招智达</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--edu-background);
+    --color-foreground: var(--edu-foreground);
+    --color-card: var(--edu-card);
+    --color-card-foreground: var(--edu-card-foreground);
+    --color-popover: var(--edu-popover);
+    --color-popover-foreground: var(--edu-popover-foreground);
+    --color-primary: var(--edu-primary);
+    --color-primary-foreground: var(--edu-primary-foreground);
+    --color-muted: var(--edu-muted);
+    --color-muted-foreground: var(--edu-muted-foreground);
+    --color-border: var(--edu-border);
+    --color-input: var(--edu-input);
+    --color-ring: var(--edu-ring);
+    --radius-sm: var(--edu-radius-sm);
+    --radius-md: var(--edu-radius-md);
+    --radius-lg: var(--edu-radius-lg);
+  }
+  @layer base {
+    body { background: var(--edu-background); color: var(--edu-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    
+    
+</head>
+<body class="min-h-screen font-sans antialiased flex flex-col bg-background text-foreground">
+  <header class="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur relative">
+    <div class="mx-auto max-w-7xl px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button id="sidebar-toggle" type="button" class="md:hidden p-2 rounded-md text-muted-foreground hover:bg-muted transition-colors" aria-label="打开菜单">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+        <button id="nav-mobile-toggle" type="button" class="md:hidden p-2 rounded-md text-muted-foreground hover:bg-muted transition-colors" aria-label="打开菜单"><i data-lucide="menu" class="w-5 h-5"></i></button>
+        <a href="index.html" id="nav-logo" data-dom-id="nav-logo" class="flex items-center gap-2 text-primary font-semibold text-lg">
+          <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+          <span>浙招智达</span>
+        </a>
+      </div>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" id="nav-home" data-dom-id="nav-home" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a>
+        <a href="ai-chat.html" id="nav-ai-chat" data-dom-id="nav-ai-chat" class="px-3 py-2 rounded-md text-sm font-medium bg-primary/10 text-primary">智能问答</a>
+        <a href="direction.html" id="nav-plan" data-dom-id="nav-plan" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a>
+        <a href="ai-interview.html" id="nav-interview" data-dom-id="nav-interview" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">AI 面试</a>
+        <a href="question-bank.html" id="nav-bank" data-dom-id="nav-bank" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">题库</a>
+        <a href="user-center.html" id="nav-user" data-dom-id="nav-user" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button type="button" data-theme-toggle class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" aria-label="切换主题"><i data-lucide="sun" class="w-4 h-4" data-icon-name="sun"></i><i data-lucide="moon" class="w-4 h-4 hidden" data-icon-name="moon"></i></button>
+        <a href="vip-pricing.html" id="nav-vip" data-dom-id="nav-vip" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>VIP
+        </a>
+        <a href="user-center.html" id="nav-avatar" data-dom-id="nav-avatar" class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors">
+          <i data-lucide="user" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="ai-interview.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">AI 面试</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">题库</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
+  </header>
+
+  <main id="page-content" class="flex-1 flex overflow-hidden">
+    <!-- Sidebar -->
+    <aside id="doubao-sidebar" class="fixed inset-y-0 left-0 z-40 w-[260px] border-r border-border bg-background transform -translate-x-full md:translate-x-0 md:static md:flex-shrink-0 transition-transform duration-200 ease-out">
+      <div class="h-full flex flex-col pt-20 md:pt-4 pb-4">
+        <div class="px-4 mb-4">
+          <button id="sidebar-new-chat" data-dom-id="sidebar-new-chat" type="button" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>新对话</span>
+          </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto px-3 space-y-4 no-scrollbar">
+          <div>
+            <div class="px-3 py-1.5 text-xs font-medium text-muted-foreground">最近</div>
+            <button id="conversation-item-1" data-dom-id="conversation-item-1" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-foreground hover:bg-muted transition-colors text-left">
+              <i data-lucide="message-square" class="w-4 h-4 text-muted-foreground shrink-0"></i>
+              <span class="truncate">三位一体报考建议</span>
+            </button>
+            <button id="conversation-item-2" data-dom-id="conversation-item-2" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-foreground hover:bg-muted transition-colors text-left">
+              <i data-lucide="message-square" class="w-4 h-4 text-muted-foreground shrink-0"></i>
+              <span class="truncate">高职提招流程咨询</span>
+            </button>
+            <button id="conversation-item-3" data-dom-id="conversation-item-3" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-foreground hover:bg-muted transition-colors text-left">
+              <i data-lucide="message-square" class="w-4 h-4 text-muted-foreground shrink-0"></i>
+              <span class="truncate">志愿方案生成</span>
+            </button>
+          </div>
+
+          <div>
+            <div class="px-3 py-1.5 text-xs font-medium text-muted-foreground">项目</div>
+            <button id="conversation-item-4" data-dom-id="conversation-item-4" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-foreground hover:bg-muted transition-colors text-left">
+              <i data-lucide="folder-open" class="w-4 h-4 text-muted-foreground shrink-0"></i>
+              <span class="truncate">2026 三位一体政策库</span>
+            </button>
+            <button id="conversation-item-5" data-dom-id="conversation-item-5" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-foreground hover:bg-muted transition-colors text-left">
+              <i data-lucide="folder-open" class="w-4 h-4 text-muted-foreground shrink-0"></i>
+              <span class="truncate">浙江高职提招问答</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile sidebar overlay close -->
+      <button id="sidebar-close" type="button" class="md:hidden absolute top-5 right-4 p-2 rounded-md text-muted-foreground hover:bg-muted transition-colors" aria-label="关闭菜单">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </aside>
+
+    <!-- Mobile overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 z-30 bg-foreground/20 backdrop-blur-sm hidden md:hidden"></div>
+
+    <!-- Main chat area -->
+    <section class="flex-1 flex flex-col relative min-w-0">
+      <div class="flex-1 flex flex-col items-center justify-center px-4 pb-32">
+        <h1 class="edu-h1 text-foreground text-center">有什么我能帮你的吗？</h1>
+        <div class="mt-5 inline-flex items-center rounded-full bg-muted p-1 border border-border">
+          <button id="mode-toggle-chat" data-dom-id="mode-toggle-chat" type="button" class="px-5 py-1.5 rounded-full text-sm font-medium bg-background text-foreground shadow-sm transition-colors">对话</button>
+          <button id="mode-toggle-plan" data-dom-id="mode-toggle-plan" type="button" class="px-5 py-1.5 rounded-full text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">规划</button>
+        </div>
+      </div>
+
+      <!-- Input bar -->
+      <div class="absolute bottom-0 left-0 right-0 px-4 pb-4 pt-8 bg-gradient-to-t from-background via-background to-transparent">
+        <div class="mx-auto w-full max-w-3xl">
+          <div class="bg-card border border-border rounded-2xl shadow-sm focus-within:ring-2 focus-within:ring-ring transition-shadow overflow-hidden">
+            <div class="flex items-end gap-2 px-4 py-3">
+              <button type="button" class="p-2 rounded-lg text-muted-foreground hover:bg-muted transition-colors shrink-0" title="上传图片/文件">
+                <i data-lucide="paperclip" class="w-5 h-5"></i>
+              </button>
+              <textarea id="chat-input" data-dom-id="chat-input" rows="1" placeholder="输入你的升学问题…" class="flex-1 bg-transparent px-1 py-2.5 text-foreground placeholder:text-muted-foreground outline-none resize-none max-h-32 text-sm sm:text-base"></textarea>
+              <button type="button" class="p-2 rounded-lg text-muted-foreground hover:bg-muted transition-colors shrink-0" title="语音输入">
+                <i data-lucide="mic" class="w-5 h-5"></i>
+              </button>
+              <button id="chat-send" data-dom-id="chat-send" type="button" class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shrink-0" title="发送">
+                <i data-lucide="arrow-up" class="w-5 h-5"></i>
+              </button>
+            </div>
+
+            <div class="flex items-center gap-1.5 px-3 pb-3 overflow-x-auto no-scrollbar">
+              <button id="tool-recommend" data-dom-id="tool-recommend" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground bg-muted hover:text-foreground transition-colors shrink-0">
+                <i data-lucide="school" class="w-3.5 h-3.5"></i>院校推荐
+              </button>
+              <button id="tool-plan" data-dom-id="tool-plan" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground bg-muted hover:text-foreground transition-colors shrink-0">
+                <i data-lucide="clipboard-list" class="w-3.5 h-3.5"></i>志愿方案
+              </button>
+              <button id="tool-policy" data-dom-id="tool-policy" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground bg-muted hover:text-foreground transition-colors shrink-0">
+                <i data-lucide="file-text" class="w-3.5 h-3.5"></i>政策解读
+              </button>
+              <button id="tool-interview" data-dom-id="tool-interview" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground bg-muted hover:text-foreground transition-colors shrink-0">
+                <i data-lucide="mic" class="w-3.5 h-3.5"></i>面试辅导
+              </button>
+              <button id="tool-score" data-dom-id="tool-score" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground bg-muted hover:text-foreground transition-colors shrink-0">
+                <i data-lucide="bar-chart-3" class="w-3.5 h-3.5"></i>成绩分析
+              </button>
+              <button id="tool-more" data-dom-id="tool-more" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground bg-muted hover:text-foreground transition-colors shrink-0">
+                <i data-lucide="grid-3x3" class="w-3.5 h-3.5"></i>更多
+              </button>
+            </div>
+          </div>
+
+          <p class="mt-2 text-center text-[11px] text-muted-foreground">
+            AI 生成内容仅供参考，请以浙江省教育考试院官方文件为准
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-border bg-muted/40 hidden md:block">
+    <div class="mx-auto max-w-7xl px-6 py-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-primary font-medium">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <span>浙招智达</span>
+        </div>
+        <p class="text-sm text-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p>
+        <div class="flex items-center gap-4 text-sm text-muted-foreground">
+          <a href="#" class="hover:text-primary transition-colors">隐私政策</a>
+          <a href="#" class="hover:text-primary transition-colors">使用条款</a>
+          <a href="#" class="hover:text-primary transition-colors">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Mobile sidebar toggle
+    const sidebar = document.getElementById('doubao-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    const closeBtn = document.getElementById('sidebar-close');
+
+    function openSidebar() {
+      sidebar.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeSidebar() {
+      sidebar.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    toggleBtn.addEventListener('click', openSidebar);
+    closeBtn.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    // Mode toggle interaction
+    const modeChat = document.getElementById('mode-toggle-chat');
+    const modePlan = document.getElementById('mode-toggle-plan');
+
+    function setMode(mode) {
+      if (mode === 'chat') {
+        modeChat.classList.add('bg-background', 'text-foreground', 'shadow-sm');
+        modeChat.classList.remove('text-muted-foreground');
+        modePlan.classList.remove('bg-background', 'text-foreground', 'shadow-sm');
+        modePlan.classList.add('text-muted-foreground');
+      } else {
+        modePlan.classList.add('bg-background', 'text-foreground', 'shadow-sm');
+        modePlan.classList.remove('text-muted-foreground');
+        modeChat.classList.remove('bg-background', 'text-foreground', 'shadow-sm');
+        modeChat.classList.add('text-muted-foreground');
+      }
+    }
+
+    modeChat.addEventListener('click', () => setMode('chat'));
+    modePlan.addEventListener('click', () => setMode('plan'));
+  </script>
+
+  
+  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/pages.js" defer></script>
+</body>
+</html>

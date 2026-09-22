@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 面试模拟</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--edu-background);
+    --color-foreground: var(--edu-foreground);
+    --color-card: var(--edu-card);
+    --color-card-foreground: var(--edu-card-foreground);
+    --color-popover: var(--edu-popover);
+    --color-popover-foreground: var(--edu-popover-foreground);
+    --color-primary: var(--edu-primary);
+    --color-primary-foreground: var(--edu-primary-foreground);
+    --color-muted: var(--edu-muted);
+    --color-muted-foreground: var(--edu-muted-foreground);
+    --color-border: var(--edu-border);
+    --color-input: var(--edu-input);
+    --color-ring: var(--edu-ring);
+    --radius-sm: var(--edu-radius-sm);
+    --radius-md: var(--edu-radius-md);
+    --radius-lg: var(--edu-radius-lg);
+  }
+  @layer base {
+    body { background: var(--edu-background); color: var(--edu-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    
+    
+</head>
+<body class="min-h-screen font-sans antialiased">
+  <header class="sticky top-0 z-50 w-full border-b border-edu-border bg-white/80 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-edu-primary font-semibold text-lg" data-dom-id="nav-logo">
+        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <span>浙招智达</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="home" data-dom-id="nav-home">首页</a>
+        <a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="ai-chat" data-dom-id="nav-ai-chat">智能问答</a>
+        <a href="direction.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="plan" data-dom-id="nav-plan">学考规划</a>
+        <a href="ai-interview.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="interview" data-dom-id="nav-interview">AI 面试</a>
+        <a href="question-bank.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="bank" data-dom-id="nav-bank">题库</a>
+        <a href="user-center.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="user" data-dom-id="nav-user">用户中心</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button type="button" data-theme-toggle class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" aria-label="切换主题"><i data-lucide="sun" class="w-4 h-4" data-icon-name="sun"></i><i data-lucide="moon" class="w-4 h-4 hidden" data-icon-name="moon"></i></button>
+        <a href="vip-pricing.html" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-edu-primary text-white hover:bg-[#0f766e] transition-colors" data-dom-id="nav-vip">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>VIP
+        </a>
+        <a href="user-center.html" class="w-8 h-8 rounded-full bg-edu-muted flex items-center justify-center text-edu-muted-foreground hover:text-edu-primary transition-colors" data-dom-id="nav-avatar">
+          <i data-lucide="user" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="ai-interview.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">AI 面试</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">题库</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
+  </header>
+
+  <main id="page-content" class="flex-1">
+    <div class="mx-auto max-w-7xl px-6 py-10 md:py-14">
+      <!-- VIP status banner -->
+      <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-lg border border-warning bg-warning/10" style="--edu-warning: #f59e0b; border-color: rgba(245,158,11,0.3); background-color: rgba(245,158,11,0.08);">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-warning/20 flex items-center justify-center" style="background-color: rgba(245,158,11,0.15);">
+            <i data-lucide="crown" class="w-4.5 h-4.5" style="color: #d97706;"></i>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-foreground">当前为免费体验用户</p>
+            <p class="text-sm text-muted-foreground">非 VIP 可体验 1 次 AI 面试模拟，升级 VIP 可无限次练习。</p>
+          </div>
+        </div>
+        <a href="vip-pricing.html" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-md text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shrink-0">
+          升级 VIP
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <!-- Page header -->
+      <div class="mb-10">
+        <h1 class="edu-h1 text-foreground">AI 面试模拟</h1>
+        <p class="mt-3 text-muted-foreground edu-body max-w-2xl">根据目标院校与专业方向，生成贴合浙江三一/高职提招面试风格的题目，并由 AI 考官实时互动、追问与点评。</p>
+      </div>
+
+      <!-- Wizard steps -->
+      <div class="mb-10 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div class="flex items-center gap-3 p-4 rounded-lg border border-primary bg-primary/5">
+          <div class="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-semibold">1</div>
+          <div>
+            <p class="text-sm font-medium text-foreground">选择模式</p>
+            <p class="text-xs text-muted-foreground">文字 / 语音 / 视频</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 p-4 rounded-lg border border-border bg-card">
+          <div class="w-8 h-8 rounded-full bg-muted text-foreground flex items-center justify-center text-sm font-semibold">2</div>
+          <div>
+            <p class="text-sm font-medium text-foreground">院校专业</p>
+            <p class="text-xs text-muted-foreground">目标院校 + 专业方向</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 p-4 rounded-lg border border-border bg-card">
+          <div class="w-8 h-8 rounded-full bg-muted text-foreground flex items-center justify-center text-sm font-semibold">3</div>
+          <div>
+            <p class="text-sm font-medium text-foreground">面试设置</p>
+            <p class="text-xs text-muted-foreground">类型 / 时长 / 题型占比</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 p-4 rounded-lg border border-border bg-card">
+          <div class="w-8 h-8 rounded-full bg-muted text-foreground flex items-center justify-center text-sm font-semibold">4</div>
+          <div>
+            <p class="text-sm font-medium text-foreground">须知确认</p>
+            <p class="text-xs text-muted-foreground">隐私声明 / 开始面试</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 1: interview mode (text / voice / video) -->
+      <section class="mb-10" aria-label="面试模式选择">
+        <div class="flex items-center gap-2 mb-4">
+          <i data-lucide="layers" class="w-5 h-5 text-primary"></i>
+          <h2 class="edu-h2 text-foreground">选择面试模式</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <label class="relative cursor-pointer group">
+            <input type="radio" name="interview-mode" value="text" class="peer sr-only" checked>
+            <div class="h-full p-5 rounded-lg border border-border bg-card shadow-sm transition-all peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-1 peer-checked:ring-primary hover:border-primary/50">
+              <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-3">
+                <i data-lucide="message-square-text" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-semibold text-foreground">文字模式</h3>
+              <p class="mt-1 text-sm text-muted-foreground">以聊天气泡交互作答，支持多轮文字追问，适合稳步构思与复盘。</p>
+            </div>
+            <div class="absolute top-3 right-3 w-5 h-5 rounded-full border border-border bg-card flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground">
+              <i data-lucide="check" class="w-3 h-3 opacity-0 peer-checked:opacity-100"></i>
+            </div>
+          </label>
+
+          <label class="relative cursor-pointer group">
+            <input type="radio" name="interview-mode" value="voice" class="peer sr-only">
+            <div class="h-full p-5 rounded-lg border border-border bg-card shadow-sm transition-all peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-1 peer-checked:ring-primary hover:border-primary/50">
+              <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-3">
+                <i data-lucide="mic" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-semibold text-foreground">语音模式</h3>
+              <p class="mt-1 text-sm text-muted-foreground">语音输入自动转写，AI 语音播报题目，实时展示波形图与转写文字。</p>
+            </div>
+            <div class="absolute top-3 right-3 w-5 h-5 rounded-full border border-border bg-card flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground">
+              <i data-lucide="check" class="w-3 h-3 opacity-0 peer-checked:opacity-100"></i>
+            </div>
+          </label>
+
+          <div class="relative group opacity-70">
+            <div class="h-full p-5 rounded-lg border border-dashed border-border bg-card shadow-sm">
+              <div class="absolute top-3 right-3">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-muted text-muted-foreground">P2 / 即将上线</span>
+              </div>
+              <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-3">
+                <i data-lucide="video" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-semibold text-foreground">视频模式</h3>
+              <p class="mt-1 text-sm text-muted-foreground">模拟真实视频面试场景，支持面部表情与仪态举止分析。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 2: school picker + major direction -->
+      <section class="mb-10" aria-label="目标院校与专业方向">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div>
+            <div class="flex items-center gap-2 mb-4">
+              <i data-lucide="school" class="w-5 h-5 text-primary"></i>
+              <h2 class="edu-h2 text-foreground">选择目标院校</h2>
+            </div>
+            <div class="p-6 rounded-lg border border-border bg-card">
+              <label for="school-search" class="sr-only">搜索院校</label>
+              <div class="relative">
+                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"></i>
+                <input id="school-search" type="text" placeholder="搜索 32 所三一院校，如浙江工业大学…" class="w-full pl-10 pr-4 py-3 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+              </div>
+              <div class="mt-4">
+                <p class="text-sm text-muted-foreground mb-2">热门院校</p>
+                <div class="flex flex-wrap gap-2">
+                  <label class="cursor-pointer"><input type="radio" name="school" value="zjut" class="peer sr-only"><span class="inline-block px-3 py-1.5 rounded-full text-sm border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">浙江工业大学</span></label>
+                  <label class="cursor-pointer"><input type="radio" name="school" value="hdu" class="peer sr-only"><span class="inline-block px-3 py-1.5 rounded-full text-sm border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">杭州电子科技大学</span></label>
+                  <label class="cursor-pointer"><input type="radio" name="school" value="zstu" class="peer sr-only"><span class="inline-block px-3 py-1.5 rounded-full text-sm border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">浙江理工大学</span></label>
+                  <label class="cursor-pointer"><input type="radio" name="school" value="zjnu" class="peer sr-only"><span class="inline-block px-3 py-1.5 rounded-full text-sm border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">浙江师范大学</span></label>
+                  <label class="cursor-pointer"><input type="radio" name="school" value="nbu" class="peer sr-only"><span class="inline-block px-3 py-1.5 rounded-full text-sm border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">宁波大学</span></label>
+                  <label class="cursor-pointer"><input type="radio" name="school" value="hznu" class="peer sr-only"><span class="inline-block px-3 py-1.5 rounded-full text-sm border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">杭州师范大学</span></label>
+                  <label class="cursor-pointer"><input type="radio" name="school" value="zufe" class="peer sr-only"><span class="inline-block px-3 py-1.5 rounded-full text-sm border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">浙江财经大学</span></label>
+                  <label class="cursor-pointer"><input type="radio" name="school" value="zjsu" class="peer sr-only"><span class="inline-block px-3 py-1.5 rounded-full text-sm border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">浙江工商大学</span></label>
+                </div>
+              </div>
+              <div class="mt-4 max-h-40 overflow-y-auto rounded-md border border-border bg-background p-3">
+                <p class="text-xs text-muted-foreground mb-2">全部 32 所三位一体院校</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zju" class="text-primary"><span class="text-foreground">浙江大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zjut" class="text-primary"><span class="text-foreground">浙江工业大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zjnu" class="text-primary"><span class="text-foreground">浙江师范大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="nbu" class="text-primary"><span class="text-foreground">宁波大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="hdu" class="text-primary"><span class="text-foreground">杭州电子科技大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zstu" class="text-primary"><span class="text-foreground">浙江理工大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zjsu" class="text-primary"><span class="text-foreground">浙江工商大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zufe" class="text-primary"><span class="text-foreground">浙江财经大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zcmu" class="text-primary"><span class="text-foreground">浙江中医药大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="cjlu" class="text-primary"><span class="text-foreground">中国计量大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zafu" class="text-primary"><span class="text-foreground">浙江农林大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="wmu" class="text-primary"><span class="text-foreground">温州医科大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zjou" class="text-primary"><span class="text-foreground">浙江海洋大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="hznu" class="text-primary"><span class="text-foreground">杭州师范大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="hutc" class="text-primary"><span class="text-foreground">湖州师范学院</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="usx" class="text-primary"><span class="text-foreground">绍兴文理学院</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="tzc" class="text-primary"><span class="text-foreground">台州学院</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="wzu" class="text-primary"><span class="text-foreground">温州大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zisu" class="text-primary"><span class="text-foreground">浙江外国语学院</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zucc" class="text-primary"><span class="text-foreground">浙大城市学院</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zstu-w" class="text-primary"><span class="text-foreground">浙江科技大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zjweu" class="text-primary"><span class="text-foreground">浙江水利水电学院</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="jixing" class="text-primary"><span class="text-foreground">嘉兴大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="quzhou" class="text-primary"><span class="text-foreground">衢州学院</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="lsu" class="text-primary"><span class="text-foreground">丽水学院</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zjcm" class="text-primary"><span class="text-foreground">浙江音乐学院</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zjwl" class="text-primary"><span class="text-foreground">浙江万里学院</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="nbtu" class="text-primary"><span class="text-foreground">宁波工程学院</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zjsru" class="text-primary"><span class="text-foreground">浙江树人学院</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="zyufs" class="text-primary"><span class="text-foreground">浙江越秀外国语学院</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="nottingham" class="text-primary"><span class="text-foreground">宁波诺丁汉大学</span></label>
+                  <label class="flex items-center gap-2 cursor-pointer hover:bg-muted rounded px-1 py-1"><input type="radio" name="school" value="wku" class="text-primary"><span class="text-foreground">温州肯恩大学</span></label>
+                </div>
+              </div>
+              <div class="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+                <i data-lucide="map-pin" class="w-4 h-4"></i>
+                <span>已选院校将用于匹配该校面试风格与高频题型。</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-2 mb-4">
+              <i data-lucide="book-open" class="w-5 h-5 text-primary"></i>
+              <h2 class="edu-h2 text-foreground">选择专业方向</h2>
+            </div>
+            <div class="p-6 rounded-lg border border-border bg-card">
+              <p class="text-sm text-muted-foreground mb-3">按专业大类选择，题目将贴合该大类知识体系与能力要求。</p>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <label class="cursor-pointer">
+                  <input type="radio" name="major" value="engineering" class="peer sr-only" checked>
+                  <span class="flex flex-col items-center gap-2 p-4 rounded-lg border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">
+                    <i data-lucide="cpu" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">工学</span>
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="major" value="science" class="peer sr-only">
+                  <span class="flex flex-col items-center gap-2 p-4 rounded-lg border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">
+                    <i data-lucide="flask-conical" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">理学</span>
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="major" value="literature" class="peer sr-only">
+                  <span class="flex flex-col items-center gap-2 p-4 rounded-lg border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">
+                    <i data-lucide="pen-tool" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">文学</span>
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="major" value="economics" class="peer sr-only">
+                  <span class="flex flex-col items-center gap-2 p-4 rounded-lg border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">
+                    <i data-lucide="trending-up" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">经济学</span>
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="major" value="management" class="peer sr-only">
+                  <span class="flex flex-col items-center gap-2 p-4 rounded-lg border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">
+                    <i data-lucide="briefcase" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">管理学</span>
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="major" value="law" class="peer sr-only">
+                  <span class="flex flex-col items-center gap-2 p-4 rounded-lg border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">
+                    <i data-lucide="scale" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">法学</span>
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="major" value="education" class="peer sr-only">
+                  <span class="flex flex-col items-center gap-2 p-4 rounded-lg border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">教育学</span>
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="major" value="medicine" class="peer sr-only">
+                  <span class="flex flex-col items-center gap-2 p-4 rounded-lg border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">
+                    <i data-lucide="heart-pulse" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">医学</span>
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="major" value="arts" class="peer sr-only">
+                  <span class="flex flex-col items-center gap-2 p-4 rounded-lg border border-border bg-background text-foreground transition-colors peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary hover:bg-muted">
+                    <i data-lucide="palette" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">艺术学</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 3: interview type + duration + question ratio -->
+      <section class="mb-10" aria-label="面试类型、时长与题型占比">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2">
+            <div class="flex items-center gap-2 mb-4">
+              <i data-lucide="clipboard-list" class="w-5 h-5 text-primary"></i>
+              <h2 class="edu-h2 text-foreground">选择面试类型</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              <label class="relative cursor-pointer group">
+                <input type="radio" name="interview-type" value="structured" class="peer sr-only" checked>
+                <div class="h-full p-5 rounded-lg border border-border bg-card shadow-sm transition-all peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-1 peer-checked:ring-primary hover:border-primary/50">
+                  <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-3">
+                    <i data-lucide="list-checks" class="w-5 h-5"></i>
+                  </div>
+                  <h3 class="font-semibold text-foreground">结构化面试</h3>
+                  <p class="mt-1 text-sm text-muted-foreground">固定题目序列，流程规范，适合熟悉标准问答节奏。</p>
+                </div>
+                <div class="absolute top-3 right-3 w-5 h-5 rounded-full border border-border bg-card flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground">
+                  <i data-lucide="check" class="w-3 h-3 opacity-0 peer-checked:opacity-100"></i>
+                </div>
+              </label>
+
+              <label class="relative cursor-pointer group">
+                <input type="radio" name="interview-type" value="semi-structured" class="peer sr-only">
+                <div class="h-full p-5 rounded-lg border border-border bg-card shadow-sm transition-all peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-1 peer-checked:ring-primary hover:border-primary/50">
+                  <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-3">
+                    <i data-lucide="messages-square" class="w-5 h-5"></i>
+                  </div>
+                  <h3 class="font-semibold text-foreground">半结构化面试</h3>
+                  <p class="mt-1 text-sm text-muted-foreground">固定基础题 + AI 根据回答智能追问 ≥2 轮，更贴近真实面试。</p>
+                </div>
+                <div class="absolute top-3 right-3 w-5 h-5 rounded-full border border-border bg-card flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground">
+                  <i data-lucide="check" class="w-3 h-3 opacity-0 peer-checked:opacity-100"></i>
+                </div>
+              </label>
+            </div>
+
+            <div class="flex items-center gap-2 mb-4">
+              <i data-lucide="pie-chart" class="w-5 h-5 text-primary"></i>
+              <h2 class="edu-h2 text-foreground">题目类型占比</h2>
+            </div>
+            <div class="p-6 rounded-lg border border-border bg-card">
+              <p class="text-sm text-muted-foreground mb-4">自定义各类题目在面试中的占比，总和需为 100%。</p>
+              <div class="space-y-4">
+                <div class="flex items-center gap-4">
+                  <label class="w-24 text-sm font-medium text-foreground shrink-0">自我介绍</label>
+                  <input type="range" name="ratio-intro" min="0" max="100" value="15" class="flex-1 h-2 rounded-lg appearance-none bg-muted accent-primary" oninput="document.getElementById('ratio-intro-val').textContent = this.value + '%'; updateRatioTotal()">
+                  <span id="ratio-intro-val" class="w-12 text-sm text-right text-foreground edu-number">15%</span>
+                </div>
+                <div class="flex items-center gap-4">
+                  <label class="w-24 text-sm font-medium text-foreground shrink-0">专业认知</label>
+                  <input type="range" name="ratio-prof" min="0" max="100" value="25" class="flex-1 h-2 rounded-lg appearance-none bg-muted accent-primary" oninput="document.getElementById('ratio-prof-val').textContent = this.value + '%'; updateRatioTotal()">
+                  <span id="ratio-prof-val" class="w-12 text-sm text-right text-foreground edu-number">25%</span>
+                </div>
+                <div class="flex items-center gap-4">
+                  <label class="w-24 text-sm font-medium text-foreground shrink-0">综合素质</label>
+                  <input type="range" name="ratio-comp" min="0" max="100" value="25" class="flex-1 h-2 rounded-lg appearance-none bg-muted accent-primary" oninput="document.getElementById('ratio-comp-val').textContent = this.value + '%'; updateRatioTotal()">
+                  <span id="ratio-comp-val" class="w-12 text-sm text-right text-foreground edu-number">25%</span>
+                </div>
+                <div class="flex items-center gap-4">
+                  <label class="w-24 text-sm font-medium text-foreground shrink-0">时事热点</label>
+                  <input type="range" name="ratio-news" min="0" max="100" value="20" class="flex-1 h-2 rounded-lg appearance-none bg-muted accent-primary" oninput="document.getElementById('ratio-news-val').textContent = this.value + '%'; updateRatioTotal()">
+                  <span id="ratio-news-val" class="w-12 text-sm text-right text-foreground edu-number">20%</span>
+                </div>
+                <div class="flex items-center gap-4">
+                  <label class="w-24 text-sm font-medium text-foreground shrink-0">逻辑思维</label>
+                  <input type="range" name="ratio-logic" min="0" max="100" value="15" class="flex-1 h-2 rounded-lg appearance-none bg-muted accent-primary" oninput="document.getElementById('ratio-logic-val').textContent = this.value + '%'; updateRatioTotal()">
+                  <span id="ratio-logic-val" class="w-12 text-sm text-right text-foreground edu-number">15%</span>
+                </div>
+              </div>
+              <div class="mt-4 flex items-center justify-between pt-4 border-t border-border">
+                <p class="text-sm text-muted-foreground">当前占比总和</p>
+                <p id="ratio-total" class="text-base font-semibold text-primary edu-number">100%</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-2 mb-4">
+              <i data-lucide="clock" class="w-5 h-5 text-primary"></i>
+              <h2 class="edu-h2 text-foreground">选择时长</h2>
+            </div>
+            <div class="grid grid-cols-1 gap-3">
+              <label class="relative cursor-pointer group">
+                <input type="radio" name="duration" value="15" class="peer sr-only" checked>
+                <div class="p-4 rounded-lg border border-border bg-card transition-all peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-1 peer-checked:ring-primary hover:border-primary/50">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="text-2xl font-semibold text-foreground edu-number">15</p>
+                      <p class="text-xs text-muted-foreground">分钟 / 精简模拟</p>
+                    </div>
+                    <p class="text-xs text-muted-foreground">约 3 道题</p>
+                  </div>
+                </div>
+                <div class="absolute top-3 right-3 w-5 h-5 rounded-full border border-border bg-card flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground">
+                  <i data-lucide="check" class="w-3 h-3 opacity-0 peer-checked:opacity-100"></i>
+                </div>
+              </label>
+
+              <label class="relative cursor-pointer group">
+                <input type="radio" name="duration" value="30" class="peer sr-only">
+                <div class="p-4 rounded-lg border border-border bg-card transition-all peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-1 peer-checked:ring-primary hover:border-primary/50">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="text-2xl font-semibold text-foreground edu-number">30</p>
+                      <p class="text-xs text-muted-foreground">分钟 / 标准模拟</p>
+                    </div>
+                    <p class="text-xs text-muted-foreground">约 5 道题</p>
+                  </div>
+                </div>
+                <div class="absolute top-3 right-3 w-5 h-5 rounded-full border border-border bg-card flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground">
+                  <i data-lucide="check" class="w-3 h-3 opacity-0 peer-checked:opacity-100"></i>
+                </div>
+              </label>
+
+              <label class="relative cursor-pointer group">
+                <input type="radio" name="duration" value="45" class="peer sr-only">
+                <div class="p-4 rounded-lg border border-border bg-card transition-all peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-1 peer-checked:ring-primary hover:border-primary/50">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="text-2xl font-semibold text-foreground edu-number">45</p>
+                      <p class="text-xs text-muted-foreground">分钟 / 深度模拟</p>
+                    </div>
+                    <p class="text-xs text-muted-foreground">约 7 道题</p>
+                  </div>
+                </div>
+                <div class="absolute top-3 right-3 w-5 h-5 rounded-full border border-border bg-card flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground">
+                  <i data-lucide="check" class="w-3 h-3 opacity-0 peer-checked:opacity-100"></i>
+                </div>
+              </label>
+            </div>
+
+            <div class="mt-6 p-4 rounded-lg border border-border bg-card">
+              <div class="flex items-center gap-2 mb-2">
+                <i data-lucide="bell" class="w-4 h-4 text-primary"></i>
+                <p class="text-sm font-semibold text-foreground">面试预约提醒</p>
+              </div>
+              <p class="text-sm text-muted-foreground">开启提醒后，系统将在预约面试时间前 15 分钟推送通知。</p>
+              <label class="mt-3 inline-flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-ring" checked>
+                <span class="text-sm text-foreground">开启提前 15 分钟提醒</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Notice + privacy card -->
+      <section class="mb-10" aria-label="面试须知与隐私声明">
+        <div class="p-6 rounded-lg border border-border bg-card">
+          <div class="flex items-center gap-2 mb-5">
+            <i data-lucide="info" class="w-5 h-5 text-primary"></i>
+            <h2 class="edu-h3 text-foreground">面试须知</h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+            <div class="flex gap-3">
+              <div class="mt-0.5 w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-foreground">流程说明</p>
+                <p class="text-sm text-muted-foreground">1. 确认设备 → 2. AI 考官提问 → 3. 作答/语音转写 → 4. AI 智能追问 ≥2 轮 → 5. 生成五维评估报告。</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="mt-0.5 w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-foreground">设备检查</p>
+                <p class="text-sm text-muted-foreground">文字模式仅需键盘；语音模式需麦克风权限；建议使用安静环境、稳定网络与充足光线。</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="mt-0.5 w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-foreground">注意事项</p>
+                <p class="text-sm text-muted-foreground">听清问题后先思考 10 秒，回答时结构清晰、举例具体；保持仪态自然，避免长时间停顿。</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="mt-0.5 w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-foreground">评分维度</p>
+                <p class="text-sm text-muted-foreground">表达能力 / 逻辑思维 / 专业认知 / 应变能力 / 仪态举止，总分 100 分，生成雷达图与改进建议。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-lg border border-primary/20 bg-primary/5 p-5">
+            <div class="flex items-start gap-3">
+              <div class="mt-0.5 w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <i data-lucide="shield-check" class="w-4 h-4"></i>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-foreground">隐私保护声明</p>
+                <ul class="mt-2 space-y-1.5 text-sm text-muted-foreground">
+                  <li class="flex items-center gap-2"><i data-lucide="lock" class="w-3.5 h-3.5"></i>面试录音、录像及文字回答均采用端到端加密存储。</li>
+                  <li class="flex items-center gap-2"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i>用户可在练习历史中一键删除全部面试数据。</li>
+                  <li class="flex items-center gap-2"><i data-lucide="ban" class="w-3.5 h-3.5"></i>面试数据仅用于个人能力评估，不会用于模型训练。</li>
+                  <li class="flex items-center gap-2"><i data-lucide="clock" class="w-3.5 h-3.5"></i>数据默认 30 天自动清理，到期后从服务器永久删除。</li>
+                </ul>
+                <label class="mt-4 inline-flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" class="w-4 h-4 rounded border-border text-primary focus:ring-ring" checked>
+                  <span class="text-sm text-foreground">我已阅读并同意隐私保护声明</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Start CTA -->
+      <section class="mb-14" aria-label="开始面试">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-6 rounded-lg border border-primary bg-primary/5">
+          <div>
+            <p class="text-foreground font-semibold">配置完成，准备开始模拟</p>
+            <p class="text-sm text-muted-foreground">点击开始后，AI 考官将按所选模式、院校风格与题型占比依次提问。</p>
+          </div>
+          <button type="button" data-dom-id="link-page-interview-report" onclick="window.location.href='interview-report.html'" class="start-cta inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-primary text-primary-foreground text-base font-semibold shadow-sm hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-ring">
+            开始 AI 面试模拟
+            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- Practice history -->
+      <section aria-label="练习历史">
+        <div class="flex items-center gap-2 mb-4">
+          <i data-lucide="history" class="w-5 h-5 text-primary"></i>
+          <h2 class="edu-h2 text-foreground">练习历史</h2>
+        </div>
+        <div class="rounded-lg border border-border bg-card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-muted">
+                <tr>
+                  <th class="text-left px-5 py-3 font-medium text-foreground">时间</th>
+                  <th class="text-left px-5 py-3 font-medium text-foreground">院校</th>
+                  <th class="text-left px-5 py-3 font-medium text-foreground">模式</th>
+                  <th class="text-left px-5 py-3 font-medium text-foreground">类型</th>
+                  <th class="text-left px-5 py-3 font-medium text-foreground">总分</th>
+                  <th class="text-right px-5 py-3 font-medium text-foreground">操作</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr class="hover:bg-muted/50">
+                  <td class="px-5 py-3.5 text-muted-foreground">2026-08-14 19:32</td>
+                  <td class="px-5 py-3.5 text-foreground font-medium">浙江工业大学</td>
+                  <td class="px-5 py-3.5 text-muted-foreground">语音模式</td>
+                  <td class="px-5 py-3.5 text-muted-foreground">半结构化</td>
+                  <td class="px-5 py-3.5"><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-success/10 text-success" style="background-color: rgba(16,185,129,0.1); color: #10b981;">82 / 100</span></td>
+                  <td class="px-5 py-3.5 text-right">
+                    <a href="interview-report.html" class="inline-flex items-center gap-1 text-sm text-primary hover:underline">回看报告<i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>
+                  </td>
+                </tr>
+                <tr class="hover:bg-muted/50">
+                  <td class="px-5 py-3.5 text-muted-foreground">2026-08-12 20:15</td>
+                  <td class="px-5 py-3.5 text-foreground font-medium">杭州电子科技大学</td>
+                  <td class="px-5 py-3.5 text-muted-foreground">文字模式</td>
+                  <td class="px-5 py-3.5 text-muted-foreground">结构化</td>
+                  <td class="px-5 py-3.5"><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-warning/10 text-warning" style="background-color: rgba(245,158,11,0.1); color: #d97706;">76 / 100</span></td>
+                  <td class="px-5 py-3.5 text-right">
+                    <a href="interview-report.html" class="inline-flex items-center gap-1 text-sm text-primary hover:underline">回看报告<i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>
+                  </td>
+                </tr>
+                <tr class="hover:bg-muted/50">
+                  <td class="px-5 py-3.5 text-muted-foreground">2026-08-10 18:40</td>
+                  <td class="px-5 py-3.5 text-foreground font-medium">浙江师范大学</td>
+                  <td class="px-5 py-3.5 text-muted-foreground">文字模式</td>
+                  <td class="px-5 py-3.5 text-muted-foreground">半结构化</td>
+                  <td class="px-5 py-3.5"><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-success/10 text-success" style="background-color: rgba(16,185,129,0.1); color: #10b981;">85 / 100</span></td>
+                  <td class="px-5 py-3.5 text-right">
+                    <a href="interview-report.html" class="inline-flex items-center gap-1 text-sm text-primary hover:underline">回看报告<i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="px-5 py-3 border-t border-border bg-muted/30 flex items-center justify-between">
+            <p class="text-xs text-muted-foreground">共 3 条练习记录，数据保存 30 天</p>
+            <button type="button" class="text-xs text-muted-foreground hover:text-destructive transition-colors" style="color: var(--edu-muted-foreground);">一键删除全部数据</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      function updateRatioTotal() {
+        const ids = ['ratio-intro', 'ratio-prof', 'ratio-comp', 'ratio-news', 'ratio-logic'];
+        const total = ids.reduce((sum, id) => sum + Number(document.querySelector('input[name="' + id + '"]').value), 0);
+        const el = document.getElementById('ratio-total');
+        el.textContent = total + '%';
+        el.className = 'text-base font-semibold edu-number ' + (total === 100 ? 'text-primary' : 'text-destructive');
+      }
+      updateRatioTotal();
+    </script>
+  </main>
+
+  <footer class="border-t border-edu-border bg-edu-muted/40">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-edu-primary font-medium">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <span>浙招智达</span>
+        </div>
+        <p class="text-sm text-edu-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p>
+        <div class="flex items-center gap-4 text-sm text-edu-muted-foreground">
+          <a href="#" class="hover:text-edu-primary transition-colors">隐私政策</a>
+          <a href="#" class="hover:text-edu-primary transition-colors">使用条款</a>
+          <a href="#" class="hover:text-edu-primary transition-colors">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    .bg-edu-background { background-color: var(--edu-background); }
+    .text-edu-foreground { color: var(--edu-foreground); }
+    .bg-edu-card { background-color: var(--edu-card); }
+    .bg-edu-muted { background-color: var(--edu-muted); }
+    .text-edu-muted-foreground { color: var(--edu-muted-foreground); }
+    .border-edu-border { border-color: var(--edu-border); }
+    .bg-edu-primary { background-color: var(--edu-primary); }
+    .text-edu-primary { color: var(--edu-primary); }
+    .text-edu-primary-foreground { color: var(--edu-primary-foreground); }
+    .hover\:bg-edu-muted:hover { background-color: var(--edu-muted); }
+    .hover\:text-edu-primary:hover { color: var(--edu-primary); }
+    .hover\:bg-\[\#0f766e\]:hover { background-color: #0f766e; }
+  </style>
+  <script>lucide.createIcons();</script>
+  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/pages.js" defer></script>
+</body>
+</html>

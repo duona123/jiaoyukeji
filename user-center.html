@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户中心 | 浙江三一/高职提招智能体</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--edu-background);
+    --color-foreground: var(--edu-foreground);
+    --color-card: var(--edu-card);
+    --color-card-foreground: var(--edu-card-foreground);
+    --color-popover: var(--edu-popover);
+    --color-popover-foreground: var(--edu-popover-foreground);
+    --color-primary: var(--edu-primary);
+    --color-primary-foreground: var(--edu-primary-foreground);
+    --color-muted: var(--edu-muted);
+    --color-muted-foreground: var(--edu-muted-foreground);
+    --color-border: var(--edu-border);
+    --color-input: var(--edu-input);
+    --color-ring: var(--edu-ring);
+    --radius-sm: var(--edu-radius-sm);
+    --radius-md: var(--edu-radius-md);
+    --radius-lg: var(--edu-radius-lg);
+  }
+  @layer base {
+    body { background: var(--edu-background); color: var(--edu-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    
+    
+</head>
+<body class="bg-edu-background text-edu-foreground min-h-screen flex flex-col" style="font-family: Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;">
+  <header class="sticky top-0 z-50 w-full border-b border-edu-border bg-white/80 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-edu-primary font-semibold text-lg" data-dom-id="nav-logo">
+        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <span>浙招智达</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="home" data-dom-id="nav-home">首页</a>
+        <a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="ai-chat" data-dom-id="nav-ai-chat">智能问答</a>
+        <a href="direction.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="plan" data-dom-id="nav-plan">学考规划</a>
+        <a href="ai-interview.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="interview" data-dom-id="nav-interview">AI 面试</a>
+        <a href="question-bank.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="bank" data-dom-id="nav-bank">题库</a>
+        <a href="user-center.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="user" data-dom-id="nav-user">用户中心</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button type="button" data-theme-toggle class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" aria-label="切换主题"><i data-lucide="sun" class="w-4 h-4" data-icon-name="sun"></i><i data-lucide="moon" class="w-4 h-4 hidden" data-icon-name="moon"></i></button>
+        <a href="vip-pricing.html" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-edu-primary text-white hover:bg-[#0f766e] transition-colors" data-dom-id="nav-vip">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>VIP
+        </a>
+        <a href="user-center.html" class="w-8 h-8 rounded-full bg-edu-muted flex items-center justify-center text-edu-muted-foreground hover:text-edu-primary transition-colors" data-dom-id="nav-avatar">
+          <i data-lucide="user" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="ai-interview.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">AI 面试</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">题库</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
+  </header>
+
+  <main id="page-content" class="flex-1">
+    <div class="mx-auto max-w-7xl px-6 py-10">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- 左侧导航 -->
+        <aside class="lg:w-64 lg:flex-shrink-0">
+          <div class="lg:sticky lg:top-24 bg-edu-card border border-edu-border rounded-xl p-4" style="box-shadow: var(--edu-shadow-1);">
+            <!-- 登录/用户摘要 -->
+            <div class="flex items-center gap-3 px-3 py-3 mb-3 rounded-lg bg-edu-muted/50">
+              <div class="w-10 h-10 rounded-full bg-edu-primary-100 flex items-center justify-center text-edu-primary flex-shrink-0">
+                <i data-lucide="user" class="w-5 h-5"></i>
+              </div>
+              <div class="min-w-0">
+                <p class="text-sm font-medium text-edu-foreground truncate">张同学</p>
+                <p class="text-xs text-edu-muted-foreground truncate">138 **** 6688</p>
+              </div>
+            </div>
+            <nav class="sidebar-nav flex flex-col gap-1" aria-label="用户中心导航">
+              <a href="#auth" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors">
+                <i data-lucide="log-in" class="w-4 h-4 text-edu-muted-foreground"></i>
+                <span>登录 / 注册</span>
+              </a>
+              <a href="#profile" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors">
+                <i data-lucide="user" class="w-4 h-4 text-edu-muted-foreground"></i>
+                <span>个人信息</span>
+              </a>
+              <a href="#vip" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors">
+                <i data-lucide="crown" class="w-4 h-4 text-edu-muted-foreground"></i>
+                <span>VIP 会员</span>
+              </a>
+              <a href="#plans" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors">
+                <i data-lucide="bookmark" class="w-4 h-4 text-edu-muted-foreground"></i>
+                <span>我的方案</span>
+              </a>
+              <a href="#practice" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors">
+                <i data-lucide="clipboard-check" class="w-4 h-4 text-edu-muted-foreground"></i>
+                <span>练习记录</span>
+              </a>
+              <a href="#following" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors">
+                <i data-lucide="heart" class="w-4 h-4 text-edu-muted-foreground"></i>
+                <span>关注院校</span>
+              </a>
+              <a href="#timeline" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors">
+                <i data-lucide="clock" class="w-4 h-4 text-edu-muted-foreground"></i>
+                <span>时间轴</span>
+              </a>
+              <a href="#notifications" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors">
+                <i data-lucide="bell" class="w-4 h-4 text-edu-muted-foreground"></i>
+                <span>消息通知</span>
+                <span class="ml-auto inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-medium">3</span>
+              </a>
+              <a href="#security" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors">
+                <i data-lucide="shield" class="w-4 h-4 text-edu-muted-foreground"></i>
+                <span>账号安全</span>
+              </a>
+            </nav>
+          </div>
+        </aside>
+
+        <!-- 右侧内容 -->
+        <div class="flex-1 min-w-0 space-y-8">
+          <!-- 登录/注册入口 -->
+          <section id="auth" class="scroll-mt-28">
+            <div class="bg-edu-card border border-edu-border rounded-xl p-6 md:p-8" style="box-shadow: var(--edu-shadow-1);">
+              <div class="flex items-center justify-between mb-6">
+                <h2 class="edu-h3 flex items-center gap-2">
+                  <i data-lucide="log-in" class="w-5 h-5 text-edu-primary"></i>
+                  登录 / 注册
+                </h2>
+                <span class="text-xs text-edu-muted-foreground">已登录可跳过</span>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 手机号登录 -->
+                <div class="space-y-4">
+                  <h3 class="text-sm font-semibold text-edu-foreground flex items-center gap-2">
+                    <i data-lucide="smartphone" class="w-4 h-4 text-edu-muted-foreground"></i>
+                    手机号 + 短信验证码
+                  </h3>
+                  <div class="space-y-3">
+                    <div>
+                      <label class="block text-xs font-medium text-edu-muted-foreground mb-1">手机号</label>
+                      <input type="tel" placeholder="请输入 11 位手机号" class="w-full px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm focus:outline-none focus:ring-2 focus:ring-edu-ring" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-edu-muted-foreground mb-1">短信验证码</label>
+                      <div class="flex gap-2">
+                        <input type="text" placeholder="6 位验证码" maxlength="6" class="flex-1 px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm focus:outline-none focus:ring-2 focus:ring-edu-ring" />
+                        <button type="button" class="px-3 py-2 rounded-lg text-xs font-medium bg-edu-primary text-white hover:bg-[#0f766e] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">获取验证码</button>
+                      </div>
+                      <p class="mt-1.5 text-xs text-edu-muted-foreground">验证码 60 秒内有效；每日每手机号限发 5 次。</p>
+                    </div>
+                    <button type="button" class="w-full px-4 py-2.5 rounded-lg text-sm font-medium bg-edu-primary text-white hover:bg-[#0f766e] transition-colors">登录 / 注册</button>
+                  </div>
+                </div>
+                <!-- 微信扫码 -->
+                <div class="space-y-4">
+                  <h3 class="text-sm font-semibold text-edu-foreground flex items-center gap-2">
+                    <i data-lucide="message-circle" class="w-4 h-4 text-edu-muted-foreground"></i>
+                    微信扫码一键登录
+                  </h3>
+                  <div class="flex flex-col items-center justify-center p-5 rounded-xl border border-dashed border-edu-border bg-edu-muted/30">
+                    <div class="w-32 h-32 rounded-lg bg-white border border-edu-border flex items-center justify-center mb-3">
+                      <i data-lucide="qr-code" class="w-20 h-20 text-edu-foreground"></i>
+                    </div>
+                    <p class="text-sm text-edu-muted-foreground text-center">微信扫一扫，一键登录</p>
+                    <p class="text-xs text-edu-muted-foreground text-center mt-1">首次登录后将引导绑定手机号</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 个人信息 -->
+          <section id="profile" class="scroll-mt-28">
+            <div class="bg-edu-card border border-edu-border rounded-xl p-6 md:p-8" style="box-shadow: var(--edu-shadow-1);">
+              <div class="flex items-center justify-between mb-6">
+                <h2 class="edu-h3 flex items-center gap-2">
+                  <i data-lucide="user" class="w-5 h-5 text-edu-primary"></i>
+                  个人信息
+                </h2>
+                <button type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium bg-edu-primary text-white hover:bg-[#0f766e] transition-colors">
+                  <i data-lucide="pencil" class="w-4 h-4"></i>
+                  编辑资料
+                </button>
+              </div>
+              <div class="profile-card flex flex-col md:flex-row gap-6 items-start">
+                <div class="w-20 h-20 rounded-full bg-edu-primary-100 flex items-center justify-center text-edu-primary flex-shrink-0">
+                  <i data-lucide="user" class="w-9 h-9"></i>
+                </div>
+                <div class="flex-1 space-y-8">
+                  <!-- 账号信息 -->
+                  <div>
+                    <h3 class="text-sm font-semibold text-edu-foreground mb-3 flex items-center gap-2">
+                      <i data-lucide="smartphone" class="w-4 h-4 text-edu-primary"></i>
+                      账号信息
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                      <div>
+                        <p class="edu-caption mb-0.5">手机号</p>
+                        <p class="text-base font-medium text-edu-foreground">138 **** 6688</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">昵称</p>
+                        <p class="text-base font-medium text-edu-foreground">小张</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 基本信息 -->
+                  <div>
+                    <h3 class="text-sm font-semibold text-edu-foreground mb-3 flex items-center gap-2">
+                      <i data-lucide="user" class="w-4 h-4 text-edu-primary"></i>
+                      基本信息
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                      <div>
+                        <p class="edu-caption mb-0.5">姓名</p>
+                        <p class="text-base font-medium text-edu-foreground">张同学</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">性别</p>
+                        <p class="text-base font-medium text-edu-foreground">男</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">出生年月日</p>
+                        <p class="text-base font-medium text-edu-foreground">2007-09-15</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">所在区县</p>
+                        <p class="text-base font-medium text-edu-foreground">杭州市西湖区</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 学校升学信息 -->
+                  <div>
+                    <h3 class="text-sm font-semibold text-edu-foreground mb-3 flex items-center gap-2">
+                      <i data-lucide="school" class="w-4 h-4 text-edu-primary"></i>
+                      学校升学信息
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                      <div>
+                        <p class="edu-caption mb-0.5">高考年份</p>
+                        <p class="text-base font-medium text-edu-foreground">2026</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">升学类型</p>
+                        <p class="text-base font-medium text-edu-foreground">普通高考</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">所属高中</p>
+                        <p class="text-base font-medium text-edu-foreground">杭州市第二中学</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">所属班级</p>
+                        <p class="text-base font-medium text-edu-foreground">高三（1）班</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">规划老师</p>
+                        <p class="text-base font-medium text-edu-foreground">王老师</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">办学性质</p>
+                        <p class="text-base font-medium text-edu-foreground">公办</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 学习成绩 -->
+                  <div>
+                    <h3 class="text-sm font-semibold text-edu-foreground mb-3 flex items-center gap-2">
+                      <i data-lucide="book-open" class="w-4 h-4 text-edu-primary"></i>
+                      学习成绩
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                      <div>
+                        <p class="edu-caption mb-0.5">选科组合</p>
+                        <p class="text-base font-medium text-edu-foreground">物理 + 化学 + 生物</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">外语种类</p>
+                        <p class="text-base font-medium text-edu-foreground">英语</p>
+                      </div>
+                      <div class="sm:col-span-2">
+                        <p class="edu-caption mb-0.5">学考成绩</p>
+                        <div class="flex flex-wrap gap-2 mt-1.5">
+                          <span class="px-2 py-1 rounded-md bg-edu-primary-100 text-edu-primary-700 text-sm font-medium">语 A</span>
+                          <span class="px-2 py-1 rounded-md bg-edu-primary-100 text-edu-primary-700 text-sm font-medium">数 A</span>
+                          <span class="px-2 py-1 rounded-md bg-edu-primary-100 text-edu-primary-700 text-sm font-medium">英 A</span>
+                          <span class="px-2 py-1 rounded-md bg-edu-primary-100 text-edu-primary-700 text-sm font-medium">物 A</span>
+                          <span class="px-2 py-1 rounded-md bg-edu-primary-100 text-edu-primary-700 text-sm font-medium">化 A</span>
+                          <span class="px-2 py-1 rounded-md bg-edu-primary-100 text-edu-primary-700 text-sm font-medium">生 A</span>
+                          <span class="px-2 py-1 rounded-md bg-edu-primary-100 text-edu-primary-700 text-sm font-medium">政 A</span>
+                          <span class="px-2 py-1 rounded-md bg-edu-primary-100 text-edu-primary-700 text-sm font-medium">史 B</span>
+                          <span class="px-2 py-1 rounded-md bg-edu-primary-100 text-edu-primary-700 text-sm font-medium">地 B</span>
+                          <span class="px-2 py-1 rounded-md bg-edu-primary-100 text-edu-primary-700 text-sm font-medium">技 B</span>
+                        </div>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">预估高考分</p>
+                        <p class="text-base font-medium text-edu-foreground">620</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">首考分</p>
+                        <p class="text-base font-medium text-edu-foreground">380</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">一模成绩</p>
+                        <p class="text-base font-medium text-edu-foreground">600</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">二模成绩</p>
+                        <p class="text-base font-medium text-edu-foreground">610</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">三模成绩</p>
+                        <p class="text-base font-medium text-edu-foreground">615</p>
+                      </div>
+                      <div class="sm:col-span-2">
+                        <p class="edu-caption mb-0.5">综合素质</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-1.5">
+                          <div>
+                            <label class="text-xs text-edu-muted-foreground block mb-1">品德表现</label>
+                            <select data-dom-id="quality-moral" class="w-full px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground focus:outline-none focus:ring-2 focus:ring-edu-ring">
+                              <option value="A" selected>A</option>
+                              <option value="B">B</option>
+                              <option value="C">C</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label class="text-xs text-edu-muted-foreground block mb-1">运动健康</label>
+                            <select data-dom-id="quality-health" class="w-full px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground focus:outline-none focus:ring-2 focus:ring-edu-ring">
+                              <option value="A" selected>A</option>
+                              <option value="B">B</option>
+                              <option value="C">C</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label class="text-xs text-edu-muted-foreground block mb-1">艺术素养</label>
+                            <select data-dom-id="quality-art" class="w-full px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground focus:outline-none focus:ring-2 focus:ring-edu-ring">
+                              <option value="A" selected>A</option>
+                              <option value="B">B</option>
+                              <option value="C">C</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label class="text-xs text-edu-muted-foreground block mb-1">创新实践</label>
+                            <select data-dom-id="quality-innovation" class="w-full px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground focus:outline-none focus:ring-2 focus:ring-edu-ring">
+                              <option value="A" selected>A</option>
+                              <option value="B">B</option>
+                              <option value="C">C</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sm:col-span-2">
+                        <p class="edu-caption mb-0.5">特长</p>
+                        <p class="text-base font-medium text-edu-foreground">钢琴十级</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 升学偏好 -->
+                  <div>
+                    <h3 class="text-sm font-semibold text-edu-foreground mb-3 flex items-center gap-2">
+                      <i data-lucide="map-pin" class="w-4 h-4 text-edu-primary"></i>
+                      升学偏好
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                      <div class="sm:col-span-2">
+                        <p class="edu-caption mb-0.5">意向专业（可多选）</p>
+                        <div class="flex flex-wrap gap-2 mt-1.5">
+                          <span class="px-2.5 py-1 rounded-full border border-edu-border bg-edu-muted/50 text-sm text-edu-foreground">计算机科学与技术</span>
+                          <span class="px-2.5 py-1 rounded-full border border-edu-border bg-edu-muted/50 text-sm text-edu-foreground">土木工程</span>
+                          <span class="px-2.5 py-1 rounded-full border border-edu-border bg-edu-muted/50 text-sm text-edu-foreground">小学教育</span>
+                          <button type="button" class="px-2.5 py-1 rounded-full border border-dashed border-edu-border text-sm text-edu-muted-foreground hover:border-edu-primary hover:text-edu-primary transition-colors">+ 添加</button>
+                        </div>
+                      </div>
+                      <div class="sm:col-span-2">
+                        <p class="edu-caption mb-0.5">目标院校 / 意向院校（可多选）</p>
+                        <div class="flex flex-wrap gap-2 mt-1.5">
+                          <span class="px-2.5 py-1 rounded-full border border-edu-border bg-edu-muted/50 text-sm text-edu-foreground">浙江工业大学</span>
+                          <span class="px-2.5 py-1 rounded-full border border-edu-border bg-edu-muted/50 text-sm text-edu-foreground">浙江师范大学</span>
+                          <span class="px-2.5 py-1 rounded-full border border-edu-border bg-edu-muted/50 text-sm text-edu-foreground">宁波大学</span>
+                          <button type="button" class="px-2.5 py-1 rounded-full border border-dashed border-edu-border text-sm text-edu-muted-foreground hover:border-edu-primary hover:text-edu-primary transition-colors">+ 添加</button>
+                        </div>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">意向地区</p>
+                        <p class="text-base font-medium text-edu-foreground">杭州、宁波</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">不考虑地区</p>
+                        <p class="text-base font-medium text-edu-foreground">无</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">不考虑院校</p>
+                        <p class="text-base font-medium text-edu-foreground">无</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">不考虑专业</p>
+                        <p class="text-base font-medium text-edu-foreground">无</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 身体条件 -->
+                  <div>
+                    <h3 class="text-sm font-semibold text-edu-foreground mb-3 flex items-center gap-2">
+                      <i data-lucide="heart-pulse" class="w-4 h-4 text-edu-primary"></i>
+                      身体条件
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                      <div>
+                        <p class="edu-caption mb-0.5">身高</p>
+                        <p class="text-base font-medium text-edu-foreground">175 cm</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">体重</p>
+                        <p class="text-base font-medium text-edu-foreground">65 kg</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">视力</p>
+                        <p class="text-base font-medium text-edu-foreground">5.0</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">色弱</p>
+                        <p class="text-base font-medium text-edu-foreground">无</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">色盲</p>
+                        <p class="text-base font-medium text-edu-foreground">无</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">有无明显疤痕</p>
+                        <p class="text-base font-medium text-edu-foreground">无</p>
+                      </div>
+                      <div class="sm:col-span-2">
+                        <p class="edu-caption mb-0.5">其他身体情况说明</p>
+                        <p class="text-base font-medium text-edu-foreground">无</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 家庭成员 -->
+                  <div>
+                    <h3 class="text-sm font-semibold text-edu-foreground mb-3 flex items-center gap-2">
+                      <i data-lucide="users" class="w-4 h-4 text-edu-primary"></i>
+                      家庭成员
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                      <div>
+                        <p class="edu-caption mb-0.5">爸爸姓名</p>
+                        <p class="text-base font-medium text-edu-foreground">张先生</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">爸爸手机号</p>
+                        <p class="text-base font-medium text-edu-foreground">139 **** 1234</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">妈妈姓名</p>
+                        <p class="text-base font-medium text-edu-foreground">张女士</p>
+                      </div>
+                      <div>
+                        <p class="edu-caption mb-0.5">妈妈手机号</p>
+                        <p class="text-base font-medium text-edu-foreground">137 **** 5678</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-6 pt-6 border-t border-edu-border">
+                <p class="text-xs text-edu-muted-foreground flex items-center gap-1.5">
+                  <i data-lucide="info" class="w-3.5 h-3.5"></i>
+                  个人信息采用实时保存模式，修改后自动保存。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- VIP 会员 -->
+          <section id="vip" class="scroll-mt-28">
+            <div class="vip-card border-2 border-amber-400 bg-gradient-to-br from-[#0f766e] to-[#14b8a6] rounded-xl p-6 md:p-8 text-white" style="box-shadow: var(--edu-shadow-2);">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-start gap-4">
+                  <div class="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 border-2 border-amber-300">
+                    <i data-lucide="crown" class="w-7 h-7 text-amber-300"></i>
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2 mb-1">
+                      <h2 class="text-xl font-semibold">全能 VIP</h2>
+                      <span class="px-2 py-0.5 rounded-full bg-amber-400/20 border border-amber-300/40 text-xs font-medium text-amber-100">当前等级</span>
+                    </div>
+                    <p class="text-white/90 text-sm">畅享无限 AI 规划、AI 面试模拟与全量题库权益</p>
+                    <div class="mt-3 flex flex-wrap items-center gap-3">
+                      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-xs font-medium">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                        到期日 2026-12-31
+                      </span>
+                      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/40 text-xs font-medium text-amber-100">
+                        <i data-lucide="timer" class="w-3.5 h-3.5"></i>
+                        剩余 138 天
+                      </span>
+                    </div>
+                    <p class="mt-2 text-xs text-amber-100/90">到期前 7 天将提醒您续费，续费享 9 折优惠。</p>
+                  </div>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3 md:text-right">
+                  <a href="vip-pricing.html" data-dom-id="link-page-vip-pricing" class="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-semibold bg-amber-400 text-[#0f766e] hover:bg-amber-300 transition-colors">
+                    <i data-lucide="crown" class="w-4 h-4"></i>
+                    续费 / 升级
+                  </a>
+                  <a href="#plans" class="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-semibold border border-white/40 text-white hover:bg-white/10 transition-colors">
+                    查看权益
+                  </a>
+                </div>
+              </div>
+              <div class="mt-6 pt-6 border-t border-white/20">
+                <h3 class="text-sm font-semibold mb-3 flex items-center gap-2">
+                  <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                  权益列表
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  <div class="flex items-center gap-2 text-sm text-white/90"><i data-lucide="check" class="w-4 h-4 text-amber-300"></i><span>智能问答无限次</span></div>
+                  <div class="flex items-center gap-2 text-sm text-white/90"><i data-lucide="check" class="w-4 h-4 text-amber-300"></i><span>志愿方案无限生成</span></div>
+                  <div class="flex items-center gap-2 text-sm text-white/90"><i data-lucide="check" class="w-4 h-4 text-amber-300"></i><span>院校多维度对比</span></div>
+                  <div class="flex items-center gap-2 text-sm text-white/90"><i data-lucide="check" class="w-4 h-4 text-amber-300"></i><span>录取概率预估</span></div>
+                  <div class="flex items-center gap-2 text-sm text-white/90"><i data-lucide="check" class="w-4 h-4 text-amber-300"></i><span>AI 面试模拟（无限次）</span></div>
+                  <div class="flex items-center gap-2 text-sm text-white/90"><i data-lucide="check" class="w-4 h-4 text-amber-300"></i><span>题库刷题全量解锁</span></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 我的方案 -->
+          <section id="plans" class="scroll-mt-28">
+            <div class="bg-edu-card border border-edu-border rounded-xl p-6 md:p-8" style="box-shadow: var(--edu-shadow-1);">
+              <div class="flex items-center justify-between mb-6">
+                <h2 class="edu-h3 flex items-center gap-2">
+                  <i data-lucide="bookmark" class="w-5 h-5 text-edu-primary"></i>
+                  我的方案
+                </h2>
+                <a href="direction.html" class="inline-flex items-center gap-1 text-sm font-medium text-edu-primary hover:underline">
+                  生成新方案
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+              </div>
+              <div class="plan-list space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30 hover:bg-edu-muted/60 transition-colors">
+                  <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-edu-primary-100 flex items-center justify-center text-edu-primary flex-shrink-0">
+                      <i data-lucide="school" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <p class="font-semibold text-edu-foreground">浙江工业大学 · 三位一体</p>
+                        <button type="button" class="text-edu-muted-foreground hover:text-edu-primary" title="重命名"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+                      </div>
+                      <p class="edu-caption mt-0.5">生成时间 2026-08-12 · 院校数量 5 所 · 意向专业 计算机类</p>
+                      <p class="text-xs text-edu-muted-foreground mt-1">备注：优先冲浙工大，保底宁波职院。</p>
+                      <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-emerald-700">匹配度 92%</span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-edu-primary-100 text-edu-primary-700">已收藏</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 sm:flex-shrink-0">
+                    <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+                      <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                      查看
+                    </button>
+                    <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors" title="备注">
+                      <i data-lucide="sticky-note" class="w-3.5 h-3.5"></i>
+                    </button>
+                    <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-edu-state-error hover:bg-edu-state-error-bg transition-colors">
+                      <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30 hover:bg-edu-muted/60 transition-colors">
+                  <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-edu-primary-100 flex items-center justify-center text-edu-primary flex-shrink-0">
+                      <i data-lucide="school" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <p class="font-semibold text-edu-foreground">浙江师范大学 · 三位一体</p>
+                        <button type="button" class="text-edu-muted-foreground hover:text-edu-primary" title="重命名"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+                      </div>
+                      <p class="edu-caption mt-0.5">生成时间 2026-08-10 · 院校数量 4 所 · 意向专业 教育学类</p>
+                      <p class="text-xs text-edu-muted-foreground mt-1">备注：师范方向为主。</p>
+                      <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-100 text-amber-700">匹配度 78%</span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-edu-primary-100 text-edu-primary-700">已收藏</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 sm:flex-shrink-0">
+                    <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+                      <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                      查看
+                    </button>
+                    <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors" title="备注">
+                      <i data-lucide="sticky-note" class="w-3.5 h-3.5"></i>
+                    </button>
+                    <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-edu-state-error hover:bg-edu-state-error-bg transition-colors">
+                      <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30 hover:bg-edu-muted/60 transition-colors">
+                  <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-edu-primary-100 flex items-center justify-center text-edu-primary flex-shrink-0">
+                      <i data-lucide="school" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <p class="font-semibold text-edu-foreground">宁波大学 · 高职提前招生</p>
+                        <button type="button" class="text-edu-muted-foreground hover:text-edu-primary" title="重命名"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+                      </div>
+                      <p class="edu-caption mt-0.5">生成时间 2026-08-08 · 院校数量 3 所 · 意向专业 计算机应用技术</p>
+                      <p class="text-xs text-edu-muted-foreground mt-1">备注：保底方案。</p>
+                      <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-700">匹配度 85%</span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-edu-primary-100 text-edu-primary-700">已收藏</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 sm:flex-shrink-0">
+                    <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+                      <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                      查看
+                    </button>
+                    <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors" title="备注">
+                      <i data-lucide="sticky-note" class="w-3.5 h-3.5"></i>
+                    </button>
+                    <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-edu-state-error hover:bg-edu-state-error-bg transition-colors">
+                      <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 练习记录 -->
+          <section id="practice" class="scroll-mt-28">
+            <div class="bg-edu-card border border-edu-border rounded-xl p-6 md:p-8" style="box-shadow: var(--edu-shadow-1);">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <h2 class="edu-h3 flex items-center gap-2">
+                  <i data-lucide="clipboard-check" class="w-5 h-5 text-edu-primary"></i>
+                  练习记录
+                </h2>
+                <div class="flex items-center gap-3">
+                  <select class="px-3 py-1.5 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground focus:outline-none focus:ring-2 focus:ring-edu-ring">
+                    <option>全部类型</option>
+                    <option>AI 面试</option>
+                    <option>题库刷题</option>
+                  </select>
+                  <select class="px-3 py-1.5 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground focus:outline-none focus:ring-2 focus:ring-edu-ring">
+                    <option>最近 30 天</option>
+                    <option>最近 7 天</option>
+                    <option>最近 90 天</option>
+                  </select>
+                  <a href="ai-interview.html" class="inline-flex items-center gap-1 text-sm font-medium text-edu-primary hover:underline">
+                    开始练习
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                </div>
+              </div>
+
+              <!-- AI 面试记录 -->
+              <div class="mb-6">
+                <h3 class="text-sm font-semibold text-edu-foreground mb-3 flex items-center gap-2">
+                  <i data-lucide="mic" class="w-4 h-4 text-edu-muted-foreground"></i>
+                  AI 面试记录
+                </h3>
+                <div class="space-y-3">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30">
+                    <div class="flex items-center gap-4">
+                      <div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                        <i data-lucide="mic" class="w-5 h-5"></i>
+                      </div>
+                      <div>
+                        <p class="font-medium text-edu-foreground">AI 面试模拟 · 自我介绍</p>
+                        <p class="edu-caption mt-0.5">2026-08-12 · 浙江工业大学 · 时长 8 分钟</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-4 sm:flex-shrink-0">
+                      <div class="text-right">
+                        <p class="text-lg font-semibold text-emerald-600">86<span class="text-sm font-normal text-edu-muted-foreground">/100</span></p>
+                        <p class="edu-caption">综合总分</p>
+                      </div>
+                      <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+                        <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                        回看
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30">
+                    <div class="flex items-center gap-4">
+                      <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+                        <i data-lucide="mic" class="w-5 h-5"></i>
+                      </div>
+                      <div>
+                        <p class="font-medium text-edu-foreground">AI 面试模拟 · 专业认知</p>
+                        <p class="edu-caption mt-0.5">2026-08-08 · 浙江师范大学 · 时长 12 分钟</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-4 sm:flex-shrink-0">
+                      <div class="text-right">
+                        <p class="text-lg font-semibold text-blue-600">78<span class="text-sm font-normal text-edu-muted-foreground">/100</span></p>
+                        <p class="edu-caption">综合总分</p>
+                      </div>
+                      <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+                        <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                        回看
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 题库练习记录 -->
+              <div>
+                <h3 class="text-sm font-semibold text-edu-foreground mb-3 flex items-center gap-2">
+                  <i data-lucide="file-question" class="w-4 h-4 text-edu-muted-foreground"></i>
+                  题库练习记录
+                </h3>
+                <div class="space-y-3">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30">
+                    <div class="flex items-center gap-4">
+                      <div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600 flex-shrink-0">
+                        <i data-lucide="file-question" class="w-5 h-5"></i>
+                      </div>
+                      <div>
+                        <p class="font-medium text-edu-foreground">题库练习 · 综合素质 50 题</p>
+                        <p class="edu-caption mt-0.5">2026-08-10 · 用时 32 分钟</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-4 sm:flex-shrink-0">
+                      <div class="text-right">
+                        <p class="text-lg font-semibold text-amber-600">42<span class="text-sm font-normal text-edu-muted-foreground">/50</span></p>
+                        <p class="edu-caption">正确率 84%</p>
+                      </div>
+                      <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+                        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                        重练
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30">
+                    <div class="flex items-center gap-4">
+                      <div class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600 flex-shrink-0">
+                        <i data-lucide="file-question" class="w-5 h-5"></i>
+                      </div>
+                      <div>
+                        <p class="font-medium text-edu-foreground">题库练习 · 逻辑推理 30 题</p>
+                        <p class="edu-caption mt-0.5">2026-08-06 · 用时 18 分钟</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-4 sm:flex-shrink-0">
+                      <div class="text-right">
+                        <p class="text-lg font-semibold text-purple-600">24<span class="text-sm font-normal text-edu-muted-foreground">/30</span></p>
+                        <p class="edu-caption">正确率 80%</p>
+                      </div>
+                      <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+                        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                        重练
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 关注院校 -->
+          <section id="following" class="scroll-mt-28">
+            <div class="bg-edu-card border border-edu-border rounded-xl p-6 md:p-8" style="box-shadow: var(--edu-shadow-1);">
+              <div class="flex items-center justify-between mb-6">
+                <h2 class="edu-h3 flex items-center gap-2">
+                  <i data-lucide="heart" class="w-5 h-5 text-edu-primary"></i>
+                  关注院校
+                </h2>
+                <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+                  <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                  添加院校
+                </button>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl border border-edu-border bg-edu-muted/30 hover:bg-edu-muted/60 transition-colors">
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 rounded-lg bg-edu-primary-100 flex items-center justify-center text-edu-primary flex-shrink-0">
+                        <i data-lucide="school" class="w-5 h-5"></i>
+                      </div>
+                      <div>
+                        <p class="font-semibold text-edu-foreground">浙江工业大学</p>
+                        <p class="edu-caption">三位一体 · 省重点建设高校</p>
+                      </div>
+                    </div>
+                    <button type="button" class="text-edu-muted-foreground hover:text-edu-state-error transition-colors" title="取消关注">
+                      <i data-lucide="heart-off" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                  <div class="mt-3 flex items-center gap-2 text-xs text-edu-muted-foreground">
+                    <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-edu-state-success"></i>
+                    <span>已同步到个人时间轴</span>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl border border-edu-border bg-edu-muted/30 hover:bg-edu-muted/60 transition-colors">
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 rounded-lg bg-edu-primary-100 flex items-center justify-center text-edu-primary flex-shrink-0">
+                        <i data-lucide="school" class="w-5 h-5"></i>
+                      </div>
+                      <div>
+                        <p class="font-semibold text-edu-foreground">浙江师范大学</p>
+                        <p class="edu-caption">三位一体 · 省重点建设高校</p>
+                      </div>
+                    </div>
+                    <button type="button" class="text-edu-muted-foreground hover:text-edu-state-error transition-colors" title="取消关注">
+                      <i data-lucide="heart-off" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                  <div class="mt-3 flex items-center gap-2 text-xs text-edu-muted-foreground">
+                    <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-edu-state-success"></i>
+                    <span>已同步到个人时间轴</span>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl border border-edu-border bg-edu-muted/30 hover:bg-edu-muted/60 transition-colors">
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 rounded-lg bg-edu-primary-100 flex items-center justify-center text-edu-primary flex-shrink-0">
+                        <i data-lucide="school" class="w-5 h-5"></i>
+                      </div>
+                      <div>
+                        <p class="font-semibold text-edu-foreground">宁波大学</p>
+                        <p class="edu-caption">三位一体 · 双一流</p>
+                      </div>
+                    </div>
+                    <button type="button" class="text-edu-muted-foreground hover:text-edu-state-error transition-colors" title="取消关注">
+                      <i data-lucide="heart-off" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                  <div class="mt-3 flex items-center gap-2 text-xs text-edu-muted-foreground">
+                    <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-edu-state-success"></i>
+                    <span>已同步到个人时间轴</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 个人时间轴 -->
+          <section id="timeline" class="scroll-mt-28">
+            <div class="bg-edu-card border border-edu-border rounded-xl p-6 md:p-8" style="box-shadow: var(--edu-shadow-1);">
+              <div class="flex items-center justify-between mb-6">
+                <h2 class="edu-h3 flex items-center gap-2">
+                  <i data-lucide="clock" class="w-5 h-5 text-edu-primary"></i>
+                  个人时间轴
+                </h2>
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="inline-flex items-center gap-1 text-xs text-edu-muted-foreground"><span class="w-2 h-2 rounded-full bg-edu-state-error"></span>报名截止</span>
+                  <span class="inline-flex items-center gap-1 text-xs text-edu-muted-foreground"><span class="w-2 h-2 rounded-full bg-edu-state-info"></span>初审公布</span>
+                  <span class="inline-flex items-center gap-1 text-xs text-edu-muted-foreground"><span class="w-2 h-2 rounded-full bg-edu-state-warning"></span>校测时间</span>
+                  <span class="inline-flex items-center gap-1 text-xs text-edu-muted-foreground"><span class="w-2 h-2 rounded-full bg-edu-state-success"></span>成绩公布</span>
+                </div>
+              </div>
+              <div class="timeline relative pl-6">
+                <div class="absolute left-[11px] top-2 bottom-2 w-0.5 bg-edu-border"></div>
+
+                <div class="relative mb-8 last:mb-0">
+                  <div class="absolute -left-[17px] top-1 w-3 h-3 rounded-full bg-edu-state-error ring-4 ring-white"></div>
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                    <p class="font-semibold text-edu-foreground">浙江工业大学 · 报名截止</p>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700">即将截止</span>
+                  </div>
+                  <p class="edu-caption mb-2">2026-03-25 17:00</p>
+                  <p class="text-sm text-edu-muted-foreground">请尽快登录高校本科招生网完成报名与材料提交。</p>
+                </div>
+
+                <div class="relative mb-8 last:mb-0">
+                  <div class="absolute -left-[17px] top-1 w-3 h-3 rounded-full bg-edu-state-info ring-4 ring-white"></div>
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                    <p class="font-semibold text-edu-foreground">浙江工业大学 · 初审公布</p>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">待公布</span>
+                  </div>
+                  <p class="edu-caption mb-2">2026-04-02 左右</p>
+                  <p class="text-sm text-edu-muted-foreground">关注初审入围名单，准备校测缴费与准考证打印。</p>
+                </div>
+
+                <div class="relative mb-8 last:mb-0">
+                  <div class="absolute -left-[17px] top-1 w-3 h-3 rounded-full bg-edu-state-warning ring-4 ring-white"></div>
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                    <p class="font-semibold text-edu-foreground">浙江工业大学 · 校测时间</p>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700">待进行</span>
+                  </div>
+                  <p class="edu-caption mb-2">2026-04-12 08:30</p>
+                  <p class="text-sm text-edu-muted-foreground">面试地点：朝晖校区，携带身份证、准考证。</p>
+                </div>
+
+                <div class="relative mb-8 last:mb-0">
+                  <div class="absolute -left-[17px] top-1 w-3 h-3 rounded-full bg-edu-state-success ring-4 ring-white"></div>
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                    <p class="font-semibold text-edu-foreground">浙江工业大学 · 成绩公布</p>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">待进行</span>
+                  </div>
+                  <p class="edu-caption mb-2">2026-04-25 左右</p>
+                  <p class="text-sm text-edu-muted-foreground">查询校测成绩与入围资格。</p>
+                </div>
+
+                <div class="relative mb-8 last:mb-0">
+                  <div class="absolute -left-[17px] top-1 w-3 h-3 rounded-full bg-edu-state-error ring-4 ring-white"></div>
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                    <p class="font-semibold text-edu-foreground">浙江师范大学 · 报名截止</p>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700">即将截止</span>
+                  </div>
+                  <p class="edu-caption mb-2">2026-03-24 17:00</p>
+                  <p class="text-sm text-edu-muted-foreground">截止前 3 天将推送站内与微信提醒。</p>
+                </div>
+
+                <div class="relative last:mb-0">
+                  <div class="absolute -left-[17px] top-1 w-3 h-3 rounded-full bg-edu-state-warning ring-4 ring-white"></div>
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                    <p class="font-semibold text-edu-foreground">浙江师范大学 · 校测时间</p>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700">待进行</span>
+                  </div>
+                  <p class="edu-caption mb-2">2026-04-15 09:00</p>
+                  <p class="text-sm text-edu-muted-foreground">与浙江工业大学校测时间间隔 3 天，请合理安排行程。</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 消息通知 -->
+          <section id="notifications" class="scroll-mt-28">
+            <div class="bg-edu-card border border-edu-border rounded-xl p-6 md:p-8" style="box-shadow: var(--edu-shadow-1);">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div class="flex items-center gap-2">
+                  <h2 class="edu-h3 flex items-center gap-2">
+                    <i data-lucide="bell" class="w-5 h-5 text-edu-primary"></i>
+                    消息通知
+                  </h2>
+                  <span class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-xs font-medium">3</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <button type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+                    <i data-lucide="check-check" class="w-3.5 h-3.5"></i>
+                    批量已读
+                  </button>
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm text-edu-muted-foreground">微信提醒</span>
+                    <button type="button" role="switch" aria-checked="true" class="relative inline-flex h-5 w-9 items-center rounded-full bg-edu-primary transition-colors">
+                      <span class="translate-x-4 inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="notification-list space-y-3">
+                <div class="flex items-start gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30 hover:bg-edu-muted/60 transition-colors">
+                  <div class="w-2 h-2 mt-2 rounded-full bg-red-500 flex-shrink-0"></div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                      <p class="font-medium text-edu-foreground">报名截止提醒</p>
+                      <span class="text-xs text-edu-muted-foreground">2026-08-14 09:00</span>
+                    </div>
+                    <p class="text-sm text-edu-muted-foreground">您关注的「浙江师范大学」三位一体报名将于 3 天后截止（2026-03-24 17:00），请及时完成报名。</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30 hover:bg-edu-muted/60 transition-colors">
+                  <div class="w-2 h-2 mt-2 rounded-full bg-red-500 flex-shrink-0"></div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                      <p class="font-medium text-edu-foreground">校测时间提醒</p>
+                      <span class="text-xs text-edu-muted-foreground">2026-08-13 18:30</span>
+                    </div>
+                    <p class="text-sm text-edu-muted-foreground">「浙江工业大学」校测将于 1 天后举行，请确认准考证、身份证及面试材料是否齐全。</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30 hover:bg-edu-muted/60 transition-colors">
+                  <div class="w-2 h-2 mt-2 rounded-full bg-red-500 flex-shrink-0"></div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                      <p class="font-medium text-edu-foreground">政策更新</p>
+                      <span class="text-xs text-edu-muted-foreground">2026-08-12 10:15</span>
+                    </div>
+                    <p class="text-sm text-edu-muted-foreground">2026 年浙江师范大学三位一体招生简章已发布，折算规则与报名条件有调整，请查看最新政策。</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30 opacity-70">
+                  <div class="w-2 h-2 mt-2 rounded-full bg-edu-neutral-300 flex-shrink-0"></div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                      <p class="font-medium text-edu-foreground">报名截止提醒</p>
+                      <span class="text-xs text-edu-muted-foreground">2026-08-10 09:00</span>
+                    </div>
+                    <p class="text-sm text-edu-muted-foreground">「宁波大学」三位一体报名已截止。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 账号安全 -->
+          <section id="security" class="scroll-mt-28">
+            <div class="bg-edu-card border border-edu-border rounded-xl p-6 md:p-8" style="box-shadow: var(--edu-shadow-1);">
+              <h2 class="edu-h3 flex items-center gap-2 mb-6">
+                <i data-lucide="shield" class="w-5 h-5 text-edu-primary"></i>
+                账号安全
+              </h2>
+              <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-edu-primary-100 flex items-center justify-center text-edu-primary flex-shrink-0">
+                      <i data-lucide="lock" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <p class="font-medium text-edu-foreground">修改密码</p>
+                      <p class="edu-caption">建议定期更换密码，保障账号安全</p>
+                    </div>
+                  </div>
+                  <button type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+                    修改
+                  </button>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-edu-primary-100 flex items-center justify-center text-edu-primary flex-shrink-0">
+                      <i data-lucide="smartphone" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <p class="font-medium text-edu-foreground">绑定手机号变更</p>
+                      <p class="edu-caption">当前手机号 138 **** 6688</p>
+                    </div>
+                  </div>
+                  <button type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+                    更换
+                  </button>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-edu-primary-100 flex items-center justify-center text-edu-primary flex-shrink-0">
+                      <i data-lucide="monitor" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <p class="font-medium text-edu-foreground">登录设备管理</p>
+                      <p class="edu-caption">当前在线设备 1 台，最近登录杭州</p>
+                    </div>
+                  </div>
+                  <button type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+                    管理
+                  </button>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center text-red-600 flex-shrink-0">
+                      <i data-lucide="user-x" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <p class="font-medium text-edu-foreground">注销账号</p>
+                      <p class="edu-caption">注销后数据将无法恢复，请谨慎操作</p>
+                    </div>
+                  </div>
+                  <button type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-medium text-edu-state-error hover:bg-edu-state-error-bg transition-colors">
+                    注销
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 消息免打扰 -->
+          <section id="dnd" class="scroll-mt-28">
+            <div class="bg-edu-card border border-edu-border rounded-xl p-6 md:p-8" style="box-shadow: var(--edu-shadow-1);">
+              <h2 class="edu-h3 flex items-center gap-2 mb-6">
+                <i data-lucide="bell-off" class="w-5 h-5 text-edu-primary"></i>
+                消息免打扰
+              </h2>
+              <div class="space-y-6">
+                <div class="space-y-3">
+                  <h3 class="text-sm font-semibold text-edu-foreground">通知开关</h3>
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="flex items-center justify-between p-3 rounded-lg border border-edu-border bg-edu-muted/30">
+                      <span class="text-sm text-edu-foreground flex items-center gap-2"><i data-lucide="inbox" class="w-4 h-4 text-edu-muted-foreground"></i>站内通知</span>
+                      <button type="button" role="switch" aria-checked="true" class="relative inline-flex h-5 w-9 items-center rounded-full bg-edu-primary transition-colors">
+                        <span class="translate-x-4 inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform"></span>
+                      </button>
+                    </div>
+                    <div class="flex items-center justify-between p-3 rounded-lg border border-edu-border bg-edu-muted/30">
+                      <span class="text-sm text-edu-foreground flex items-center gap-2"><i data-lucide="message-circle" class="w-4 h-4 text-edu-muted-foreground"></i>微信提醒</span>
+                      <button type="button" role="switch" aria-checked="true" class="relative inline-flex h-5 w-9 items-center rounded-full bg-edu-primary transition-colors">
+                        <span class="translate-x-4 inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform"></span>
+                      </button>
+                    </div>
+                    <div class="flex items-center justify-between p-3 rounded-lg border border-edu-border bg-edu-muted/30">
+                      <span class="text-sm text-edu-foreground flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4 text-edu-muted-foreground"></i>邮件通知</span>
+                      <button type="button" role="switch" aria-checked="false" class="relative inline-flex h-5 w-9 items-center rounded-full bg-edu-neutral-300 transition-colors">
+                        <span class="translate-x-0.5 inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-3">
+                  <h3 class="text-sm font-semibold text-edu-foreground">免打扰时段</h3>
+                  <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-xl border border-edu-border bg-edu-muted/30">
+                    <div class="flex items-center gap-2">
+                      <button type="button" role="switch" aria-checked="false" class="relative inline-flex h-5 w-9 items-center rounded-full bg-edu-neutral-300 transition-colors">
+                        <span class="translate-x-0.5 inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform"></span>
+                      </button>
+                      <span class="text-sm text-edu-foreground">开启免打扰</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-edu-muted-foreground">
+                      <span>从</span>
+                      <input type="time" value="22:00" class="px-2 py-1 rounded-md border border-edu-border bg-edu-background text-sm" />
+                      <span>至</span>
+                      <input type="time" value="08:00" class="px-2 py-1 rounded-md border border-edu-border bg-edu-background text-sm" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-edu-border bg-edu-muted/40">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-edu-primary font-medium">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <span>浙招智达</span>
+        </div>
+        <p class="text-sm text-edu-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p>
+        <div class="flex items-center gap-4 text-sm text-edu-muted-foreground">
+          <a href="#" class="hover:text-edu-primary transition-colors">隐私政策</a>
+          <a href="#" class="hover:text-edu-primary transition-colors">使用条款</a>
+          <a href="#" class="hover:text-edu-primary transition-colors">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>lucide.createIcons();</script>
+  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/pages.js" defer></script>
+</body>
+</html>

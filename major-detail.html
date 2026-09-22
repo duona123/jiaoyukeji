@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专业详情</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--edu-background);
+    --color-foreground: var(--edu-foreground);
+    --color-card: var(--edu-card);
+    --color-card-foreground: var(--edu-card-foreground);
+    --color-popover: var(--edu-popover);
+    --color-popover-foreground: var(--edu-popover-foreground);
+    --color-primary: var(--edu-primary);
+    --color-primary-foreground: var(--edu-primary-foreground);
+    --color-muted: var(--edu-muted);
+    --color-muted-foreground: var(--edu-muted-foreground);
+    --color-border: var(--edu-border);
+    --color-input: var(--edu-input);
+    --color-ring: var(--edu-ring);
+    --radius-sm: var(--edu-radius-sm);
+    --radius-md: var(--edu-radius-md);
+    --radius-lg: var(--edu-radius-lg);
+  }
+  @layer base {
+    body { background: var(--edu-background); color: var(--edu-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    
+    
+</head>
+<body class="min-h-screen font-sans antialiased flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-border bg-white/80 backdrop-blur relative">
+    <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <button id="nav-mobile-toggle" type="button" class="md:hidden p-2 rounded-md text-muted-foreground hover:bg-muted transition-colors" aria-label="打开菜单"><i data-lucide="menu" class="w-5 h-5"></i></button>
+        <a href="index.html" class="flex items-center gap-2 text-primary font-semibold text-lg" data-dom-id="nav-logo">
+        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <span>浙招智达</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="home" data-dom-id="nav-home">首页</a>
+        <a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="ai-chat" data-dom-id="nav-ai-chat">智能问答</a>
+        <a href="direction.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="plan" data-dom-id="nav-plan">学考规划</a>
+        <a href="ai-interview.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="interview" data-dom-id="nav-interview">AI 面试</a>
+        <a href="question-bank.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="bank" data-dom-id="nav-bank">题库</a>
+        <a href="user-center.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="user" data-dom-id="nav-user">用户中心</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button type="button" data-theme-toggle class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" aria-label="切换主题"><i data-lucide="sun" class="w-4 h-4" data-icon-name="sun"></i><i data-lucide="moon" class="w-4 h-4 hidden" data-icon-name="moon"></i></button>
+        <a href="vip-pricing.html" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity" data-dom-id="nav-vip">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>VIP
+        </a>
+        <a href="user-center.html" class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" data-dom-id="nav-avatar">
+          <i data-lucide="user" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="ai-interview.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">AI 面试</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">题库</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
+  </header>
+
+  <main id="page-content" class="flex-1 bg-background">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+        <a href="index.html" class="hover:text-primary transition-colors">首页</a>
+        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        <a href="plan-result.html" class="hover:text-primary transition-colors">志愿方案</a>
+        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        <span class="text-foreground">专业详情</span>
+      </nav>
+
+      <!-- Page Header -->
+      <section class="mb-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 class="edu-h1 text-foreground flex items-center gap-3">
+              <i data-lucide="graduation-cap" class="w-8 h-8 text-primary"></i>
+              <span id="page-major-name">机械工程</span>
+            </h1>
+            <p class="edu-body text-muted-foreground mt-2" id="page-school-name">浙江工业大学 · 专业详情</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <a href="plan-result.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors" data-dom-id="back-to-plan">
+              <i data-lucide="arrow-left" class="w-4 h-4"></i>返回志愿方案
+            </a>
+            <button type="button" onclick="alert('已将该专业加入意向志愿清单，可在用户中心查看。')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-[var(--edu-primary-700)] transition-colors" data-dom-id="add-to-wishlist">
+              <i data-lucide="heart" class="w-4 h-4"></i>加入意向志愿
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 专业概况 -->
+      <section class="bg-card border border-border rounded-lg p-6 mb-6" style="box-shadow: var(--edu-shadow-1);">
+        <h2 class="edu-h3 text-foreground mb-4 flex items-center gap-2">
+          <i data-lucide="info" class="w-5 h-5 text-primary"></i>专业概况
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="p-4 bg-muted/40 rounded-lg border border-border">
+            <p class="edu-caption text-muted-foreground">专业代码</p>
+            <p class="edu-body font-medium text-foreground edu-number" id="md-code">080201</p>
+          </div>
+          <div class="p-4 bg-muted/40 rounded-lg border border-border">
+            <p class="edu-caption text-muted-foreground">学科门类</p>
+            <p class="edu-body font-medium text-foreground" id="md-category">工学</p>
+          </div>
+          <div class="p-4 bg-muted/40 rounded-lg border border-border">
+            <p class="edu-caption text-muted-foreground">学制</p>
+            <p class="edu-body font-medium text-foreground" id="md-duration">4 年</p>
+          </div>
+          <div class="p-4 bg-muted/40 rounded-lg border border-border">
+            <p class="edu-caption text-muted-foreground">授予学位</p>
+            <p class="edu-body font-medium text-foreground" id="md-degree">工学学士</p>
+          </div>
+          <div class="p-4 bg-muted/40 rounded-lg border border-border">
+            <p class="edu-caption text-muted-foreground">选考科目要求</p>
+            <p class="edu-body font-medium text-foreground" id="md-subjects">物理</p>
+          </div>
+          <div class="p-4 bg-muted/40 rounded-lg border border-border">
+            <p class="edu-caption text-muted-foreground">学费</p>
+            <p class="edu-body font-medium text-foreground edu-number" id="md-fee">6000 元/年</p>
+          </div>
+          <div class="p-4 bg-muted/40 rounded-lg border border-border">
+            <p class="edu-caption text-muted-foreground">2026 招生计划</p>
+            <p class="edu-body font-medium text-foreground edu-number" id="md-plan">30 人</p>
+          </div>
+          <div class="p-4 bg-muted/40 rounded-lg border border-border">
+            <p class="edu-caption text-muted-foreground">招生类型</p>
+            <p class="edu-body font-medium text-foreground" id="md-type">三位一体</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 报名要求 -->
+      <section class="bg-card border border-border rounded-lg p-6 mb-6" style="box-shadow: var(--edu-shadow-1);">
+        <h2 class="edu-h3 text-foreground mb-4 flex items-center gap-2">
+          <span class="w-1 h-5 rounded-full bg-primary"></span>报名要求
+        </h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          <!-- 2026 -->
+          <div class="bg-card border border-border rounded-lg overflow-hidden">
+            <div class="bg-[var(--edu-neutral-700)] px-4 py-2.5">
+              <h3 class="text-sm font-semibold text-white">2026年</h3>
+            </div>
+            <div class="divide-y divide-border">
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">是否文理兼招</span><span class="text-sm font-medium text-foreground">是</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">报名规则</span><span class="text-sm font-medium text-foreground">学考等级+折算分</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考最低要求</span><span class="text-sm font-medium text-foreground">D</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考等级要求</span><span class="text-sm font-medium text-foreground">7A2D</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算分要求</span><span class="text-sm font-medium text-foreground edu-number">110</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算分规则</span><span class="text-sm font-medium text-foreground">A=15 B=10 C=5 D=0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算说明</span><span class="text-sm font-medium text-foreground">10 门学考折算</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">个人学考折算分</span><span class="text-sm font-medium text-foreground edu-number">150.0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">色盲要求</span><span class="text-sm font-medium text-foreground">否</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">色弱要求</span><span class="text-sm font-medium text-foreground">否</span></div>
+            </div>
+          </div>
+          <!-- 2025 -->
+          <div class="bg-card border border-border rounded-lg overflow-hidden">
+            <div class="bg-[var(--edu-neutral-700)] px-4 py-2.5">
+              <h3 class="text-sm font-semibold text-white">2025年</h3>
+            </div>
+            <div class="divide-y divide-border">
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">是否文理兼招</span><span class="text-sm font-medium text-foreground">是</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">报名规则</span><span class="text-sm font-medium text-foreground">学考等级+折算分</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考最低要求</span><span class="text-sm font-medium text-foreground">D</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考等级要求</span><span class="text-sm font-medium text-foreground">7A2D</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算分要求</span><span class="text-sm font-medium text-foreground edu-number">110</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算分规则</span><span class="text-sm font-medium text-foreground">A=15 B=10 C=5 D=0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算说明</span><span class="text-sm font-medium text-foreground">10 门学考折算</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">个人学考折算分</span><span class="text-sm font-medium text-foreground edu-number">150.0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">色盲要求</span><span class="text-sm font-medium text-foreground">否</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">色弱要求</span><span class="text-sm font-medium text-foreground">否</span></div>
+            </div>
+          </div>
+          <!-- 2024 -->
+          <div class="bg-card border border-border rounded-lg overflow-hidden">
+            <div class="bg-[var(--edu-neutral-700)] px-4 py-2.5">
+              <h3 class="text-sm font-semibold text-white">2024年</h3>
+            </div>
+            <div class="divide-y divide-border">
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">是否文理兼招</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">报名规则</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考最低要求</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考等级要求</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算分要求</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算分规则</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算说明</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">个人学考折算分</span><span class="text-sm font-medium text-muted-foreground edu-number">0.0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">色盲要求</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">色弱要求</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 初审入围 -->
+      <section class="bg-card border border-border rounded-lg p-6 mb-6" style="box-shadow: var(--edu-shadow-1);">
+        <h2 class="edu-h3 text-foreground mb-4 flex items-center gap-2">
+          <span class="w-1 h-5 rounded-full bg-primary"></span>初审入围
+        </h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          <!-- 2026 -->
+          <div class="bg-card border border-border rounded-lg overflow-hidden">
+            <div class="bg-[var(--edu-neutral-700)] px-4 py-2.5">
+              <h3 class="text-sm font-semibold text-white">2026年</h3>
+            </div>
+            <div class="divide-y divide-border">
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">招生计划人数</span><span class="text-sm font-medium text-foreground edu-number">20</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">计划入围人数</span><span class="text-sm font-medium text-foreground edu-number">140</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">实际入围人数</span><span class="text-sm font-medium text-foreground edu-number">—</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算说明</span><span class="text-sm font-medium text-foreground">10 门学考折算</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算规则</span><span class="text-sm font-medium text-foreground">A=15 B=10 C=5 D=0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">个人学考折算分</span><span class="text-sm font-medium text-foreground edu-number">150.0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">初审最低入围分</span><span class="text-sm font-medium text-foreground edu-number">140</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">初审最低入围等第</span><span class="text-sm font-medium text-foreground">—</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">初审入围比例</span><span class="text-sm font-medium text-foreground edu-number">1:7</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">计划校测入围人数</span><span class="text-sm font-medium text-foreground edu-number">140</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">实际校测入围人数</span><span class="text-sm font-medium text-foreground edu-number">—</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">校测入围比例</span><span class="text-sm font-medium text-foreground edu-number">1:7</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">校测竞争比</span><span class="text-sm font-medium text-foreground edu-number">—</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">初审破格条件</span><span class="text-sm font-medium text-foreground">无</span></div>
+            </div>
+          </div>
+          <!-- 2025 -->
+          <div class="bg-card border border-border rounded-lg overflow-hidden">
+            <div class="bg-[var(--edu-neutral-700)] px-4 py-2.5">
+              <h3 class="text-sm font-semibold text-white">2025年</h3>
+            </div>
+            <div class="divide-y divide-border">
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">招生计划人数</span><span class="text-sm font-medium text-foreground edu-number">25</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">计划入围人数</span><span class="text-sm font-medium text-foreground edu-number">3150（含）</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">实际入围人数</span><span class="text-sm font-medium text-foreground edu-number">3600（含）</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算说明</span><span class="text-sm font-medium text-foreground">10 门学考折算</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算规则</span><span class="text-sm font-medium text-foreground">A=15 B=10 C=5 D=0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">个人学考折算分</span><span class="text-sm font-medium text-foreground edu-number">150.0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">初审最低入围分</span><span class="text-sm font-medium text-foreground edu-number">140</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">初审最低入围等第</span><span class="text-sm font-medium text-foreground">8A2B</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">初审入围比例</span><span class="text-sm font-medium text-foreground edu-number">1:7</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">计划校测入围人数</span><span class="text-sm font-medium text-foreground edu-number">3150（含）</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">实际校测入围人数</span><span class="text-sm font-medium text-foreground edu-number">2372（含）</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">校测入围比例</span><span class="text-sm font-medium text-foreground edu-number">1:7</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">校测竞争比</span><span class="text-sm font-medium text-foreground edu-number">55.83%</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">初审破格条件</span><span class="text-sm font-medium text-foreground">无</span></div>
+            </div>
+          </div>
+          <!-- 2024 -->
+          <div class="bg-card border border-border rounded-lg overflow-hidden">
+            <div class="bg-[var(--edu-neutral-700)] px-4 py-2.5">
+              <h3 class="text-sm font-semibold text-white">2024年</h3>
+            </div>
+            <div class="divide-y divide-border">
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">招生计划人数</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">计划入围人数</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">实际入围人数</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算说明</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考折算规则</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">个人学考折算分</span><span class="text-sm font-medium text-muted-foreground edu-number">0.0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">初审最低入围分</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">初审最低入围等第</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">初审入围比例</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">计划校测入围人数</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">实际校测入围人数</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">校测入围比例</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">校测竞争比</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">初审破格条件</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 综合测试 -->
+      <section class="bg-card border border-border rounded-lg p-6 mb-6" style="box-shadow: var(--edu-shadow-1);">
+        <h2 class="edu-h3 text-foreground mb-4 flex items-center gap-2">
+          <span class="w-1 h-5 rounded-full bg-primary"></span>综合测试
+        </h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          <!-- 2026 -->
+          <div class="bg-card border border-border rounded-lg overflow-hidden">
+            <div class="bg-[var(--edu-neutral-700)] px-4 py-2.5">
+              <h3 class="text-sm font-semibold text-white">2026年</h3>
+            </div>
+            <div class="divide-y divide-border">
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综测时间</span><span class="text-sm font-medium text-foreground">4月19日（周六）</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综测地点</span><span class="text-sm font-medium text-foreground">杭州下沙高教园区2号大街1158号</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综测形式</span><span class="text-sm font-medium text-foreground">面试</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综测描述</span><span class="text-sm font-medium text-foreground">结构化面试</span></div>
+            </div>
+          </div>
+          <!-- 2025 -->
+          <div class="bg-card border border-border rounded-lg overflow-hidden">
+            <div class="bg-[var(--edu-neutral-700)] px-4 py-2.5">
+              <h3 class="text-sm font-semibold text-white">2025年</h3>
+            </div>
+            <div class="divide-y divide-border">
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综测时间</span><span class="text-sm font-medium text-foreground">2025年4月12日（周六）</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综测地点</span><span class="text-sm font-medium text-foreground">杭州市下沙高教园区2号大街1158号</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综测形式</span><span class="text-sm font-medium text-foreground">面试</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综测描述</span><span class="text-sm font-medium text-foreground">结构化面试</span></div>
+            </div>
+          </div>
+          <!-- 2024 -->
+          <div class="bg-card border border-border rounded-lg overflow-hidden">
+            <div class="bg-[var(--edu-neutral-700)] px-4 py-2.5">
+              <h3 class="text-sm font-semibold text-white">2024年</h3>
+            </div>
+            <div class="divide-y divide-border">
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综测时间</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综测地点</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综测形式</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综测描述</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 录取要求 -->
+      <section class="bg-card border border-border rounded-lg p-6 mb-6" style="box-shadow: var(--edu-shadow-1);">
+        <h2 class="edu-h3 text-foreground mb-4 flex items-center gap-2">
+          <span class="w-1 h-5 rounded-full bg-primary"></span>录取要求
+        </h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          <!-- 2026 -->
+          <div class="bg-card border border-border rounded-lg overflow-hidden">
+            <div class="bg-[var(--edu-neutral-700)] px-4 py-2.5">
+              <h3 class="text-sm font-semibold text-white">2026年</h3>
+            </div>
+            <div class="divide-y divide-border">
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">高考科目要求</span><span class="text-sm font-medium text-foreground">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">高考总分要求</span><span class="text-sm font-medium text-foreground">特殊线*90%</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综合成绩计算规则</span><span class="text-sm font-medium text-foreground">总成绩=学考（100）*15%+校测（100）*25%+高考（100）*60%</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取学考折算说明</span><span class="text-sm font-medium text-foreground">10 门学考折算</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取学考折算规则</span><span class="text-sm font-medium text-foreground">A=15 B=10 C=5 D=0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">个人学考折算分</span><span class="text-sm font-medium text-foreground edu-number">150.0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">未录取人数</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取人数</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取最低总分</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取平均分</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考最低分</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考平均分</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">校测最低分</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">校测平均分</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">三一最低高考分</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">三一平均高考分</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">平行志愿高考录取分</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+            </div>
+          </div>
+          <!-- 2025 -->
+          <div class="bg-card border border-border rounded-lg overflow-hidden">
+            <div class="bg-[var(--edu-neutral-700)] px-4 py-2.5">
+              <h3 class="text-sm font-semibold text-white">2025年</h3>
+            </div>
+            <div class="divide-y divide-border">
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">高考科目要求</span><span class="text-sm font-medium text-foreground">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">高考总分要求</span><span class="text-sm font-medium text-foreground">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综合成绩计算规则</span><span class="text-sm font-medium text-foreground">总成绩=学考（100）*15%+校测（100）*25%+高考（100）*60%</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取学考折算说明</span><span class="text-sm font-medium text-foreground">10 门学考折算</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取学考折算规则</span><span class="text-sm font-medium text-foreground">A=15 B=10 C=5 D=0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">个人学考折算分</span><span class="text-sm font-medium text-foreground edu-number">150.0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">未录取人数</span><span class="text-sm font-medium text-foreground edu-number">25</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取人数</span><span class="text-sm font-medium text-foreground edu-number">20</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取最低总分</span><span class="text-sm font-medium text-foreground edu-number">87.41</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取平均分</span><span class="text-sm font-medium text-foreground edu-number">87.82</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考最低分</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考平均分</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">校测最低分</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">校测平均分</span><span class="text-sm font-medium text-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">三一最低高考分</span><span class="text-sm font-medium text-foreground edu-number">621</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">三一平均高考分</span><span class="text-sm font-medium text-foreground edu-number">—</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">平行志愿高考录取分</span><span class="text-sm font-medium text-foreground edu-number">634</span></div>
+            </div>
+          </div>
+          <!-- 2024 -->
+          <div class="bg-card border border-border rounded-lg overflow-hidden">
+            <div class="bg-[var(--edu-neutral-700)] px-4 py-2.5">
+              <h3 class="text-sm font-semibold text-white">2024年</h3>
+            </div>
+            <div class="divide-y divide-border">
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">高考科目要求</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">高考总分要求</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">综合成绩计算规则</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取学考折算说明</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取学考折算规则</span><span class="text-sm font-medium text-muted-foreground">无</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">个人学考折算分</span><span class="text-sm font-medium text-muted-foreground edu-number">0.0</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">未录取人数</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取人数</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取最低总分</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">录取平均分</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考最低分</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">学考平均分</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">校测最低分</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">校测平均分</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">三一最低高考分</span><span class="text-sm font-medium text-muted-foreground edu-number">\</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">三一平均高考分</span><span class="text-sm font-medium text-muted-foreground edu-number">—</span></div>
+              <div class="flex justify-between items-center gap-3 px-4 py-2.5"><span class="text-sm text-muted-foreground">平行志愿高考录取分</span><span class="text-sm font-medium text-muted-foreground edu-number">636</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="border-t border-border bg-muted/40 mt-auto">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-primary font-medium">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <span>浙招智达</span>
+        </div>
+        <p class="text-sm text-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p>
+        <div class="flex items-center gap-4 text-sm text-muted-foreground">
+          <a href="#" class="hover:text-primary transition-colors">隐私政策</a>
+          <a href="#" class="hover:text-primary transition-colors">使用条款</a>
+          <a href="#" class="hover:text-primary transition-colors">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const major = params.get('major') || '机械工程';
+      const school = params.get('school') || '浙江工业大学';
+      document.getElementById('page-major-name').textContent = major;
+      document.getElementById('page-school-name').textContent = school + ' · 专业详情';
+
+      lucide.createIcons();
+    })();
+  </script>
+
+    <style id="tailwind-shim">
+        .bg-background { background-color: var(--edu-background); }
+        .text-foreground { color: var(--edu-foreground); }
+        .bg-card { background-color: var(--edu-card); }
+        .text-card-foreground { color: var(--edu-card-foreground); }
+        .bg-muted { background-color: var(--edu-muted); }
+        .text-muted-foreground { color: var(--edu-muted-foreground); }
+        .bg-primary { background-color: var(--edu-primary); }
+        .text-primary { color: var(--edu-primary); }
+        .text-primary-foreground { color: var(--edu-primary-foreground); }
+        .border-border { border-color: var(--edu-border); }
+        .border-primary { border-color: var(--edu-primary); }
+    </style>
+  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/pages.js" defer></script>
+</body>
+</html>

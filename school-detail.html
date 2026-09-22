@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>院校详情</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--edu-background);
+    --color-foreground: var(--edu-foreground);
+    --color-card: var(--edu-card);
+    --color-card-foreground: var(--edu-card-foreground);
+    --color-popover: var(--edu-popover);
+    --color-popover-foreground: var(--edu-popover-foreground);
+    --color-primary: var(--edu-primary);
+    --color-primary-foreground: var(--edu-primary-foreground);
+    --color-muted: var(--edu-muted);
+    --color-muted-foreground: var(--edu-muted-foreground);
+    --color-border: var(--edu-border);
+    --color-input: var(--edu-input);
+    --color-ring: var(--edu-ring);
+    --radius-sm: var(--edu-radius-sm);
+    --radius-md: var(--edu-radius-md);
+    --radius-lg: var(--edu-radius-lg);
+  }
+  @layer base {
+    body { background: var(--edu-background); color: var(--edu-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    
+    
+</head>
+<body class="min-h-screen font-sans antialiased flex flex-col">
+  <header class="sticky top-0 z-50 w-full border-b border-border bg-white/80 backdrop-blur relative">
+    <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <button id="nav-mobile-toggle" type="button" class="md:hidden p-2 rounded-md text-muted-foreground hover:bg-muted transition-colors" aria-label="打开菜单"><i data-lucide="menu" class="w-5 h-5"></i></button>
+        <a href="index.html" class="flex items-center gap-2 text-primary font-semibold text-lg" data-dom-id="nav-logo">
+        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <span>浙招智达</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="home" data-dom-id="nav-home">首页</a>
+        <a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="ai-chat" data-dom-id="nav-ai-chat">智能问答</a>
+        <a href="direction.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="plan" data-dom-id="nav-plan">学考规划</a>
+        <a href="ai-interview.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="interview" data-dom-id="nav-interview">AI 面试</a>
+        <a href="question-bank.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="bank" data-dom-id="nav-bank">题库</a>
+        <a href="user-center.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="user" data-dom-id="nav-user">用户中心</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button type="button" data-theme-toggle class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" aria-label="切换主题"><i data-lucide="sun" class="w-4 h-4" data-icon-name="sun"></i><i data-lucide="moon" class="w-4 h-4 hidden" data-icon-name="moon"></i></button>
+        <a href="vip-pricing.html" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity" data-dom-id="nav-vip">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>VIP
+        </a>
+        <a href="user-center.html" class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" data-dom-id="nav-avatar">
+          <i data-lucide="user" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="ai-interview.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">AI 面试</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">题库</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
+  </header>
+
+  <main id="page-content" class="flex-1 bg-background">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+        <a href="index.html" class="hover:text-primary transition-colors">首页</a>
+        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        <a href="plan-result.html" class="hover:text-primary transition-colors">院校库</a>
+        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        <span class="text-foreground">院校详情</span>
+      </nav>
+
+      <!-- School Header -->
+      <section class="school-header bg-card border border-border rounded-xl p-6 md:p-8 shadow-sm mb-8">
+        <div class="flex flex-col lg:flex-row gap-6 lg:gap-10">
+          <div class="flex-1">
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">本科</span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium" style="background-color: var(--edu-state-success-bg); color: var(--edu-state-success);">三位一体</span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium" style="background-color: var(--edu-state-info-bg); color: var(--edu-state-info);">公办</span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground">医药类</span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground">省属重点</span>
+            </div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                <i data-lucide="building-2" class="w-7 h-7"></i>
+              </div>
+              <div>
+                <h1 class="edu-h2 text-foreground">温州医科大学</h1>
+                <p class="text-sm text-muted-foreground">Wenzhou Medical University</p>
+              </div>
+              <button type="button" id="btn-follow-school" class="ml-auto inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-border text-sm font-medium text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="关注院校" aria-pressed="false">
+                <i data-lucide="star" class="w-4 h-4"></i>
+                <span>关注</span>
+              </button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+              <div class="flex items-center gap-2 text-muted-foreground">
+                <i data-lucide="map-pin" class="w-4 h-4 text-primary"></i>
+                <span>浙江省温州市茶山高教园区</span>
+              </div>
+              <div class="flex items-center gap-2 text-muted-foreground">
+                <i data-lucide="globe" class="w-4 h-4 text-primary"></i>
+                <a href="https://www.wmu.edu.cn" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">www.wmu.edu.cn</a>
+              </div>
+              <div class="flex items-center gap-2 text-muted-foreground">
+                <i data-lucide="phone" class="w-4 h-4 text-primary"></i>
+                <span>0577-86689885</span>
+              </div>
+              <div class="flex items-center gap-2 text-muted-foreground">
+                <i data-lucide="mail" class="w-4 h-4 text-primary"></i>
+                <span>zsb@wmu.edu.cn</span>
+              </div>
+            </div>
+          </div>
+          <div class="lg:w-80 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">
+            <div class="flex items-center gap-3 p-4 rounded-lg border border-border bg-muted/50">
+              <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                <i data-lucide="users" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs text-muted-foreground">招生计划</p>
+                <p class="text-lg font-semibold text-foreground edu-number">120 人</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 p-4 rounded-lg border border-border bg-muted/50">
+              <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                <i data-lucide="calendar-clock" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs text-muted-foreground">报名截止</p>
+                <p class="text-lg font-semibold text-foreground edu-number">2026-03-20</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 p-4 rounded-lg border border-border bg-muted/50">
+              <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                <i data-lucide="calendar-check" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs text-muted-foreground">校测时间</p>
+                <p class="text-lg font-semibold text-foreground edu-number">2026-04-15</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Tabs -->
+      <section class="info-tabs mb-6">
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1" role="tablist" aria-label="院校信息分类">
+          <button type="button" class="tab-btn active whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary text-primary-foreground shadow-sm" data-tab="basic" role="tab" aria-selected="true">基本信息</button>
+          <button type="button" class="tab-btn whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium transition-all" data-tab="rules" role="tab" aria-selected="false">折算规则</button>
+          <button type="button" class="tab-btn whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium transition-all" data-tab="test" role="tab" aria-selected="false">校测方式</button>
+          <button type="button" class="tab-btn whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium transition-all" data-tab="majors" role="tab" aria-selected="false">专业列表</button>
+          <button type="button" class="tab-btn whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium transition-all" data-tab="data" role="tab" aria-selected="false">数据概览</button>
+          <button type="button" class="tab-btn whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium transition-all" data-tab="compare" role="tab" aria-selected="false">对比入口</button>
+        </div>
+      </section>
+
+      <!-- Tab Panels -->
+      <div class="tab-panels">
+        <!-- 基本信息 -->
+        <section id="panel-basic" class="tab-panel">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm lg:col-span-2">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="info" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">院校简介</h2>
+              </div>
+              <p class="text-sm text-muted-foreground leading-relaxed">
+                温州医科大学是浙江省省属普通高等学校，可溯源至创办于1912年的浙江医学专门学校。学校以医学学科为重点，涵盖医、理、工、管、文、法、教育等学科门类。三位一体综合评价招生面向浙江省考生，注重学考成绩、综合素质评价与校测表现相结合，选拔具有医学潜质的优秀学子。
+              </p>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="layers" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">招生批次</h2>
+              </div>
+              <ul class="space-y-2 text-sm">
+                <li class="flex items-center justify-between">
+                  <span class="text-muted-foreground">三位一体</span>
+                  <span class="font-medium text-foreground">综合评价</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span class="text-muted-foreground">高职提前</span>
+                  <span class="font-medium text-foreground">暂未参与</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span class="text-muted-foreground">普通类</span>
+                  <span class="font-medium text-foreground">本科一批</span>
+                </li>
+              </ul>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="school" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">办学层次</h2>
+              </div>
+              <ul class="space-y-2 text-sm">
+                <li class="flex items-center justify-between">
+                  <span class="text-muted-foreground">办学性质</span>
+                  <span class="font-medium text-foreground">公办</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span class="text-muted-foreground">学校类别</span>
+                  <span class="font-medium text-foreground">医药类</span>
+                </li>
+                <li class="flex items-center justify-between">
+                  <span class="text-muted-foreground">层次</span>
+                  <span class="font-medium text-foreground">普通本科</span>
+                </li>
+              </ul>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="wallet" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">学费区间</h2>
+              </div>
+              <div class="flex items-end gap-2 mb-2">
+                <span class="text-3xl font-semibold text-foreground edu-number">4,800</span>
+                <span class="text-muted-foreground mb-1">—</span>
+                <span class="text-3xl font-semibold text-foreground edu-number">8,000</span>
+                <span class="text-sm text-muted-foreground mb-1">元/年</span>
+              </div>
+              <p class="text-xs text-muted-foreground">临床医学、口腔医学等医学类专业学费按主管部门批复标准执行。</p>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="home" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">住宿费</h2>
+              </div>
+              <div class="flex items-end gap-2 mb-2">
+                <span class="text-3xl font-semibold text-foreground edu-number">1,000</span>
+                <span class="text-muted-foreground mb-1">—</span>
+                <span class="text-3xl font-semibold text-foreground edu-number">1,600</span>
+                <span class="text-sm text-muted-foreground mb-1">元/年</span>
+              </div>
+              <p class="text-xs text-muted-foreground">四人间/六人间标准，具体以入学分配和物价部门核定为准。</p>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="briefcase-business" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">就业率</h2>
+              </div>
+              <p class="text-3xl font-semibold text-foreground edu-number mb-2">94.2%</p>
+              <p class="text-xs text-muted-foreground">近三年本科毕业生平均就业率，医学类专业就业稳定性较高。</p>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="graduation-cap" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">升学率</h2>
+              </div>
+              <p class="text-3xl font-semibold text-foreground edu-number mb-2">48.6%</p>
+              <p class="text-xs text-muted-foreground">含国内考研升学与境外深造，临床医学升学比例尤为突出。</p>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm md:col-span-2 lg:col-span-2">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="handshake" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">校企合作/医合作</h2>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="p-3 rounded-lg bg-muted/50 border border-border">
+                  <p class="font-medium text-foreground">附属第一医院</p>
+                  <p class="text-xs text-muted-foreground">临床教学、实习就业基地</p>
+                </div>
+                <div class="p-3 rounded-lg bg-muted/50 border border-border">
+                  <p class="font-medium text-foreground">附属眼视光医院</p>
+                  <p class="text-xs text-muted-foreground">眼视光医学联合培养</p>
+                </div>
+                <div class="p-3 rounded-lg bg-muted/50 border border-border">
+                  <p class="font-medium text-foreground">省级疾控中心</p>
+                  <p class="text-xs text-muted-foreground">公共卫生实践基地</p>
+                </div>
+                <div class="p-3 rounded-lg bg-muted/50 border border-border">
+                  <p class="font-medium text-foreground">知名药企联合实验室</p>
+                  <p class="text-xs text-muted-foreground">药学、生物制药科研合作</p>
+                </div>
+              </div>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm md:col-span-2 lg:col-span-3">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="briefcase" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">就业去向</h2>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-md bg-muted text-xs text-muted-foreground">各级医院</span>
+                <span class="px-2.5 py-1 rounded-md bg-muted text-xs text-muted-foreground">医药企业</span>
+                <span class="px-2.5 py-1 rounded-md bg-muted text-xs text-muted-foreground">公共卫生机构</span>
+                <span class="px-2.5 py-1 rounded-md bg-muted text-xs text-muted-foreground">科研院所</span>
+                <span class="px-2.5 py-1 rounded-md bg-muted text-xs text-muted-foreground">继续深造</span>
+                <span class="px-2.5 py-1 rounded-md bg-muted text-xs text-muted-foreground">医疗器械企业</span>
+                <span class="px-2.5 py-1 rounded-md bg-muted text-xs text-muted-foreground">卫生行政管理</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- 折算规则 -->
+        <section id="panel-rules" class="tab-panel hidden">
+          <div class="bg-card border border-border rounded-xl p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-5">
+              <i data-lucide="calculator" class="w-5 h-5 text-primary"></i>
+              <h2 class="edu-h3 text-foreground">学考等级折算规则</h2>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="rule-table w-full text-sm border-collapse">
+                <thead>
+                  <tr class="bg-muted text-muted-foreground">
+                    <th class="text-left px-4 py-3 font-medium rounded-tl-lg">学考科目</th>
+                    <th class="text-center px-4 py-3 font-medium">A</th>
+                    <th class="text-center px-4 py-3 font-medium">B</th>
+                    <th class="text-center px-4 py-3 font-medium">C</th>
+                    <th class="text-center px-4 py-3 font-medium">D</th>
+                    <th class="text-center px-4 py-3 font-medium">E</th>
+                    <th class="text-left px-4 py-3 font-medium rounded-tr-lg">备注</th>
+                  </tr>
+                </thead>
+                <tbody class="text-foreground">
+                  <tr class="border-b border-border">
+                    <td class="px-4 py-3 font-medium">语文、数学、外语</td>
+                    <td class="px-4 py-3 text-center edu-number">15</td>
+                    <td class="px-4 py-3 text-center edu-number">12</td>
+                    <td class="px-4 py-3 text-center edu-number">9</td>
+                    <td class="px-4 py-3 text-center edu-number">6</td>
+                    <td class="px-4 py-3 text-center edu-number">0</td>
+                    <td class="px-4 py-3 text-muted-foreground">每科满分15分</td>
+                  </tr>
+                  <tr class="border-b border-border">
+                    <td class="px-4 py-3 font-medium">物理、化学、生物</td>
+                    <td class="px-4 py-3 text-center edu-number">10</td>
+                    <td class="px-4 py-3 text-center edu-number">8</td>
+                    <td class="px-4 py-3 text-center edu-number">6</td>
+                    <td class="px-4 py-3 text-center edu-number">4</td>
+                    <td class="px-4 py-3 text-center edu-number">0</td>
+                    <td class="px-4 py-3 text-muted-foreground">医学类专业重点参考</td>
+                  </tr>
+                  <tr class="border-b border-border">
+                    <td class="px-4 py-3 font-medium">历史、地理、政治、技术</td>
+                    <td class="px-4 py-3 text-center edu-number">5</td>
+                    <td class="px-4 py-3 text-center edu-number">4</td>
+                    <td class="px-4 py-3 text-center edu-number">3</td>
+                    <td class="px-4 py-3 text-center edu-number">2</td>
+                    <td class="px-4 py-3 text-center edu-number">0</td>
+                    <td class="px-4 py-3 text-muted-foreground">选考科目按报考专业要求</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-medium">综合素质评价</td>
+                    <td class="px-4 py-3 text-center edu-number" colspan="5">按 A/B 等第计入</td>
+                    <td class="px-4 py-3 text-muted-foreground">最高不超过 10 分</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 rounded-lg bg-muted/50 border border-border">
+                <div class="flex items-center gap-2 mb-2">
+                  <i data-lucide="sparkles" class="w-4 h-4 text-primary"></i>
+                  <h3 class="text-sm font-semibold text-foreground">综合素质评价说明</h3>
+                </div>
+                <p class="text-sm text-muted-foreground">综合素质评价须达到 B 等及以上方可报名；A 等可在折算中额外获得最高 10 分的附加认定，具体认定标准见当年招生章程。</p>
+              </div>
+              <div class="p-4 rounded-lg bg-muted/50 border border-border">
+                <div class="flex items-center gap-2 mb-2">
+                  <i data-lucide="function-square" class="w-4 h-4 text-primary"></i>
+                  <h3 class="text-sm font-semibold text-foreground">折算公式示例</h3>
+                </div>
+                <p class="text-sm text-muted-foreground">学考折算总分 = Σ（各科目对应等级分值）+ 综合素质评价附加分。例如：语A+数B+英B+物A+化B… 按上表逐项折算后求和。</p>
+              </div>
+            </div>
+            <div class="mt-4 p-4 rounded-lg bg-muted/50 border border-border">
+              <div class="flex items-start gap-2 text-sm text-muted-foreground">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-primary mt-0.5"></i>
+                <p>学考折算总分由报名系统自动计算，最终入围名单按“学考折算分 + 校测成绩 + 高考文化分”综合排序。具体以当年招生章程为准。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 校测方式 -->
+        <section id="panel-test" class="tab-panel hidden">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="clipboard-list" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">测试形式</h2>
+              </div>
+              <p class="text-sm text-muted-foreground mb-3">结构化面试 + 综合素质笔试相结合，部分专业增设英语口语或实验操作观察；部分管理类方向可能采用无领导小组讨论。</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-md bg-primary/10 text-xs text-primary">结构化面试</span>
+                <span class="px-2.5 py-1 rounded-md bg-primary/10 text-xs text-primary">综合素质笔试</span>
+                <span class="px-2.5 py-1 rounded-md bg-primary/10 text-xs text-primary">无领导小组讨论</span>
+              </div>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="book-open" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">测试内容</h2>
+              </div>
+              <ul class="space-y-2 text-sm text-muted-foreground">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>医学人文素养与职业认知</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>逻辑推理与科学思维</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>语言表达与沟通协作</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>心理素质与应变能力</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>时事热点与社会责任</li>
+              </ul>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="pie-chart" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">分值构成</h2>
+              </div>
+              <div class="space-y-3">
+                <div>
+                  <div class="flex justify-between text-sm mb-1"><span class="text-muted-foreground">面试成绩</span><span class="font-medium text-foreground">60%</span></div>
+                  <div class="h-2 rounded-full bg-muted overflow-hidden"><div class="h-full rounded-full bg-primary" style="width: 60%"></div></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-1"><span class="text-muted-foreground">笔试成绩</span><span class="font-medium text-foreground">30%</span></div>
+                  <div class="h-2 rounded-full bg-muted overflow-hidden"><div class="h-full rounded-full bg-primary" style="width: 30%"></div></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-1"><span class="text-muted-foreground">综合素质附加</span><span class="font-medium text-foreground">10%</span></div>
+                  <div class="h-2 rounded-full bg-muted overflow-hidden"><div class="h-full rounded-full bg-primary" style="width: 10%"></div></div>
+                </div>
+              </div>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="map" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">时间地点</h2>
+              </div>
+              <ul class="space-y-2 text-sm">
+                <li class="flex items-center justify-between"><span class="text-muted-foreground">校测日期</span><span class="font-medium text-foreground edu-number">2026-04-15</span></li>
+                <li class="flex items-center justify-between"><span class="text-muted-foreground">报到时间</span><span class="font-medium text-foreground edu-number">08:00—09:00</span></li>
+                <li class="flex items-center justify-between"><span class="text-muted-foreground">测试地点</span><span class="font-medium text-foreground">茶山校区教学楼</span></li>
+                <li class="flex items-center justify-between"><span class="text-muted-foreground">准考证打印</span><span class="font-medium text-foreground">考前 3 天开放</span></li>
+              </ul>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm md:col-span-2">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="alert-circle" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">注意事项</h2>
+              </div>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-muted-foreground">
+                <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-primary mt-0.5"></i>携带身份证、准考证及必要文具</li>
+                <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-primary mt-0.5"></i>禁止携带通讯工具进入面试室</li>
+                <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-primary mt-0.5"></i>建议提前熟悉校园路线与考场分布</li>
+                <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-primary mt-0.5"></i>服从现场工作人员安排与防疫要求</li>
+                <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-primary mt-0.5"></i>面试着装整洁大方，避免过于随意</li>
+                <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-primary mt-0.5"></i>无领导小组讨论注重团队协作表达</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <!-- 专业列表 -->
+        <section id="panel-majors" class="tab-panel hidden">
+          <div class="bg-card border border-border rounded-xl p-6 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+              <div class="flex items-center gap-2">
+                <i data-lucide="list" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">招生专业列表</h2>
+              </div>
+              <div class="relative">
+                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"></i>
+                <input type="text" placeholder="搜索专业名称" class="w-full sm:w-64 pl-9 pr-4 py-2 text-sm rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="major-list w-full text-sm border-collapse">
+                <thead>
+                  <tr class="bg-muted text-muted-foreground">
+                    <th class="text-left px-4 py-3 font-medium rounded-tl-lg">专业名称</th>
+                    <th class="text-left px-4 py-3 font-medium">选科要求</th>
+                    <th class="text-center px-4 py-3 font-medium">招生计划</th>
+                    <th class="text-center px-4 py-3 font-medium">学制</th>
+                    <th class="text-right px-4 py-3 font-medium">学费（元/年）</th>
+                    <th class="text-center px-4 py-3 font-medium">意向匹配</th>
+                    <th class="text-left px-4 py-3 font-medium rounded-tr-lg">备注</th>
+                  </tr>
+                </thead>
+                <tbody class="text-foreground">
+                  <tr class="border-b border-border">
+                    <td class="px-4 py-3 font-medium">临床医学</td>
+                    <td class="px-4 py-3 text-muted-foreground">物理+化学</td>
+                    <td class="px-4 py-3 text-center edu-number">30</td>
+                    <td class="px-4 py-3 text-center edu-number">5 年</td>
+                    <td class="px-4 py-3 text-right edu-number">7,500</td>
+                    <td class="px-4 py-3 text-center"><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">已匹配</span></td>
+                    <td class="px-4 py-3 text-muted-foreground">需面试+笔试</td>
+                  </tr>
+                  <tr class="border-b border-border">
+                    <td class="px-4 py-3 font-medium">口腔医学</td>
+                    <td class="px-4 py-3 text-muted-foreground">物理+化学</td>
+                    <td class="px-4 py-3 text-center edu-number">15</td>
+                    <td class="px-4 py-3 text-center edu-number">5 年</td>
+                    <td class="px-4 py-3 text-right edu-number">7,500</td>
+                    <td class="px-4 py-3 text-center"><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">已匹配</span></td>
+                    <td class="px-4 py-3 text-muted-foreground">色盲色弱限报</td>
+                  </tr>
+                  <tr class="border-b border-border">
+                    <td class="px-4 py-3 font-medium">麻醉学</td>
+                    <td class="px-4 py-3 text-muted-foreground">物理+化学</td>
+                    <td class="px-4 py-3 text-center edu-number">12</td>
+                    <td class="px-4 py-3 text-center edu-number">5 年</td>
+                    <td class="px-4 py-3 text-right edu-number">7,500</td>
+                    <td class="px-4 py-3 text-center"><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground">未匹配</span></td>
+                    <td class="px-4 py-3 text-muted-foreground">需英语口语</td>
+                  </tr>
+                  <tr class="border-b border-border">
+                    <td class="px-4 py-3 font-medium">医学影像学</td>
+                    <td class="px-4 py-3 text-muted-foreground">物理+化学</td>
+                    <td class="px-4 py-3 text-center edu-number">18</td>
+                    <td class="px-4 py-3 text-center edu-number">5 年</td>
+                    <td class="px-4 py-3 text-right edu-number">7,500</td>
+                    <td class="px-4 py-3 text-center"><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground">未匹配</span></td>
+                    <td class="px-4 py-3 text-muted-foreground">—</td>
+                  </tr>
+                  <tr class="border-b border-border">
+                    <td class="px-4 py-3 font-medium">护理学</td>
+                    <td class="px-4 py-3 text-muted-foreground">不限</td>
+                    <td class="px-4 py-3 text-center edu-number">25</td>
+                    <td class="px-4 py-3 text-center edu-number">4 年</td>
+                    <td class="px-4 py-3 text-right edu-number">6,000</td>
+                    <td class="px-4 py-3 text-center"><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground">未匹配</span></td>
+                    <td class="px-4 py-3 text-muted-foreground">身高要求 ≥158cm</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-medium">药学</td>
+                    <td class="px-4 py-3 text-muted-foreground">物理/化学/生物</td>
+                    <td class="px-4 py-3 text-center edu-number">20</td>
+                    <td class="px-4 py-3 text-center edu-number">4 年</td>
+                    <td class="px-4 py-3 text-right edu-number">6,000</td>
+                    <td class="px-4 py-3 text-center"><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">已匹配</span></td>
+                    <td class="px-4 py-3 text-muted-foreground">—</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 数据概览 -->
+        <section id="panel-data" class="tab-panel hidden">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="trending-up" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">报考热度</h2>
+              </div>
+              <p class="text-3xl font-semibold text-foreground edu-number mb-2">4.8 <span class="text-sm font-normal text-muted-foreground">/ 5</span></p>
+              <div class="h-2 rounded-full bg-muted overflow-hidden"><div class="h-full rounded-full bg-primary" style="width: 96%"></div></div>
+              <p class="mt-2 text-xs text-muted-foreground">近三年报名人数持续增长，临床医学竞争最激烈。</p>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="percent" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">录取率</h2>
+              </div>
+              <p class="text-3xl font-semibold text-foreground edu-number mb-2">12.5%</p>
+              <div class="h-2 rounded-full bg-muted overflow-hidden"><div class="h-full rounded-full bg-primary" style="width: 12.5%"></div></div>
+              <p class="mt-2 text-xs text-muted-foreground">按招生计划与报名人数估算，热门专业更低。</p>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="banknote" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">平均就业薪资</h2>
+              </div>
+              <p class="text-3xl font-semibold text-foreground edu-number mb-2">8,500 <span class="text-sm font-normal text-muted-foreground">元/月</span></p>
+              <p class="text-xs text-muted-foreground">毕业一年后平均薪资，临床医学与口腔医学显著高于均值。</p>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="target" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">录取概率预估</h2>
+              </div>
+              <p class="text-3xl font-semibold text-foreground edu-number mb-2">68%</p>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium" style="background-color: var(--edu-state-success-bg); color: var(--edu-state-success);">置信度高</span>
+                <span class="text-xs text-muted-foreground">基于近3年录取数据</span>
+              </div>
+              <p class="text-xs text-muted-foreground">该概率按当前学考折算分估算，实际受校测表现与高考成绩影响。</p>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="award" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">热门专业 TOP3</h2>
+              </div>
+              <ol class="space-y-2 text-sm text-foreground">
+                <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-medium">1</span>临床医学</li>
+                <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-muted text-muted-foreground text-xs flex items-center justify-center font-medium">2</span>口腔医学</li>
+                <li class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-muted text-muted-foreground text-xs flex items-center justify-center font-medium">3</span>麻醉学</li>
+              </ol>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="bar-chart-3" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">近3年录取趋势</h2>
+              </div>
+              <div class="space-y-3">
+                <div>
+                  <div class="flex justify-between text-sm mb-1"><span class="text-muted-foreground">2024年</span><span class="font-medium text-foreground edu-number">13.2%</span></div>
+                  <div class="h-2 rounded-full bg-muted overflow-hidden"><div class="h-full rounded-full bg-primary" style="width: 13.2%"></div></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-1"><span class="text-muted-foreground">2025年</span><span class="font-medium text-foreground edu-number">12.8%</span></div>
+                  <div class="h-2 rounded-full bg-muted overflow-hidden"><div class="h-full rounded-full bg-primary" style="width: 12.8%"></div></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-1"><span class="text-muted-foreground">2026（预估）</span><span class="font-medium text-foreground edu-number">12.5%</span></div>
+                  <div class="h-2 rounded-full bg-muted overflow-hidden"><div class="h-full rounded-full bg-primary" style="width: 12.5%"></div></div>
+                </div>
+              </div>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-5 shadow-sm md:col-span-2 lg:col-span-3">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="handshake" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">校企/医合作</h2>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="p-3 rounded-lg bg-muted/50 border border-border">
+                  <p class="font-medium text-foreground">附属第一医院</p>
+                  <p class="text-xs text-muted-foreground">临床教学、实习就业基地</p>
+                </div>
+                <div class="p-3 rounded-lg bg-muted/50 border border-border">
+                  <p class="font-medium text-foreground">附属眼视光医院</p>
+                  <p class="text-xs text-muted-foreground">眼视光医学联合培养</p>
+                </div>
+                <div class="p-3 rounded-lg bg-muted/50 border border-border">
+                  <p class="font-medium text-foreground">省级疾控中心</p>
+                  <p class="text-xs text-muted-foreground">公共卫生实践基地</p>
+                </div>
+                <div class="p-3 rounded-lg bg-muted/50 border border-border">
+                  <p class="font-medium text-foreground">知名药企联合实验室</p>
+                  <p class="text-xs text-muted-foreground">药学、生物制药科研合作</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- 对比入口 -->
+        <section id="panel-compare" class="tab-panel hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <article class="data-card bg-card border border-border rounded-xl p-6 shadow-sm lg:col-span-2">
+              <div class="flex items-center gap-2 mb-5">
+                <i data-lucide="columns-3" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">院校多维度对比</h2>
+              </div>
+              <p class="text-sm text-muted-foreground mb-5">将温州医科大学加入对比后，可在院校库页面与已选院校并排比较以下维度，辅助家长与孩子共同决策。</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                <div class="flex items-center gap-2 p-3 rounded-lg bg-muted/50 border border-border text-sm text-foreground">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-primary"></i>
+                  <span>折算分</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 rounded-lg bg-muted/50 border border-border text-sm text-foreground">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-primary"></i>
+                  <span>校测方式</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 rounded-lg bg-muted/50 border border-border text-sm text-foreground">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-primary"></i>
+                  <span>报名时间</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 rounded-lg bg-muted/50 border border-border text-sm text-foreground">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-primary"></i>
+                  <span>学费</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 rounded-lg bg-muted/50 border border-border text-sm text-foreground">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-primary"></i>
+                  <span>住宿条件</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 rounded-lg bg-muted/50 border border-border text-sm text-foreground">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-primary"></i>
+                  <span>就业率</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 rounded-lg bg-muted/50 border border-border text-sm text-foreground">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-primary"></i>
+                  <span>录取概率</span>
+                </div>
+                <div class="flex items-center gap-2 p-3 rounded-lg bg-muted/50 border border-border text-sm text-foreground">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-primary"></i>
+                  <span>报名条件</span>
+                </div>
+              </div>
+            </article>
+            <article class="data-card bg-card border border-border rounded-xl p-6 shadow-sm">
+              <div class="flex items-center gap-2 mb-4">
+                <i data-lucide="git-compare" class="w-5 h-5 text-primary"></i>
+                <h2 class="edu-h3 text-foreground">加入对比</h2>
+              </div>
+              <p class="text-sm text-muted-foreground mb-5">选择该校加入院校对比列表，最多可同时对比 4 所院校。</p>
+              <button type="button" id="btn-add-compare" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity" data-school-id="wmu" data-school-name="温州医科大学">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>加入院校对比</span>
+              </button>
+              <a href="plan-result.html" class="mt-3 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                <span>前往院校库对比</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <!-- Source Annotation -->
+      <section class="source-note mt-8 p-4 rounded-lg border border-border bg-muted/30">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm">
+          <div class="flex items-center gap-2 text-muted-foreground">
+            <i data-lucide="file-text" class="w-4 h-4 text-primary"></i>
+            <span>政策数据更新时间：<span class="edu-number">2026-08-14</span></span>
+          </div>
+          <a href="https://zsb.wmu.edu.cn" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-primary hover:underline">
+            <span>查看官方招生简章</span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="border-t border-border bg-muted/40 mt-auto">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-primary font-medium">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <span>浙招智达</span>
+        </div>
+        <p class="text-sm text-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p>
+        <div class="flex items-center gap-4 text-sm text-muted-foreground">
+          <a href="#" class="hover:text-primary transition-colors">隐私政策</a>
+          <a href="#" class="hover:text-primary transition-colors">使用条款</a>
+          <a href="#" class="hover:text-primary transition-colors">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      // Tab switching
+      const buttons = document.querySelectorAll('.tab-btn');
+      const panels = document.querySelectorAll('.tab-panel');
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const target = btn.getAttribute('data-tab');
+          buttons.forEach(function (b) {
+            b.classList.remove('active', 'bg-primary', 'text-primary-foreground', 'shadow-sm');
+            b.classList.add('bg-muted', 'text-muted-foreground');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('active', 'bg-primary', 'text-primary-foreground', 'shadow-sm');
+          btn.classList.remove('bg-muted', 'text-muted-foreground');
+          btn.setAttribute('aria-selected', 'true');
+          panels.forEach(function (panel) {
+            if (panel.id === 'panel-' + target) {
+              panel.classList.remove('hidden');
+            } else {
+              panel.classList.add('hidden');
+            }
+          });
+        });
+      });
+      buttons.forEach(function (b) {
+        if (!b.classList.contains('active')) {
+          b.classList.add('bg-muted', 'text-muted-foreground');
+        }
+      });
+
+      // Follow school button
+      const followBtn = document.getElementById('btn-follow-school');
+      if (followBtn && window.localStorage) {
+        const schoolId = 'wmu';
+        const followedKey = 'edu_followed_schools';
+        let followed = JSON.parse(localStorage.getItem(followedKey) || '[]');
+        const isFollowed = followed.indexOf(schoolId) !== -1;
+        function updateFollowUI(followedState) {
+          followBtn.setAttribute('aria-pressed', String(followedState));
+          followBtn.querySelector('span').textContent = followedState ? '已关注' : '关注';
+          followBtn.classList.toggle('text-primary', followedState);
+          followBtn.classList.toggle('border-primary', followedState);
+          followBtn.classList.toggle('bg-primary/5', followedState);
+        }
+        updateFollowUI(isFollowed);
+        followBtn.addEventListener('click', function () {
+          followed = JSON.parse(localStorage.getItem(followedKey) || '[]');
+          const idx = followed.indexOf(schoolId);
+          let nowFollowed = false;
+          if (idx === -1) {
+            followed.push(schoolId);
+            nowFollowed = true;
+          } else {
+            followed.splice(idx, 1);
+          }
+          localStorage.setItem(followedKey, JSON.stringify(followed));
+          updateFollowUI(nowFollowed);
+        });
+      }
+
+      // Add to compare button
+      const compareBtn = document.getElementById('btn-add-compare');
+      if (compareBtn && window.localStorage) {
+        const compareKey = 'edu_compare_schools';
+        const schoolId = compareBtn.getAttribute('data-school-id');
+        const schoolName = compareBtn.getAttribute('data-school-name');
+        let compared = JSON.parse(localStorage.getItem(compareKey) || '[]');
+        function isCompared(list, id) {
+          return list.some(function (item) { return (item.id || item) === id; });
+        }
+        function updateCompareUI(inList) {
+          const icon = compareBtn.querySelector('i');
+          const label = compareBtn.querySelector('span');
+          if (inList) {
+            compareBtn.classList.add('opacity-80');
+            icon.setAttribute('data-lucide', 'check');
+            label.textContent = '已加入对比';
+          } else {
+            compareBtn.classList.remove('opacity-80');
+            icon.setAttribute('data-lucide', 'plus');
+            label.textContent = '加入院校对比';
+          }
+          if (window.lucide) lucide.createIcons();
+        }
+        updateCompareUI(isCompared(compared, schoolId));
+        compareBtn.addEventListener('click', function () {
+          compared = JSON.parse(localStorage.getItem(compareKey) || '[]');
+          const idx = compared.findIndex(function (item) { return (item.id || item) === schoolId; });
+          if (idx === -1) {
+            if (compared.length >= 4) {
+              alert('最多可同时对比 4 所院校，请先移除其他院校。');
+              return;
+            }
+            compared.push({ id: schoolId, name: schoolName });
+          } else {
+            compared.splice(idx, 1);
+          }
+          localStorage.setItem(compareKey, JSON.stringify(compared));
+          updateCompareUI(isCompared(compared, schoolId));
+        });
+      }
+    })();
+    lucide.createIcons();
+  </script>
+  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/pages.js" defer></script>
+</body>
+</html>
