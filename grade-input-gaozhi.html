@@ -87,92 +87,10 @@
 
     <!-- Main form area -->
     <section class="mx-auto max-w-7xl px-6 py-8 md:py-12">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
         <!-- Sticky-left progress -->
-        <aside class="lg:col-span-4 xl:col-span-3">
-          <div class="lg:sticky lg:top-24 space-y-6">
-            <div class="bg-card border border-border rounded-xl p-5 shadow-[var(--edu-shadow-1)]">
-              <h2 class="edu-h3 text-foreground mb-5 flex items-center gap-2">
-                <i data-lucide="route" class="w-5 h-5 text-primary"></i>
-                高职提招流程
-              </h2>
-              <ol class="relative pl-6 space-y-0">
-                <li class="step-item relative pb-6" data-step="1">
-                  <span class="absolute -left-6 top-0 flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-semibold ring-4 ring-background">1</span>
-                  <div class="absolute -left-[11px] top-5 bottom-0 w-0.5 bg-border"></div>
-                  <h3 class="text-sm font-semibold text-foreground">录入成绩</h3>
-                  <p class="text-xs text-muted-foreground mt-0.5">10 门学考等级</p>
-                </li>
-                <li class="step-item relative pb-6" data-step="2">
-                  <span class="absolute -left-6 top-0 flex items-center justify-center w-5 h-5 rounded-full bg-muted text-muted-foreground text-xs font-semibold ring-4 ring-background">2</span>
-                  <div class="absolute -left-[11px] top-5 bottom-0 w-0.5 bg-border"></div>
-                  <h3 class="text-sm font-semibold text-muted-foreground">选科与外语</h3>
-                  <p class="text-xs text-muted-foreground mt-0.5">7 选 3 + 外语种类</p>
-                </li>
-                <li class="step-item relative" data-step="3">
-                  <span class="absolute -left-6 top-0 flex items-center justify-center w-5 h-5 rounded-full bg-muted text-muted-foreground text-xs font-semibold ring-4 ring-background">3</span>
-                  <h3 class="text-sm font-semibold text-muted-foreground">生成方案</h3>
-                  <p class="text-xs text-muted-foreground mt-0.5">院校匹配与冲稳保</p>
-                </li>
-              </ol>
-            </div>
-
-            <!-- Grade explanation -->
-            <div class="bg-card border border-border rounded-xl p-5 shadow-[var(--edu-shadow-1)]">
-              <h3 class="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-                <i data-lucide="award" class="w-4 h-4 text-primary"></i>
-                浙江省学考等级说明
-              </h3>
-              <ul class="space-y-2 text-xs text-muted-foreground">
-                <li class="flex items-center justify-between gap-2">
-                  <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-semibold">A</span>
-                  <span class="flex-1">前 15%</span>
-                </li>
-                <li class="flex items-center justify-between gap-2">
-                  <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-semibold">B</span>
-                  <span class="flex-1">前 15%–45%</span>
-                </li>
-                <li class="flex items-center justify-between gap-2">
-                  <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-semibold">C</span>
-                  <span class="flex-1">前 45%–75%</span>
-                </li>
-                <li class="flex items-center justify-between gap-2">
-                  <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-semibold">D</span>
-                  <span class="flex-1">前 75%–95%</span>
-                </li>
-                <li class="flex items-center justify-between gap-2">
-                  <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-semibold">E</span>
-                  <span class="flex-1">后 5%</span>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Quick tips -->
-            <div class="bg-primary/5 border border-primary/10 rounded-xl p-5">
-              <h3 class="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
-                <i data-lucide="lightbulb" class="w-4 h-4 text-primary"></i>
-                填写小贴士
-              </h3>
-              <ul class="space-y-2 text-xs text-muted-foreground">
-                <li class="flex gap-2">
-                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary shrink-0 mt-0.5"></i>
-                  <span>以学考最终等级为准，补考成绩可取高。</span>
-                </li>
-                <li class="flex gap-2">
-                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary shrink-0 mt-0.5"></i>
-                  <span>技术科目包含信息技术和通用技术，取最高等级。</span>
-                </li>
-                <li class="flex gap-2">
-                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary shrink-0 mt-0.5"></i>
-                  <span>部分高职提前招生专业对外语种类有要求，请如实填写。</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </aside>
-
         <!-- Flowing-right form -->
-        <div class="lg:col-span-8 xl:col-span-9 space-y-6">
+        <div class="md:col-span-8 xl:col-span-9 min-w-0 space-y-6" style="grid-column: span 8; min-width: 0;">
           <!-- 考生基本信息 -->
           <div id="student-info-section" class="bg-card border border-border rounded-xl p-5 md:p-6 shadow-[var(--edu-shadow-1)]">
             <h2 class="edu-h3 text-foreground flex items-center gap-2 mb-4">
@@ -289,6 +207,64 @@
             <p class="edu-caption text-muted-foreground">浙江省高考选考科目 7 选 3，部分高职提前招生专业对选科有要求。</p>
           </div>
 
+          <!-- 综合素质评价 -->
+          <div id="comprehensive-quality-section" class="bg-card border border-border rounded-xl p-5 md:p-6 shadow-[var(--edu-shadow-1)]">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="edu-h3 text-foreground flex items-center gap-2">
+                <i data-lucide="award" class="w-5 h-5 text-primary"></i>
+                综合素质评价
+              </h2>
+              <span id="comprehensive-counter" class="text-xs font-medium text-muted-foreground">已填 0 / 4 项</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="comprehensive-item" data-item="moral">
+                <div class="flex items-center gap-2 mb-2">
+                  <i data-lucide="heart" class="w-4 h-4 text-primary"></i>
+                  <span class="text-sm font-medium text-foreground">品德表现</span>
+                </div>
+                <div class="grade-selector flex gap-2" role="radiogroup" aria-label="品德表现等级">
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="moral" data-grade="A">A</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="moral" data-grade="B">B</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="moral" data-grade="C">C</button>
+                </div>
+              </div>
+              <div class="comprehensive-item" data-item="sports">
+                <div class="flex items-center gap-2 mb-2">
+                  <i data-lucide="activity" class="w-4 h-4 text-primary"></i>
+                  <span class="text-sm font-medium text-foreground">运动健康</span>
+                </div>
+                <div class="grade-selector flex gap-2" role="radiogroup" aria-label="运动健康等级">
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="sports" data-grade="A">A</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="sports" data-grade="B">B</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="sports" data-grade="C">C</button>
+                </div>
+              </div>
+              <div class="comprehensive-item" data-item="art">
+                <div class="flex items-center gap-2 mb-2">
+                  <i data-lucide="palette" class="w-4 h-4 text-primary"></i>
+                  <span class="text-sm font-medium text-foreground">艺术素养</span>
+                </div>
+                <div class="grade-selector flex gap-2" role="radiogroup" aria-label="艺术素养等级">
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="art" data-grade="A">A</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="art" data-grade="B">B</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="art" data-grade="C">C</button>
+                </div>
+              </div>
+              <div class="comprehensive-item" data-item="innovation">
+                <div class="flex items-center gap-2 mb-2">
+                  <i data-lucide="lightbulb" class="w-4 h-4 text-primary"></i>
+                  <span class="text-sm font-medium text-foreground">创新实践</span>
+                </div>
+                <div class="grade-selector flex gap-2" role="radiogroup" aria-label="创新实践等级">
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="innovation" data-grade="A">A</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="innovation" data-grade="B">B</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="innovation" data-grade="C">C</button>
+                </div>
+              </div>
+            </div>
+            <p class="edu-caption text-muted-foreground mt-3">综合素质评价按 A/B/C 三等评定，部分高职提前招生院校将其纳入折算或参考。</p>
+          </div>
+
           <!-- Selection summary chips -->
           <div class="bg-card border border-border rounded-xl p-5 shadow-[var(--edu-shadow-1)]">
             <div class="flex items-center justify-between mb-3">
@@ -349,6 +325,88 @@
             </div>
           </div>
         </div>
+
+        <aside class="md:col-span-4 xl:col-span-3 min-w-0" style="grid-column: span 4; min-width: 0;">
+          <div class="md:sticky md:top-24 space-y-6">
+            <div class="bg-card border border-border rounded-xl p-5 shadow-[var(--edu-shadow-1)]">
+              <h2 class="edu-h3 text-foreground mb-5 flex items-center gap-2">
+                <i data-lucide="route" class="w-5 h-5 text-primary"></i>
+                高职提招流程
+              </h2>
+              <ol class="relative pl-6 space-y-0">
+                <li class="step-item relative pb-6" data-step="1">
+                  <span class="absolute -left-6 top-0 flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-semibold ring-4 ring-background">1</span>
+                  <div class="absolute -left-[11px] top-5 bottom-0 w-0.5 bg-border"></div>
+                  <h3 class="text-sm font-semibold text-foreground">录入成绩</h3>
+                  <p class="text-xs text-muted-foreground mt-0.5">10 门学考等级</p>
+                </li>
+                <li class="step-item relative pb-6" data-step="2">
+                  <span class="absolute -left-6 top-0 flex items-center justify-center w-5 h-5 rounded-full bg-muted text-muted-foreground text-xs font-semibold ring-4 ring-background">2</span>
+                  <div class="absolute -left-[11px] top-5 bottom-0 w-0.5 bg-border"></div>
+                  <h3 class="text-sm font-semibold text-muted-foreground">选科与外语</h3>
+                  <p class="text-xs text-muted-foreground mt-0.5">7 选 3 + 外语种类</p>
+                </li>
+                <li class="step-item relative" data-step="3">
+                  <span class="absolute -left-6 top-0 flex items-center justify-center w-5 h-5 rounded-full bg-muted text-muted-foreground text-xs font-semibold ring-4 ring-background">3</span>
+                  <h3 class="text-sm font-semibold text-muted-foreground">生成方案</h3>
+                  <p class="text-xs text-muted-foreground mt-0.5">院校匹配与冲稳保</p>
+                </li>
+              </ol>
+            </div>
+
+            <!-- Grade explanation -->
+            <div class="bg-card border border-border rounded-xl p-5 shadow-[var(--edu-shadow-1)]">
+              <h3 class="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                <i data-lucide="award" class="w-4 h-4 text-primary"></i>
+                浙江省学考等级说明
+              </h3>
+              <ul class="space-y-2 text-xs text-muted-foreground">
+                <li class="flex items-center justify-between gap-2">
+                  <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-semibold">A</span>
+                  <span class="flex-1">前 15%</span>
+                </li>
+                <li class="flex items-center justify-between gap-2">
+                  <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-semibold">B</span>
+                  <span class="flex-1">前 15%–45%</span>
+                </li>
+                <li class="flex items-center justify-between gap-2">
+                  <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-semibold">C</span>
+                  <span class="flex-1">前 45%–75%</span>
+                </li>
+                <li class="flex items-center justify-between gap-2">
+                  <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-semibold">D</span>
+                  <span class="flex-1">前 75%–95%</span>
+                </li>
+                <li class="flex items-center justify-between gap-2">
+                  <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-semibold">E</span>
+                  <span class="flex-1">后 5%</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Quick tips -->
+            <div class="bg-primary/5 border border-primary/10 rounded-xl p-5">
+              <h3 class="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-primary"></i>
+                填写小贴士
+              </h3>
+              <ul class="space-y-2 text-xs text-muted-foreground">
+                <li class="flex gap-2">
+                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary shrink-0 mt-0.5"></i>
+                  <span>以学考最终等级为准，补考成绩可取高。</span>
+                </li>
+                <li class="flex gap-2">
+                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary shrink-0 mt-0.5"></i>
+                  <span>技术科目包含信息技术和通用技术，取最高等级。</span>
+                </li>
+                <li class="flex gap-2">
+                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-primary shrink-0 mt-0.5"></i>
+                  <span>部分高职提前招生专业对外语种类有要求，请如实填写。</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </aside>
       </div>
     </section>
   </main>
@@ -395,6 +453,7 @@
       const state = {};
       let foreignLanguage = '';
       let selectedElectives = [];
+      let comprehensiveState = {};
 
       const cardsContainer = document.getElementById('subject-cards');
       const chipsContainer = document.getElementById('selection-chips');
@@ -406,6 +465,8 @@
       const foreignLangInputs = document.querySelectorAll('input[name="foreign-language"]');
       const electiveBtns = document.querySelectorAll('.elective-option');
       const electiveCounter = document.getElementById('elective-counter');
+      const comprehensiveBtns = document.querySelectorAll('.comprehensive-option');
+      const comprehensiveCounter = document.getElementById('comprehensive-counter');
 
       function createCards() {
         cardsContainer.innerHTML = subjects.map((subject, index) => `
@@ -505,6 +566,27 @@
           electiveCounter.style.color = selectedElectives.length === 3 ? 'var(--edu-primary)' : '';
         }
 
+
+        // Update comprehensive quality buttons
+        const compFields = ['moral', 'sports', 'art', 'innovation'];
+        let compFilled = 0;
+        compFields.forEach(field => {
+          const btns = document.querySelectorAll('.comprehensive-option[data-field="' + field + '"]');
+          const selected = comprehensiveState[field];
+          btns.forEach(b => {
+            if (b.dataset.grade === selected) {
+              b.className = 'comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-primary bg-primary/10 text-primary transition-colors cursor-pointer';
+            } else {
+              b.className = 'comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer';
+            }
+          });
+          if (selected) compFilled++;
+        });
+        if (comprehensiveCounter) {
+          comprehensiveCounter.textContent = '已填 ' + compFilled + ' / 4 项';
+          comprehensiveCounter.style.color = compFilled === 4 ? 'var(--edu-primary)' : '';
+        }
+
         // Update chips and estimate
         const selectedEntries = Object.entries(state).filter(([_, grade]) => grade && grade !== 'none');
         const scoreSum = calculateEstimate();
@@ -528,7 +610,8 @@
         const allSubjectsSelected = selectedEntries.length === subjects.length;
         const foreignLangSelected = !!foreignLanguage;
         const electivesSelected = selectedElectives.length === 3;
-        if (allSubjectsSelected && foreignLangSelected && electivesSelected) {
+        const compComplete = Object.keys(comprehensiveState).length === 4;
+        if (allSubjectsSelected && foreignLangSelected && electivesSelected && compComplete) {
           submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
           submitBtn.removeAttribute('disabled');
         } else {
@@ -565,6 +648,21 @@
         });
       });
 
+
+      // Comprehensive quality selection
+      comprehensiveBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const field = btn.dataset.field;
+          const grade = btn.dataset.grade;
+          if (comprehensiveState[field] === grade) {
+            delete comprehensiveState[field];
+          } else {
+            comprehensiveState[field] = grade;
+          }
+          updateUI();
+        });
+      });
+
       foreignLangInputs.forEach(input => {
         input.addEventListener('change', (event) => {
           foreignLanguage = event.target.value;
@@ -576,6 +674,7 @@
         Object.keys(state).forEach(key => delete state[key]);
         foreignLanguage = '';
         selectedElectives = [];
+        comprehensiveState = {};
         foreignLangInputs.forEach(input => { input.checked = false; });
         updateUI();
       });
@@ -585,6 +684,7 @@
         if (selectedEntries.length < subjects.length) return;
         if (!foreignLanguage) return;
         if (selectedElectives.length < 3) return;
+        if (Object.keys(comprehensiveState).length < 4) return;
         // TODO: persist state and trigger conversion on the server
         window.location.href = 'plan-result-gaozhi.html';
       });

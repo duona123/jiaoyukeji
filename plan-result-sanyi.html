@@ -2670,22 +2670,8 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 </div>
 </div>
 </section>
-<!-- 已选专业/组别 -->
-<section class="saved-majors-section bg-card border border-border rounded-lg p-5 md:p-6 mb-6 md:mb-8" data-dom-id="saved-majors-section" style="box-shadow: var(--edu-shadow-1);">
-<div class="flex items-center justify-between gap-3 mb-4">
-<div class="flex items-center gap-2">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-circle-2" aria-hidden="true" class="lucide lucide-check-circle-2 w-5 h-5 text-primary"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
-<h2 class="edu-h3 text-foreground">已选专业/组别</h2>
-</div>
-<button class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors" data-dom-id="clear-saved-majors" type="button">清空全部</button>
-</div>
-<ul class="space-y-2 mb-4" data-dom-id="saved-majors-list">
-<li class="empty-saved-hint edu-body-sm text-muted-foreground">尚未保存任何专业或组别，请在下方院校卡片中选择并保存。</li>
-</ul>
-<button class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-[var(--edu-primary-700)] transition-colors" data-dom-id="generate-final-plan" type="button">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-check" aria-hidden="true" class="lucide lucide-file-check w-4 h-4"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="m9 15 2 2 4-4"></path></svg>生成最终志愿表
-                </button>
-</section>
+
+
 <!-- 免费用户差异提示 -->
 <section class="free-upsell bg-[var(--edu-state-warning-bg)] border border-[var(--edu-state-warning)] rounded-lg p-4 mb-6 md:mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
 <div class="flex items-start gap-3">
@@ -2700,21 +2686,7 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
                     升级 VIP 解锁完整方案
                 </a>
 </section>
-<!-- 时间冲突检测 -->
-<section class="conflict-alert bg-[var(--edu-state-error-bg)] border border-[var(--edu-state-error)] rounded-lg p-4 mb-6 md:mb-8">
-<div class="flex items-start gap-3">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="alert-triangle" aria-hidden="true" class="lucide lucide-alert-triangle w-5 h-5 text-[var(--edu-state-error)] shrink-0 mt-0.5"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
-<div class="flex-1">
-<h3 class="edu-body-sm font-semibold text-[var(--edu-state-error)]">检测到 2 所院校校测时间重叠</h3>
-<p class="edu-caption mt-1">浙江工业大学（机械工程）与杭州电子科技大学（计算机类）校测均安排在 <strong class="text-foreground">2026-04-20 09:00-12:00</strong>，无法同时参加。</p>
-<ul class="mt-2 space-y-1 edu-caption">
-<li class="flex items-start gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right w-3 h-3 mt-0.5"><path d="m9 18 6-6-6-6"></path></svg>建议优先准备录取概率更高的浙江工业大学，将杭州电子科技大学替换为同档时间不冲突院校。</li>
-<li class="flex items-start gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right w-3 h-3 mt-0.5"><path d="m9 18 6-6-6-6"></path></svg>若两所均为意向院校，可关注院校是否提供下午场次或线上测试。</li>
-</ul>
-</div>
-</div>
-</section>
-<div class="grid grid-cols-1 gap-6 md:gap-8 items-start">
+<div class="space-y-6">
 <!-- 左侧：分档标签 + 院校卡片 -->
 <div class="space-y-6">
 <!-- 对比工具栏 -->
@@ -2798,7 +2770,7 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 <p class="edu-caption text-muted-foreground ml-auto">已筛选出 <strong class="text-foreground edu-number" id="filter-count">10</strong> 所院校</p>
 </div>
 </section><section aria-labelledby="tab-schools" class="tier-panel space-y-4" id="schools-panel" role="tabpanel">
-<div class="school-cards space-y-4"><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试,无领导小组讨论面试,静物素描" data-group-name="A组 · 理工类" data-has-intent="true" data-level="省重点" data-location="杭州" data-majors="机械工程,计算机类,电子信息类,自动化,金融学,工商管理,法学,汉语言文学,工业设计,环境设计,视觉传达设计" data-mode="groups" data-nature="公办" data-school-index="1" data-school-name="浙江工业大学" data-selection-mode="groups" data-type="综合类" style="box-shadow: var(--edu-shadow-1);">
+<div class="school-cards space-y-4"><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试,无领导小组讨论面试,静物素描" data-group-name="A组 · 理工类" data-has-intent="true" data-level="省重点" data-location="杭州" data-majors="机械工程,计算机类,电子信息类,自动化,金融学,工商管理,法学,汉语言文学,工业设计,环境设计,视觉传达设计" data-mode="groups" data-nature="公办" data-school-index="1" data-test-time="2026-04-20 09:00-12:00" data-school-name="浙江工业大学" data-selection-mode="groups" data-type="综合类" style="box-shadow: var(--edu-shadow-1);">
 <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
 <div class="flex-1 min-w-0">
 <div class="flex items-start justify-between gap-3">
@@ -3586,7 +3558,7 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 
 </div>
 </div>
-</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="半结构化面试,结构化面试" data-group-name="A组 · 信息技术类" data-has-intent="true" data-level="省重点" data-location="杭州" data-majors="计算机类,电子信息类,人工智能,会计学,金融学,电子商务" data-mode="groups" data-nature="公办" data-school-index="2" data-school-name="杭州电子科技大学" data-selection-mode="groups" data-type="理工类" style="box-shadow: var(--edu-shadow-1);">
+</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="半结构化面试,结构化面试" data-group-name="A组 · 信息技术类" data-has-intent="true" data-level="省重点" data-location="杭州" data-majors="计算机类,电子信息类,人工智能,会计学,金融学,电子商务" data-mode="groups" data-nature="公办" data-school-index="2" data-test-time="2026-04-20 09:00-12:00" data-school-name="杭州电子科技大学" data-selection-mode="groups" data-type="理工类" style="box-shadow: var(--edu-shadow-1);">
 <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
 <div class="flex-1 min-w-0">
 <div class="flex items-start justify-between gap-3">
@@ -4037,7 +4009,7 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 
 </div>
 </div>
-</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="半结构化面试,结构化面试" data-group-name="A组 · 经管类" data-has-intent="true" data-level="省重点" data-location="杭州" data-majors="金融学,会计学,工商管理,财务管理,法学,新闻学,广告学" data-mode="groups" data-nature="公办" data-school-index="3" data-school-name="浙江工商大学" data-selection-mode="groups" data-type="财经类" style="box-shadow: var(--edu-shadow-1);">
+</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="半结构化面试,结构化面试" data-group-name="A组 · 经管类" data-has-intent="true" data-level="省重点" data-location="杭州" data-majors="金融学,会计学,工商管理,财务管理,法学,新闻学,广告学" data-mode="groups" data-nature="公办" data-school-index="3" data-test-time="2026-04-21 09:00-12:00" data-school-name="浙江工商大学" data-selection-mode="groups" data-type="财经类" style="box-shadow: var(--edu-shadow-1);">
 <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
 <div class="flex-1 min-w-0">
 <div class="flex items-start justify-between gap-3">
@@ -4552,7 +4524,7 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 
 </div>
 </div>
-</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试" data-group-name="A组 · 理工类" data-has-intent="true" data-level="省属公办" data-location="宁波" data-majors="工程力学,机械设计制造及其自动化,土木工程,小学教育（师范）,学前教育（师范）,汉语言文学（师范）" data-mode="groups" data-nature="公办" data-school-index="4" data-school-name="宁波大学" data-selection-mode="groups" data-type="综合类" style="box-shadow: var(--edu-shadow-1);">
+</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试" data-group-name="A组 · 理工类" data-has-intent="true" data-level="省属公办" data-location="宁波" data-majors="工程力学,机械设计制造及其自动化,土木工程,小学教育（师范）,学前教育（师范）,汉语言文学（师范）" data-mode="groups" data-nature="公办" data-school-index="4" data-test-time="2026-04-21 14:00-17:00" data-school-name="宁波大学" data-selection-mode="groups" data-type="综合类" style="box-shadow: var(--edu-shadow-1);">
 <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
 <div class="flex-1 min-w-0">
 <div class="flex items-start justify-between gap-3">
@@ -5003,7 +4975,7 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 
 </div>
 </div>
-</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试,静物素描" data-group-name="A组 · 理工类" data-has-intent="true" data-level="省重点" data-location="杭州" data-majors="机械类,纺织工程,材料科学与工程,工业设计,服装与服饰设计,产品设计" data-mode="groups" data-nature="公办" data-school-index="5" data-school-name="浙江理工大学" data-selection-mode="groups" data-type="理工类" style="box-shadow: var(--edu-shadow-1);">
+</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试,静物素描" data-group-name="A组 · 理工类" data-has-intent="true" data-level="省重点" data-location="杭州" data-majors="机械类,纺织工程,材料科学与工程,工业设计,服装与服饰设计,产品设计" data-mode="groups" data-nature="公办" data-school-index="5" data-test-time="2026-04-19 09:00-12:00" data-school-name="浙江理工大学" data-selection-mode="groups" data-type="理工类" style="box-shadow: var(--edu-shadow-1);">
 <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
 <div class="flex-1 min-w-0">
 <div class="flex items-start justify-between gap-3">
@@ -5454,7 +5426,7 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 
 </div>
 </div>
-</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试" data-has-intent="false" data-level="省重点" data-location="金华" data-majors="小学教育（师范）,化学（师范）" data-mode="majors" data-nature="公办" data-school-index="6" data-school-name="浙江师范大学" data-selection-mode="majors" data-type="师范类" style="box-shadow: var(--edu-shadow-1);">
+</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试" data-has-intent="false" data-level="省重点" data-location="金华" data-majors="小学教育（师范）,化学（师范）" data-mode="majors" data-nature="公办" data-school-index="6" data-test-time="2026-04-19 14:00-17:00" data-school-name="浙江师范大学" data-selection-mode="majors" data-type="师范类" style="box-shadow: var(--edu-shadow-1);">
 <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
 <div class="flex-1 min-w-0">
 <div class="flex items-start justify-between gap-3">
@@ -5613,7 +5585,7 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 
 </div>
 </div>
-</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试" data-has-intent="false" data-level="省重点" data-location="温州" data-majors="护理学,药学" data-mode="majors" data-nature="公办" data-school-index="7" data-school-name="温州医科大学" data-selection-mode="majors" data-type="医药类" style="box-shadow: var(--edu-shadow-1);">
+</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试" data-has-intent="false" data-level="省重点" data-location="温州" data-majors="护理学,药学" data-mode="majors" data-nature="公办" data-school-index="7" data-test-time="2026-04-20 14:00-17:00" data-school-name="温州医科大学" data-selection-mode="majors" data-type="医药类" style="box-shadow: var(--edu-shadow-1);">
 <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
 <div class="flex-1 min-w-0">
 <div class="flex items-start justify-between gap-3">
@@ -5772,7 +5744,7 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 
 </div>
 </div>
-</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="半结构化面试,结构化面试" data-group-name="A组 · 财会类" data-has-intent="true" data-level="省重点" data-location="杭州" data-majors="会计学,财务管理,审计学,金融学,投资学,保险学,法学,社会工作" data-mode="groups" data-nature="公办" data-school-index="8" data-school-name="浙江财经大学" data-selection-mode="groups" data-type="财经类" style="box-shadow: var(--edu-shadow-1);">
+</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="半结构化面试,结构化面试" data-group-name="A组 · 财会类" data-has-intent="true" data-level="省重点" data-location="杭州" data-majors="会计学,财务管理,审计学,金融学,投资学,保险学,法学,社会工作" data-mode="groups" data-nature="公办" data-school-index="8" data-test-time="2026-04-22 09:00-12:00" data-school-name="浙江财经大学" data-selection-mode="groups" data-type="财经类" style="box-shadow: var(--edu-shadow-1);">
 <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
 <div class="flex-1 min-w-0">
 <div class="flex items-start justify-between gap-3">
@@ -6368,7 +6340,7 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 
 </div>
 </div>
-</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试" data-has-intent="true" data-level="省属公办" data-location="绍兴" data-majors="机械工程,小学教育（师范）,会计学" data-mode="majors" data-nature="公办" data-school-index="9" data-school-name="绍兴文理学院" data-selection-mode="majors" data-type="综合类" style="box-shadow: var(--edu-shadow-1);">
+</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试" data-has-intent="true" data-level="省属公办" data-location="绍兴" data-majors="机械工程,小学教育（师范）,会计学" data-mode="majors" data-nature="公办" data-school-index="9" data-test-time="2026-04-22 14:00-17:00" data-school-name="绍兴文理学院" data-selection-mode="majors" data-type="综合类" style="box-shadow: var(--edu-shadow-1);">
 <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
 <div class="flex-1 min-w-0">
 <div class="flex items-start justify-between gap-3">
@@ -6591,7 +6563,7 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 
 </div>
 </div>
-</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试" data-has-intent="false" data-level="省属公办" data-location="台州" data-majors="学前教育（师范）,汉语言文学（师范）" data-mode="majors" data-nature="公办" data-school-index="10" data-school-name="台州学院" data-selection-mode="majors" data-type="综合类" style="box-shadow: var(--edu-shadow-1);">
+</article><article class="school-card bg-card border border-border rounded-lg p-5 transition hover:border-primary/40" data-category="sanyi" data-cooperation="非中外合作" data-exam="结构化面试" data-has-intent="false" data-level="省属公办" data-location="台州" data-majors="学前教育（师范）,汉语言文学（师范）" data-mode="majors" data-nature="公办" data-school-index="10" data-test-time="2026-04-23 09:00-12:00" data-school-name="台州学院" data-selection-mode="majors" data-type="综合类" style="box-shadow: var(--edu-shadow-1);">
 <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
 <div class="flex-1 min-w-0">
 <div class="flex items-start justify-between gap-3">
@@ -6828,7 +6800,6 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 </section>
 </div>
 </div>
-</div>
 <!-- 折算公式说明浮层 -->
 <div aria-labelledby="formula-title" aria-modal="true" class="fixed inset-0 z-50 hidden" id="formula-modal" role="dialog">
 <div class="absolute inset-0 bg-black/40" onclick="closeFormulaModal()"></div>
@@ -7041,6 +7012,8 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 </div>
 </div>
 </section>
+</div></div>
+
 <section>
 <h4 class="edu-body font-semibold text-foreground mb-3 flex items-center gap-2">
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bar-chart" aria-hidden="true" class="lucide lucide-bar-chart w-4 h-4 text-primary"><path d="M5 21v-6"></path><path d="M12 21V9"></path><path d="M19 21V3"></path></svg>近三年录取数据
@@ -7294,6 +7267,37 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
                 lucide.createIcons();
             })();
         </script>
+<!-- 已选专业浮动面板 -->
+<div class="fixed bottom-4 left-4 z-50 flex flex-col items-start gap-3 pointer-events-none" id="saved-panel-root">
+<button aria-label="查看已选专业" class="pointer-events-auto w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-[var(--edu-primary-700)] transition-colors relative" id="saved-panel-toggle" type="button">
+<i data-lucide="check-circle-2" class="w-6 h-6"></i>
+<span id="saved-count-badge" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[var(--edu-state-error)] text-white text-xs font-semibold flex items-center justify-center hidden">0</span>
+</button>
+<div class="pointer-events-auto hidden w-[calc(100vw-2rem)] sm:w-[380px] max-h-[70vh] bg-card border border-border rounded-lg flex flex-col overflow-hidden" id="saved-panel-content" style="box-shadow: var(--edu-shadow-3);">
+<div class="flex items-center justify-between gap-3 px-4 py-3 border-b border-border bg-muted/40">
+<div class="flex items-center gap-2">
+<i data-lucide="check-circle-2" class="w-5 h-5 text-primary"></i>
+<h3 class="edu-body-sm font-semibold text-foreground">已选专业/组别</h3>
+</div>
+<button aria-label="关闭" class="p-1.5 rounded-md hover:bg-muted transition-colors" id="saved-panel-close" type="button">
+<i data-lucide="x" class="w-4 h-4 text-muted-foreground"></i>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-4" id="saved-panel-body">
+<div class="flex justify-end">
+<button class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors" data-dom-id="clear-saved-majors" type="button">清空全部</button>
+</div>
+<ul class="space-y-2" data-dom-id="saved-majors-list">
+<li class="empty-saved-hint edu-body-sm text-muted-foreground">尚未保存任何专业或组别，请在下方院校卡片中选择并保存。</li>
+</ul>
+<button class="w-full inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-[var(--edu-primary-700)] transition-colors" data-dom-id="generate-final-plan" type="button">
+<i data-lucide="file-check" class="w-4 h-4"></i>生成最终志愿表
+</button>
+<!-- 校测时间冲突检测 -->
+<div id="conflict-alert-container"></div>
+</div>
+</div>
+</div>
 <!-- AI 志愿助手 -->
 <div class="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3 pointer-events-none" id="ai-assistant-root">
 <button aria-label="打开 AI 志愿助手" class="pointer-events-auto w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-[var(--edu-primary-700)] transition-colors" data-dom-id="ai-assistant-toggle" type="button">
@@ -7439,11 +7443,67 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
         const clearSavedBtn = document.querySelector('[data-dom-id="clear-saved-majors"]');
         const generateFinalBtn = document.querySelector('[data-dom-id="generate-final-plan"]');
 
+        // --- 已选专业浮动面板 ---
+        const savedToggle = document.getElementById('saved-panel-toggle');
+        const savedClose = document.getElementById('saved-panel-close');
+        const savedContent = document.getElementById('saved-panel-content');
+        const savedBadge = document.getElementById('saved-count-badge');
+
+        function toggleSavedPanel() {
+            savedContent.classList.toggle('hidden');
+        }
+
+        if (savedToggle) savedToggle.addEventListener('click', toggleSavedPanel);
+        if (savedClose) savedClose.addEventListener('click', function() { savedContent.classList.add('hidden'); });
+
+        function updateSavedBadge() {
+            if (!savedBadge) return;
+            var list = loadSaved();
+            if (list.length > 0) {
+                savedBadge.textContent = list.length;
+                savedBadge.classList.remove('hidden');
+            } else {
+                savedBadge.classList.add('hidden');
+            }
+        }
+
         function loadSaved() {
             try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch (e) { return []; }
         }
         function saveSaved(list) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+        }
+
+        function checkConflicts() {
+            var container = document.getElementById('conflict-alert-container');
+            if (!container) return;
+            var list = loadSaved();
+            if (list.length === 0) { container.innerHTML = ''; return; }
+            var groups = {};
+            list.forEach(function(item) {
+                var card = document.querySelector('.school-card[data-school-index="' + item.schoolIndex + '"]');
+                if (!card) return;
+                var time = card.dataset.testTime;
+                if (!time) return;
+                var detail = item.mode === 'groups' ? (item.groupName || '') : (item.majors || []).join('、');
+                var label = item.schoolName + (detail ? ('（' + detail + '）') : '');
+                if (!groups[time]) groups[time] = [];
+                groups[time].push(label);
+            });
+            var conflictTimes = Object.keys(groups).filter(function(t) { return groups[t].length >= 2; });
+            if (conflictTimes.length === 0) {
+                container.innerHTML = '<div class="bg-[var(--edu-state-success-bg)] border border-[var(--edu-state-success)] rounded-lg p-4"><div class="flex items-start gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-[var(--edu-state-success)] shrink-0 mt-0.5"></i><div class="flex-1"><h3 class="edu-body-sm font-semibold text-[var(--edu-state-success)]">已选院校校测时间无冲突</h3></div></div></div>';
+            } else {
+                var html = '';
+                conflictTimes.forEach(function(t) {
+                    var names = groups[t];
+                    var pairs = names.slice(0, 2).join(' 与 ');
+                    var extra = names.length > 2 ? (' 等 ' + names.length + ' 所') : '';
+                    html += '<div class="bg-[var(--edu-state-error-bg)] border border-[var(--edu-state-error)] rounded-lg p-4 mb-3 last:mb-0"><div class="flex items-start gap-3"><i data-lucide="alert-triangle" class="w-5 h-5 text-[var(--edu-state-error)] shrink-0 mt-0.5"></i><div class="flex-1"><h3 class="edu-body-sm font-semibold text-[var(--edu-state-error)]">检测到 ' + names.length + ' 所院校校测时间重叠</h3><p class="edu-caption mt-1">' + pairs + extra + '校测均安排在 <strong class="text-foreground">' + t + '</strong>，无法同时参加。</p></div></div></div>';
+                });
+                container.innerHTML = html;
+            }
+            lucide.createIcons();
         }
 
         function getMajorName(block) {
@@ -7456,10 +7516,12 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
 
         function renderSavedList() {
             const list = loadSaved();
+            updateSavedBadge();
             if (!savedListEl) return;
             savedListEl.innerHTML = '';
             if (list.length === 0) {
                 savedListEl.innerHTML = '<li class="empty-saved-hint edu-body-sm text-muted-foreground">尚未保存任何专业或组别，请在下方院校卡片中选择并保存。</li>';
+                checkConflicts();
                 return;
             }
             list.forEach(function(item, idx) {
@@ -7472,6 +7534,7 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
                 savedListEl.appendChild(li);
             });
             lucide.createIcons();
+            checkConflicts();
         }
 
         function syncControlsFromStorage() {

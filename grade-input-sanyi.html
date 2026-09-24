@@ -87,10 +87,214 @@
 
     <!-- Main form area -->
     <section class="mx-auto max-w-7xl px-6 py-8 md:py-12">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
         <!-- Sticky-left progress -->
-        <aside class="lg:col-span-4 xl:col-span-3">
-          <div class="lg:sticky lg:top-24 space-y-6">
+        <!-- Flowing-right form -->
+        <div class="md:col-span-8 xl:col-span-9 min-w-0 space-y-6" style="grid-column: span 8; min-width: 0;">
+          <!-- 考生基本信息 -->
+          <div id="student-info-section" class="bg-card border border-border rounded-xl p-5 md:p-6 shadow-[var(--edu-shadow-1)]">
+            <h2 class="edu-h3 text-foreground flex items-center gap-2 mb-4">
+              <i data-lucide="user" class="w-5 h-5 text-primary"></i>
+              考生基本信息
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <span class="text-sm font-medium text-foreground block mb-2">性别</span>
+                <div class="flex flex-wrap gap-3" role="radiogroup" aria-label="性别">
+                  <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer">
+                    <input type="radio" name="student-gender" value="male" data-dom-id="student-gender-male" class="w-4 h-4 border-border text-primary focus:ring-primary">
+                    <span class="text-sm font-medium">男</span>
+                  </label>
+                  <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer">
+                    <input type="radio" name="student-gender" value="female" data-dom-id="student-gender-female" class="w-4 h-4 border-border text-primary focus:ring-primary">
+                    <span class="text-sm font-medium">女</span>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label for="student-height" class="text-sm font-medium text-foreground block mb-2">身高</label>
+                <div class="flex items-center gap-2">
+                  <input type="number" id="student-height" data-dom-id="student-height" min="100" max="250" placeholder="175" class="w-32 px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring edu-number">
+                  <span class="text-sm text-muted-foreground">cm</span>
+                </div>
+              </div>
+              <div>
+                <label for="student-vision" class="text-sm font-medium text-foreground block mb-2">视力</label>
+                <input type="text" id="student-vision" data-dom-id="student-vision" placeholder="如 5.0" class="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring">
+              </div>
+              <div>
+                <span class="text-sm font-medium text-foreground block mb-2">是否色盲色弱</span>
+                <div class="flex flex-wrap gap-3" role="radiogroup" aria-label="是否色盲色弱">
+                  <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer">
+                    <input type="radio" name="student-color" value="normal" data-dom-id="student-color-normal" class="w-4 h-4 border-border text-primary focus:ring-primary">
+                    <span class="text-sm font-medium">正常</span>
+                  </label>
+                  <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer">
+                    <input type="radio" name="student-color" value="blind" data-dom-id="student-color-blind" class="w-4 h-4 border-border text-primary focus:ring-primary">
+                    <span class="text-sm font-medium">色盲</span>
+                  </label>
+                  <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer">
+                    <input type="radio" name="student-color" value="weak" data-dom-id="student-color-weak" class="w-4 h-4 border-border text-primary focus:ring-primary">
+                    <span class="text-sm font-medium">色弱</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 高考预估分 -->
+          <div id="sanyi-section" class="bg-card border border-border rounded-xl p-5 md:p-6 shadow-[var(--edu-shadow-1)]">
+            <h2 class="edu-h3 text-foreground flex items-center gap-2 mb-4">
+              <i data-lucide="target" class="w-5 h-5 text-primary"></i>
+              高考预估分
+            </h2>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div class="flex items-center gap-3">
+                <label for="gaokao-estimated-score" class="text-sm font-medium text-foreground">预估总分</label>
+                <input type="number" id="gaokao-estimated-score" data-dom-id="gaokao-estimated-score" min="0" max="750" placeholder="0-750" class="w-32 px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring edu-number">
+                <span class="text-sm text-muted-foreground">分</span>
+              </div>
+              <p class="edu-caption text-muted-foreground">用于评估综合成绩竞争力，不影响学考折算分。</p>
+            </div>
+          </div>
+
+          <!-- 综合素质评价 -->
+          <div id="comprehensive-quality-section" class="bg-card border border-border rounded-xl p-5 md:p-6 shadow-[var(--edu-shadow-1)]">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="edu-h3 text-foreground flex items-center gap-2">
+                <i data-lucide="award" class="w-5 h-5 text-primary"></i>
+                综合素质评价
+              </h2>
+              <span id="comprehensive-counter" class="text-xs font-medium text-muted-foreground">已填 0 / 4 项</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="comprehensive-item" data-item="moral">
+                <div class="flex items-center gap-2 mb-2">
+                  <i data-lucide="heart" class="w-4 h-4 text-primary"></i>
+                  <span class="text-sm font-medium text-foreground">品德表现</span>
+                </div>
+                <div class="grade-selector flex gap-2" role="radiogroup" aria-label="品德表现等级">
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="moral" data-grade="A">A</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="moral" data-grade="B">B</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="moral" data-grade="C">C</button>
+                </div>
+              </div>
+              <div class="comprehensive-item" data-item="sports">
+                <div class="flex items-center gap-2 mb-2">
+                  <i data-lucide="activity" class="w-4 h-4 text-primary"></i>
+                  <span class="text-sm font-medium text-foreground">运动健康</span>
+                </div>
+                <div class="grade-selector flex gap-2" role="radiogroup" aria-label="运动健康等级">
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="sports" data-grade="A">A</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="sports" data-grade="B">B</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="sports" data-grade="C">C</button>
+                </div>
+              </div>
+              <div class="comprehensive-item" data-item="art">
+                <div class="flex items-center gap-2 mb-2">
+                  <i data-lucide="palette" class="w-4 h-4 text-primary"></i>
+                  <span class="text-sm font-medium text-foreground">艺术素养</span>
+                </div>
+                <div class="grade-selector flex gap-2" role="radiogroup" aria-label="艺术素养等级">
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="art" data-grade="A">A</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="art" data-grade="B">B</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="art" data-grade="C">C</button>
+                </div>
+              </div>
+              <div class="comprehensive-item" data-item="innovation">
+                <div class="flex items-center gap-2 mb-2">
+                  <i data-lucide="lightbulb" class="w-4 h-4 text-primary"></i>
+                  <span class="text-sm font-medium text-foreground">创新实践</span>
+                </div>
+                <div class="grade-selector flex gap-2" role="radiogroup" aria-label="创新实践等级">
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="innovation" data-grade="A">A</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="innovation" data-grade="B">B</button>
+                  <button type="button" class="comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer" data-field="innovation" data-grade="C">C</button>
+                </div>
+              </div>
+            </div>
+            <p class="edu-caption text-muted-foreground mt-3">综合素质评价按 A/B/C 三等评定，部分院校将其纳入折算或参考。</p>
+          </div>
+
+          <!-- Selection summary chips -->
+          <div class="bg-card border border-border rounded-xl p-5 shadow-[var(--edu-shadow-1)]">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="edu-h3 text-foreground flex items-center gap-2">
+                <i data-lucide="tags" class="w-5 h-5 text-primary"></i>
+                已选等级汇总
+              </h2>
+              <span id="completion-text" class="text-xs font-medium text-muted-foreground">已录入 0 / 10 科</span>
+            </div>
+            <div id="selection-chips" class="flex flex-wrap gap-2 min-h-[2.5rem]">
+              <span class="text-sm text-muted-foreground">尚未选择任何科目等级，请在下方卡片中点选。</span>
+            </div>
+            <div id="estimate-box" class="mt-4 pt-4 border-t border-border hidden">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="calculator" class="w-4 h-4 text-primary"></i>
+                  <span class="text-sm font-medium text-foreground">折算总分预估（示例）</span>
+                </div>
+                <div class="flex items-baseline gap-2">
+                  <span id="estimate-score" class="edu-h2 text-primary edu-number">0</span>
+                  <span class="text-xs text-muted-foreground">分 · 按常见折算规则估算，仅供参考</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subject cards grid -->
+          <div class="bg-card border border-border rounded-xl p-5 md:p-6 shadow-[var(--edu-shadow-1)]">
+            <div class="flex items-center justify-between mb-5">
+              <h2 class="edu-h3 text-foreground flex items-center gap-2">
+                <i data-lucide="book-open" class="w-5 h-5 text-primary"></i>
+                科目等级选择
+              </h2>
+              <button type="button" id="clear-all" class="text-xs font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                清空全部
+              </button>
+            </div>
+            <div id="subject-cards" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Cards generated by JS -->
+            </div>
+          </div>
+
+          <!-- 7-choose-3 exam subjects -->
+          <div id="xk-section" class="bg-card border border-border rounded-xl p-5 md:p-6 shadow-[var(--edu-shadow-1)] transition-opacity duration-200">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="edu-h3 text-foreground flex items-center gap-2">
+                <i data-lucide="layers" class="w-5 h-5 text-primary"></i>
+                选考科目（7 选 3）
+              </h2>
+              <span id="xk-count" class="text-xs font-medium text-muted-foreground">已选 0 / 3</span>
+            </div>
+            <p class="text-sm text-muted-foreground mb-4">请选择你的 3 门高考选考科目，系统将在生成方案时匹配院校专业的选科要求。</p>
+            <div id="xk-subjects" class="flex flex-wrap gap-3" role="group" aria-label="选考科目">
+              <!-- Chips generated by JS -->
+            </div>
+            <p id="xk-hint" class="mt-3 text-xs hidden" style="color: var(--edu-state-warning)">最多只能选择 3 门选考科目，请先取消已选科目再添加。</p>
+          </div>
+
+          <!-- Primary CTA -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-muted/40 border border-border rounded-xl p-5">
+            <div class="flex items-center gap-2 text-sm text-muted-foreground">
+              <i data-lucide="shield-check" class="w-4 h-4 text-primary"></i>
+              <span>信息仅用于生成个性化方案，严格保密。</span>
+            </div>
+            <div class="flex gap-3">
+              <a href="index.html" class="px-5 py-2.5 rounded-lg text-sm font-medium text-foreground bg-card border border-border hover:bg-muted transition-colors flex items-center justify-center">
+                返回上一步
+              </a>
+              <button type="button" id="submit-grades" data-dom-id="link-page-plan-result-sanyi" class="px-6 py-2.5 rounded-lg text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-colors shadow-[var(--edu-shadow-1)] flex items-center justify-center gap-2" disabled>
+                保存并继续
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="md:col-span-4 xl:col-span-3 min-w-0" style="grid-column: span 4; min-width: 0;">
+          <div class="md:sticky md:top-24 space-y-6">
             <div class="bg-card border border-border rounded-xl p-5 shadow-[var(--edu-shadow-1)]">
               <h2 class="edu-h3 text-foreground mb-5 flex items-center gap-2">
                 <i data-lucide="route" class="w-5 h-5 text-primary"></i>
@@ -170,152 +374,6 @@
             </div>
           </div>
         </aside>
-
-        <!-- Flowing-right form -->
-        <div class="lg:col-span-8 xl:col-span-9 space-y-6">
-          <!-- 考生基本信息 -->
-          <div id="student-info-section" class="bg-card border border-border rounded-xl p-5 md:p-6 shadow-[var(--edu-shadow-1)]">
-            <h2 class="edu-h3 text-foreground flex items-center gap-2 mb-4">
-              <i data-lucide="user" class="w-5 h-5 text-primary"></i>
-              考生基本信息
-            </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div>
-                <span class="text-sm font-medium text-foreground block mb-2">性别</span>
-                <div class="flex flex-wrap gap-3" role="radiogroup" aria-label="性别">
-                  <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer">
-                    <input type="radio" name="student-gender" value="male" data-dom-id="student-gender-male" class="w-4 h-4 border-border text-primary focus:ring-primary">
-                    <span class="text-sm font-medium">男</span>
-                  </label>
-                  <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer">
-                    <input type="radio" name="student-gender" value="female" data-dom-id="student-gender-female" class="w-4 h-4 border-border text-primary focus:ring-primary">
-                    <span class="text-sm font-medium">女</span>
-                  </label>
-                </div>
-              </div>
-              <div>
-                <label for="student-height" class="text-sm font-medium text-foreground block mb-2">身高</label>
-                <div class="flex items-center gap-2">
-                  <input type="number" id="student-height" data-dom-id="student-height" min="100" max="250" placeholder="175" class="w-32 px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring edu-number">
-                  <span class="text-sm text-muted-foreground">cm</span>
-                </div>
-              </div>
-              <div>
-                <label for="student-vision" class="text-sm font-medium text-foreground block mb-2">视力</label>
-                <input type="text" id="student-vision" data-dom-id="student-vision" placeholder="如 5.0" class="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring">
-              </div>
-              <div>
-                <span class="text-sm font-medium text-foreground block mb-2">是否色盲色弱</span>
-                <div class="flex flex-wrap gap-3" role="radiogroup" aria-label="是否色盲色弱">
-                  <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer">
-                    <input type="radio" name="student-color" value="normal" data-dom-id="student-color-normal" class="w-4 h-4 border-border text-primary focus:ring-primary">
-                    <span class="text-sm font-medium">正常</span>
-                  </label>
-                  <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer">
-                    <input type="radio" name="student-color" value="blind" data-dom-id="student-color-blind" class="w-4 h-4 border-border text-primary focus:ring-primary">
-                    <span class="text-sm font-medium">色盲</span>
-                  </label>
-                  <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer">
-                    <input type="radio" name="student-color" value="weak" data-dom-id="student-color-weak" class="w-4 h-4 border-border text-primary focus:ring-primary">
-                    <span class="text-sm font-medium">色弱</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 高考预估分 -->
-          <div id="sanyi-section" class="bg-card border border-border rounded-xl p-5 md:p-6 shadow-[var(--edu-shadow-1)]">
-            <h2 class="edu-h3 text-foreground flex items-center gap-2 mb-4">
-              <i data-lucide="target" class="w-5 h-5 text-primary"></i>
-              高考预估分
-            </h2>
-            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-              <div class="flex items-center gap-3">
-                <label for="gaokao-estimated-score" class="text-sm font-medium text-foreground">预估总分</label>
-                <input type="number" id="gaokao-estimated-score" data-dom-id="gaokao-estimated-score" min="0" max="750" placeholder="0-750" class="w-32 px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring edu-number">
-                <span class="text-sm text-muted-foreground">分</span>
-              </div>
-              <p class="edu-caption text-muted-foreground">用于评估综合成绩竞争力，不影响学考折算分。</p>
-            </div>
-          </div>
-
-          <!-- Selection summary chips -->
-          <div class="bg-card border border-border rounded-xl p-5 shadow-[var(--edu-shadow-1)]">
-            <div class="flex items-center justify-between mb-3">
-              <h2 class="edu-h3 text-foreground flex items-center gap-2">
-                <i data-lucide="tags" class="w-5 h-5 text-primary"></i>
-                已选等级汇总
-              </h2>
-              <span id="completion-text" class="text-xs font-medium text-muted-foreground">已录入 0 / 10 科</span>
-            </div>
-            <div id="selection-chips" class="flex flex-wrap gap-2 min-h-[2.5rem]">
-              <span class="text-sm text-muted-foreground">尚未选择任何科目等级，请在下方卡片中点选。</span>
-            </div>
-            <div id="estimate-box" class="mt-4 pt-4 border-t border-border hidden">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div class="flex items-center gap-2">
-                  <i data-lucide="calculator" class="w-4 h-4 text-primary"></i>
-                  <span class="text-sm font-medium text-foreground">折算总分预估（示例）</span>
-                </div>
-                <div class="flex items-baseline gap-2">
-                  <span id="estimate-score" class="edu-h2 text-primary edu-number">0</span>
-                  <span class="text-xs text-muted-foreground">分 · 按常见折算规则估算，仅供参考</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Subject cards grid -->
-          <div class="bg-card border border-border rounded-xl p-5 md:p-6 shadow-[var(--edu-shadow-1)]">
-            <div class="flex items-center justify-between mb-5">
-              <h2 class="edu-h3 text-foreground flex items-center gap-2">
-                <i data-lucide="book-open" class="w-5 h-5 text-primary"></i>
-                科目等级选择
-              </h2>
-              <button type="button" id="clear-all" class="text-xs font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
-                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-                清空全部
-              </button>
-            </div>
-            <div id="subject-cards" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <!-- Cards generated by JS -->
-            </div>
-          </div>
-
-          <!-- 7-choose-3 exam subjects -->
-          <div id="xk-section" class="bg-card border border-border rounded-xl p-5 md:p-6 shadow-[var(--edu-shadow-1)] transition-opacity duration-200">
-            <div class="flex items-center justify-between mb-4">
-              <h2 class="edu-h3 text-foreground flex items-center gap-2">
-                <i data-lucide="layers" class="w-5 h-5 text-primary"></i>
-                选考科目（7 选 3）
-              </h2>
-              <span id="xk-count" class="text-xs font-medium text-muted-foreground">已选 0 / 3</span>
-            </div>
-            <p class="text-sm text-muted-foreground mb-4">请选择你的 3 门高考选考科目，系统将在生成方案时匹配院校专业的选科要求。</p>
-            <div id="xk-subjects" class="flex flex-wrap gap-3" role="group" aria-label="选考科目">
-              <!-- Chips generated by JS -->
-            </div>
-            <p id="xk-hint" class="mt-3 text-xs hidden" style="color: var(--edu-state-warning)">最多只能选择 3 门选考科目，请先取消已选科目再添加。</p>
-          </div>
-
-          <!-- Primary CTA -->
-          <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-muted/40 border border-border rounded-xl p-5">
-            <div class="flex items-center gap-2 text-sm text-muted-foreground">
-              <i data-lucide="shield-check" class="w-4 h-4 text-primary"></i>
-              <span>信息仅用于生成个性化方案，严格保密。</span>
-            </div>
-            <div class="flex gap-3">
-              <a href="index.html" class="px-5 py-2.5 rounded-lg text-sm font-medium text-foreground bg-card border border-border hover:bg-muted transition-colors flex items-center justify-center">
-                返回上一步
-              </a>
-              <button type="button" id="submit-grades" data-dom-id="link-page-plan-result-sanyi" class="px-6 py-2.5 rounded-lg text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-colors shadow-[var(--edu-shadow-1)] flex items-center justify-center gap-2" disabled>
-                保存并继续
-                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   </main>
@@ -370,6 +428,7 @@
       ];
       const state = {};
       const xkState = [];
+      let comprehensiveState = {};
 
       const cardsContainer = document.getElementById('subject-cards');
       const chipsContainer = document.getElementById('selection-chips');
@@ -379,6 +438,8 @@
       const xkContainer = document.getElementById('xk-subjects');
       const xkCount = document.getElementById('xk-count');
       const xkHint = document.getElementById('xk-hint');
+      const comprehensiveBtns = document.querySelectorAll('.comprehensive-option');
+      const comprehensiveCounter = document.getElementById('comprehensive-counter');
       const estimateBox = document.getElementById('estimate-box');
       const estimateScore = document.getElementById('estimate-score');
 
@@ -482,6 +543,27 @@
           }
         });
 
+
+        // Update comprehensive quality buttons
+        const compFields = ['moral', 'sports', 'art', 'innovation'];
+        let compFilled = 0;
+        compFields.forEach(field => {
+          const btns = document.querySelectorAll('.comprehensive-option[data-field="' + field + '"]');
+          const selected = comprehensiveState[field];
+          btns.forEach(b => {
+            if (b.dataset.grade === selected) {
+              b.className = 'comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-primary bg-primary/10 text-primary transition-colors cursor-pointer';
+            } else {
+              b.className = 'comprehensive-option px-4 py-2 rounded-lg text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors cursor-pointer';
+            }
+          });
+          if (selected) compFilled++;
+        });
+        if (comprehensiveCounter) {
+          comprehensiveCounter.textContent = '已填 ' + compFilled + ' / 4 项';
+          comprehensiveCounter.style.color = compFilled === 4 ? 'var(--edu-primary)' : '';
+        }
+
         // Update chips and estimate
         const selectedEntries = Object.entries(state).filter(([_, grade]) => grade && grade !== 'none');
         const scoreSum = calculateEstimate();
@@ -505,7 +587,8 @@
         // Update CTA
         const allSubjectsSelected = selectedEntries.length === subjects.length;
         const xkComplete = xkState.length === 3;
-        if (allSubjectsSelected && xkComplete) {
+        const compComplete = Object.keys(comprehensiveState).length === 4;
+        if (allSubjectsSelected && xkComplete && compComplete) {
           submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
           submitBtn.removeAttribute('disabled');
         } else {
@@ -547,9 +630,25 @@
       cardsContainer.addEventListener('click', handleGradeClick);
       xkContainer.addEventListener('click', handleXkClick);
 
+      // Comprehensive quality selection
+      comprehensiveBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const field = btn.dataset.field;
+          const grade = btn.dataset.grade;
+          if (comprehensiveState[field] === grade) {
+            delete comprehensiveState[field];
+          } else {
+            comprehensiveState[field] = grade;
+          }
+          updateUI();
+        });
+      });
+
+
       clearAllBtn.addEventListener('click', () => {
         Object.keys(state).forEach(key => delete state[key]);
         xkState.length = 0;
+        comprehensiveState = {};
         xkHint.classList.add('hidden');
         updateUI();
       });
@@ -558,6 +657,7 @@
         const selectedEntries = Object.entries(state).filter(([_, grade]) => grade && grade !== 'none');
         if (selectedEntries.length < subjects.length) return;
         if (xkState.length !== 3) return;
+        if (Object.keys(comprehensiveState).length < 4) return;
         // TODO: persist state and trigger conversion on the server
         window.location.href = 'plan-result-sanyi.html';
       });

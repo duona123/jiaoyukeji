@@ -116,24 +116,7 @@
                 </a>
             </section>
 
-            <!-- 时间冲突检测 -->
-            <section class="conflict-alert bg-[var(--edu-state-error-bg)] border border-[var(--edu-state-error)] rounded-lg p-4 mb-6 md:mb-8">
-                <div class="flex items-start gap-3">
-                    <i data-lucide="alert-triangle" class="w-5 h-5 text-[var(--edu-state-error)] shrink-0 mt-0.5"></i>
-                    <div class="flex-1">
-                        <h3 class="edu-body-sm font-semibold text-[var(--edu-state-error)]">检测到 2 所院校校测时间重叠</h3>
-                        <p class="edu-caption mt-1">金华职业技术学院（机械制造及自动化）与浙江机电职业技术大学（智能制造工程技术）校测均安排在 <strong class="text-foreground">2026-04-20 09:00-12:00</strong>，无法同时参加。</p>
-                        <ul class="mt-2 space-y-1 edu-caption">
-                            <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-3 h-3 mt-0.5"></i>建议优先准备专业满意度更高的金华职业技术学院，将浙江机电职业技术大学替换为同档时间不冲突院校。</li>
-                            <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-3 h-3 mt-0.5"></i>若两所均为意向院校，可关注院校是否提供下午场次或线上测试。</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <div class="grid grid-cols-1 gap-6 md:gap-8 items-start">
-                <!-- 左侧：院校卡片 -->
-                <div class="space-y-6">
+            <div class="space-y-6">
                     <!-- 对比工具栏 -->
                     <section class="compare-toolbar bg-card border border-border rounded-lg p-3 flex flex-wrap items-center justify-between gap-3" style="box-shadow: var(--edu-shadow-1);">
                         <div class="flex items-center gap-2 text-muted-foreground edu-body-sm">
@@ -1608,7 +1591,6 @@
                         </button>
                     </section>
                 </div>
-            </div>
         </div>
 
         <!-- 折算公式说明浮层 -->
@@ -1681,6 +1663,38 @@
                         <input type="text" readonly value="https://zhezhao.example.com/share/plan/abc123" class="flex-1 px-3 py-2 rounded-md border border-border bg-muted text-sm text-foreground edu-number">
                         <button type="button" onclick="copyShareLink()" class="px-3 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-[var(--edu-primary-700)] transition-colors">复制</button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 已选专业浮动面板 -->
+        <div class="fixed bottom-4 left-4 z-50 flex flex-col items-start gap-3 pointer-events-none" id="saved-panel-root">
+            <button aria-label="查看已选专业" class="pointer-events-auto w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-[var(--edu-primary-700)] transition-colors relative" id="saved-panel-toggle" type="button">
+                <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+                <span id="saved-count-badge" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[var(--edu-state-error)] text-white text-xs font-semibold flex items-center justify-center hidden">0</span>
+            </button>
+            <div class="pointer-events-auto hidden w-[calc(100vw-2rem)] sm:w-[380px] max-h-[70vh] bg-card border border-border rounded-lg flex flex-col overflow-hidden" id="saved-panel-content" style="box-shadow: var(--edu-shadow-3);">
+                <div class="flex items-center justify-between gap-3 px-4 py-3 border-b border-border bg-muted/40">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-primary"></i>
+                        <h3 class="edu-body-sm font-semibold text-foreground">已选专业/组别</h3>
+                    </div>
+                    <button aria-label="关闭" class="p-1.5 rounded-md hover:bg-muted transition-colors" id="saved-panel-close" type="button">
+                        <i data-lucide="x" class="w-4 h-4 text-muted-foreground"></i>
+                    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto p-4 space-y-4" id="saved-panel-body">
+                    <div class="flex justify-end">
+                        <button class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors" id="clear-saved-majors" type="button">清空全部</button>
+                    </div>
+                    <ul class="space-y-2" id="saved-majors-list">
+                        <li class="empty-saved-hint edu-body-sm text-muted-foreground">尚未保存任何专业，请在下方院校卡片中勾选专业。</li>
+                    </ul>
+                    <button class="w-full inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:opacity-90 transition-colors" id="generate-final-plan" type="button">
+                        <i data-lucide="file-check" class="w-4 h-4"></i>生成最终志愿表
+                    </button>
+                    <!-- 校测时间冲突检测 -->
+                    <div id="conflict-alert-container"></div>
                 </div>
             </div>
         </div>
@@ -1961,6 +1975,136 @@
             });
         });
     })();
+
+    // --- Saved majors ---
+    function loadSaved() { try { return JSON.parse(localStorage.getItem('gaozhi-saved-majors') || '[]'); } catch(e) { return []; } }
+    function saveSaved(list) { localStorage.setItem('gaozhi-saved-majors', JSON.stringify(list)); }
+
+    var schoolTestTimes = {
+        '金华职业技术学院': '2026-04-20 09:00-12:00',
+        '浙江机电职业技术大学': '2026-04-20 09:00-12:00',
+        '浙江金融职业学院': '2026-04-21 09:00-12:00',
+        '宁波职业技术学院': '2026-04-21 14:00-17:00',
+        '温州职业技术学院': '2026-04-19 09:00-12:00',
+        '绍兴职业技术学院': '2026-04-19 14:00-17:00'
+    };
+
+    function checkConflicts() {
+        var container = document.getElementById('conflict-alert-container');
+        if (!container) return;
+        var list = loadSaved();
+        if (list.length === 0) { container.innerHTML = ''; return; }
+        var groups = {};
+        list.forEach(function(item) {
+            var time = schoolTestTimes[item.school];
+            if (!time) return;
+            var label = item.school + '（' + item.major + '）';
+            if (!groups[time]) groups[time] = [];
+            groups[time].push(label);
+        });
+        var conflictTimes = Object.keys(groups).filter(function(t) { return groups[t].length >= 2; });
+        if (conflictTimes.length === 0) {
+            container.innerHTML = '<div class="bg-[var(--edu-state-success-bg)] border border-[var(--edu-state-success)] rounded-lg p-4"><div class="flex items-start gap-3"><i data-lucide="check-circle" class="w-5 h-5 text-[var(--edu-state-success)] shrink-0 mt-0.5"></i><div class="flex-1"><h3 class="edu-body-sm font-semibold text-[var(--edu-state-success)]">已选院校校测时间无冲突</h3></div></div></div>';
+        } else {
+            var html = '';
+            conflictTimes.forEach(function(t) {
+                var names = groups[t];
+                var pairs = names.slice(0, 2).join(' 与 ');
+                var extra = names.length > 2 ? (' 等 ' + names.length + ' 所') : '';
+                html += '<div class="bg-[var(--edu-state-error-bg)] border border-[var(--edu-state-error)] rounded-lg p-4 mb-3 last:mb-0"><div class="flex items-start gap-3"><i data-lucide="alert-triangle" class="w-5 h-5 text-[var(--edu-state-error)] shrink-0 mt-0.5"></i><div class="flex-1"><h3 class="edu-body-sm font-semibold text-[var(--edu-state-error)]">检测到 ' + names.length + ' 所院校校测时间重叠</h3><p class="edu-caption mt-1">' + pairs + extra + '校测均安排在 <strong class="text-foreground">' + t + '</strong>，无法同时参加。</p></div></div></div>';
+            });
+            container.innerHTML = html;
+        }
+        lucide.createIcons();
+    }
+    function renderSavedList() {
+        var list = loadSaved();
+        updateSavedBadge();
+        var ul = document.getElementById('saved-majors-list');
+        if (!ul) return;
+        if (list.length === 0) {
+            ul.innerHTML = '<li class="edu-body-sm text-muted-foreground">尚未保存任何专业，请在下方院校卡片中勾选专业。</li>';
+            checkConflicts();
+            return;
+        }
+        ul.innerHTML = list.map(function(item, i) {
+            return '<li class="flex items-center justify-between gap-2 bg-muted/50 rounded-lg px-3 py-2 text-sm"><span>' + item.school + ' — ' + item.major + '</span><button class="text-muted-foreground hover:text-destructive transition-colors" data-idx="' + i + '"><i data-lucide="x" class="w-3.5 h-3.5"></i></button></li>';
+        }).join('');
+        ul.querySelectorAll('button[data-idx]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var idx = parseInt(this.dataset.idx);
+                var l = loadSaved();
+                l.splice(idx, 1);
+                saveSaved(l);
+                renderSavedList();
+                lucide.createIcons();
+            });
+        });
+        lucide.createIcons();
+        checkConflicts();
+    }
+
+    // Checkbox change handler for saving majors
+    document.querySelectorAll('.compare-checkbox input').forEach(function(cb) {
+        cb.addEventListener('change', function() {
+            var school = this.dataset.school;
+            var major = this.dataset.major;
+            var list = loadSaved();
+            if (this.checked) {
+                if (!list.find(function(i) { return i.school === school && i.major === major; })) {
+                    list.push({ school: school, major: major });
+                }
+            } else {
+                list = list.filter(function(i) { return !(i.school === school && i.major === major); });
+            }
+            saveSaved(list);
+            renderSavedList();
+        });
+    });
+
+    var clearBtn = document.getElementById('clear-saved-majors');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function() {
+            saveSaved([]);
+            document.querySelectorAll('.compare-checkbox input').forEach(function(c) { c.checked = false; });
+            renderSavedList();
+        });
+    }
+
+    var genBtn = document.getElementById('generate-final-plan');
+    if (genBtn) {
+        genBtn.addEventListener('click', function() {
+            var list = loadSaved();
+            if (list.length === 0) { alert('请先选择专业'); return; }
+            alert('已生成最终志愿表草稿（演示模式）：共 ' + list.length + ' 条志愿。');
+        });
+    }
+
+    // --- 已选专业浮动面板 ---
+    var savedToggle = document.getElementById('saved-panel-toggle');
+    var savedClose = document.getElementById('saved-panel-close');
+    var savedContent = document.getElementById('saved-panel-content');
+    var savedBadge = document.getElementById('saved-count-badge');
+
+    function toggleSavedPanel() {
+        savedContent.classList.toggle('hidden');
+    }
+
+    if (savedToggle) savedToggle.addEventListener('click', toggleSavedPanel);
+    if (savedClose) savedClose.addEventListener('click', function() { savedContent.classList.add('hidden'); });
+
+    function updateSavedBadge() {
+        if (!savedBadge) return;
+        var list = loadSaved();
+        if (list.length > 0) {
+            savedBadge.textContent = list.length;
+            savedBadge.classList.remove('hidden');
+        } else {
+            savedBadge.classList.add('hidden');
+        }
+    }
+
+    renderSavedList();
     </script>
 
     
