@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>方案详情 · AI 评分与优化建议 | 浙江三一/高职提招智能体</title>
+  <link rel="stylesheet" href="assets/css/theme.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+  <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+  <style type="text/tailwindcss">
+    @theme inline {
+      --color-background: var(--edu-background);
+      --color-foreground: var(--edu-foreground);
+      --color-card: var(--edu-card);
+      --color-card-foreground: var(--edu-card-foreground);
+      --color-primary: var(--edu-primary);
+      --color-primary-foreground: var(--edu-primary-foreground);
+      --color-muted: var(--edu-muted);
+      --color-muted-foreground: var(--edu-muted-foreground);
+      --color-border: var(--edu-border);
+      --color-ring: var(--edu-ring);
+    }
+    @layer base {
+      body { background: var(--edu-background); color: var(--edu-foreground); }
+    }
+  </style>
+  <style>
+    .score-ring { transform: rotate(-90deg); }
+    .score-ring circle { transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp 0.5s ease forwards; opacity: 0; }
+    .dim-bar-fill { transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
+  </style>
+</head>
+<body class="bg-edu-background text-edu-foreground min-h-screen flex flex-col" style="font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 w-full border-b border-edu-border bg-white/80 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="user-center.html#plans" class="w-9 h-9 rounded-lg bg-edu-muted flex items-center justify-center text-edu-muted-foreground hover:text-edu-primary hover:bg-edu-primary/10 transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        </a>
+        <a href="index.html" class="flex items-center gap-2 text-edu-primary font-semibold text-lg">
+          <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+          <span>浙招智达</span>
+        </a>
+      </div>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors">首页</a>
+        <a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors">学考规划</a>
+        <a href="user-center.html#plans" class="px-3 py-2 rounded-md text-sm font-medium text-edu-primary bg-edu-primary/10 transition-colors">我的方案</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <!-- Plan Title -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-edu-primary-100 text-edu-primary-700 border border-edu-primary-200">三位一体</span>
+            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-edu-muted text-edu-muted-foreground">2026-08-12 生成</span>
+            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-amber-100 text-amber-700 border border-amber-200">
+              <i data-lucide="star" class="w-3 h-3 mr-1 fill-amber-500 text-amber-500"></i>已收藏
+            </span>
+          </div>
+          <h1 class="edu-h1 text-edu-foreground flex items-center gap-2">
+            浙江工业大学 · 三位一体方案
+            <button class="text-edu-muted-foreground hover:text-edu-primary transition-colors" title="重命名">
+              <i data-lucide="pencil" class="w-5 h-5"></i>
+            </button>
+          </h1>
+          <p class="edu-caption text-edu-muted-foreground mt-2">优先冲浙工大，保底宁波职院 · 意向专业：计算机类</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button id="ai-rescore-btn" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold bg-gradient-to-r from-edu-primary to-[#0d9488] text-white hover:opacity-90 transition-opacity shadow-md">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            AI 重新评分
+          </button>
+          <button class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            导出 PDF
+          </button>
+          <a href="plan-result-sanyi.html" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+            <i data-lucide="edit-3" class="w-4 h-4"></i>
+            编辑方案
+          </a>
+        </div>
+      </div>
+
+      <!-- Overview Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-edu-card border border-edu-border rounded-xl p-5" style="box-shadow: var(--edu-shadow-1);">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-edu-primary-100 flex items-center justify-center text-edu-primary">
+              <i data-lucide="school" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="edu-caption text-edu-muted-foreground">院校数量</p>
+              <p class="text-2xl font-bold text-edu-foreground">5<span class="text-sm font-normal text-edu-muted-foreground ml-1">所</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-edu-card border border-edu-border rounded-xl p-5" style="box-shadow: var(--edu-shadow-1);">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600">
+              <i data-lucide="book-open" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="edu-caption text-edu-muted-foreground">专业/组别</p>
+              <p class="text-2xl font-bold text-edu-foreground">8<span class="text-sm font-normal text-edu-muted-foreground ml-1">个</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-edu-card border border-edu-border rounded-xl p-5" style="box-shadow: var(--edu-shadow-1);">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">
+              <i data-lucide="calendar-clock" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="edu-caption text-edu-muted-foreground">校测时间冲突</p>
+              <p class="text-2xl font-bold text-edu-state-error">1<span class="text-sm font-normal text-edu-muted-foreground ml-1">组</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-edu-card border border-edu-border rounded-xl p-5" style="box-shadow: var(--edu-shadow-1);">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600">
+              <i data-lucide="target" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="edu-caption text-edu-muted-foreground">匹配度</p>
+              <p class="text-2xl font-bold text-edu-foreground">92<span class="text-sm font-normal text-edu-muted-foreground ml-1">%</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Left: Schools & Majors -->
+        <div class="lg:col-span-2 space-y-6">
+          <!-- Selected Schools Table -->
+          <section class="bg-edu-card border border-edu-border rounded-xl overflow-hidden" style="box-shadow: var(--edu-shadow-1);">
+            <div class="px-6 py-4 border-b border-edu-border flex items-center justify-between">
+              <h2 class="edu-h3 flex items-center gap-2">
+                <i data-lucide="list-checks" class="w-5 h-5 text-edu-primary"></i>
+                已选院校与专业
+              </h2>
+              <span class="text-xs text-edu-muted-foreground">共 5 所院校</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead class="bg-edu-muted/50">
+                  <tr>
+                    <th class="text-left px-6 py-3 font-medium text-edu-muted-foreground whitespace-nowrap">院校</th>
+                    <th class="text-left px-4 py-3 font-medium text-edu-muted-foreground whitespace-nowrap">层次</th>
+                    <th class="text-left px-4 py-3 font-medium text-edu-muted-foreground whitespace-nowrap">专业/组别</th>
+                    <th class="text-left px-4 py-3 font-medium text-edu-muted-foreground whitespace-nowrap">校测时间</th>
+                    <th class="text-left px-4 py-3 font-medium text-edu-muted-foreground whitespace-nowrap">录取概率</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-edu-border">
+                  <tr class="hover:bg-edu-muted/30 transition-colors">
+                    <td class="px-6 py-4">
+                      <div class="flex items-center gap-2">
+                        <span class="font-semibold text-edu-foreground">浙江工业大学</span>
+                        <span class="text-edu-state-error text-xs">冲刺</span>
+                      </div>
+                      <p class="edu-caption text-edu-muted-foreground mt-0.5">杭州 · 省重点</p>
+                    </td>
+                    <td class="px-4 py-4 text-edu-foreground">本科</td>
+                    <td class="px-4 py-4">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded bg-edu-primary-100 text-edu-primary-700 text-xs">A组 · 理工类</span>
+                    </td>
+                    <td class="px-4 py-4 text-edu-foreground whitespace-nowrap">04-20 09:00</td>
+                    <td class="px-4 py-4">
+                      <span class="text-edu-state-warning font-semibold">35%</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-edu-muted/30 transition-colors">
+                    <td class="px-6 py-4">
+                      <div class="flex items-center gap-2">
+                        <span class="font-semibold text-edu-foreground">杭州电子科技大学</span>
+                        <span class="text-edu-state-warning text-xs">稳妥</span>
+                      </div>
+                      <p class="edu-caption text-edu-muted-foreground mt-0.5">杭州 · 省重点</p>
+                    </td>
+                    <td class="px-4 py-4 text-edu-foreground">本科</td>
+                    <td class="px-4 py-4">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded bg-edu-primary-100 text-edu-primary-700 text-xs">计算机类</span>
+                    </td>
+                    <td class="px-4 py-4 text-edu-foreground whitespace-nowrap">
+                      <span class="text-edu-state-error font-medium">04-20 09:00</span>
+                      <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-edu-state-error inline ml-1"></i>
+                    </td>
+                    <td class="px-4 py-4">
+                      <span class="text-edu-state-warning font-semibold">52%</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-edu-muted/30 transition-colors">
+                    <td class="px-6 py-4">
+                      <div class="flex items-center gap-2">
+                        <span class="font-semibold text-edu-foreground">浙江理工大学</span>
+                        <span class="text-edu-state-warning text-xs">稳妥</span>
+                      </div>
+                      <p class="edu-caption text-edu-muted-foreground mt-0.5">杭州 · 省重点</p>
+                    </td>
+                    <td class="px-4 py-4 text-edu-foreground">本科</td>
+                    <td class="px-4 py-4">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded bg-edu-primary-100 text-edu-primary-700 text-xs">电子信息类</span>
+                    </td>
+                    <td class="px-4 py-4 text-edu-foreground whitespace-nowrap">04-21 09:00</td>
+                    <td class="px-4 py-4">
+                      <span class="text-edu-state-success font-semibold">68%</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-edu-muted/30 transition-colors">
+                    <td class="px-6 py-4">
+                      <div class="flex items-center gap-2">
+                        <span class="font-semibold text-edu-foreground">浙江师范大学</span>
+                        <span class="text-edu-state-success text-xs">保底</span>
+                      </div>
+                      <p class="edu-caption text-edu-muted-foreground mt-0.5">金华 · 省重点</p>
+                    </td>
+                    <td class="px-4 py-4 text-edu-foreground">本科</td>
+                    <td class="px-4 py-4">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded bg-edu-primary-100 text-edu-primary-700 text-xs">教育学类</span>
+                    </td>
+                    <td class="px-4 py-4 text-edu-foreground whitespace-nowrap">04-21 14:00</td>
+                    <td class="px-4 py-4">
+                      <span class="text-edu-state-success font-semibold">81%</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-edu-muted/30 transition-colors">
+                    <td class="px-6 py-4">
+                      <div class="flex items-center gap-2">
+                        <span class="font-semibold text-edu-foreground">宁波大学</span>
+                        <span class="text-edu-state-success text-xs">保底</span>
+                      </div>
+                      <p class="edu-caption text-edu-muted-foreground mt-0.5">宁波 · 双一流</p>
+                    </td>
+                    <td class="px-4 py-4 text-edu-foreground">本科</td>
+                    <td class="px-4 py-4">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded bg-edu-primary-100 text-edu-primary-700 text-xs">机械类</span>
+                    </td>
+                    <td class="px-4 py-4 text-edu-foreground whitespace-nowrap">04-19 09:00</td>
+                    <td class="px-4 py-4">
+                      <span class="text-edu-state-success font-semibold">88%</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="px-6 py-3 bg-edu-muted/30 border-t border-edu-border flex items-center gap-2 text-xs text-edu-muted-foreground">
+              <i data-lucide="info" class="w-3.5 h-3.5 text-edu-primary"></i>
+              <span><strong class="text-edu-state-error">红色标记</strong>表示校测时间冲突，建议调整其中一所院校的报考组别。</span>
+            </div>
+          </section>
+
+          <!-- AI Scoring Section -->
+          <section class="bg-edu-card border border-edu-border rounded-xl p-6" style="box-shadow: var(--edu-shadow-1);">
+            <div class="flex items-center justify-between mb-6">
+              <h2 class="edu-h3 flex items-center gap-2">
+                <i data-lucide="sparkles" class="w-5 h-5 text-edu-primary"></i>
+                AI 方案评分
+              </h2>
+              <span class="text-xs text-edu-muted-foreground">基于院校梯度、时间冲突、专业匹配度等多维度综合评估</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+              <!-- Score Ring -->
+              <div class="flex flex-col items-center justify-center">
+                <div class="relative w-44 h-44">
+                  <svg class="score-ring w-full h-full" viewBox="0 0 120 120">
+                    <circle cx="60" cy="60" r="52" fill="none" stroke="var(--edu-border)" stroke-width="10"></circle>
+                    <circle id="score-circle" cx="60" cy="60" r="52" fill="none" stroke="url(#scoreGradient)" stroke-width="10" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"></circle>
+                    <defs>
+                      <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#14b8a6"></stop>
+                        <stop offset="100%" stop-color="#0d9488"></stop>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <span id="score-number" class="text-5xl font-bold text-edu-foreground">0</span>
+                    <span id="score-label" class="text-sm font-medium text-edu-muted-foreground mt-1">评分中…</span>
+                  </div>
+                </div>
+                <div id="score-tier" class="mt-4 px-4 py-1.5 rounded-full text-sm font-semibold bg-edu-muted text-edu-muted-foreground">—</div>
+              </div>
+
+              <!-- Dimension Bars -->
+              <div class="md:col-span-2 space-y-4">
+                <div class="dim-item">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-sm font-medium text-edu-foreground flex items-center gap-2">
+                      <i data-lucide="layers" class="w-4 h-4 text-edu-primary"></i>
+                      院校梯度合理性
+                    </span>
+                    <span class="text-sm font-semibold text-edu-foreground"><span class="dim-score" data-target="88">0</span>/100</span>
+                  </div>
+                  <div class="h-2.5 rounded-full bg-edu-muted overflow-hidden">
+                    <div class="dim-bar-fill h-full rounded-full bg-gradient-to-r from-edu-primary to-[#0d9488]" style="width: 0%" data-target="88"></div>
+                  </div>
+                </div>
+                <div class="dim-item">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-sm font-medium text-edu-foreground flex items-center gap-2">
+                      <i data-lucide="calendar-clock" class="w-4 h-4 text-edu-primary"></i>
+                      校测时间无冲突
+                    </span>
+                    <span class="text-sm font-semibold text-edu-foreground"><span class="dim-score" data-target="60">0</span>/100</span>
+                  </div>
+                  <div class="h-2.5 rounded-full bg-edu-muted overflow-hidden">
+                    <div class="dim-bar-fill h-full rounded-full bg-gradient-to-r from-amber-400 to-amber-500" style="width: 0%" data-target="60"></div>
+                  </div>
+                </div>
+                <div class="dim-item">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-sm font-medium text-edu-foreground flex items-center gap-2">
+                      <i data-lucide="book-open" class="w-4 h-4 text-edu-primary"></i>
+                      专业意向匹配度
+                    </span>
+                    <span class="text-sm font-semibold text-edu-foreground"><span class="dim-score" data-target="95">0</span>/100</span>
+                  </div>
+                  <div class="h-2.5 rounded-full bg-edu-muted overflow-hidden">
+                    <div class="dim-bar-fill h-full rounded-full bg-gradient-to-r from-edu-primary to-[#0d9488]" style="width: 0%" data-target="95"></div>
+                  </div>
+                </div>
+                <div class="dim-item">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-sm font-medium text-edu-foreground flex items-center gap-2">
+                      <i data-lucide="shield-check" class="w-4 h-4 text-edu-primary"></i>
+                      录取保底充足度
+                    </span>
+                    <span class="text-sm font-semibold text-edu-foreground"><span class="dim-score" data-target="82">0</span>/100</span>
+                  </div>
+                  <div class="h-2.5 rounded-full bg-edu-muted overflow-hidden">
+                    <div class="dim-bar-fill h-full rounded-full bg-gradient-to-r from-edu-primary to-[#0d9488]" style="width: 0%" data-target="82"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tier Description -->
+            <div id="tier-desc" class="mt-6 p-4 rounded-xl bg-edu-muted/50 border border-edu-border hidden">
+              <p class="text-sm text-edu-foreground leading-relaxed"></p>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right: AI Suggestions -->
+        <div class="lg:col-span-1">
+          <div class="lg:sticky lg:top-24 space-y-6">
+            <section class="bg-edu-card border border-edu-border rounded-xl p-6" style="box-shadow: var(--edu-shadow-1);">
+              <h2 class="edu-h3 flex items-center gap-2 mb-5">
+                <i data-lucide="lightbulb" class="w-5 h-5 text-edu-primary"></i>
+                AI 优化建议
+              </h2>
+              <div id="suggestions-list" class="space-y-4">
+                <div class="suggestion-item p-4 rounded-xl border border-edu-state-error/30 bg-edu-state-error-bg/40">
+                  <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-edu-state-error/15 flex items-center justify-center shrink-0">
+                      <i data-lucide="alert-triangle" class="w-4 h-4 text-edu-state-error"></i>
+                    </div>
+                    <div class="flex-1">
+                      <h4 class="text-sm font-semibold text-edu-foreground mb-1">校测时间冲突</h4>
+                      <p class="text-xs text-edu-muted-foreground leading-relaxed">浙江工业大学与杭州电子科技大学校测均安排在 <strong class="text-edu-foreground">4月20日上午</strong>，无法同时参加。建议将杭电调整至下午场次或替换为浙江工商大学（4月22日）。</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="suggestion-item p-4 rounded-xl border border-amber-400/30 bg-amber-50">
+                  <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-amber-400/15 flex items-center justify-center shrink-0">
+                      <i data-lucide="trending-up" class="w-4 h-4 text-amber-600"></i>
+                    </div>
+                    <div class="flex-1">
+                      <h4 class="text-sm font-semibold text-edu-foreground mb-1">冲刺院校可加量</h4>
+                      <p class="text-xs text-edu-muted-foreground leading-relaxed">当前仅 1 所冲刺院校（浙工大 35%），建议增加 1-2 所冲刺档，如宁波诺丁汉大学或温州肯恩大学，提升录取上限。</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="suggestion-item p-4 rounded-xl border border-edu-primary/30 bg-edu-primary/5">
+                  <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-edu-primary/15 flex items-center justify-center shrink-0">
+                      <i data-lucide="check-circle-2" class="w-4 h-4 text-edu-primary"></i>
+                    </div>
+                    <div class="flex-1">
+                      <h4 class="text-sm font-semibold text-edu-foreground mb-1">专业匹配度优秀</h4>
+                      <p class="text-xs text-edu-muted-foreground leading-relaxed">所选专业均与意向专业（计算机类）高度相关，选考科目要求全部满足，无需调整。</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="suggestion-item p-4 rounded-xl border border-edu-border bg-edu-muted/30">
+                  <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-edu-muted flex items-center justify-center shrink-0">
+                      <i data-lucide="map-pin" class="w-4 h-4 text-edu-muted-foreground"></i>
+                    </div>
+                    <div class="flex-1">
+                      <h4 class="text-sm font-semibold text-edu-foreground mb-1">地域分布建议</h4>
+                      <p class="text-xs text-edu-muted-foreground leading-relaxed">5 所院校中 4 所位于杭州，1 所宁波。建议增加 1 所温州或金华地区院校，分散地域风险。</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button id="ai-more-btn" class="w-full mt-5 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium border border-edu-border text-edu-foreground hover:bg-edu-muted transition-colors">
+                <i data-lucide="sparkles" class="w-4 h-4 text-edu-primary"></i>
+                让 AI 生成更多建议
+              </button>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="bg-edu-card border border-edu-border rounded-xl p-6" style="box-shadow: var(--edu-shadow-1);">
+              <h3 class="text-sm font-semibold text-edu-foreground mb-4 flex items-center gap-2">
+                <i data-lucide="zap" class="w-4 h-4 text-edu-primary"></i>
+                快捷操作
+              </h3>
+              <div class="space-y-2">
+                <a href="plan-result-sanyi.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-edu-muted transition-colors">
+                  <i data-lucide="refresh-cw" class="w-4 h-4 text-edu-muted-foreground"></i>
+                  <span class="text-sm text-edu-foreground">调整院校与专业</span>
+                  <i data-lucide="chevron-right" class="w-4 h-4 text-edu-muted-foreground ml-auto"></i>
+                </a>
+                <a href="ai-interview.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-edu-muted transition-colors">
+                  <i data-lucide="mic" class="w-4 h-4 text-edu-muted-foreground"></i>
+                  <span class="text-sm text-edu-foreground">开始 AI 面试模拟</span>
+                  <i data-lucide="chevron-right" class="w-4 h-4 text-edu-muted-foreground ml-auto"></i>
+                </a>
+                <a href="question-bank.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-edu-muted transition-colors">
+                  <i data-lucide="file-question" class="w-4 h-4 text-edu-muted-foreground"></i>
+                  <span class="text-sm text-edu-foreground">校测笔试题库</span>
+                  <i data-lucide="chevron-right" class="w-4 h-4 text-edu-muted-foreground ml-auto"></i>
+                </a>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-edu-border bg-edu-muted/40">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-edu-primary font-medium">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <span>浙招智达</span>
+        </div>
+        <p class="text-sm text-edu-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // AI Scoring logic
+    var TIERS = [
+      { min: 90, label: '优秀', color: '#14b8a6', bg: 'bg-emerald-100', text: 'text-emerald-700', desc: '方案整体质量优秀：院校梯度合理、专业高度匹配、保底充足。建议保持当前方案，重点准备校测环节。' },
+      { min: 75, label: '良好', color: '#3b82f6', bg: 'bg-blue-100', text: 'text-blue-700', desc: '方案整体良好，但存在校测时间冲突等可优化项。建议优先解决时间冲突，再考虑补充冲刺院校。' },
+      { min: 60, label: '合格', color: '#f59e0b', bg: 'bg-amber-100', text: 'text-amber-700', desc: '方案基本合格，但存在明显短板。建议重点优化校测时间安排，并增加保底院校数量。' },
+      { min: 0,  label: '需优化', color: '#ef4444', bg: 'bg-red-100', text: 'text-red-700', desc: '方案存在较多问题，需要大幅优化。建议重新评估院校梯度，解决所有时间冲突，并补充保底院校。' }
+    ];
+
+    function getTier(score) {
+      return TIERS.find(function(t) { return score >= t.min; }) || TIERS[TIERS.length - 1];
+    }
+
+    function animateNumber(el, target, duration) {
+      duration = duration || 1200;
+      var start = 0;
+      var startTime = null;
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        var progress = Math.min((timestamp - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(start + (target - start) * eased);
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      // Fallback for headless browsers where rAF may be throttled
+      var rafFired = false;
+      requestAnimationFrame(function(t) { rafFired = true; step(t); });
+      setTimeout(function() {
+        if (!rafFired) {
+          // Use setInterval fallback
+          var interval = setInterval(function() {
+            var now = Date.now();
+            if (!startTime) startTime = now;
+            var progress = Math.min((now - startTime) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(start + (target - start) * eased);
+            if (progress >= 1) clearInterval(interval);
+          }, 16);
+        }
+      }, 50);
+    }
+
+    function runScoring() {
+      var circle = document.getElementById('score-circle');
+      var scoreNum = document.getElementById('score-number');
+      var scoreLabel = document.getElementById('score-label');
+      var tierEl = document.getElementById('score-tier');
+      var tierDesc = document.getElementById('tier-desc');
+
+      // Reset
+      circle.style.strokeDashoffset = '326.7';
+      scoreNum.textContent = '0';
+      scoreLabel.textContent = 'AI 评分中…';
+      tierEl.className = 'mt-4 px-4 py-1.5 rounded-full text-sm font-semibold bg-edu-muted text-edu-muted-foreground';
+      tierEl.textContent = '评分中';
+      tierDesc.classList.add('hidden');
+
+      // Reset dimension bars
+      document.querySelectorAll('.dim-bar-fill').forEach(function(bar) {
+        bar.style.width = '0%';
+      });
+      document.querySelectorAll('.dim-score').forEach(function(s) {
+        s.textContent = '0';
+      });
+
+      setTimeout(function() {
+        // Calculate composite score (weighted average of dimensions)
+        var dims = [
+          { score: 88, weight: 0.3 },
+          { score: 60, weight: 0.25 },
+          { score: 95, weight: 0.25 },
+          { score: 82, weight: 0.2 }
+        ];
+        var total = dims.reduce(function(sum, d) { return sum + d.score * d.weight; }, 0);
+        total = Math.round(total);
+
+        var tier = getTier(total);
+
+        // Animate ring
+        var circumference = 2 * Math.PI * 52;
+        var offset = circumference - (total / 100) * circumference;
+        circle.style.strokeDashoffset = offset;
+        circle.style.stroke = tier.color;
+
+        animateNumber(scoreNum, total, 1200);
+        scoreLabel.textContent = '综合评分';
+
+        // Animate dimension bars
+        setTimeout(function() {
+          document.querySelectorAll('.dim-bar-fill').forEach(function(bar) {
+            bar.style.width = bar.dataset.target + '%';
+          });
+          document.querySelectorAll('.dim-score').forEach(function(s) {
+            animateNumber(s, parseInt(s.dataset.target), 1000);
+          });
+        }, 300);
+
+        // Set tier
+        setTimeout(function() {
+          tierEl.className = 'mt-4 px-4 py-1.5 rounded-full text-sm font-semibold ' + tier.bg + ' ' + tier.text;
+          tierEl.textContent = tier.label;
+          tierDesc.classList.remove('hidden');
+          tierDesc.querySelector('p').textContent = tier.desc;
+        }, 1100);
+      }, 600);
+    }
+
+    document.getElementById('ai-rescore-btn').addEventListener('click', runScoring);
+    document.getElementById('ai-more-btn').addEventListener('click', function() {
+      this.innerHTML = '<i class="animate-spin inline-block w-4 h-4 mr-1" data-lucide="loader-2"></i>AI 正在分析…';
+      var btn = this;
+      setTimeout(function() {
+        btn.innerHTML = '<i data-lucide="sparkles" class="w-4 h-4 text-edu-primary mr-1"></i>已加载全部建议';
+        btn.disabled = true;
+        btn.classList.add('opacity-60', 'cursor-not-allowed');
+        // Simulate adding a new suggestion
+        var list = document.getElementById('suggestions-list');
+        var newItem = document.createElement('div');
+        newItem.className = 'suggestion-item p-4 rounded-xl border border-edu-primary/30 bg-edu-primary/5 fade-in-up';
+        newItem.innerHTML = '<div class="flex items-start gap-3"><div class="w-8 h-8 rounded-lg bg-edu-primary/15 flex items-center justify-center shrink-0"><i data-lucide="award" class="w-4 h-4 text-edu-primary"></i></div><div class="flex-1"><h4 class="text-sm font-semibold text-edu-foreground mb-1">综合素质加分</h4><p class="text-xs text-edu-muted-foreground leading-relaxed">你的综测四项均为 A，在三位一体面试中可作为亮点展示。建议准备 1-2 个能体现创新实践能力的案例。</p></div></div>';
+        list.appendChild(newItem);
+        if (window.lucide) lucide.createIcons();
+      }, 1200);
+    });
+
+    // Run on load
+    runScoring();
+  </script>
+  <script src="assets/js/app.js" defer></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>
