@@ -92,54 +92,6 @@
         </div>
       </div>
 
-      <!-- Overview Stats -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div class="bg-edu-card border border-edu-border rounded-xl p-5" style="box-shadow: var(--edu-shadow-1);">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-edu-primary-100 flex items-center justify-center text-edu-primary">
-              <i data-lucide="school" class="w-5 h-5"></i>
-            </div>
-            <div>
-              <p class="edu-caption text-edu-muted-foreground">院校数量</p>
-              <p class="text-2xl font-bold text-edu-foreground">5<span class="text-sm font-normal text-edu-muted-foreground ml-1">所</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-edu-card border border-edu-border rounded-xl p-5" style="box-shadow: var(--edu-shadow-1);">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600">
-              <i data-lucide="book-open" class="w-5 h-5"></i>
-            </div>
-            <div>
-              <p class="edu-caption text-edu-muted-foreground">专业/组别</p>
-              <p class="text-2xl font-bold text-edu-foreground">8<span class="text-sm font-normal text-edu-muted-foreground ml-1">个</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-edu-card border border-edu-border rounded-xl p-5" style="box-shadow: var(--edu-shadow-1);">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">
-              <i data-lucide="calendar-clock" class="w-5 h-5"></i>
-            </div>
-            <div>
-              <p class="edu-caption text-edu-muted-foreground">校测时间冲突</p>
-              <p class="text-2xl font-bold text-edu-state-error">1<span class="text-sm font-normal text-edu-muted-foreground ml-1">组</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-edu-card border border-edu-border rounded-xl p-5" style="box-shadow: var(--edu-shadow-1);">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600">
-              <i data-lucide="target" class="w-5 h-5"></i>
-            </div>
-            <div>
-              <p class="edu-caption text-edu-muted-foreground">匹配度</p>
-              <p class="text-2xl font-bold text-edu-foreground">92<span class="text-sm font-normal text-edu-muted-foreground ml-1">%</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Left: Schools & Majors -->
         <div class="lg:col-span-2 space-y-6">
@@ -160,7 +112,7 @@
                     <th class="text-left px-4 py-3 font-medium text-edu-muted-foreground whitespace-nowrap">层次</th>
                     <th class="text-left px-4 py-3 font-medium text-edu-muted-foreground whitespace-nowrap">专业/组别</th>
                     <th class="text-left px-4 py-3 font-medium text-edu-muted-foreground whitespace-nowrap">校测时间</th>
-                    <th class="text-left px-4 py-3 font-medium text-edu-muted-foreground whitespace-nowrap">录取概率</th>
+                    <th class="text-left px-4 py-3 font-medium text-edu-muted-foreground whitespace-nowrap">冲稳保</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-edu-border">
@@ -168,7 +120,6 @@
                     <td class="px-6 py-4">
                       <div class="flex items-center gap-2">
                         <span class="font-semibold text-edu-foreground">浙江工业大学</span>
-                        <span class="text-edu-state-error text-xs">冲刺</span>
                       </div>
                       <p class="edu-caption text-edu-muted-foreground mt-0.5">杭州 · 省重点</p>
                     </td>
@@ -178,14 +129,13 @@
                     </td>
                     <td class="px-4 py-4 text-edu-foreground whitespace-nowrap">04-20 09:00</td>
                     <td class="px-4 py-4">
-                      <span class="text-edu-state-warning font-semibold">35%</span>
+                      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[var(--edu-state-error-bg)] text-edu-state-error border border-edu-state-error">冲刺</span>
                     </td>
                   </tr>
                   <tr class="hover:bg-edu-muted/30 transition-colors">
                     <td class="px-6 py-4">
                       <div class="flex items-center gap-2">
                         <span class="font-semibold text-edu-foreground">杭州电子科技大学</span>
-                        <span class="text-edu-state-warning text-xs">稳妥</span>
                       </div>
                       <p class="edu-caption text-edu-muted-foreground mt-0.5">杭州 · 省重点</p>
                     </td>
@@ -198,14 +148,13 @@
                       <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-edu-state-error inline ml-1"></i>
                     </td>
                     <td class="px-4 py-4">
-                      <span class="text-edu-state-warning font-semibold">52%</span>
+                      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-100 text-amber-700 border border-amber-300">稳妥</span>
                     </td>
                   </tr>
                   <tr class="hover:bg-edu-muted/30 transition-colors">
                     <td class="px-6 py-4">
                       <div class="flex items-center gap-2">
                         <span class="font-semibold text-edu-foreground">浙江理工大学</span>
-                        <span class="text-edu-state-warning text-xs">稳妥</span>
                       </div>
                       <p class="edu-caption text-edu-muted-foreground mt-0.5">杭州 · 省重点</p>
                     </td>
@@ -215,14 +164,13 @@
                     </td>
                     <td class="px-4 py-4 text-edu-foreground whitespace-nowrap">04-21 09:00</td>
                     <td class="px-4 py-4">
-                      <span class="text-edu-state-success font-semibold">68%</span>
+                      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-100 text-amber-700 border border-amber-300">稳妥</span>
                     </td>
                   </tr>
                   <tr class="hover:bg-edu-muted/30 transition-colors">
                     <td class="px-6 py-4">
                       <div class="flex items-center gap-2">
                         <span class="font-semibold text-edu-foreground">浙江师范大学</span>
-                        <span class="text-edu-state-success text-xs">保底</span>
                       </div>
                       <p class="edu-caption text-edu-muted-foreground mt-0.5">金华 · 省重点</p>
                     </td>
@@ -232,14 +180,13 @@
                     </td>
                     <td class="px-4 py-4 text-edu-foreground whitespace-nowrap">04-21 14:00</td>
                     <td class="px-4 py-4">
-                      <span class="text-edu-state-success font-semibold">81%</span>
+                      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-emerald-700 border border-emerald-300">保底</span>
                     </td>
                   </tr>
                   <tr class="hover:bg-edu-muted/30 transition-colors">
                     <td class="px-6 py-4">
                       <div class="flex items-center gap-2">
                         <span class="font-semibold text-edu-foreground">宁波大学</span>
-                        <span class="text-edu-state-success text-xs">保底</span>
                       </div>
                       <p class="edu-caption text-edu-muted-foreground mt-0.5">宁波 · 双一流</p>
                     </td>
@@ -249,7 +196,7 @@
                     </td>
                     <td class="px-4 py-4 text-edu-foreground whitespace-nowrap">04-19 09:00</td>
                     <td class="px-4 py-4">
-                      <span class="text-edu-state-success font-semibold">88%</span>
+                      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-emerald-700 border border-emerald-300">保底</span>
                     </td>
                   </tr>
                 </tbody>
