@@ -120,6 +120,15 @@
         <section id="wp-list-view" aria-label="试卷列表">
           <div id="wp-list-head" class="mb-6"></div>
           <div id="wp-paper-grid"></div>
+
+          <!-- 错题本 -->
+          <section id="wp-wrong-area" class="mt-12" aria-label="错题本"></section>
+
+          <!-- 题目收藏 -->
+          <section id="wp-fav-area" class="mt-12" aria-label="题目收藏"></section>
+
+          <!-- 智能推荐 -->
+          <section id="wp-smart-area" class="mt-12" aria-label="智能推荐"></section>
         </section>
 
         <!-- 视图 B：正式练习 -->
@@ -283,6 +292,7 @@
     });
 
     renderPaperGrid();
+    renderWpExtras();
   }
 
   /* ---- 试卷卡片网格 ---- */
@@ -583,6 +593,120 @@
     }
     var qs = params.toString();
     history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''));
+  }
+
+  /* =======================================================================
+     错题本 / 题目收藏 / 智能推荐
+     —— 原在练习中心首页展示，现统一收进笔试练习页（本页）
+     ======================================================================= */
+  function renderWpExtras() {
+    renderWpWrongArea();
+    renderWpFavArea();
+    renderWpSmartArea();
+  }
+
+  /* 在本页内进入该题所属试卷并定位到该题 */
+  function wpPracticeQuestion(id) {
+    var q = state.written.filter(function (x) { return x.id === id; })[0];
+    if (!q) return;
+    enterPaper(q.school + '|' + q.major, id);
+  }
+  function wpShowAnalysis(id) {
+    var q = state.written.filter(function (x) { return x.id === id; })[0];
+    if (!q) return;
+    alert('【' + (q.type === 'multi' ? '多选题' : '单选题') + '】' + q.stem + '\n\n正确答案：' + q.answer.join('、') + '\n\n解析：' + q.analysis + '\n\n思路：' + q.tips);
+  }
+
+  /* ---- 错题本 ---- */
+  function renderWpWrongArea() {
+    var prog = getProg(state.plan.id);
+    var ids = prog.wrong || [];
+    var items = ids.map(function (id) { return state.written.filter(function (q) { return q.id === id; })[0]; }).filter(Boolean);
+    var body;
+    if (!items.length) {
+      body = '<div class="p-8 text-center"><div class="w-12 h-12 mx-auto rounded-full bg-edu-muted flex items-center justify-center mb-3"><i data-lucide="check-circle-2" class="w-6 h-6 text-edu-state-success"></i></div><p class="text-sm text-edu-muted-foreground">暂无错题，继续保持！答错的题目会自动收录到这里。</p></div>';
+    } else {
+      body = '<div class="space-y-3">' + items.map(function (q) {
+        return '' +
+          '<div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary/40 transition-colors">' +
+            '<div class="flex-1 min-w-0">' +
+              '<div class="flex items-center gap-2 mb-1">' +
+                '<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-error-bg text-edu-state-error">' + esc(q.subject) + '</span>' +
+                '<span class="text-xs text-edu-muted-foreground">' + (q.type === 'multi' ? '多选题' : '单选题') + ' · ' + esc(q.difficulty) + ' · ' + esc(q.school) + '</span>' +
+              '</div>' +
+              '<p class="text-sm text-edu-foreground font-medium line-clamp-2">' + esc(q.stem) + '</p>' +
+            '</div>' +
+            '<div class="flex items-center gap-2 shrink-0">' +
+              '<button type="button" onclick="wpPracticeQuestion(\'' + esc(q.id) + '\')" class="px-3 h-8 rounded-lg border border-edu-border bg-white text-xs font-medium text-edu-foreground hover:bg-edu-muted transition-colors">重新练习</button>' +
+              '<button type="button" onclick="wpShowAnalysis(\'' + esc(q.id) + '\')" class="px-3 h-8 rounded-lg bg-edu-primary text-white text-xs font-medium hover:bg-[#0f766e] transition-colors">查看解析</button>' +
+            '</div>' +
+          '</div>';
+      }).join('') + '</div>';
+    }
+    document.getElementById('wp-wrong-area').innerHTML = '' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex items-center gap-2 mb-6">' +
+          '<div class="w-8 h-8 rounded-lg bg-edu-state-error-bg text-edu-state-error flex items-center justify-center"><i data-lucide="book-x" class="w-4 h-4"></i></div>' +
+          '<h2 class="edu-h3 text-edu-foreground">错题本</h2>' +
+          '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 ' + items.length + ' 道</span>' +
+        '</div>' + body +
+      '</div>';
+  }
+
+  /* ---- 题目收藏 ---- */
+  function renderWpFavArea() {
+    var prog = getProg(state.plan.id);
+    var ids = prog.fav || [];
+    var items = ids.map(function (id) { return state.written.filter(function (q) { return q.id === id; })[0]; }).filter(Boolean);
+    var body;
+    if (!items.length) {
+      body = '<div class="p-8 text-center"><div class="w-12 h-12 mx-auto rounded-full bg-edu-muted flex items-center justify-center mb-3"><i data-lucide="star" class="w-6 h-6 text-edu-muted-foreground"></i></div><p class="text-sm text-edu-muted-foreground">还没有收藏的题目，练习时点击题目卡右上角「收藏」即可加入。</p></div>';
+    } else {
+      body = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">' + items.map(function (q) {
+        return '' +
+          '<div onclick="wpPracticeQuestion(\'' + esc(q.id) + '\')" class="cursor-pointer p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-state-warning transition-colors">' +
+            '<div class="flex items-center gap-2 mb-2">' +
+              '<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-warning-bg text-edu-state-warning">' + (q.type === 'multi' ? '多选题' : '单选题') + '</span>' +
+              '<span class="text-xs text-edu-muted-foreground">' + esc(q.subject) + ' · ' + esc(q.school) + '</span>' +
+            '</div>' +
+            '<p class="text-sm text-edu-foreground font-medium line-clamp-2">' + esc(q.stem) + '</p>' +
+          '</div>';
+      }).join('') + '</div>';
+    }
+    document.getElementById('wp-fav-area').innerHTML = '' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex items-center gap-2 mb-6">' +
+          '<div class="w-8 h-8 rounded-lg bg-edu-state-warning-bg text-edu-state-warning flex items-center justify-center"><i data-lucide="star" class="w-4 h-4"></i></div>' +
+          '<h2 class="edu-h3 text-edu-foreground">题目收藏</h2>' +
+          '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 ' + items.length + ' 道</span>' +
+        '</div>' + body +
+      '</div>';
+  }
+
+  /* ---- 智能推荐 ---- */
+  function renderWpSmartArea() {
+    var recs = state.written.slice(0, 5);
+    var hasInterview = planHasInterview(state.plan);
+    var cards = recs.map(function (q) {
+      return '' +
+        '<button type="button" onclick="wpPracticeQuestion(\'' + esc(q.id) + '\')" class="group text-left block p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary/40 hover:shadow-sm transition-all">' +
+          '<div class="flex items-center justify-between mb-2">' +
+            '<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">' + esc(q.subject) + '</span>' +
+            '<i data-lucide="arrow-right" class="w-4 h-4 text-edu-muted-foreground group-hover:text-edu-primary transition-colors"></i>' +
+          '</div>' +
+          '<p class="text-sm text-edu-foreground font-medium line-clamp-2">' + esc(q.stem) + '</p>' +
+        '</button>';
+    }).join('');
+    document.getElementById('wp-smart-area').innerHTML = '' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex items-center gap-2 mb-5">' +
+          '<div class="w-8 h-8 rounded-lg bg-edu-primary-50 text-edu-primary flex items-center justify-center"><i data-lucide="lightbulb" class="w-4 h-4"></i></div>' +
+          '<h2 class="edu-h3 text-edu-foreground">智能推荐</h2>' +
+          '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">基于错题本与练习记录</span>' +
+        '</div>' +
+        '<p class="text-sm text-edu-muted-foreground mb-4">系统根据你方案中的院校专业与错题分布，为你推荐以下同类强化题目' + (hasInterview ? '，面试薄弱项可前往练习中心的面试练习区专项训练。' : '。') + '</p>' +
+        '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">' + cards + '</div>' +
+      '</div>';
   }
 
   /* =======================================================================

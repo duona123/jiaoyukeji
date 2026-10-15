@@ -145,14 +145,7 @@
         <!-- 面试练习区域 -->
         <section id="interview-area" class="mt-12" aria-label="面试练习"></section>
 
-        <!-- 错题本 -->
-        <section id="wrong-area" class="mt-12" aria-label="错题本"></section>
-
-        <!-- 收藏 -->
-        <section id="fav-area" class="mt-12" aria-label="题目收藏"></section>
-
-        <!-- 智能推荐 -->
-        <section id="smart-area" class="mt-12" aria-label="智能推荐"></section>
+        <!-- 错题本 / 题目收藏 / 智能推荐已移至笔试练习页（written-practice.html） -->
       </div>
 
     </div>
@@ -444,9 +437,6 @@
     renderProgress();
     renderWritten();
     renderInterviewArea();
-    renderWrongArea();
-    renderFavArea();
-    renderSmartArea();
     refreshIcons();
   }
 
@@ -632,7 +622,7 @@
       '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
         '<div class="flex flex-col md:flex-row md:items-center gap-6">' +
           '<div class="flex-1 min-w-0">' +
-            '<p class="edu-body text-edu-muted-foreground">练习将在新页面进行；完成后进度会自动同步回本页，本文下方「整体练习进度 / 错题本 / 题目收藏」会自动更新。</p>' +
+            '<p class="edu-body text-edu-muted-foreground">练习将在新页面进行：错题本、题目收藏与智能推荐均已整合到该页面，完成后进度会自动同步回本页。</p>' +
             '<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5">' +
               '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">题目总数</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + total + '</p></div>' +
               '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">已完成</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + Math.min(done, total) + '</p></div>' +
@@ -651,110 +641,8 @@
     refreshIcons();
   }
 
-  /* ---- 错题本 / 收藏 ---- */
-  function renderWrongArea() {
-    var prog = getProg(state.plan.id);
-    var ids = prog.wrong || [];
-    var items = ids.map(function (id) { return state.written.filter(function (q) { return q.id === id; })[0]; }).filter(Boolean);
-    var body;
-    if (!items.length) {
-      body = '<div class="p-8 text-center"><div class="w-12 h-12 mx-auto rounded-full bg-edu-muted flex items-center justify-center mb-3"><i data-lucide="check-circle-2" class="w-6 h-6 text-edu-state-success"></i></div><p class="text-sm text-edu-muted-foreground">暂无错题，继续保持！答错的题目会自动收录到这里。</p></div>';
-    } else {
-      body = '<div class="space-y-3">' + items.map(function (q) {
-        return '' +
-          '<div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary/40 transition-colors">' +
-            '<div class="flex-1 min-w-0">' +
-              '<div class="flex items-center gap-2 mb-1">' +
-                '<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-error-bg text-edu-state-error">' + esc(q.subject) + '</span>' +
-                '<span class="text-xs text-edu-muted-foreground">' + (q.type === 'multi' ? '多选题' : '单选题') + ' · ' + esc(q.difficulty) + ' · ' + esc(q.school) + '</span>' +
-              '</div>' +
-              '<p class="text-sm text-edu-foreground font-medium line-clamp-2">' + esc(q.stem) + '</p>' +
-            '</div>' +
-            '<div class="flex items-center gap-2 shrink-0">' +
-              '<button type="button" onclick="practiceWrong(\'' + esc(q.id) + '\')" class="px-3 h-8 rounded-lg border border-edu-border bg-white text-xs font-medium text-edu-foreground hover:bg-edu-muted transition-colors">重新练习</button>' +
-              '<button type="button" onclick="showWrongAnalysis(\'' + esc(q.id) + '\')" class="px-3 h-8 rounded-lg bg-edu-primary text-white text-xs font-medium hover:bg-[#0f766e] transition-colors">查看解析</button>' +
-            '</div>' +
-          '</div>';
-      }).join('') + '</div>';
-    }
-    document.getElementById('wrong-area').innerHTML = '' +
-      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
-        '<div class="flex items-center justify-between mb-6">' +
-          '<div class="flex items-center gap-2">' +
-            '<div class="w-8 h-8 rounded-lg bg-edu-state-error-bg text-edu-state-error flex items-center justify-center"><i data-lucide="book-x" class="w-4 h-4"></i></div>' +
-            '<h2 class="edu-h3 text-edu-foreground">错题本</h2>' +
-            '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 ' + items.length + ' 道</span>' +
-          '</div>' +
-        '</div>' + body +
-      '</div>';
-    refreshIcons();
-  }
+  /* 错题本 / 题目收藏 / 智能推荐：已迁移至笔试练习页 written-practice.html */
 
-  function practiceWrong(id) {
-    window.open('written-practice.html?q=' + encodeURIComponent(id), '_blank', 'noopener');
-  }
-  function showWrongAnalysis(id) {
-    var q = state.written.filter(function (x) { return x.id === id; })[0];
-    if (!q) return;
-    alert('【' + (q.type === 'multi' ? '多选题' : '单选题') + '】' + q.stem + '\n\n正确答案：' + q.answer.join('、') + '\n\n解析：' + q.analysis + '\n\n思路：' + q.tips);
-  }
-
-  function renderFavArea() {
-    var prog = getProg(state.plan.id);
-    var ids = prog.fav || [];
-    var items = ids.map(function (id) { return state.written.filter(function (q) { return q.id === id; })[0]; }).filter(Boolean);
-    var body;
-    if (!items.length) {
-      body = '<div class="p-8 text-center"><div class="w-12 h-12 mx-auto rounded-full bg-edu-muted flex items-center justify-center mb-3"><i data-lucide="star" class="w-6 h-6 text-edu-muted-foreground"></i></div><p class="text-sm text-edu-muted-foreground">还没有收藏的题目，点击题卡右上角「收藏」即可加入。</p></div>';
-    } else {
-      body = '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">' + items.map(function (q) {
-        return '' +
-          '<div onclick="practiceWrong(\'' + esc(q.id) + '\')" class="cursor-pointer p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-state-warning transition-colors">' +
-            '<div class="flex items-center gap-2 mb-2">' +
-              '<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-warning-bg text-edu-state-warning">' + (q.type === 'multi' ? '多选题' : '单选题') + '</span>' +
-              '<span class="text-xs text-edu-muted-foreground">' + esc(q.subject) + ' · ' + esc(q.school) + '</span>' +
-            '</div>' +
-            '<p class="text-sm text-edu-foreground font-medium line-clamp-2">' + esc(q.stem) + '</p>' +
-          '</div>';
-      }).join('') + '</div>';
-    }
-    document.getElementById('fav-area').innerHTML = '' +
-      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
-        '<div class="flex items-center gap-2 mb-6">' +
-          '<div class="w-8 h-8 rounded-lg bg-edu-state-warning-bg text-edu-state-warning flex items-center justify-center"><i data-lucide="star" class="w-4 h-4"></i></div>' +
-          '<h2 class="edu-h3 text-edu-foreground">题目收藏</h2>' +
-          '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 ' + items.length + ' 道</span>' +
-        '</div>' + body +
-      '</div>';
-    refreshIcons();
-  }
-
-  /* ---- 智能推荐 ---- */
-  function renderSmartArea() {
-    var recs = state.written.slice(0, 5);
-    var hasInterview = planHasInterview(state.plan);
-    var cards = recs.map(function (q) {
-      return '' +
-        '<button type="button" onclick="practiceWrong(\'' + esc(q.id) + '\')" class="group text-left block p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary hover:shadow-sm transition-all">' +
-          '<div class="flex items-center justify-between mb-2">' +
-            '<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">' + esc(q.subject) + '</span>' +
-            '<i data-lucide="arrow-right" class="w-4 h-4 text-edu-muted-foreground group-hover:text-edu-primary transition-colors"></i>' +
-          '</div>' +
-          '<p class="text-sm text-edu-foreground font-medium line-clamp-2">' + esc(q.stem) + '</p>' +
-        '</button>';
-    }).join('');
-    document.getElementById('smart-area').innerHTML = '' +
-      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
-        '<div class="flex items-center gap-2 mb-5">' +
-          '<div class="w-8 h-8 rounded-lg bg-edu-primary-50 text-edu-primary flex items-center justify-center"><i data-lucide="lightbulb" class="w-4 h-4"></i></div>' +
-          '<h2 class="edu-h3 text-edu-foreground">智能推荐</h2>' +
-          '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">基于错题本与练习记录</span>' +
-        '</div>' +
-        '<p class="text-sm text-edu-muted-foreground mb-4">系统根据你方案中的院校专业与错题分布，为你推荐以下同类强化题目' + (hasInterview ? '，面试薄弱项可前往面试练习区专项训练。' : '。') + '</p>' +
-        '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">' + cards + '</div>' +
-      '</div>';
-    refreshIcons();
-  }
 
   /* =======================================================================
      面试练习区域
