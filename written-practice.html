@@ -299,6 +299,16 @@
   function renderPaperGrid() {
     var grid = document.getElementById('wp-paper-grid');
     var list = visiblePapers();
+    if (!state.written.length) {
+      grid.innerHTML = '<div class="bg-edu-card border border-edu-border rounded-xl p-12 text-center shadow-sm">' +
+        '<div class="w-14 h-14 mx-auto rounded-2xl bg-edu-primary-50 text-edu-primary flex items-center justify-center mb-4"><i data-lucide="video" class="w-7 h-7"></i></div>' +
+        '<p class="edu-h3 text-edu-foreground">本方案无笔试环节</p>' +
+        '<p class="edu-body-sm text-edu-muted-foreground mt-2 max-w-md mx-auto">该方案的院校校测仅包含面试，不需要准备笔试内容。你可以前往 AI 面试练习页面开始模拟面试训练。</p>' +
+        '<a href="interview-practice.html" target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-1.5 px-5 h-11 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors"><i data-lucide="video" class="w-4 h-4"></i>前往 AI 面试练习</a>' +
+        '</div>';
+      refreshIcons();
+      return;
+    }
     if (!list.length) {
       grid.innerHTML = '<div class="bg-edu-card border border-edu-border rounded-xl p-12 text-center shadow-sm">' +
         '<div class="w-12 h-12 mx-auto rounded-full bg-edu-muted flex items-center justify-center mb-3"><i data-lucide="search-x" class="w-6 h-6 text-edu-muted-foreground"></i></div>' +

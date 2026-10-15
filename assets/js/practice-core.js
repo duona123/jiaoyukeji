@@ -49,6 +49,15 @@ var DEMO_PLANS = [
       { school: '浙江金融职业学院', major: '会计', needsInterview: false, testForm: '职业适应性测试（仅笔试）' },
       { school: '宁波职业技术学院', major: '物流管理', needsInterview: false, testForm: '职业适应性测试（仅笔试）' }
     ]
+  },
+  {
+    id: 'demo-interview-only', name: '上海交通大学 · 综合评价（面试）', planType: '综合评价', generatedAt: '2026-08-03 09:00', score: '冲刺',
+    majors: [
+      { school: '上海交通大学', major: '计算机科学与技术', needsInterview: true, needsWritten: false, testForm: '综合面试（无笔试）' },
+      { school: '上海交通大学', major: '电子信息工程', needsInterview: true, needsWritten: false, testForm: '综合面试（无笔试）' },
+      { school: '上海交通大学', major: '机械工程', needsInterview: true, needsWritten: false, testForm: '综合面试（无笔试）' },
+      { school: '上海交通大学', major: '生物医学工程', needsInterview: true, needsWritten: false, testForm: '综合面试（无笔试）' }
+    ]
   }
 ];
 
@@ -274,7 +283,10 @@ function loadPlans() {
 
 /* 依据方案生成笔试题 */
 function buildWritten(plan) {
-  var majors = plan.majors.slice(0, MAX_MAJORS);
+  /* 只对明确需要笔试的专业出题；未显式标注 needsWritten 的专业默认需要笔试（兼容既有方案） */
+  var majors = plan.majors.slice(0, MAX_MAJORS).filter(function (m) {
+    return m.needsWritten !== false;
+  });
   var out = [];
   majors.forEach(function (m, i) {
     for (var k = 0; k < 3; k++) {
@@ -366,7 +378,8 @@ function setProg(planId, obj) {
 }
 
 function planHasInterview(plan) { return plan.majors.some(function (m) { return m.needsInterview; }); }
-function planWrittenCount(plan) { return Math.min(plan.majors.length, MAX_MAJORS) * 3; }
+function planHasWritten(plan) { return plan.majors.some(function (m) { return m.needsWritten !== false; }); }
+function planWrittenCount(plan) { return plan.majors.filter(function (m) { return m.needsWritten !== false; }).length * 3; }
 function planInterviewCount(plan) { return Math.min(plan.majors.length, MAX_MAJORS) * 2; }
 
 /* 读取当前已选方案；planId 为空时取 localStorage 中记录的那个 */

@@ -196,6 +196,7 @@
       var overLimit = p.majors.length > MAX_MAJORS;
       var majors = p.majors.slice(0, MAX_MAJORS);
       var hasInterview = planHasInterview(p);
+      var hasWritten = planHasWritten(p);
       var interviewSchools = majors.filter(function (m) { return m.needsInterview; }).length;
       var chips = majors.slice(0, 4).map(function (m) {
         return '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-edu-muted text-edu-muted-foreground text-[11px]">' + esc(m.school) + ' · ' + esc(m.major || '不限') + '</span>';
@@ -216,9 +217,11 @@
           '<div class="flex flex-wrap items-center gap-2 mb-3">' +
             '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">' + esc(p.planType) + '</span>' +
             '<span class="text-xs text-edu-muted-foreground">志愿 ' + p.majors.length + ' 条</span>' +
-            (hasInterview
-              ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-warning-bg text-edu-state-warning">含面试 ' + interviewSchools + ' 所</span>'
-              : '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-info-bg text-edu-state-info">仅笔试</span>') +
+            (hasInterview && !hasWritten
+              ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">仅面试 · ' + interviewSchools + ' 所</span>'
+              : (!hasInterview && hasWritten
+                ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-info-bg text-edu-state-info">仅笔试</span>'
+                : '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-warning-bg text-edu-state-warning">含面试 ' + interviewSchools + ' 所</span>')) +
           '</div>' +
           '<div class="flex flex-wrap gap-1.5 mb-4">' + chips + more + '</div>' +
           (overLimit
@@ -442,6 +445,15 @@
 
   /* ---- 笔试练习区域（入口卡片，完整练习已迁移至 written-practice.html） ---- */
   function renderWritten() {
+    var area = document.getElementById('written-area');
+    var hasWritten = state.written.length > 0;
+    if (!hasWritten) {
+      area.innerHTML = '';
+      area.classList.add('hidden');
+      return;
+    }
+    area.classList.remove('hidden');
+
     var prog = getProg(state.plan.id);
     var done = prog.done || 0;
     var correct = prog.correct || 0;
