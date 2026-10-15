@@ -312,7 +312,7 @@ function loadAllProgress() {
 function saveAllProgress(all) { localStorage.setItem(PROGRESS_STORE_KEY, JSON.stringify(all)); }
 function getProg(planId) {
   var all = loadAllProgress();
-  return all[planId] || { done: 0, correct: 0, wrong: [], fav: [], sessions: 0, scores: [] };
+  return all[planId] || { done: 0, correct: 0, wrong: [], fav: [], sessions: 0, scores: [], answered: {} };
 }
 function setProg(planId, obj) {
   var all = loadAllProgress();
