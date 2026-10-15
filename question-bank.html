@@ -151,28 +151,6 @@
     </div>
   </main>
 
-  <!-- ============ 视频课程播放弹层 ============ -->
-  <div id="video-modal" class="hidden fixed inset-0 z-[90] bg-slate-900/80 backdrop-blur-sm p-4 md:p-8 overflow-y-auto">
-    <div class="max-w-4xl mx-auto mt-6 bg-edu-card border border-edu-border rounded-2xl overflow-hidden shadow-2xl">
-      <div class="flex items-center justify-between px-5 py-4 border-b border-edu-border">
-        <div class="flex items-center gap-2">
-          <i data-lucide="play-circle" class="w-5 h-5 text-edu-primary"></i>
-          <p id="video-modal-title" class="font-semibold text-edu-foreground">面试基础课程</p>
-        </div>
-        <button type="button" onclick="closeVideoModal()" class="w-8 h-8 rounded-lg hover:bg-edu-muted text-edu-muted-foreground flex items-center justify-center transition-colors" aria-label="关闭">
-          <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
-      </div>
-      <div class="bg-black">
-        <video id="video-player" class="w-full aspect-video" controls playsinline preload="metadata" poster="" src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
-      </div>
-      <div class="px-5 py-4">
-        <p id="video-modal-desc" class="edu-body-sm text-edu-muted-foreground"></p>
-        <p class="edu-caption text-edu-muted-foreground mt-2">演示环境使用示例视频，正式版本将接入面试基础精品课程。</p>
-      </div>
-    </div>
-  </div>
-
   <footer class="border-t border-edu-border bg-edu-muted/40">
     <div class="mx-auto max-w-7xl px-6 py-8">
       <div class="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -513,7 +491,6 @@
     var area = document.getElementById('interview-area');
     var targets = plan.majors.filter(function (m) { return m.needsInterview; });
     if (!targets.length) {
-      /* 方案仅含笔试时，不展示面试部分 */
       area.innerHTML = '';
       area.classList.add('hidden');
       return;
@@ -524,36 +501,16 @@
     var iDone = prog.sessions || 0;
     var iAvg = (prog.scores && prog.scores.length) ? Math.round(prog.scores.reduce(function (a, b) { return a + b; }, 0) / prog.scores.length) : 0;
 
-    var courseHtml = VIDEO_COURSES.map(function (c, i) {
-      return '' +
-        '<button type="button" onclick="openVideoModal(' + i + ')" class="group text-left block bg-edu-card border border-edu-border rounded-xl overflow-hidden hover:shadow-md hover:border-edu-primary transition-all">' +
-          '<div class="relative aspect-video overflow-hidden bg-edu-muted">' +
-            '<img src="' + c.cover + '" alt="' + esc(c.title) + '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">' +
-            '<div class="absolute inset-0 bg-slate-900/25 group-hover:bg-slate-900/10 transition-colors"></div>' +
-            '<div class="absolute inset-0 flex items-center justify-center">' +
-              '<span class="w-12 h-12 rounded-full bg-white/90 text-edu-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform"><i data-lucide="play" class="w-5 h-5" style="fill:currentColor"></i></span>' +
-            '</div>' +
-            '<span class="absolute right-2 bottom-2 px-2 py-0.5 rounded bg-black/60 text-white text-[11px] edu-number">' + c.duration + '</span>' +
-          '</div>' +
-          '<div class="p-4">' +
-            '<p class="font-medium text-edu-foreground group-hover:text-edu-primary transition-colors">' + esc(c.title) + '</p>' +
-            '<p class="edu-caption text-edu-muted-foreground mt-1 line-clamp-2">' + esc(c.desc) + '</p>' +
-          '</div>' +
-        '</button>';
-    }).join('');
-
-    var historyRows = interviewHistoryRows();
-
     area.innerHTML = '' +
       '<div class="flex items-center gap-2 mb-4">' +
         '<i data-lucide="video" class="w-5 h-5 text-edu-primary"></i>' +
         '<h2 class="edu-h2 text-edu-foreground">面试练习</h2>' +
         '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">数字人面对面视频面试</span>' +
       '</div>' +
-      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm mb-6">' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
         '<div class="flex flex-col md:flex-row md:items-center gap-6">' +
           '<div class="flex-1 min-w-0">' +
-            '<p class="edu-body text-edu-muted-foreground">AI 数字人面对面面试将在新页面进行：可自选面试院校与模式，完成后自动生成五维评估报告，进度会同步回本页。</p>' +
+            '<p class="edu-body text-edu-muted-foreground">AI 数字人面对面面试将在新页面进行：面试基础视频课程、练习历史与院校选择均已整合到该页面。完成后自动生成五维评估报告，进度会同步回本页。</p>' +
             '<div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5">' +
               '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">可面试院校</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + targets.length + '</p></div>' +
               '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">已完成场次</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + iDone + '</p></div>' +
@@ -562,96 +519,18 @@
           '</div>' +
           '<div class="shrink-0 md:w-56">' +
             '<a href="interview-practice.html" target="_blank" rel="noopener" class="w-full inline-flex items-center justify-center gap-1.5 px-5 h-12 rounded-xl bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors"><i data-lucide="video" class="w-4 h-4"></i>开始 AI 面试练习</a>' +
-            '<p class="edu-caption text-edu-muted-foreground mt-2 text-center">在新页面选择院校并配置面试</p>' +
+            '<p class="edu-caption text-edu-muted-foreground mt-2 text-center">新页面内可看课程 / 回顾历史</p>' +
           '</div>' +
         '</div>' +
-      '</div>' +
-      '<div class="mb-6">' +
-        '<div class="flex items-center justify-between mb-4"><div class="flex items-center gap-2"><i data-lucide="graduation-cap" class="w-5 h-5 text-edu-primary"></i><h3 class="edu-h3 text-edu-foreground">面试基础视频课程</h3></div><a href="vip-pricing.html" class="text-sm text-edu-primary hover:underline">解锁全部课程</a></div>' +
-        '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">' + courseHtml + '</div>' +
-      '</div>' +
-      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
-        '<div class="flex items-center gap-2 mb-4"><i data-lucide="history" class="w-5 h-5 text-edu-primary"></i><h3 class="edu-h3 text-edu-foreground">面试练习历史</h3><span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">' + esc(interviewHistoryMeta()) + '</span></div>' +
-        '<div class="overflow-x-auto"><table class="w-full text-sm">' +
-          '<thead class="bg-edu-muted"><tr>' +
-            '<th class="text-left px-4 py-3 font-medium text-edu-foreground">时间</th>' +
-            '<th class="text-left px-4 py-3 font-medium text-edu-foreground">院校</th>' +
-            '<th class="text-left px-4 py-3 font-medium text-edu-foreground">模式</th>' +
-            '<th class="text-left px-4 py-3 font-medium text-edu-foreground">总分</th>' +
-            '<th class="text-right px-4 py-3 font-medium text-edu-foreground">操作</th>' +
-          '</tr></thead>' +
-          '<tbody class="divide-y divide-edu-border">' + historyRows + '</tbody>' +
-        '</table></div>' +
       '</div>';
 
     refreshIcons();
   }
 
   /* =======================================================================
-     视频课程弹层
+     面试视频课程 / 历史相关函数：已迁移至 interview-practice.html
      ======================================================================= */
-  function openVideoModal(i) {
-    var c = VIDEO_COURSES[i];
-    if (!c) return;
-    document.getElementById('video-modal-title').textContent = c.title;
-    document.getElementById('video-modal-desc').textContent = c.desc;
-    var v = document.getElementById('video-player');
-    v.poster = c.cover;
-    document.getElementById('video-modal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    try { v.currentTime = 0; v.play(); } catch (e) {}
-    refreshIcons();
-  }
-  function closeVideoModal() {
-    var v = document.getElementById('video-player');
-    try { v.pause(); } catch (e) {}
-    document.getElementById('video-modal').classList.add('hidden');
-    document.body.style.overflow = '';
-  }
-
-  /* =======================================================================
-     面试练习历史 / 配置提示
-     ======================================================================= */
-  function interviewConfigHint() {
-    var cfg = getInterviewConfig();
-    if (!cfg) return '免费用户可体验 1 次，VIP 不限次数';
-    return '上次配置：' + modeLabelOf(cfg.mode) + ' · ' + cfg.minutes + ' 分钟 · ' + ratioLabelOf(cfg.ratio);
-  }
-  function interviewHistoryMeta() {
-    var recs = recordsOfPlan(state.plan.id);
-    if (!recs.length) return '暂无记录 · 下方为示例';
-    var avg = Math.round(recs.reduce(function (s, r) { return s + r.totalScore; }, 0) / recs.length);
-    return '共 ' + recs.length + ' 场 · 平均 ' + avg + ' 分';
-  }
-  function scoreBadgeCls(score) {
-    if (score >= 85) return 'bg-edu-state-success-bg text-edu-state-success';
-    if (score >= 75) return 'bg-edu-state-warning-bg text-edu-state-warning';
-    return 'bg-edu-state-error-bg text-edu-state-error';
-  }
-  function interviewHistoryRows() {
-    var recs = recordsOfPlan(state.plan.id, 5);
-    if (!recs.length) {
-      return '' +
-        '<tr class="hover:bg-edu-muted/50"><td class="px-4 py-3.5 text-edu-muted-foreground">2026-08-14 19:32</td><td class="px-4 py-3.5 text-edu-foreground font-medium">浙江工业大学</td><td class="px-4 py-3.5 text-edu-muted-foreground">视频模式</td><td class="px-4 py-3.5"><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-edu-state-success-bg text-edu-state-success">82 / 100</span></td><td class="px-4 py-3.5 text-right"><a href="interview-report.html" class="inline-flex items-center gap-1 text-sm text-edu-primary hover:underline">回看报告<i data-lucide="external-link" class="w-3.5 h-3.5"></i></a></td></tr>' +
-        '<tr class="hover:bg-edu-muted/50"><td class="px-4 py-3.5 text-edu-muted-foreground">2026-08-12 20:15</td><td class="px-4 py-3.5 text-edu-foreground font-medium">浙江师范大学</td><td class="px-4 py-3.5 text-edu-muted-foreground">视频模式</td><td class="px-4 py-3.5"><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-edu-state-warning-bg text-edu-state-warning">76 / 100</span></td><td class="px-4 py-3.5 text-right"><a href="interview-report.html" class="inline-flex items-center gap-1 text-sm text-edu-primary hover:underline">回看报告<i data-lucide="external-link" class="w-3.5 h-3.5"></i></a></td></tr>';
-    }
-    return recs.map(function (r) {
-      return '' +
-        '<tr class="hover:bg-edu-muted/50">' +
-          '<td class="px-4 py-3.5 text-edu-muted-foreground">' + esc(r.createdAt) + '</td>' +
-          '<td class="px-4 py-3.5 text-edu-foreground font-medium">' + esc(r.school || '—') + (r.major ? ' · ' + esc(r.major) : '') + '</td>' +
-          '<td class="px-4 py-3.5 text-edu-muted-foreground">' + esc(r.modeLabel || modeLabelOf(r.mode)) + ' · ' + r.answers.length + ' 题</td>' +
-          '<td class="px-4 py-3.5"><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold ' + scoreBadgeCls(r.totalScore) + '">' + r.totalScore + ' / 100</span></td>' +
-          '<td class="px-4 py-3.5 text-right"><a href="interview-report.html?rid=' + encodeURIComponent(r.id) + '" class="inline-flex items-center gap-1 text-sm text-edu-primary hover:underline">回看报告<i data-lucide="external-link" class="w-3.5 h-3.5"></i></a></td>' +
-        '</tr>';
-    }).join('');
-  }
-
-  /* ---- 弹层关闭 ---- */
-  document.addEventListener('keydown', function (e) {
-    if (e.key !== 'Escape') return;
-    if (!document.getElementById('video-modal').classList.contains('hidden')) closeVideoModal();
-  });
+  /* 原 openVideoModal / closeVideoModal / interviewHistoryMeta / scoreBadgeCls / interviewHistoryRows 均已移走 */
 
   /* =======================================================================
      初始化
