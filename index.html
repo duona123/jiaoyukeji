@@ -49,6 +49,7 @@
         <a href="ai-chat.html" id="nav-ai-chat" data-dom-id="nav-ai-chat" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a>
         <a href="direction.html" id="nav-plan" data-dom-id="link-page-grade-input" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a>
         <a href="question-bank.html" id="nav-practice" data-dom-id="link-page-question-bank" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">练习中心</a>
+        <a href="schools.html" id="nav-schools" data-dom-id="link-page-schools" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">院校专业</a>
         <a href="user-center.html" id="nav-user" data-dom-id="nav-user" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a>
       </nav>
       <div class="flex items-center gap-3">
@@ -60,7 +61,7 @@
           <i data-lucide="user" class="w-4 h-4"></i>
         </a>
       </div>
-    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">练习中心</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
+    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">练习中心</a><a href="schools.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">院校专业</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
   </header>
 
   <main id="page-content" class="flex-1">
@@ -131,6 +132,80 @@
           </a>
         </div>
         <p class="text-center mt-4 text-xs text-muted-foreground">新用户无需登录即可体验 1 次智能问答；注册后解锁每日 3 次免费额度。</p>
+      </div>
+    </section>
+
+    <!-- 院校专业信息（查院校 / 查专业） -->
+    <section id="schools-major" class="py-12 md:py-16 border-b border-border">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+          <div>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+              <i data-lucide="landmark" class="w-4 h-4"></i>
+              院校专业信息
+            </span>
+            <h2 class="edu-h2 text-foreground">查院校 · 查专业</h2>
+            <p class="mt-2 text-muted-foreground">覆盖浙江省「三位一体」与「高职提前招生」院校及其招生专业，支持按院校查、按专业查，并可查看院校详情与专业详情。</p>
+          </div>
+          <a href="schools.html" id="home-schools-entry" data-dom-id="link-page-schools" class="inline-flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
+            进入院校专业库
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <div class="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
+          <form id="home-school-search" class="flex flex-col sm:flex-row gap-3">
+            <div class="relative flex-1">
+              <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"></i>
+              <input id="home-school-input" type="text" autocomplete="off"
+                placeholder="输入院校名称或专业名称，如「浙江工业大学」「计算机」「护理」"
+                class="w-full pl-10 pr-4 py-3 text-sm rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+            </div>
+            <div class="flex gap-2 shrink-0">
+              <button type="submit" data-mode="school" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors">
+                <i data-lucide="building-2" class="w-4 h-4"></i>查院校
+              </button>
+              <button type="submit" data-mode="major" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-border bg-card text-foreground text-sm font-medium hover:bg-muted transition-colors">
+                <i data-lucide="book-open" class="w-4 h-4"></i>查专业
+              </button>
+            </div>
+          </form>
+          <p class="mt-3 text-xs text-muted-foreground">示例：查院校 → 输入「浙江工业大学」；查专业 → 输入「计算机」「护理」「会计」。回车默认按「查院校」检索。</p>
+
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="flex items-center gap-1.5 text-sm font-semibold text-foreground mb-3">
+                <i data-lucide="building-2" class="w-4 h-4 text-primary"></i>热门院校
+              </h3>
+              <div id="home-hot-schools" class="flex flex-wrap gap-2"></div>
+            </div>
+            <div>
+              <h3 class="flex items-center gap-1.5 text-sm font-semibold text-foreground mb-3">
+                <i data-lucide="book-open" class="w-4 h-4 text-primary"></i>热门专业
+              </h3>
+              <div id="home-hot-majors" class="flex flex-wrap gap-2"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-card border border-border rounded-xl p-4 text-center">
+            <div id="home-stat-schools" class="text-2xl font-semibold text-foreground edu-number">—</div>
+            <div class="text-xs text-muted-foreground mt-1">收录院校</div>
+          </div>
+          <div class="bg-card border border-border rounded-xl p-4 text-center">
+            <div id="home-stat-majors" class="text-2xl font-semibold text-foreground edu-number">—</div>
+            <div class="text-xs text-muted-foreground mt-1">收录专业</div>
+          </div>
+          <div class="bg-card border border-border rounded-xl p-4 text-center">
+            <div id="home-stat-s3" class="text-2xl font-semibold text-foreground edu-number">—</div>
+            <div class="text-xs text-muted-foreground mt-1">三位一体院校</div>
+          </div>
+          <div class="bg-card border border-border rounded-xl p-4 text-center">
+            <div id="home-stat-gz" class="text-2xl font-semibold text-foreground edu-number">—</div>
+            <div class="text-xs text-muted-foreground mt-1">高职提招院校</div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -534,7 +609,77 @@
   <script>lucide.createIcons();</script>
 
     
+  <script src="assets/js/school-major-data.js"></script>
   <script src="assets/js/app.js" defer></script>
   <script src="assets/js/pages.js" defer></script>
+  <script>
+    (function () {
+      'use strict';
+      function fill() {
+        var DATA = window.SCHOOL_MAJOR_DATA || [];
+        if (!DATA.length) return;
+        var esc = function (v) {
+          return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        };
+        var majors = [];
+        var majorCount = 0;
+        DATA.forEach(function (s) {
+          majorCount += (s.majors || []).length;
+          (s.majors || []).forEach(function (m) {
+            if (m.hot && !majors.some(function (x) { return x.name === m.name; })) {
+              majors.push({ name: m.name, schoolId: s.id });
+            }
+          });
+        });
+        var s3 = DATA.filter(function (s) { return (s.forms || []).indexOf('三位一体') > -1; }).length;
+        var gz = DATA.filter(function (s) { return (s.forms || []).indexOf('高职提招') > -1; }).length;
+
+        var set = function (id, v) { var el = document.getElementById(id); if (el) el.textContent = v; };
+        set('home-stat-schools', DATA.length);
+        set('home-stat-majors', majorCount);
+        set('home-stat-s3', s3);
+        set('home-stat-gz', gz);
+
+        var chipCls = 'inline-flex items-center px-3 py-1.5 rounded-full border border-border bg-background text-sm text-foreground hover:border-primary/40 hover:text-primary transition-colors';
+        var schoolsEl = document.getElementById('home-hot-schools');
+        if (schoolsEl) {
+          var hotSchools = DATA.filter(function (s) { return s.featured; });
+          if (!hotSchools.length) {
+            hotSchools = DATA.slice().sort(function (a, b) { return (b.hot || 0) - (a.hot || 0); }).slice(0, 10);
+          }
+          hotSchools = hotSchools.slice(0, 10);
+          schoolsEl.innerHTML = hotSchools.map(function (s) {
+            return '<a href="schools.html?school=' + encodeURIComponent(s.id) + '" class="' + chipCls + '">' + esc(s.name) + '</a>';
+          }).join('');
+        }
+        var majorsEl = document.getElementById('home-hot-majors');
+        if (majorsEl) {
+          majorsEl.innerHTML = majors.slice(0, 10).map(function (m) {
+            return '<a href="schools.html?mode=major&amp;q=' + encodeURIComponent(m.name) + '" class="' + chipCls + '">' + esc(m.name) + '</a>';
+          }).join('');
+        }
+        if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+      }
+
+      function initSearch() {
+        var form = document.getElementById('home-school-search');
+        var input = document.getElementById('home-school-input');
+        if (!form || !input) return;
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var btn = e.submitter;
+          var mode = (btn && btn.getAttribute('data-mode') === 'major') ? 'major' : 'school';
+          var q = input.value.trim();
+          var url = 'schools.html?' + (mode === 'major' ? 'mode=major' : 'mode=school');
+          if (q) url += '&q=' + encodeURIComponent(q);
+          location.href = url;
+        });
+      }
+
+      function start() { fill(); initSearch(); }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+      else start();
+    })();
+  </script>
 </body>
 </html>

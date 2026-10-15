@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>院校专业信息 · 浙招智达</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--edu-background);
+    --color-foreground: var(--edu-foreground);
+    --color-card: var(--edu-card);
+    --color-card-foreground: var(--edu-card-foreground);
+    --color-popover: var(--edu-popover);
+    --color-popover-foreground: var(--edu-popover-foreground);
+    --color-primary: var(--edu-primary);
+    --color-primary-foreground: var(--edu-primary-foreground);
+    --color-muted: var(--edu-muted);
+    --color-muted-foreground: var(--edu-muted-foreground);
+    --color-border: var(--edu-border);
+    --color-input: var(--edu-input);
+    --color-ring: var(--edu-ring);
+    --radius-sm: var(--edu-radius-sm);
+    --radius-md: var(--edu-radius-md);
+    --radius-lg: var(--edu-radius-lg);
+  }
+  @layer base {
+    body { background: var(--edu-background); color: var(--edu-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+
+    <style>
+      /* ---- 组件样式（直接使用 edu 设计令牌，避免依赖 Tailwind 动态生成） ---- */
+      .sm-card { background: var(--edu-card); border: 1px solid var(--edu-border); border-radius: var(--edu-radius-lg); }
+      .sm-card-hover { transition: box-shadow .2s ease, border-color .2s ease; }
+      .sm-card-hover:hover { box-shadow: var(--edu-shadow-2); border-color: var(--edu-primary-200); }
+
+      .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 9999px;
+        font-size: 12px; line-height: 1.5; font-weight: 500; background: var(--edu-muted);
+        color: var(--edu-muted-foreground); white-space: nowrap; }
+      .badge-brand { background: var(--edu-primary-50); color: var(--edu-primary-700); }
+      .badge-info { background: var(--edu-state-info-bg); color: var(--edu-state-info); }
+      .badge-success { background: var(--edu-state-success-bg); color: var(--edu-state-success); }
+
+      .chip { display: inline-flex; align-items: center; gap: 4px; padding: 6px 13px; border-radius: 9999px;
+        font-size: 13px; line-height: 1.4; border: 1px solid var(--edu-border); background: var(--edu-card);
+        color: var(--edu-foreground); cursor: pointer; transition: all .15s ease; }
+      .chip:hover { border-color: var(--edu-primary-300); }
+      .chip.active { background: var(--edu-primary); border-color: var(--edu-primary); color: var(--edu-primary-foreground); }
+
+      .seg { display: inline-flex; gap: 4px; padding: 4px; border-radius: var(--edu-radius-lg);
+        border: 1px solid var(--edu-border); background: var(--edu-muted); }
+      .seg-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; border-radius: var(--edu-radius-md);
+        font-size: 14px; font-weight: 500; color: var(--edu-muted-foreground); cursor: pointer; transition: all .15s ease; }
+      .seg-btn:hover { color: var(--edu-foreground); }
+      .seg-btn.active { background: var(--edu-card); color: var(--edu-primary); box-shadow: var(--edu-shadow-1); }
+
+      .sm-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+      .sm-table th { text-align: left; padding: 12px 16px; background: var(--edu-muted);
+        color: var(--edu-muted-foreground); font-weight: 500; white-space: nowrap; }
+      .sm-table td { padding: 12px 16px; border-bottom: 1px solid var(--edu-border); }
+      .sm-table tbody tr:last-child td { border-bottom: none; }
+      .sm-table tbody tr.major-row:hover { background: var(--edu-muted); }
+      .sm-table tbody tr.major-row { cursor: pointer; }
+
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      .demo-note { font-size: 12px; color: var(--edu-muted-foreground); }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased flex flex-col bg-background text-foreground">
+  <header class="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur relative">
+    <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <button id="nav-mobile-toggle" type="button" class="md:hidden p-2 rounded-md text-muted-foreground hover:bg-muted transition-colors" aria-label="打开菜单"><i data-lucide="menu" class="w-5 h-5"></i></button>
+        <a href="index.html" class="flex items-center gap-2 text-primary font-semibold text-lg">
+        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <span>浙招智达</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a>
+        <a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a>
+        <a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a>
+        <a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">练习中心</a>
+        <a href="schools.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">院校专业</a>
+        <a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button type="button" data-theme-toggle class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" aria-label="切换主题"><i data-lucide="sun" class="w-4 h-4" data-icon-name="sun"></i><i data-lucide="moon" class="w-4 h-4 hidden" data-icon-name="moon"></i></button>
+        <a href="vip-pricing.html" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>VIP
+        </a>
+        <a href="user-center.html" class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors">
+          <i data-lucide="user" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">练习中心</a><a href="schools.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">院校专业</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
+  </header>
+
+  <main id="page-content" class="flex-1 bg-background">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+
+      <!-- ============ 视图一：检索列表 ============ -->
+      <div id="view-list">
+        <!-- Hero -->
+        <section class="sm-card p-6 md:p-8 mb-6">
+          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div class="max-w-2xl">
+              <span class="inline-flex items-center gap-1.5 badge badge-brand mb-4"><i data-lucide="landmark" class="w-3.5 h-3.5"></i>院校专业信息</span>
+              <h1 class="edu-h2 text-foreground">查院校 · 查专业</h1>
+              <p class="mt-3 text-muted-foreground">覆盖浙江省「三位一体」与「高职提前招生」院校及其招生专业，支持按院校查、按专业查，并可查看院校详情与专业详情。</p>
+            </div>
+            <div class="grid grid-cols-2 gap-3 lg:w-80 shrink-0" id="hero-stats"></div>
+          </div>
+        </section>
+
+        <!-- 工具栏 -->
+        <section class="sm-card p-5 mb-6">
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="seg" id="mode-switch" role="tablist" aria-label="检索方式">
+              <button type="button" class="seg-btn active" data-mode="school" role="tab" aria-selected="true"><i data-lucide="building-2" class="w-4 h-4"></i>查院校</button>
+              <button type="button" class="seg-btn" data-mode="major" role="tab" aria-selected="false"><i data-lucide="book-open" class="w-4 h-4"></i>查专业</button>
+            </div>
+          </div>
+
+          <div class="relative mt-4">
+            <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"></i>
+            <input id="search-input" type="text" autocomplete="off"
+              placeholder="搜索院校名称 / 城市 / 类别，如「浙江工业大学」「杭州」"
+              class="w-full pl-10 pr-24 py-3 text-sm rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+            <button type="button" id="search-clear" class="hidden absolute right-3 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-foreground hover:bg-muted transition-colors">清除</button>
+          </div>
+
+          <div class="mt-4 space-y-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-medium text-muted-foreground w-16 shrink-0">招生形式</span>
+              <div class="flex flex-wrap gap-2" id="filter-form"></div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-medium text-muted-foreground w-16 shrink-0">所在城市</span>
+              <div class="flex flex-wrap gap-2" id="filter-city"></div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-medium text-muted-foreground w-16 shrink-0">办学层次</span>
+              <div class="flex flex-wrap gap-2" id="filter-type"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 结果 -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <p class="text-sm text-muted-foreground" id="result-count"></p>
+          <p class="demo-note inline-flex items-center gap-1.5"><i data-lucide="info" class="w-3.5 h-3.5"></i>本页数据为演示数据，具体以院校官方招生简章为准</p>
+        </div>
+        <div id="result-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        <div id="empty-state" class="hidden sm-card p-12 text-center">
+          <i data-lucide="search-x" class="w-10 h-10 text-muted-foreground mx-auto mb-3"></i>
+          <p class="font-medium text-foreground">没有找到匹配的结果</p>
+          <p class="text-sm text-muted-foreground mt-1">试试更换关键词，或放宽筛选条件</p>
+          <button type="button" id="empty-reset" class="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors"><i data-lucide="rotate-ccw" class="w-4 h-4"></i>重置全部条件</button>
+        </div>
+      </div>
+
+      <!-- ============ 视图二：详情 ============ -->
+      <div id="view-detail" class="hidden">
+        <div id="detail-body"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-border bg-muted/40">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-primary font-medium">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <span>浙招智达</span>
+        </div>
+        <p class="text-sm text-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p>
+        <div class="flex items-center gap-4 text-sm text-muted-foreground">
+          <a href="#" class="hover:text-primary transition-colors">隐私政策</a>
+          <a href="#" class="hover:text-primary transition-colors">使用条款</a>
+          <a href="#" class="hover:text-primary transition-colors">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 动态渲染用到的 Tailwind 类清单（保证浏览器版按需生成） -->
+  <div class="hidden" aria-hidden="true">
+    grid-cols-3 sm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 md:col-span-2 lg:col-span-2 lg:col-span-3 hover:shadow-md hover:bg-muted text-primary hover:underline truncate text-right text-center whitespace-nowrap border-t border-border mt-4 pt-4 gap-1.5 gap-2 gap-3 gap-4 gap-5 gap-6 space-y-2 flex-wrap items-center justify-between justify-center shrink-0 min-w-0 flex-1
+  </div>
+
+  <script src="assets/js/school-major-data.js"></script>
+  <script src="assets/js/app.js" defer></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var DATA = (window.SCHOOL_MAJOR_DATA || []).slice();
+      var PROFILES = window.MAJOR_PROFILES || {};
+      var ALL_MAJORS = [];
+      DATA.forEach(function (s) {
+        (s.majors || []).forEach(function (m) {
+          ALL_MAJORS.push({
+            name: m.name, category: m.category, requiredSubjects: m.requiredSubjects,
+            plan: m.plan, years: m.years, tuition: m.tuition,
+            needsInterview: !!m.needsInterview, needsWritten: !!m.needsWritten, hot: !!m.hot,
+            schoolId: s.id, schoolName: s.name, city: s.city, type: s.type,
+            nature: s.nature, forms: s.forms || [], schoolHot: s.hot
+          });
+        });
+      });
+
+      var state = { mode: 'school', q: '', form: '', city: '', type: '' };
+
+      var listView = document.getElementById('view-list');
+      var detailView = document.getElementById('view-detail');
+      var detailBody = document.getElementById('detail-body');
+      var listEl = document.getElementById('result-list');
+      var emptyEl = document.getElementById('empty-state');
+      var countEl = document.getElementById('result-count');
+      var inputEl = document.getElementById('search-input');
+      var clearEl = document.getElementById('search-clear');
+      var modeSwitch = document.getElementById('mode-switch');
+
+      function refreshIcons() { if (window.lucide && window.lucide.createIcons) window.lucide.createIcons(); }
+      function esc(v) {
+        return String(v == null ? '' : v)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+      function fmt(n) { return typeof n === 'number' ? n.toLocaleString('en-US') : esc(n); }
+      function num(v) { return (v === 0 || v) ? fmt(v) : '—'; }
+
+      function testFormText(m) {
+        if (m.needsInterview && m.needsWritten) return '面试 + 笔试';
+        if (m.needsInterview) return '仅面试';
+        if (m.needsWritten) return '仅笔试';
+        return '免校测';
+      }
+      function statCell(value, label) {
+        return '<div><div class="text-lg font-semibold text-foreground edu-number">' + value +
+          '</div><div class="text-xs text-muted-foreground mt-0.5">' + label + '</div></div>';
+      }
+      function formBadges(s) {
+        var out = '<span class="badge">' + esc(s.type) + '</span>';
+        (s.forms || []).forEach(function (f) {
+          out += '<span class="badge ' + (f === '三位一体' ? 'badge-brand' : 'badge-info') + '">' + esc(f) + '</span>';
+        });
+        out += '<span class="badge">' + esc(s.nature) + '</span>';
+        out += '<span class="badge">' + esc(s.category) + '</span>';
+        out += '<span class="badge">' + esc(s.city) + '</span>';
+        return out;
+      }
+
+      /* ---------------- 列表卡片 ---------------- */
+      function schoolCardHTML(s) {
+        return '' +
+          '<a href="schools.html?school=' + encodeURIComponent(s.id) + '" class="sm-card sm-card-hover block p-5 group">' +
+            '<div class="flex items-start gap-3">' +
+              '<span class="w-11 h-11 shrink-0 rounded-xl flex items-center justify-center" style="background:var(--edu-primary-50);color:var(--edu-primary-700)"><i data-lucide="building-2" class="w-5 h-5"></i></span>' +
+              '<div class="min-w-0 flex-1">' +
+                '<div class="flex items-center gap-2">' +
+                  '<h3 class="font-semibold text-foreground truncate">' + esc(s.name) + '</h3>' +
+                  (s.featured ? '<span class="badge badge-brand shrink-0">热门</span>' : '') +
+                '</div>' +
+                '<p class="text-xs text-muted-foreground truncate mt-0.5">' + esc(s.enName || s.address || '') + '</p>' +
+              '</div>' +
+              '<i data-lucide="chevron-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors mt-1 shrink-0"></i>' +
+            '</div>' +
+            '<div class="flex flex-wrap gap-1.5 mt-3">' + formBadges(s) + '</div>' +
+            '<div class="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-border text-center">' +
+              statCell(fmt((s.majors || []).length), '招生专业') +
+              statCell(num(s.planTotal), '招生计划') +
+              statCell(num(s.hot), '报考热度') +
+            '</div>' +
+          '</a>';
+      }
+
+      function majorCardHTML(m) {
+        return '' +
+          '<a href="schools.html?school=' + encodeURIComponent(m.schoolId) + '&major=' + encodeURIComponent(m.name) + '" class="sm-card sm-card-hover block p-5 group">' +
+            '<div class="flex items-start justify-between gap-3">' +
+              '<div class="min-w-0">' +
+                '<h3 class="font-semibold text-foreground">' + esc(m.name) + '</h3>' +
+                '<p class="text-xs text-muted-foreground truncate mt-1">' + esc(m.schoolName) + ' · ' + esc(m.city) + ' · ' + esc(m.type) + '</p>' +
+              '</div>' +
+              (m.hot ? '<span class="badge badge-brand shrink-0">热门</span>' :
+                '<i data-lucide="chevron-right" class="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0"></i>') +
+            '</div>' +
+            '<div class="flex flex-wrap gap-1.5 mt-3">' +
+              '<span class="badge">' + esc(m.category) + '</span>' +
+              '<span class="badge badge-info">选科 ' + esc(m.requiredSubjects) + '</span>' +
+              '<span class="badge">' + esc(m.years) + ' 年制</span>' +
+              '<span class="badge">' + esc(testFormText(m)) + '</span>' +
+            '</div>' +
+            '<div class="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-border text-center">' +
+              statCell(num(m.plan) + ' 人', '招生计划') +
+              statCell(num(m.tuition) + ' 元', '学费/年') +
+            '</div>' +
+          '</a>';
+      }
+
+      /* ---------------- 筛选条件 ---------------- */
+      var CITIES = [];
+      DATA.forEach(function (s) { if (s.city && CITIES.indexOf(s.city) === -1) CITIES.push(s.city); });
+      CITIES.sort();
+
+      function chipHTML(group, label, value, active) {
+        return '<button type="button" class="chip' + (active ? ' active' : '') +
+          '" data-group="' + group + '" data-value="' + esc(value) + '">' + esc(label) + '</button>';
+      }
+      function renderGroup(elId, group, label, values) {
+        var el = document.getElementById(elId);
+        if (!el) return;
+        var html = chipHTML(group, '全部', '', state[group] === '');
+        values.forEach(function (v) {
+          html += chipHTML(group, v, v, state[group] === v);
+        });
+        el.innerHTML = html;
+      }
+      function renderFilters() {
+        renderGroup('filter-form', 'form', '招生形式', ['三位一体', '高职提招']);
+        renderGroup('filter-city', 'city', '所在城市', CITIES);
+        renderGroup('filter-type', 'type', '办学层次', ['本科', '专科']);
+      }
+
+      /* ---------------- 检索 ---------------- */
+      function matchQ(hay, q) { return !q || hay.toLowerCase().indexOf(q.toLowerCase()) > -1; }
+
+      function filterSchools() {
+        return DATA.filter(function (s) {
+          if (state.form && (s.forms || []).indexOf(state.form) === -1) return false;
+          if (state.city && s.city !== state.city) return false;
+          if (state.type && s.type !== state.type) return false;
+          if (state.q) {
+            var hay = [s.name, s.enName, s.city, s.category, s.level, (s.forms || []).join(' ')].join(' ');
+            if (!matchQ(hay, state.q)) return false;
+          }
+          return true;
+        }).sort(function (a, b) {
+          if (!!b.featured !== !!a.featured) return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+          return (b.hot || 0) - (a.hot || 0);
+        });
+      }
+      function filterMajors() {
+        return ALL_MAJORS.filter(function (m) {
+          if (state.form && (m.forms || []).indexOf(state.form) === -1) return false;
+          if (state.city && m.city !== state.city) return false;
+          if (state.type && m.type !== state.type) return false;
+          if (state.q) {
+            var hay = [m.name, m.schoolName, m.city, m.category].join(' ');
+            if (!matchQ(hay, state.q)) return false;
+          }
+          return true;
+        }).sort(function (a, b) {
+          if (!!b.hot !== !!a.hot) return (b.hot ? 1 : 0) - (a.hot ? 1 : 0);
+          return (b.schoolHot || 0) - (a.schoolHot || 0);
+        });
+      }
+
+      function renderList() {
+        if (!DATA.length) {
+          listEl.innerHTML = '';
+          emptyEl.classList.remove('hidden');
+          countEl.textContent = '';
+          return;
+        }
+        var isSchool = state.mode === 'school';
+        var items = isSchool ? filterSchools() : filterMajors();
+        countEl.textContent = '共找到 ' + items.length + ' 个' + (isSchool ? '院校' : '专业') +
+          (state.q ? '（关键词：' + state.q + '）' : '');
+        if (!items.length) {
+          listEl.innerHTML = '';
+          emptyEl.classList.remove('hidden');
+        } else {
+          emptyEl.classList.add('hidden');
+          listEl.innerHTML = items.map(isSchool ? schoolCardHTML : majorCardHTML).join('');
+        }
+        refreshIcons();
+      }
+
+      function syncModeUI() {
+        if (!modeSwitch) return;
+        modeSwitch.querySelectorAll('.seg-btn').forEach(function (b) {
+          var on = b.getAttribute('data-mode') === state.mode;
+          b.classList.toggle('active', on);
+          b.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        if (inputEl) {
+          inputEl.placeholder = state.mode === 'school'
+            ? '搜索院校名称 / 城市 / 类别，如「浙江工业大学」「杭州」'
+            : '搜索专业名称，如「计算机」「护理」「会计」';
+        }
+      }
+
+      function syncClearBtn() { if (clearEl) clearEl.classList.toggle('hidden', !state.q); }
+
+      function updateURL(mode) {
+        try {
+          var qs = '';
+          if (mode === 'major') qs = '?mode=major';
+          else if (state.q) qs = '?q=' + encodeURIComponent(state.q);
+          history.replaceState(null, '', location.pathname + qs);
+        } catch (e) {}
+      }
+
+      /* ---------------- 详情视图 ---------------- */
+      function showList() {
+        detailView.classList.add('hidden');
+        listView.classList.remove('hidden');
+        window.scrollTo({ top: 0 });
+      }
+      function showDetail() {
+        listView.classList.add('hidden');
+        detailView.classList.remove('hidden');
+        window.scrollTo({ top: 0 });
+      }
+
+      function backLink() {
+        var href = 'schools.html' + (state.mode === 'major' ? '?mode=major' : '');
+        return '<a href="' + href + '" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors">' +
+          '<i data-lucide="arrow-left" class="w-4 h-4"></i>返回列表</a>';
+      }
+
+      function crumb(items) {
+        var html = '<nav class="flex items-center gap-2 text-sm text-muted-foreground flex-wrap" aria-label="Breadcrumb">';
+        html += '<a href="schools.html" class="hover:text-primary transition-colors">院校专业</a>';
+        items.forEach(function (it) {
+          html += '<i data-lucide="chevron-right" class="w-4 h-4"></i>';
+          if (it.href) html += '<a href="' + it.href + '" class="hover:text-primary transition-colors">' + esc(it.text) + '</a>';
+          else html += '<span class="text-foreground">' + esc(it.text) + '</span>';
+        });
+        return html + '</nav>';
+      }
+
+      function findSchool(id) {
+        for (var i = 0; i < DATA.length; i++) { if (DATA[i].id === id) return DATA[i]; }
+        return null;
+      }
+
+      function showSchoolDetail(id) {
+        var s = findSchool(id);
+        if (!s) { renderNotfound('院校', '未找到该院校，可能链接已失效。'); return; }
+
+        var rows = (s.majors || []).map(function (m) {
+          var href = 'schools.html?school=' + encodeURIComponent(s.id) + '&major=' + encodeURIComponent(m.name);
+          return '<tr class="major-row" data-href="' + href + '">' +
+            '<td class="font-medium"><a href="' + href + '" class="text-primary hover:underline">' + esc(m.name) + '</a>' +
+              (m.hot ? ' <span class="badge badge-brand">热门</span>' : '') + '</td>' +
+            '<td class="text-muted-foreground">' + esc(m.category) + '</td>' +
+            '<td class="text-muted-foreground">' + esc(m.requiredSubjects) + '</td>' +
+            '<td class="text-center edu-number">' + num(m.plan) + '</td>' +
+            '<td class="text-center edu-number">' + esc(m.years) + ' 年</td>' +
+            '<td class="text-right edu-number">' + num(m.tuition) + '</td>' +
+            '<td class="whitespace-nowrap"><span class="badge ' + (m.needsInterview ? 'badge-success' : '') + '">' + esc(testFormText(m)) + '</span></td>' +
+            '</tr>';
+        }).join('');
+
+        var html = '' +
+          '<div class="flex items-center justify-between gap-3 mb-6 flex-wrap">' + backLink() +
+            crumb([{ text: '院校详情' }]) + '</div>' +
+
+          '<section class="sm-card p-6 md:p-8 mb-6">' +
+            '<div class="flex flex-col lg:flex-row gap-6 lg:gap-10">' +
+              '<div class="flex-1">' +
+                '<div class="flex flex-wrap items-center gap-2 mb-3">' + formBadges(s) + '<span class="badge">' + esc(s.level) + '</span></div>' +
+                '<div class="flex items-center gap-3 mb-4">' +
+                  '<div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:var(--edu-primary-50);color:var(--edu-primary-700)"><i data-lucide="building-2" class="w-6 h-6"></i></div>' +
+                  '<div><h1 class="edu-h2 text-foreground">' + esc(s.name) + '</h1>' +
+                  '<p class="text-sm text-muted-foreground">' + esc(s.enName || '') + '</p></div>' +
+                '</div>' +
+                '<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">' +
+                  '<div class="flex items-center gap-2 text-muted-foreground"><i data-lucide="map-pin" class="w-4 h-4 text-primary"></i><span>' + esc(s.address || (s.city + '市')) + '</span></div>' +
+                  (s.website ? '<div class="flex items-center gap-2 text-muted-foreground"><i data-lucide="globe" class="w-4 h-4 text-primary"></i><a href="' + esc(s.website) + '" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">' + esc(s.website.replace(/^https?:\/\//, '')) + '</a></div>' : '') +
+                  (s.phone ? '<div class="flex items-center gap-2 text-muted-foreground"><i data-lucide="phone" class="w-4 h-4 text-primary"></i><span>' + esc(s.phone) + '</span></div>' : '') +
+                  (s.email ? '<div class="flex items-center gap-2 text-muted-foreground"><i data-lucide="mail" class="w-4 h-4 text-primary"></i><span>' + esc(s.email) + '</span></div>' : '') +
+                '</div>' +
+              '</div>' +
+              '<div class="lg:w-72 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">' +
+                infoStat('users', '招生计划', num(s.planTotal) + ' 人') +
+                infoStat('calendar-clock', '报名截止', esc(s.deadline || '—')) +
+                infoStat('calendar-check', '校测日期', esc(s.testDate || '—')) +
+              '</div>' +
+            '</div>' +
+          '</section>' +
+
+          '<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">' +
+            '<article class="sm-card p-5 md:col-span-2"><div class="flex items-center gap-2 mb-3"><i data-lucide="info" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">院校简介</h2></div>' +
+              '<p class="text-sm text-muted-foreground leading-relaxed">' + esc(s.intro || '该院校简介待补充。') + '</p></article>' +
+            '<article class="sm-card p-5"><div class="flex items-center gap-2 mb-3"><i data-lucide="school" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">办学层次</h2></div>' +
+              kvList([['办学性质', s.nature], ['学校类别', s.category], ['层次', s.type], ['办学水平', s.level]]) + '</article>' +
+            '<article class="sm-card p-5"><div class="flex items-center gap-2 mb-3"><i data-lucide="wallet" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">学费 / 住宿</h2></div>' +
+              kvList([['学费（元/年）', s.tuitionRange], ['住宿费（元/年）', s.housingRange]]) + '</article>' +
+            '<article class="sm-card p-5"><div class="flex items-center gap-2 mb-3"><i data-lucide="trending-up" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">就业 / 升学</h2></div>' +
+              kvList([['就业率', num(s.employmentRate) + (s.employmentRate ? ' %' : '')], ['升学率', num(s.furtherRate) + (s.furtherRate ? ' %' : '')], ['报考热度', num(s.hot) + ' / 5']]) + '</article>' +
+            '<article class="sm-card p-5"><div class="flex items-center gap-2 mb-3"><i data-lucide="clipboard-list" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">招生形式</h2></div>' +
+              kvList([['招生形式', (s.forms || []).join('、') || '—'], ['招生专业数', (s.majors || []).length + ' 个'], ['校测方式', testFormSummary(s)]]) + '</article>' +
+          '</div>' +
+
+          '<section class="sm-card p-6">' +
+            '<div class="flex flex-wrap items-center justify-between gap-3 mb-5">' +
+              '<div class="flex items-center gap-2"><i data-lucide="list" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">招生专业（' + (s.majors || []).length + '）</h2></div>' +
+              '<p class="demo-note">点击任意专业可查看专业详情</p>' +
+            '</div>' +
+            '<div class="overflow-x-auto">' +
+              '<table class="sm-table"><thead><tr>' +
+                '<th>专业名称</th><th>学科门类</th><th>选科要求</th><th class="text-center">招生计划</th>' +
+                '<th class="text-center">学制</th><th class="text-right">学费（元/年）</th><th>校测方式</th>' +
+              '</tr></thead><tbody>' + (rows || '<tr><td colspan="7" class="text-center text-muted-foreground py-6">暂无专业数据</td></tr>') + '</tbody></table>' +
+            '</div>' +
+          '</section>' +
+
+          '<p class="demo-note mt-6 text-center">以上数据为演示数据，仅用于原型展示，具体请以院校官方招生简章为准。</p>';
+
+        detailBody.innerHTML = html;
+        showDetail();
+        refreshIcons();
+      }
+
+      function infoStat(icon, label, value) {
+        return '<div class="flex items-center gap-3 p-4 rounded-lg border border-border bg-muted/50">' +
+          '<div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style="background:var(--edu-primary-50);color:var(--edu-primary-700)"><i data-lucide="' + icon + '" class="w-5 h-5"></i></div>' +
+          '<div><p class="text-xs text-muted-foreground">' + esc(label) + '</p><p class="text-lg font-semibold text-foreground edu-number">' + value + '</p></div>' +
+          '</div>';
+      }
+      function kvList(pairs) {
+        return '<ul class="space-y-2 text-sm">' + pairs.map(function (p) {
+          return '<li class="flex items-center justify-between gap-3"><span class="text-muted-foreground">' + esc(p[0]) +
+            '</span><span class="font-medium text-foreground text-right">' + esc(p[1] == null || p[1] === '' ? '—' : p[1]) + '</span></li>';
+        }).join('') + '</ul>';
+      }
+      function testFormSummary(s) {
+        var set = {};
+        (s.majors || []).forEach(function (m) { set[testFormText(m)] = true; });
+        var keys = Object.keys(set);
+        return keys.length ? keys.join(' / ') : '—';
+      }
+
+      function profileOf(name) { return PROFILES[name] || null; }
+
+      function showMajorDetail(schoolId, majorName) {
+        var s = findSchool(schoolId);
+        if (!s) { renderNotfound('专业', '未找到该专业所属院校，可能链接已失效。'); return; }
+        var m = null;
+        (s.majors || []).forEach(function (x) { if (x.name === majorName) m = x; });
+        if (!m) { renderNotfound('专业', '未找到该专业，可能链接已失效。'); return; }
+
+        var pf = profileOf(m.name) || {};
+        var intro = m.intro || pf.intro || (m.name + '是' + s.name + '开设的' + (m.category || '') +
+          '类专业，学制 ' + (m.years || '—') + ' 年，选考科目要求为「' + (m.requiredSubjects || '不限') + '」。');
+        var courses = pf.courses || '以' + (m.category || '本') + '类核心课程为主，具体课程以院校培养方案为准。';
+        var careers = pf.careers || '毕业后可在相关行业从事对口岗位，或继续攻读更高层次学位。';
+
+        var schoolHref = 'schools.html?school=' + encodeURIComponent(s.id);
+        var others = (s.majors || []).filter(function (x) { return x.name !== m.name; });
+
+        var html = '' +
+          '<div class="flex items-center justify-between gap-3 mb-6 flex-wrap">' +
+            '<a href="' + schoolHref + '" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors">' +
+              '<i data-lucide="arrow-left" class="w-4 h-4"></i>返回院校</a>' +
+            crumb([{ text: s.name, href: schoolHref }, { text: '专业详情' }]) +
+          '</div>' +
+
+          '<section class="sm-card p-6 md:p-8 mb-6">' +
+            '<div class="flex flex-wrap items-center gap-2 mb-3">' +
+              '<span class="badge">' + esc(m.category) + '</span>' +
+              '<span class="badge">' + esc(m.years) + ' 年制</span>' +
+              '<span class="badge badge-info">选科 ' + esc(m.requiredSubjects) + '</span>' +
+              (m.hot ? '<span class="badge badge-brand">热门专业</span>' : '') +
+              '<span class="badge ' + (m.needsInterview ? 'badge-success' : '') + '">' + esc(testFormText(m)) + '</span>' +
+            '</div>' +
+            '<h1 class="edu-h2 text-foreground">' + esc(m.name) + '</h1>' +
+            '<p class="mt-2 text-sm text-muted-foreground">所属院校：<a href="' + schoolHref + '" class="text-primary hover:underline">' + esc(s.name) + '</a> · ' + esc(s.city) + ' · ' + esc(s.type) + ' · ' + esc(s.nature) + '</p>' +
+          '</section>' +
+
+          '<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">' +
+            '<article class="sm-card p-5"><div class="flex items-center gap-2 mb-3"><i data-lucide="layers" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">核心信息</h2></div>' +
+              kvList([['选科要求', m.requiredSubjects], ['学制', m.years + ' 年'], ['学费（元/年）', m.tuition], ['招生计划（人）', m.plan], ['校测方式', testFormText(m)], ['学科门类', m.category]]) + '</article>' +
+            '<article class="sm-card p-5 lg:col-span-2"><div class="flex items-center gap-2 mb-3"><i data-lucide="info" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">专业简介</h2></div>' +
+              '<p class="text-sm text-muted-foreground leading-relaxed">' + esc(intro) + '</p>' +
+              '<div class="mt-4 pt-4 border-t border-border grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">' +
+                '<div class="flex items-center gap-2 text-muted-foreground"><i data-lucide="map-pin" class="w-4 h-4 text-primary"></i>就读城市：' + esc(s.city) + '</div>' +
+                '<div class="flex items-center gap-2 text-muted-foreground"><i data-lucide="graduation-cap" class="w-4 h-4 text-primary"></i>办学层次：' + esc(s.type) + '（' + esc(s.level || s.nature) + '）</div>' +
+              '</div>' +
+            '</article>' +
+            '<article class="sm-card p-5"><div class="flex items-center gap-2 mb-3"><i data-lucide="book-open" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">主要课程</h2></div>' +
+              chipList(courses, '可能涉及的主要课程') + '</article>' +
+            '<article class="sm-card p-5 lg:col-span-2"><div class="flex items-center gap-2 mb-3"><i data-lucide="briefcase" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">就业方向</h2></div>' +
+              chipList(careers, '可能的就业方向') + '</article>' +
+          '</div>' +
+
+          '<section class="sm-card p-6">' +
+            '<div class="flex items-center gap-2 mb-4"><i data-lucide="list" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">' + esc(s.name) + ' · 其他招生专业</h2></div>' +
+            '<div class="flex flex-wrap gap-2">' +
+              (others.map(function (x) {
+                return '<a href="schools.html?school=' + encodeURIComponent(s.id) + '&major=' + encodeURIComponent(x.name) + '" class="chip">' + esc(x.name) + '</a>';
+              }).join('') || '<span class="text-sm text-muted-foreground">暂无其他专业</span>') +
+            '</div>' +
+          '</section>' +
+
+          '<p class="demo-note mt-6 text-center">以上数据为演示数据，仅用于原型展示，具体请以院校官方招生简章为准。</p>';
+
+        detailBody.innerHTML = html;
+        showDetail();
+        refreshIcons();
+      }
+
+      function chipList(text, fallback) {
+        var items = String(text || '').split(/[、,，;；]/).map(function (t) { return t.trim(); }).filter(Boolean);
+        if (!items.length) return '<p class="text-sm text-muted-foreground">' + esc(fallback) + '</p>';
+        return '<div class="flex flex-wrap gap-2">' + items.map(function (t) {
+          return '<span class="badge">' + esc(t) + '</span>';
+        }).join('') + '</div>';
+      }
+
+      function renderNotfound(kind, msg) {
+        detailBody.innerHTML = '<div class="flex items-center justify-between gap-3 mb-6 flex-wrap">' + backLink() + crumb([{ text: kind + '详情' }]) + '</div>' +
+          '<div class="sm-card p-12 text-center"><i data-lucide="file-question" class="w-10 h-10 text-muted-foreground mx-auto mb-3"></i>' +
+          '<p class="font-medium text-foreground">' + esc(msg) + '</p>' +
+          '<a href="schools.html" class="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors"><i data-lucide="home" class="w-4 h-4"></i>返回院校专业信息</a></div>';
+        showDetail();
+        refreshIcons();
+      }
+
+      /* ---------------- 事件绑定 ---------------- */
+      function resetAll() {
+        state.q = ''; state.form = ''; state.city = ''; state.type = '';
+        if (inputEl) inputEl.value = '';
+        renderFilters();
+        syncClearBtn();
+        renderList();
+      }
+
+      if (modeSwitch) {
+        modeSwitch.addEventListener('click', function (e) {
+          var btn = e.target.closest('.seg-btn');
+          if (!btn) return;
+          state.mode = btn.getAttribute('data-mode') === 'major' ? 'major' : 'school';
+          syncModeUI();
+          updateURL(state.mode);
+          renderList();
+        });
+      }
+      if (inputEl) {
+        inputEl.addEventListener('input', function () {
+          state.q = inputEl.value.trim();
+          syncClearBtn();
+          renderList();
+        });
+      }
+      if (clearEl) {
+        clearEl.addEventListener('click', function () {
+          state.q = ''; inputEl.value = ''; syncClearBtn(); renderList(); inputEl.focus();
+        });
+      }
+      document.addEventListener('click', function (e) {
+        var chip = e.target.closest('.chip[data-group]');
+        if (chip) {
+          var g = chip.getAttribute('data-group');
+          state[g] = chip.getAttribute('data-value') || '';
+          renderFilters();
+          renderList();
+          return;
+        }
+        var reset = e.target.closest('#empty-reset');
+        if (reset) { resetAll(); return; }
+        var row = e.target.closest('tr.major-row');
+        if (row && !e.target.closest('a')) { location.href = row.getAttribute('data-href'); }
+      });
+
+      /* ---------------- 初始化 ---------------- */
+      function initFromURL() {
+        var params = new URLSearchParams(location.search);
+        var mode = params.get('mode');
+        if (mode === 'major') state.mode = 'major';
+        var q = params.get('q');
+        if (q) { state.q = q; if (inputEl) inputEl.value = q; }
+        ['form', 'city', 'type'].forEach(function (k) {
+          var v = params.get(k);
+          if (v) state[k] = v;
+        });
+        renderFilters();
+        syncModeUI();
+        syncClearBtn();
+
+        var schoolId = params.get('school');
+        var majorName = params.get('major');
+        if (schoolId && majorName) { showMajorDetail(schoolId, majorName); }
+        else if (schoolId) { showSchoolDetail(schoolId); }
+        else { renderList(); }
+      }
+
+      function initHeroStats() {
+        var el = document.getElementById('hero-stats');
+        if (!el) return;
+        var majorCount = ALL_MAJORS.length;
+        var s3 = DATA.filter(function (s) { return (s.forms || []).indexOf('三位一体') > -1; }).length;
+        var gz = DATA.filter(function (s) { return (s.forms || []).indexOf('高职提招') > -1; }).length;
+        el.innerHTML =
+          heroStat(DATA.length, '收录院校') + heroStat(majorCount, '收录专业') +
+          heroStat(s3, '三位一体院校') + heroStat(gz, '高职提招院校');
+      }
+      function heroStat(v, l) {
+        return '<div class="p-3 rounded-lg border border-border bg-muted/50 text-center">' +
+          '<div class="text-xl font-semibold text-foreground edu-number">' + fmt(v) + '</div>' +
+          '<div class="text-xs text-muted-foreground mt-0.5">' + esc(l) + '</div></div>';
+      }
+
+      function start() {
+        initHeroStats();
+        initFromURL();
+        refreshIcons();
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+      else start();
+    })();
+  </script>
+</body>
+</html>
