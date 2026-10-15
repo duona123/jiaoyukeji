@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>笔试练习 · 练习中心</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--edu-background);
+    --color-foreground: var(--edu-foreground);
+    --color-card: var(--edu-card);
+    --color-card-foreground: var(--edu-card-foreground);
+    --color-popover: var(--edu-popover);
+    --color-popover-foreground: var(--edu-popover-foreground);
+    --color-primary: var(--edu-primary);
+    --color-primary-foreground: var(--edu-primary-foreground);
+    --color-muted: var(--edu-muted);
+    --color-muted-foreground: var(--edu-muted-foreground);
+    --color-border: var(--edu-border);
+    --color-input: var(--edu-input);
+    --color-ring: var(--edu-ring);
+    --radius-sm: var(--edu-radius-sm);
+    --radius-md: var(--edu-radius-md);
+    --radius-lg: var(--edu-radius-lg);
+  }
+  @layer base {
+    body { background: var(--edu-background); color: var(--edu-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+
+    <style>
+      /* ---- edu 令牌工具类兜底（不依赖 Tailwind 扫描） ---- */
+      .bg-edu-background{background-color:var(--edu-background);}
+      .bg-edu-card{background-color:var(--edu-card);}
+      .bg-edu-muted{background-color:var(--edu-muted);}
+      .text-edu-foreground{color:var(--edu-foreground);}
+      .text-edu-muted-foreground{color:var(--edu-muted-foreground);}
+      .border-edu-border{border-color:var(--edu-border);}
+      .bg-edu-primary{background-color:var(--edu-primary);}
+      .text-edu-primary{color:var(--edu-primary);}
+      .border-edu-primary{border-color:var(--edu-primary);}
+      .bg-edu-primary-50{background-color:var(--edu-primary-50);}
+      .bg-edu-primary-100{background-color:var(--edu-primary-100);}
+      .border-edu-primary-100{border-color:var(--edu-primary-100);}
+      .text-edu-primary-700{color:var(--edu-primary-700);}
+      .bg-edu-state-info{background-color:var(--edu-state-info);}
+      .bg-edu-state-info-bg{background-color:var(--edu-state-info-bg);}
+      .text-edu-state-info{color:var(--edu-state-info);}
+      .bg-edu-state-success{background-color:var(--edu-state-success);}
+      .bg-edu-state-success-bg{background-color:var(--edu-state-success-bg);}
+      .text-edu-state-success{color:var(--edu-state-success);}
+      .border-edu-state-success{border-color:var(--edu-state-success);}
+      .bg-edu-state-warning-bg{background-color:var(--edu-state-warning-bg);}
+      .text-edu-state-warning{color:var(--edu-state-warning);}
+      .border-edu-state-warning{border-color:var(--edu-state-warning);}
+      .bg-edu-state-error{background-color:var(--edu-state-error);}
+      .bg-edu-state-error-bg{background-color:var(--edu-state-error-bg);}
+      .text-edu-state-error{color:var(--edu-state-error);}
+      .border-edu-state-error{border-color:var(--edu-state-error);}
+      .hover\:bg-edu-muted:hover{background-color:var(--edu-muted);}
+      .hover\:text-edu-primary:hover{color:var(--edu-primary);}
+      .hover\:bg-\[\#0f766e\]:hover{background-color:#0f766e;}
+    </style>
+</head>
+<body class="bg-edu-background text-edu-foreground min-h-screen flex flex-col" style="font-family: Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;">
+  <header class="sticky top-0 z-50 w-full border-b border-edu-border bg-white/80 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-edu-primary font-semibold text-lg" data-dom-id="nav-logo">
+        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <span>浙招智达</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="home" data-dom-id="nav-home">首页</a>
+        <a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="ai-chat" data-dom-id="nav-ai-chat">智能问答</a>
+        <a href="direction.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="plan" data-dom-id="nav-plan">学考规划</a>
+        <a href="question-bank.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-primary bg-edu-muted transition-colors" data-nav-key="practice" data-dom-id="nav-practice">练习中心</a>
+        <a href="user-center.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="user" data-dom-id="nav-user">用户中心</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button type="button" data-theme-toggle class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" aria-label="切换主题"><i data-lucide="sun" class="w-4 h-4" data-icon-name="sun"></i><i data-lucide="moon" class="w-4 h-4 hidden" data-icon-name="moon"></i></button>
+        <a href="vip-pricing.html" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-edu-primary text-white hover:bg-[#0f766e] transition-colors" data-dom-id="nav-vip">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>VIP
+        </a>
+        <a href="user-center.html" class="w-8 h-8 rounded-full bg-edu-muted flex items-center justify-center text-edu-muted-foreground hover:text-edu-primary transition-colors" data-dom-id="nav-avatar">
+          <i data-lucide="user" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">练习中心</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
+  </header>
+
+  <main class="flex-1">
+    <div class="mx-auto max-w-7xl px-6 py-8 md:py-12">
+
+      <!-- 空状态：未选择练习方案 -->
+      <section id="wp-empty" class="hidden" aria-label="未选择方案">
+        <div class="bg-edu-card border border-edu-border rounded-2xl p-10 text-center shadow-sm">
+          <div class="w-14 h-14 mx-auto rounded-2xl bg-edu-primary-50 text-edu-primary flex items-center justify-center mb-4">
+            <i data-lucide="target" class="w-7 h-7"></i>
+          </div>
+          <h1 class="edu-h2 text-edu-foreground">尚未选择练习方案</h1>
+          <p class="edu-body text-edu-muted-foreground mt-3 max-w-xl mx-auto">笔试练习需要先选择一个练习方案，系统会依据方案中的院校与专业为你生成题目。</p>
+          <a href="question-bank.html" class="mt-6 inline-flex items-center gap-1.5 px-5 h-11 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>返回练习中心选择方案
+          </a>
+        </div>
+      </section>
+
+      <!-- 练习主体 -->
+      <div id="wp-main" class="hidden">
+        <!-- 当前方案信息条 -->
+        <section id="wp-plan-bar" class="mb-6"></section>
+
+        <!-- 筛选区 -->
+        <section id="wp-filter-area" class="mb-6"></section>
+
+        <!-- 题目卡片区 -->
+        <section id="written-question-box" aria-label="笔试题目"></section>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-edu-border bg-edu-muted/40">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-edu-primary font-medium">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <span>浙招智达</span>
+        </div>
+        <p class="text-sm text-edu-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p>
+        <div class="flex items-center gap-4 text-sm text-edu-muted-foreground">
+          <a href="#" class="hover:text-edu-primary transition-colors">隐私政策</a>
+          <a href="#" class="hover:text-edu-primary transition-colors">使用条款</a>
+          <a href="#" class="hover:text-edu-primary transition-colors">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/practice-core.js"></script>
+  <script>
+  /* =======================================================================
+     笔试练习页（独立页面）
+     —— 数据来源：assets/js/practice-core.js（buildWritten / resolvePlan / getProg / setProg 等）
+     —— 进度回写到同一 localStorage（practice-progress[planId]），与练习中心自动同步
+     ======================================================================= */
+  var state = {
+    plan: null,
+    written: [],
+    wIndex: 0,
+    filter: { type: 'all', school: 'all', subject: 'all', difficulty: 'all' },
+    selected: [],
+    submitted: false
+  };
+
+  function filteredWritten() {
+    var f = state.filter;
+    return state.written.filter(function (q) {
+      if (f.type !== 'all' && q.type !== f.type) return false;
+      if (f.school !== 'all' && q.school !== f.school) return false;
+      if (f.subject !== 'all' && q.subject !== f.subject) return false;
+      if (f.difficulty !== 'all' && q.difficulty !== f.difficulty) return false;
+      return true;
+    });
+  }
+
+  function uniqueValues(key) {
+    var seen = {}, arr = [];
+    state.written.forEach(function (q) { if (!seen[q[key]]) { seen[q[key]] = 1; arr.push(q[key]); } });
+    return arr;
+  }
+
+  function selectHtml(name, value, options, label) {
+    var opts = '<option value="all">' + label + '</option>' + options.map(function (o) {
+      return '<option value="' + esc(o.v) + '"' + (o.v === value ? ' selected' : '') + '>' + esc(o.t) + '</option>';
+    }).join('');
+    return '<select data-filter="' + name + '" class="w-full h-10 pl-3 pr-8 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground focus:outline-none focus:ring-2 focus:ring-edu-primary/30 appearance-none cursor-pointer">' + opts + '</select>';
+  }
+
+  /* ---- 当前方案信息条 ---- */
+  function renderPlanBar() {
+    var p = state.plan;
+    document.getElementById('wp-plan-bar').innerHTML = '' +
+      '<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5 rounded-2xl border border-edu-border bg-edu-card shadow-sm">' +
+        '<div class="flex items-center gap-4 min-w-0">' +
+          '<div class="w-12 h-12 rounded-xl bg-edu-primary-50 text-edu-primary flex items-center justify-center shrink-0"><i data-lucide="book-open-check" class="w-6 h-6"></i></div>' +
+          '<div class="min-w-0">' +
+            '<div class="flex items-center gap-2 flex-wrap">' +
+              '<p class="font-semibold text-edu-foreground truncate">' + esc(p.name) + '</p>' +
+              '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">' + esc(p.planType) + '</span>' +
+              (p.real ? '' : '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">示例方案</span>') +
+            '</div>' +
+            '<p class="edu-caption text-edu-muted-foreground mt-1">共 ' + p.majors.length + ' 条志愿 · 笔试 ' + state.written.length + ' 题</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="flex items-center gap-2 shrink-0">' +
+          '<a href="question-bank.html" class="inline-flex items-center gap-1.5 px-4 h-10 rounded-lg border border-edu-border text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors"><i data-lucide="arrow-left" class="w-4 h-4"></i>返回练习中心</a>' +
+        '</div>' +
+      '</div>';
+  }
+
+  /* ---- 筛选区 ---- */
+  function renderFilterArea() {
+    var f = state.filter;
+    var typeOpts = [{ v: 'single', t: '单选题' }, { v: 'multi', t: '多选题' }];
+    var schoolOpts = uniqueValues('school').map(function (s) { return { v: s, t: s }; });
+    var subjectOpts = uniqueValues('subject').map(function (s) { return { v: s, t: s }; });
+    var diffOpts = ['易', '中', '难'].filter(function (d) { return uniqueValues('difficulty').indexOf(d) >= 0; }).map(function (d) { return { v: d, t: d }; });
+
+    var html = '' +
+      '<div class="flex items-center gap-2 mb-4">' +
+        '<i data-lucide="pencil" class="w-5 h-5 text-edu-primary"></i>' +
+        '<h1 class="edu-h2 text-edu-foreground">笔试练习</h1>' +
+        '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">依据方案院校专业出题</span>' +
+      '</div>' +
+      '<div class="bg-edu-card border border-edu-border rounded-xl p-4 md:p-5 shadow-sm">' +
+        '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">' +
+          '<div><label class="edu-caption text-edu-muted-foreground">题型</label><div class="mt-1">' + selectHtml('type', f.type, typeOpts, '全部题型') + '</div></div>' +
+          '<div><label class="edu-caption text-edu-muted-foreground">院校</label><div class="mt-1">' + selectHtml('school', f.school, schoolOpts, '全部院校') + '</div></div>' +
+          '<div><label class="edu-caption text-edu-muted-foreground">科目</label><div class="mt-1">' + selectHtml('subject', f.subject, subjectOpts, '全部科目') + '</div></div>' +
+          '<div><label class="edu-caption text-edu-muted-foreground">难度</label><div class="mt-1">' + selectHtml('difficulty', f.difficulty, diffOpts, '全部难度') + '</div></div>' +
+        '</div>' +
+      '</div>';
+
+    document.getElementById('wp-filter-area').innerHTML = html;
+
+    document.querySelectorAll('#wp-filter-area select[data-filter]').forEach(function (sel) {
+      sel.addEventListener('change', function () {
+        state.filter[this.dataset.filter] = this.value;
+        state.wIndex = 0; state.selected = []; state.submitted = false;
+        renderQuestionBox();
+        refreshIcons();
+      });
+    });
+  }
+
+  /* ---- 题目卡片 ---- */
+  function renderQuestionBox() {
+    var box = document.getElementById('written-question-box');
+    if (!box) return;
+    var list = filteredWritten();
+    if (!list.length) {
+      box.innerHTML = '<div class="bg-edu-card border border-edu-border rounded-xl p-10 text-center"><div class="w-12 h-12 mx-auto rounded-full bg-edu-muted flex items-center justify-center mb-3"><i data-lucide="search-x" class="w-6 h-6 text-edu-muted-foreground"></i></div><p class="text-sm text-edu-muted-foreground">当前筛选条件下暂无题目，请调整筛选条件。</p></div>';
+      refreshIcons();
+      return;
+    }
+    if (state.wIndex >= list.length) state.wIndex = 0;
+    var q = list[state.wIndex];
+    var prog = getProg(state.plan.id);
+    var fav = (prog.fav || []).indexOf(q.id) >= 0;
+    var isMulti = q.type === 'multi';
+    var typeLabel = isMulti ? '多选题' : '单选题';
+    var diffLabel = q.difficulty === '易' ? '简单' : (q.difficulty === '难' ? '困难' : '中等');
+
+    var optionsHtml = q.options.map(function (o) {
+      var checked = state.selected.indexOf(o.k) >= 0;
+      var stateCls = 'border-edu-border bg-edu-background hover:border-edu-primary/40';
+      if (state.submitted) {
+        if (q.answer.indexOf(o.k) >= 0) stateCls = 'border-edu-state-success bg-edu-state-success-bg';
+        else if (checked) stateCls = 'border-edu-state-error bg-edu-state-error-bg';
+      } else if (checked) {
+        stateCls = 'border-edu-primary bg-edu-primary-50';
+      }
+      return '' +
+        '<label class="group flex items-start gap-4 p-4 rounded-xl border ' + stateCls + ' transition-colors ' + (state.submitted ? '' : 'cursor-pointer') + '">' +
+          '<span class="mt-0.5 w-6 h-6 ' + (isMulti ? 'rounded-md' : 'rounded-full') + ' border-2 border-edu-border bg-edu-card flex items-center justify-center text-xs font-semibold text-edu-muted-foreground shrink-0">' + o.k + '</span>' +
+          '<input type="' + (isMulti ? 'checkbox' : 'radio') + '" name="qopt" value="' + o.k + '" class="sr-only" ' + (checked ? 'checked' : '') + ' ' + (state.submitted ? 'disabled' : '') + '>' +
+          '<span class="flex-1 edu-body text-edu-foreground">' + esc(o.t) + '</span>' +
+          (state.submitted && q.answer.indexOf(o.k) >= 0 ? '<i data-lucide="check" class="w-5 h-5 text-edu-state-success shrink-0"></i>' : '') +
+        '</label>';
+    }).join('');
+
+    var correct = state.selected.slice().sort().join(',') === q.answer.slice().sort().join(',');
+    var feedbackHtml = '';
+    if (state.submitted) {
+      feedbackHtml = '' +
+        '<div class="mt-6 rounded-xl border p-5 ' + (correct ? 'border-edu-state-success bg-edu-state-success-bg' : 'border-edu-state-error bg-edu-state-error-bg') + '">' +
+          '<div class="flex items-start gap-3 mb-3">' +
+            '<div class="w-6 h-6 rounded-full ' + (correct ? 'bg-edu-state-success' : 'bg-edu-state-error') + ' text-white flex items-center justify-center shrink-0">' +
+              '<i data-lucide="' + (correct ? 'check' : 'x') + '" class="w-4 h-4"></i>' +
+            '</div>' +
+            '<div>' +
+              '<p class="font-semibold text-edu-foreground">' + (correct ? '回答正确' : '回答错误') + '</p>' +
+              '<p class="edu-body-sm text-edu-muted-foreground mt-0.5">正确答案：<span class="font-medium text-edu-state-success">' + q.answer.join('、') + '</span>　你的作答：<span class="font-medium ' + (correct ? 'text-edu-state-success' : 'text-edu-state-error') + '">' + (state.selected.length ? state.selected.join('、') : '未作答') + '</span></p>' +
+            '</div>' +
+          '</div>' +
+          '<div class="pl-9 space-y-3">' +
+            '<div><p class="text-sm font-semibold text-edu-foreground mb-1">详细解析</p><p class="edu-body-sm text-edu-muted-foreground leading-relaxed">' + esc(q.analysis) + '</p></div>' +
+            '<div><p class="text-sm font-semibold text-edu-foreground mb-1">解题思路</p><p class="edu-body-sm text-edu-muted-foreground leading-relaxed">' + esc(q.tips) + '</p></div>' +
+          '</div>' +
+        '</div>';
+    }
+
+    var submitBtn = state.submitted
+      ? '<button type="button" onclick="resetQuestion()" class="px-6 h-11 rounded-lg border border-edu-border bg-edu-card text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors">重做本题</button>'
+      : '<button type="button" onclick="submitAnswer()" class="px-6 h-11 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors">提交答案</button>';
+
+    box.innerHTML = '' +
+      '<div class="bg-edu-card border border-edu-border rounded-xl p-6 md:p-8 shadow-sm">' +
+        '<div class="flex flex-wrap items-center gap-3 mb-5">' +
+          '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-primary-50 text-edu-primary-700 text-xs font-medium"><i data-lucide="book-open" class="w-3.5 h-3.5"></i>' + esc(q.subject) + '</span>' +
+          '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium"><i data-lucide="layers" class="w-3.5 h-3.5"></i>' + typeLabel + '</span>' +
+          '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium"><i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>' + diffLabel + '</span>' +
+          '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-state-info-bg text-edu-state-info text-xs font-medium"><i data-lucide="school" class="w-3.5 h-3.5"></i>' + esc(q.school) + '</span>' +
+          (q.major ? '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium">' + esc(q.major) + '</span>' : '') +
+          '<button type="button" onclick="toggleFav()" class="ml-auto inline-flex items-center gap-1 text-xs font-medium ' + (fav ? 'text-edu-state-warning' : 'text-edu-muted-foreground hover:text-edu-primary') + ' transition-colors"><i data-lucide="star" class="w-4 h-4" ' + (fav ? 'fill="currentColor"' : '') + '></i>' + (fav ? '已收藏' : '收藏') + '</button>' +
+          '<span class="edu-caption text-edu-muted-foreground">第 <span class="edu-number text-edu-foreground font-medium">' + (state.wIndex + 1) + '</span> 题 / 共 <span class="edu-number text-edu-foreground font-medium">' + list.length + '</span> 题</span>' +
+        '</div>' +
+        '<h3 class="edu-h3 text-edu-foreground mb-3">【' + typeLabel + '】' + esc(q.stem) + '</h3>' +
+        (isMulti ? '<p class="edu-caption text-edu-muted-foreground mb-3">多选题：请选出所有正确选项。</p>' : '') +
+        '<div class="space-y-3 mb-6">' + optionsHtml + '</div>' +
+        '<div class="flex items-center gap-3 mb-6">' + submitBtn +
+          (!state.submitted ? '<span class="edu-caption text-edu-muted-foreground">作答后点击提交查看解析</span>' : '') +
+        '</div>' +
+        feedbackHtml +
+        '<div class="mt-6 flex flex-wrap gap-2">' +
+          '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium"><i data-lucide="tag" class="w-3.5 h-3.5"></i>来源：' + esc(q.school) + ' · ' + esc(q.major || '校测') + ' 题库</span>' +
+          '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium"><i data-lucide="calendar" class="w-3.5 h-3.5"></i>入库时间：2026-01-15</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="mt-6 bg-edu-card border border-edu-border rounded-xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex flex-col md:flex-row md:items-center gap-5">' +
+          '<div class="flex-1">' +
+            '<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-edu-foreground">本方案笔试进度</span><span class="text-sm text-edu-muted-foreground"><span class="edu-number font-semibold text-edu-primary">' + Math.min(prog.done, state.written.length) + '</span> / <span class="edu-number">' + state.written.length + '</span> 题</span></div>' +
+            '<div class="h-2.5 w-full rounded-full bg-edu-muted overflow-hidden"><div class="h-full rounded-full bg-edu-primary" style="width:' + (state.written.length ? Math.min(100, Math.round(Math.min(prog.done, state.written.length) / state.written.length * 100)) : 0) + '%"></div></div>' +
+          '</div>' +
+          '<div class="flex items-center gap-3">' +
+            '<button type="button" onclick="prevQuestion()" class="px-5 h-11 rounded-lg border border-edu-border bg-edu-card text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors inline-flex items-center gap-1.5"><i data-lucide="arrow-left" class="w-4 h-4"></i>上一题</button>' +
+            '<button type="button" onclick="nextQuestion()" class="px-5 h-11 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors inline-flex items-center gap-1.5">下一题<i data-lucide="arrow-right" class="w-4 h-4"></i></button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    box.querySelectorAll('input[name="qopt"]').forEach(function (input) {
+      input.addEventListener('change', function () {
+        var v = this.value;
+        if (isMulti) {
+          var idx = state.selected.indexOf(v);
+          if (idx >= 0) state.selected.splice(idx, 1); else state.selected.push(v);
+        } else {
+          state.selected = [v];
+        }
+        // 单选即时高亮，多选也即时高亮
+        renderQuestionBox();
+        refreshIcons();
+      });
+    });
+    refreshIcons();
+  }
+
+  function submitAnswer() {
+    if (!state.selected.length) { alert('请先选择答案'); return; }
+    state.submitted = true;
+    var list = filteredWritten();
+    var q = list[state.wIndex];
+    var correct = state.selected.slice().sort().join(',') === q.answer.slice().sort().join(',');
+    var prog = getProg(state.plan.id);
+    prog.done = (prog.done || 0) + 1;
+    if (correct) prog.correct = (prog.correct || 0) + 1;
+    prog.wrong = prog.wrong || [];
+    if (!correct && prog.wrong.indexOf(q.id) < 0) prog.wrong.push(q.id);
+    setProg(state.plan.id, prog);
+    renderQuestionBox();
+  }
+
+  function resetQuestion() {
+    state.submitted = false;
+    state.selected = [];
+    renderQuestionBox();
+  }
+
+  function goToIndex(i) {
+    state.wIndex = i;
+    state.selected = [];
+    state.submitted = false;
+    renderQuestionBox();
+  }
+  function prevQuestion() {
+    var list = filteredWritten();
+    goToIndex((state.wIndex - 1 + list.length) % list.length);
+  }
+  function nextQuestion() {
+    var list = filteredWritten();
+    goToIndex((state.wIndex + 1) % list.length);
+  }
+
+  function toggleFav() {
+    var list = filteredWritten();
+    var q = list[state.wIndex];
+    var prog = getProg(state.plan.id);
+    prog.fav = prog.fav || [];
+    var idx = prog.fav.indexOf(q.id);
+    if (idx >= 0) prog.fav.splice(idx, 1); else prog.fav.push(q.id);
+    setProg(state.plan.id, prog);
+    renderQuestionBox();
+  }
+
+  /* =======================================================================
+     初始化
+     ======================================================================= */
+  function init() {
+    var params = new URLSearchParams(location.search);
+    var planId = params.get('plan');
+    var plan = resolvePlan(planId);
+    if (!plan) {
+      document.getElementById('wp-empty').classList.remove('hidden');
+      refreshIcons();
+      return;
+    }
+    state.plan = plan;
+    state.written = buildWritten(plan);
+
+    /* URL 参数 q 用于定位到指定题（首页错题/收藏/智能推荐跳转） */
+    var qid = params.get('q');
+    if (qid) {
+      var idx = state.written.map(function (q) { return q.id; }).indexOf(qid);
+      if (idx >= 0) state.wIndex = idx;
+    }
+
+    document.getElementById('wp-main').classList.remove('hidden');
+    renderPlanBar();
+    renderFilterArea();
+    renderQuestionBox();
+    refreshIcons();
+  }
+  init();
+  lucide.createIcons();
+  </script>
+</body>
+</html>
