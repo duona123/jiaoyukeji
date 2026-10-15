@@ -476,33 +476,64 @@
 
   /* 每日打卡（原「今日推荐练习」与页面末尾「智能推荐」内容重复，已移除） */
   function renderCheckin() {
+    var weekdays = ['日', '一', '二', '三', '四', '五', '六'].map(function (d) {
+      return '<span class="py-1">' + d + '</span>';
+    }).join('');
+    var days = '';
+    for (var d = 1; d <= 31; d++) {
+      if (d <= 5) {
+        days += '<span class="py-2 rounded-lg bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>' + d + '</span>';
+      } else if (d === 6) {
+        days += '<span class="py-2 rounded-lg bg-edu-primary text-white ring-2 ring-edu-primary-200 flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>' + d + '</span>';
+      } else {
+        days += '<span class="py-2 rounded-lg text-edu-muted-foreground hover:bg-edu-muted transition-colors">' + d + '</span>';
+      }
+    }
+    function tile(icon, label, value, unit, tone) {
+      return '<div class="rounded-xl border border-edu-border bg-edu-muted px-4 py-3 flex items-center justify-between gap-3">' +
+          '<div class="flex items-center gap-2 min-w-0"><i data-lucide="' + icon + '" class="w-4 h-4 shrink-0 ' + tone + '"></i><span class="edu-caption text-edu-muted-foreground truncate">' + label + '</span></div>' +
+          '<span class="text-lg font-semibold text-edu-foreground whitespace-nowrap">' + value + '<span class="text-xs font-normal text-edu-muted-foreground ml-0.5">' + unit + '</span></span>' +
+        '</div>';
+    }
     document.getElementById('home-top').innerHTML = '' +
-      '<section class="max-w-md">' +
-        '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm flex flex-col">' +
-          '<div class="flex items-center justify-between mb-4">' +
-            '<div class="flex items-center gap-2">' +
-              '<div class="w-8 h-8 rounded-lg bg-edu-state-success-bg text-edu-state-success flex items-center justify-center"><i data-lucide="calendar-check" class="w-4 h-4"></i></div>' +
+      '<section class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm" aria-label="每日打卡">' +
+        '<div class="flex flex-wrap items-center justify-between gap-3 mb-5">' +
+          '<div class="flex items-center gap-3">' +
+            '<div class="w-10 h-10 rounded-xl bg-edu-state-success-bg text-edu-state-success flex items-center justify-center shrink-0"><i data-lucide="calendar-check" class="w-5 h-5"></i></div>' +
+            '<div>' +
               '<h2 class="edu-h3 text-edu-foreground">每日打卡</h2>' +
-            '</div>' +
-            '<span class="text-xs font-medium text-edu-state-success bg-edu-state-success-bg px-2.5 py-1 rounded-full">连续 5 天</span>' +
-          '</div>' +
-          '<div class="flex-1">' +
-            '<div class="flex items-center justify-between mb-3"><span class="text-sm font-medium text-edu-foreground">2026 年 3 月</span><span class="text-xs text-edu-muted-foreground">今日已打卡</span></div>' +
-            '<div class="grid grid-cols-7 gap-1 text-center text-xs mb-1">' +
-              '<span class="text-edu-muted-foreground py-1">日</span><span class="text-edu-muted-foreground py-1">一</span><span class="text-edu-muted-foreground py-1">二</span><span class="text-edu-muted-foreground py-1">三</span><span class="text-edu-muted-foreground py-1">四</span><span class="text-edu-muted-foreground py-1">五</span><span class="text-edu-muted-foreground py-1">六</span>' +
-            '</div>' +
-            '<div class="grid grid-cols-7 gap-1 text-center text-xs">' +
-              '<span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>1</span>' +
-              '<span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>2</span>' +
-              '<span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>3</span>' +
-              '<span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>4</span>' +
-              '<span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>5</span>' +
-              '<span class="py-1.5 rounded-md bg-edu-primary text-white ring-2 ring-edu-primary-200 flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>6</span>' +
-              '<span class="py-1.5 text-edu-muted-foreground">7</span>' +
-              '<span class="py-1.5 text-edu-muted-foreground">8</span><span class="py-1.5 text-edu-muted-foreground">9</span><span class="py-1.5 text-edu-muted-foreground">10</span><span class="py-1.5 text-edu-muted-foreground">11</span><span class="py-1.5 text-edu-muted-foreground">12</span><span class="py-1.5 text-edu-muted-foreground">13</span><span class="py-1.5 text-edu-muted-foreground">14</span>' +
+              '<p class="edu-caption text-edu-muted-foreground mt-0.5">每天完成任意一次练习即可打卡，连续打卡解锁勋章与积分</p>' +
             '</div>' +
           '</div>' +
-          '<div class="mt-4 pt-4 border-t border-edu-border"><p class="text-xs text-edu-muted-foreground">连续打卡 7 天可获 <span class="text-edu-primary font-medium">“自律之星”</span> 勋章与 50 积分</p></div>' +
+          '<div class="flex items-center gap-2">' +
+            '<span class="text-xs font-medium text-edu-state-success bg-edu-state-success-bg px-3 py-1.5 rounded-full inline-flex items-center gap-1"><i data-lucide="flame" class="w-3.5 h-3.5"></i>连续 5 天</span>' +
+            '<span class="text-xs font-medium text-edu-state-info bg-edu-state-info-bg px-3 py-1.5 rounded-full inline-flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i>今日已打卡</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">' +
+          '<div class="lg:col-span-2">' +
+            '<div class="flex items-center justify-between mb-3">' +
+              '<span class="text-sm font-medium text-edu-foreground">2026 年 3 月</span>' +
+              '<span class="edu-caption text-edu-muted-foreground">本月已打卡 6 天</span>' +
+            '</div>' +
+            '<div class="grid grid-cols-7 gap-1.5 text-center edu-caption text-edu-muted-foreground mb-1.5">' + weekdays + '</div>' +
+            '<div class="grid grid-cols-7 gap-1.5 text-center text-xs">' + days + '</div>' +
+          '</div>' +
+          '<div class="flex flex-col gap-3 lg:border-l lg:border-edu-border lg:pl-6">' +
+            '<div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">' +
+              tile('flame', '连续打卡', '5', ' 天', 'text-edu-state-warning') +
+              tile('calendar-check', '本月打卡', '6', ' 天', 'text-edu-state-success') +
+              tile('sparkles', '累计积分', '120', '', 'text-edu-primary') +
+            '</div>' +
+            '<div class="mt-auto pt-4 border-t border-edu-border">' +
+              '<div class="flex items-center justify-between mb-2">' +
+                '<span class="edu-caption text-edu-muted-foreground">距「自律之星」勋章还差 <span class="text-edu-primary font-semibold">2</span> 天</span>' +
+                '<span class="edu-caption text-edu-muted-foreground">5 / 7</span>' +
+              '</div>' +
+              '<div class="h-1.5 rounded-full bg-edu-muted overflow-hidden"><div class="h-full rounded-full bg-edu-state-success" style="width:71%"></div></div>' +
+              '<p class="edu-caption text-edu-muted-foreground mt-2">连续打卡 7 天可获“自律之星”勋章与 50 积分</p>' +
+            '</div>' +
+          '</div>' +
         '</div>' +
       '</section>';
   }
