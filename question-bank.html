@@ -662,6 +662,9 @@
     var savedPlan = savedId ? plans.filter(function (p) { return p.id === savedId; })[0] : null;
     if (savedPlan) {
       selectPlan(savedPlan.id);
+    } else if (plans.length) {
+      /* 无已选方案时，默认选中第一个（演示方案或真实方案），让用户直接看到练习首页的完整入口 */
+      selectPlan(plans[0].id);
     } else {
       document.getElementById('practice-home').classList.add('hidden');
       document.getElementById('plan-gate').classList.remove('hidden');
