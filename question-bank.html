@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>题库刷题</title>
+    <title>练习中心 · 笔试与 AI 面试</title>
     <link rel="stylesheet" href="assets/css/theme.css">
-    
+
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
     <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
     <style type="text/tailwindcss">
   @theme inline {
     --color-background: var(--edu-background);
@@ -34,8 +33,54 @@
     th { @apply whitespace-nowrap; }
   }
     </style>
-    
-    
+
+    <style>
+      /* ---- edu 令牌工具类兜底（不依赖 Tailwind 扫描） ---- */
+      .bg-edu-background{background-color:var(--edu-background);}
+      .bg-edu-card{background-color:var(--edu-card);}
+      .bg-edu-muted{background-color:var(--edu-muted);}
+      .text-edu-foreground{color:var(--edu-foreground);}
+      .text-edu-muted-foreground{color:var(--edu-muted-foreground);}
+      .border-edu-border{border-color:var(--edu-border);}
+      .bg-edu-primary{background-color:var(--edu-primary);}
+      .text-edu-primary{color:var(--edu-primary);}
+      .border-edu-primary{border-color:var(--edu-primary);}
+      .bg-edu-primary-50{background-color:var(--edu-primary-50);}
+      .bg-edu-primary-100{background-color:var(--edu-primary-100);}
+      .border-edu-primary-100{border-color:var(--edu-primary-100);}
+      .text-edu-primary-700{color:var(--edu-primary-700);}
+      .bg-edu-state-info{background-color:var(--edu-state-info);}
+      .bg-edu-state-info-bg{background-color:var(--edu-state-info-bg);}
+      .text-edu-state-info{color:var(--edu-state-info);}
+      .bg-edu-state-success{background-color:var(--edu-state-success);}
+      .bg-edu-state-success-bg{background-color:var(--edu-state-success-bg);}
+      .text-edu-state-success{color:var(--edu-state-success);}
+      .border-edu-state-success{border-color:var(--edu-state-success);}
+      .bg-edu-state-warning-bg{background-color:var(--edu-state-warning-bg);}
+      .text-edu-state-warning{color:var(--edu-state-warning);}
+      .border-edu-state-warning{border-color:var(--edu-state-warning);}
+      .bg-edu-state-error{background-color:var(--edu-state-error);}
+      .bg-edu-state-error-bg{background-color:var(--edu-state-error-bg);}
+      .text-edu-state-error{color:var(--edu-state-error);}
+      .border-edu-state-error{border-color:var(--edu-state-error);}
+      .hover\:bg-edu-muted:hover{background-color:var(--edu-muted);}
+      .hover\:text-edu-primary:hover{color:var(--edu-primary);}
+      .hover\:bg-\[\#0f766e\]:hover{background-color:#0f766e;}
+
+      /* ---- 数字人面试间动画 ---- */
+      @keyframes dhBreathe { 0%,100%{transform:scale(1);} 50%{transform:scale(1.025);} }
+      @keyframes dhWave { 0%,100%{height:6px;opacity:.5;} 50%{height:22px;opacity:1;} }
+      @keyframes dhFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+      .dh-breathe{animation:dhBreathe 4s ease-in-out infinite;}
+      .dh-float{animation:dhFloat 3.4s ease-in-out infinite;}
+      .dh-wave span{display:inline-block;width:3px;margin:0 2px;border-radius:2px;background:#5eead4;}
+      .dh-wave span:nth-child(1){animation:dhWave 1s ease-in-out infinite;}
+      .dh-wave span:nth-child(2){animation:dhWave 1s .15s ease-in-out infinite;}
+      .dh-wave span:nth-child(3){animation:dhWave 1s .3s ease-in-out infinite;}
+      .dh-wave span:nth-child(4){animation:dhWave 1s .45s ease-in-out infinite;}
+      .dh-wave span:nth-child(5){animation:dhWave 1s .6s ease-in-out infinite;}
+      @media (prefers-reduced-motion: reduce){ .dh-breathe,.dh-float,.dh-wave span{animation:none;} }
+    </style>
 </head>
 <body class="bg-edu-background text-edu-foreground min-h-screen flex flex-col" style="font-family: Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;">
   <header class="sticky top-0 z-50 w-full border-b border-edu-border bg-white/80 backdrop-blur">
@@ -48,8 +93,7 @@
         <a href="index.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="home" data-dom-id="nav-home">首页</a>
         <a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="ai-chat" data-dom-id="nav-ai-chat">智能问答</a>
         <a href="direction.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="plan" data-dom-id="nav-plan">学考规划</a>
-        <a href="ai-interview.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="interview" data-dom-id="nav-interview">AI 面试</a>
-        <a href="question-bank.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="bank" data-dom-id="nav-bank">题库</a>
+        <a href="question-bank.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-primary bg-edu-muted transition-colors" data-nav-key="practice" data-dom-id="nav-practice">练习中心</a>
         <a href="user-center.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="user" data-dom-id="nav-user">用户中心</a>
       </nav>
       <div class="flex items-center gap-3">
@@ -61,740 +105,174 @@
           <i data-lucide="user" class="w-4 h-4"></i>
         </a>
       </div>
-    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="ai-interview.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">AI 面试</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">题库</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
+    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">练习中心</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
   </header>
 
   <main id="page-content" class="flex-1">
     <div class="mx-auto max-w-7xl px-6 py-8 md:py-12">
-      <!-- Page header -->
-      <div class="mb-8">
-        <h1 class="edu-h2 text-edu-foreground mb-2">题库刷题</h1>
-        <p class="edu-body text-edu-muted-foreground">覆盖浙江省 32 所三位一体与 47 所高职提前招生校测题目，支持按院校/科目/题型/难度组合筛选，逐题作答、即时批改、错题自动收录。</p>
+
+      <!-- ============ 步骤一：方案选择门 ============ -->
+      <section id="plan-gate" class="hidden" aria-label="选择练习方案">
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-edu-primary-50 text-edu-primary mb-4">
+            <i data-lucide="target" class="w-7 h-7"></i>
+          </div>
+          <h1 class="edu-h1 text-edu-foreground">选择练习方案</h1>
+          <p class="edu-body text-edu-muted-foreground mt-3 max-w-2xl mx-auto">练习题目将根据你的志愿方案自动生成：系统读取方案中的院校与专业，匹配对应的笔试真题与面试题。每个方案志愿最多取前 <span class="font-semibold text-edu-primary">10</span> 条。</p>
+        </div>
+        <div id="plan-gate-list" class="grid grid-cols-1 lg:grid-cols-2 gap-5"></div>
+      </section>
+
+      <!-- ============ 步骤二：练习首页 ============ -->
+      <div id="practice-home" class="hidden">
+
+        <!-- 当前方案条 -->
+        <section id="current-plan-bar" class="mb-6"></section>
+
+        <!-- 今日推荐 + 打卡 -->
+        <div id="home-top" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8"></div>
+
+        <!-- 整体练习进度 -->
+        <section id="overall-progress" class="mb-8" aria-label="整体练习进度"></section>
+
+        <!-- 笔试练习区域 -->
+        <section id="written-area" aria-label="笔试练习"></section>
+
+        <!-- 面试练习区域 -->
+        <section id="interview-area" class="mt-12" aria-label="面试练习"></section>
+
+        <!-- 错题本 -->
+        <section id="wrong-area" class="mt-12" aria-label="错题本"></section>
+
+        <!-- 收藏 -->
+        <section id="fav-area" class="mt-12" aria-label="题目收藏"></section>
+
+        <!-- 智能推荐 -->
+        <section id="smart-area" class="mt-12" aria-label="智能推荐"></section>
       </div>
 
-      <!-- Notification banner (REQ-034) -->
-      <section class="notification-banner mb-8" aria-label="消息通知">
-        <div class="bg-edu-state-info-bg border border-edu-state-info/20 rounded-xl p-4 flex items-start gap-3">
-          <i data-lucide="bell" class="w-5 h-5 text-edu-state-info mt-0.5 shrink-0"></i>
-          <div class="flex-1 min-w-0">
-            <p class="text-sm font-semibold text-edu-foreground">报名与校测提醒</p>
-            <p class="edu-body-sm text-edu-muted-foreground mt-0.5">浙江工业大学三位一体报名截止仅剩 <span class="text-edu-state-info font-medium">3 天</span>，校测时间：2026年4月12日-13日；杭州电子科技大学初审结果将于 3 月 25 日公布。</p>
-          </div>
-          <a href="user-center.html" class="text-xs text-edu-state-info font-medium hover:underline shrink-0">查看全部通知</a>
+    </div>
+  </main>
+
+  <!-- ============ 视频课程播放弹层 ============ -->
+  <div id="video-modal" class="hidden fixed inset-0 z-[90] bg-slate-900/80 backdrop-blur-sm p-4 md:p-8 overflow-y-auto">
+    <div class="max-w-4xl mx-auto mt-6 bg-edu-card border border-edu-border rounded-2xl overflow-hidden shadow-2xl">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-edu-border">
+        <div class="flex items-center gap-2">
+          <i data-lucide="play-circle" class="w-5 h-5 text-edu-primary"></i>
+          <p id="video-modal-title" class="font-semibold text-edu-foreground">面试基础课程</p>
         </div>
-      </section>
+        <button type="button" onclick="closeVideoModal()" class="w-8 h-8 rounded-lg hover:bg-edu-muted text-edu-muted-foreground flex items-center justify-center transition-colors" aria-label="关闭">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="bg-black">
+        <video id="video-player" class="w-full aspect-video" controls playsinline preload="metadata" poster="" src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
+      </div>
+      <div class="px-5 py-4">
+        <p id="video-modal-desc" class="edu-body-sm text-edu-muted-foreground"></p>
+        <p class="edu-caption text-edu-muted-foreground mt-2">演示环境使用示例视频，正式版本将接入面试基础精品课程。</p>
+      </div>
+    </div>
+  </div>
 
-      <!-- Daily recommendation + Check-in calendar -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <!-- Daily recommendation (QB-14) -->
-        <section class="daily-recommend lg:col-span-2" aria-label="今日推荐">
-          <div class="bg-gradient-to-br from-edu-primary-50 to-white border border-edu-primary-100 rounded-2xl p-5 md:p-6 shadow-sm">
-            <div class="flex items-center justify-between mb-5">
-              <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-edu-primary text-white flex items-center justify-center">
-                  <i data-lucide="sparkles" class="w-4 h-4"></i>
-                </div>
-                <h2 class="edu-h3 text-edu-foreground">今日推荐练习</h2>
-              </div>
-              <span class="text-xs font-medium text-edu-primary bg-white border border-edu-primary-100 px-2.5 py-1 rounded-full">每日更新 ≥5 道</span>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              <!-- 2 interview -->
-              <a href="#interview-1" class="group block bg-white border border-edu-primary-100 rounded-xl p-4 hover:shadow-md hover:border-edu-primary-300 transition-all">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">面试题</span>
-                  <span class="text-xs text-edu-muted-foreground">自我介绍</span>
-                </div>
-                <p class="text-sm text-edu-foreground line-clamp-2 font-medium group-hover:text-edu-primary transition-colors">请用 1 分钟向考官介绍你自己，突出与报考专业相关的经历。</p>
-              </a>
-              <a href="#interview-2" class="group block bg-white border border-edu-primary-100 rounded-xl p-4 hover:shadow-md hover:border-edu-primary-300 transition-all">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">面试题</span>
-                  <span class="text-xs text-edu-muted-foreground">专业认知</span>
-                </div>
-                <p class="text-sm text-edu-foreground line-clamp-2 font-medium group-hover:text-edu-primary transition-colors">谈谈你对人工智能伦理问题的理解，并举例说明。</p>
-              </a>
-              <!-- 3 written -->
-              <a href="#written-1" class="group block bg-white border border-edu-border rounded-xl p-4 hover:shadow-md hover:border-edu-primary-300 transition-all">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">笔试题</span>
-                  <span class="text-xs text-edu-muted-foreground">逻辑推理</span>
-                </div>
-                <p class="text-sm text-edu-foreground line-clamp-2 font-medium group-hover:text-edu-primary transition-colors">若 A&gt;B，B&gt;C，则以下哪项必然成立？</p>
-              </a>
-              <a href="#written-2" class="group block bg-white border border-edu-border rounded-xl p-4 hover:shadow-md hover:border-edu-primary-300 transition-all">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">笔试题</span>
-                  <span class="text-xs text-edu-muted-foreground">语言表达</span>
-                </div>
-                <p class="text-sm text-edu-foreground line-clamp-2 font-medium group-hover:text-edu-primary transition-colors">下列句子中没有语病的一项是？</p>
-              </a>
-              <a href="#written-3" class="group block bg-white border border-edu-border rounded-xl p-4 hover:shadow-md hover:border-edu-primary-300 transition-all">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">笔试题</span>
-                  <span class="text-xs text-edu-muted-foreground">数量关系</span>
-                </div>
-                <p class="text-sm text-edu-foreground line-clamp-2 font-medium group-hover:text-edu-primary transition-colors">某校校测合格率为 60%，今年 1200 人报名，预计约多少人入围？</p>
-              </a>
-              <!-- 1 current affairs -->
-              <a href="#affairs-1" class="group block bg-white border border-edu-state-warning/30 rounded-xl p-4 hover:shadow-md hover:border-edu-state-warning transition-all">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-warning-bg text-edu-state-warning">时政热点</span>
-                  <span class="text-xs text-edu-muted-foreground">2026-02</span>
-                </div>
-                <p class="text-sm text-edu-foreground line-clamp-2 font-medium group-hover:text-edu-primary transition-colors">教育部最新公布的高中学校办学质量评价方案，对综合素质评价提出哪些新要求？</p>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <!-- Check-in calendar (QB-13) -->
-        <section class="check-in-calendar" aria-label="每日打卡">
-          <div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm h-full flex flex-col">
-            <div class="flex items-center justify-between mb-4">
-              <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-edu-state-success/10 text-edu-state-success flex items-center justify-center">
-                  <i data-lucide="calendar-check" class="w-4 h-4"></i>
-                </div>
-                <h2 class="edu-h3 text-edu-foreground">每日打卡</h2>
-              </div>
-              <span class="text-xs font-medium text-edu-state-success bg-edu-state-success-bg px-2.5 py-1 rounded-full">连续 5 天</span>
-            </div>
-            <div class="flex-1">
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-sm font-medium text-edu-foreground">2026 年 3 月</span>
-                <span class="text-xs text-edu-muted-foreground">今日已打卡</span>
-              </div>
-              <div class="grid grid-cols-7 gap-1 text-center text-xs mb-1">
-                <span class="text-edu-muted-foreground py-1">日</span>
-                <span class="text-edu-muted-foreground py-1">一</span>
-                <span class="text-edu-muted-foreground py-1">二</span>
-                <span class="text-edu-muted-foreground py-1">三</span>
-                <span class="text-edu-muted-foreground py-1">四</span>
-                <span class="text-edu-muted-foreground py-1">五</span>
-                <span class="text-edu-muted-foreground py-1">六</span>
-              </div>
-              <div class="grid grid-cols-7 gap-1 text-center text-xs">
-                <span class="py-1.5 text-edu-muted-foreground/40">23</span>
-                <span class="py-1.5 text-edu-muted-foreground/40">24</span>
-                <span class="py-1.5 text-edu-muted-foreground/40">25</span>
-                <span class="py-1.5 text-edu-muted-foreground/40">26</span>
-                <span class="py-1.5 text-edu-muted-foreground/40">27</span>
-                <span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>28</span>
-                <span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>1</span>
-                <span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>2</span>
-                <span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>3</span>
-                <span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>4</span>
-                <span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>5</span>
-                <span class="py-1.5 rounded-md bg-edu-primary text-white ring-2 ring-edu-primary-200 flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>6</span>
-                <span class="py-1.5 text-edu-muted-foreground">7</span>
-                <span class="py-1.5 text-edu-muted-foreground">8</span>
-                <span class="py-1.5 text-edu-muted-foreground">9</span>
-                <span class="py-1.5 text-edu-muted-foreground">10</span>
-                <span class="py-1.5 text-edu-muted-foreground">11</span>
-                <span class="py-1.5 text-edu-muted-foreground">12</span>
-                <span class="py-1.5 text-edu-muted-foreground">13</span>
-                <span class="py-1.5 text-edu-muted-foreground">14</span>
-                <span class="py-1.5 text-edu-muted-foreground">15</span>
-              </div>
-            </div>
-            <div class="mt-4 pt-4 border-t border-edu-border">
-              <p class="text-xs text-edu-muted-foreground">连续打卡 7 天可获 <span class="text-edu-primary font-medium">"自律之星"</span> 勋章与 50 积分</p>
-            </div>
-          </div>
-        </section>
+  <!-- ============ 数字人 AI 面试间 ============ -->
+  <div id="interview-room" class="hidden fixed inset-0 z-[95] bg-slate-950 text-slate-100">
+    <div class="h-full flex flex-col">
+      <!-- 顶部工具条 -->
+      <div class="flex items-center justify-between px-4 md:px-8 h-16 border-b border-white/10 shrink-0">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-500/90 text-white text-xs font-semibold">
+            <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>面试进行中
+          </span>
+          <p id="room-target" class="text-sm text-slate-300 truncate">AI 数字人面试间</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="edu-number text-sm text-slate-300 inline-flex items-center gap-1.5">
+            <i data-lucide="timer" class="w-4 h-4"></i><span id="room-timer">00:00</span>
+          </span>
+          <span id="room-progress" class="text-sm text-slate-400 edu-number">1 / 1</span>
+        </div>
       </div>
 
-      <!-- Practice stats dashboard (REQ-033 / QB-08 / QB-09) -->
-      <section class="stats-dashboard mb-8" aria-label="练习统计">
-        <div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">
-          <div class="flex items-center justify-between mb-6">
+      <!-- 主体：数字人 + 本人摄像头 -->
+      <div class="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 md:p-8 overflow-y-auto">
+        <!-- 数字人考官 -->
+        <div class="lg:col-span-2 relative rounded-2xl overflow-hidden bg-gradient-to-br from-teal-900 via-slate-900 to-slate-950 border border-white/10 min-h-[320px]">
+          <img id="room-dh-img" alt="AI 数字人考官" class="dh-breathe absolute inset-0 w-full h-full object-cover opacity-95"
+               src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=realistic%203d%20render%20of%20a%20friendly%20professional%20Chinese%20female%20AI%20interviewer%20avatar%2C%20half%20body%2C%20dark%20business%20suit%2C%20looking%20at%20camera%2C%20clean%20teal%20gradient%20studio%20background%2C%20soft%20lighting%2C%20no%20text&image_size=portrait_4_3">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/10 to-transparent"></div>
+          <div class="absolute left-4 top-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 border border-white/15 backdrop-blur">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-xs font-medium">AI 考官 · 数字人</span>
+          </div>
+          <div class="absolute right-4 top-4 dh-wave flex items-end h-7">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="absolute left-0 right-0 bottom-0 p-5">
+            <div class="flex items-start gap-3 max-w-2xl">
+              <div class="w-9 h-9 rounded-full bg-teal-500/90 flex items-center justify-center shrink-0">
+                <i data-lucide="bot" class="w-4.5 h-4.5"></i>
+              </div>
+              <div class="rounded-2xl rounded-tl-sm bg-white/95 text-slate-900 px-4 py-3 shadow-lg">
+                <p class="text-[11px] font-semibold text-teal-700 mb-1" id="room-q-topic">考官提问</p>
+                <p class="text-sm leading-relaxed" id="room-q-text">正在准备题目…</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 本人画面 + 作答区 -->
+        <div class="flex flex-col gap-4">
+          <div class="relative rounded-2xl overflow-hidden bg-slate-900 border border-white/10 aspect-video lg:aspect-auto lg:min-h-[200px]">
+            <video id="self-video" class="w-full h-full object-cover hidden" autoplay muted playsinline></video>
+            <div id="self-placeholder" class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 gap-2">
+              <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                <i data-lucide="video-off" class="w-6 h-6 text-slate-300"></i>
+              </div>
+              <p class="text-xs text-slate-400">摄像头未开启</p>
+              <button type="button" onclick="startCamera()" class="text-xs px-3 py-1.5 rounded-lg bg-teal-500 hover:bg-teal-600 text-white transition-colors">开启摄像头</button>
+            </div>
+            <div class="absolute left-3 bottom-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 border border-white/15 backdrop-blur">
+              <i data-lucide="user" class="w-3.5 h-3.5"></i><span class="text-[11px] font-medium">我</span>
+            </div>
+          </div>
+
+          <div class="rounded-2xl bg-slate-900 border border-white/10 p-4 flex flex-col gap-3">
+            <p class="text-xs font-semibold text-slate-300">作答区</p>
+            <textarea id="room-answer" rows="4" class="w-full rounded-xl bg-white/5 border border-white/10 px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="在此输入你的回答（语音作答将自动转写）"></textarea>
             <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-lg bg-edu-primary-50 text-edu-primary flex items-center justify-center">
-                <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
-              </div>
-              <h2 class="edu-h3 text-edu-foreground">练习统计与进步曲线</h2>
-            </div>
-            <div class="flex items-center gap-2">
-              <button type="button" class="px-3 h-8 rounded-lg text-xs font-medium bg-edu-primary text-white">本周</button>
-              <button type="button" class="px-3 h-8 rounded-lg text-xs font-medium border border-edu-border text-edu-muted-foreground hover:bg-edu-muted transition-colors">本月</button>
-              <button type="button" class="px-3 h-8 rounded-lg text-xs font-medium border border-edu-border text-edu-muted-foreground hover:bg-edu-muted transition-colors">全部</button>
-            </div>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Total count -->
-            <div class="bg-edu-muted/40 rounded-xl p-4">
-              <p class="text-xs text-edu-muted-foreground mb-1">总练习数</p>
-              <p class="text-3xl font-semibold text-edu-foreground edu-number">1,248</p>
-              <p class="text-xs text-edu-state-success mt-1 flex items-center gap-1"><i data-lucide="trending-up" class="w-3 h-3"></i>较上周 +86</p>
-            </div>
-            <!-- Accuracy -->
-            <div class="bg-edu-muted/40 rounded-xl p-4">
-              <p class="text-xs text-edu-muted-foreground mb-1">总体正确率</p>
-              <p class="text-3xl font-semibold text-edu-foreground edu-number">78.5%</p>
-              <p class="text-xs text-edu-state-success mt-1 flex items-center gap-1"><i data-lucide="trending-up" class="w-3 h-3"></i>较上周 +4.2%</p>
-            </div>
-            <!-- Ring chart: subject mastery -->
-            <div class="bg-edu-muted/40 rounded-xl p-4 lg:col-span-2">
-              <p class="text-xs text-edu-muted-foreground mb-3">各科目掌握度</p>
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div class="text-center">
-                  <div class="relative w-16 h-16 mx-auto mb-2">
-                    <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                      <path class="text-edu-primary-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
-                      <path class="text-edu-primary" stroke-dasharray="82, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
-                    </svg>
-                    <span class="absolute inset-0 flex items-center justify-center text-xs font-semibold text-edu-foreground">82%</span>
-                  </div>
-                  <p class="text-xs text-edu-foreground">数学</p>
-                </div>
-                <div class="text-center">
-                  <div class="relative w-16 h-16 mx-auto mb-2">
-                    <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                      <path class="text-edu-primary-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
-                      <path class="text-edu-state-info" stroke-dasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
-                    </svg>
-                    <span class="absolute inset-0 flex items-center justify-center text-xs font-semibold text-edu-foreground">75%</span>
-                  </div>
-                  <p class="text-xs text-edu-foreground">逻辑</p>
-                </div>
-                <div class="text-center">
-                  <div class="relative w-16 h-16 mx-auto mb-2">
-                    <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                      <path class="text-edu-primary-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
-                      <path class="text-edu-state-warning" stroke-dasharray="68, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
-                    </svg>
-                    <span class="absolute inset-0 flex items-center justify-center text-xs font-semibold text-edu-foreground">68%</span>
-                  </div>
-                  <p class="text-xs text-edu-foreground">语言</p>
-                </div>
-                <div class="text-center">
-                  <div class="relative w-16 h-16 mx-auto mb-2">
-                    <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                      <path class="text-edu-primary-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
-                      <path class="text-edu-state-error" stroke-dasharray="55, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
-                    </svg>
-                    <span class="absolute inset-0 flex items-center justify-center text-xs font-semibold text-edu-foreground">55%</span>
-                  </div>
-                  <p class="text-xs text-edu-foreground">时政</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Progress line chart + bar chart -->
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
-            <div class="lg:col-span-2 bg-edu-muted/40 rounded-xl p-4">
-              <p class="text-xs text-edu-muted-foreground mb-4">正确率变化曲线</p>
-              <div class="relative h-40 w-full">
-                <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 160">
-                  <!-- grid -->
-                  <line x1="0" y1="40" x2="400" y2="40" stroke="currentColor" class="text-edu-border" stroke-width="1" />
-                  <line x1="0" y1="80" x2="400" y2="80" stroke="currentColor" class="text-edu-border" stroke-width="1" />
-                  <line x1="0" y1="120" x2="400" y2="120" stroke="currentColor" class="text-edu-border" stroke-width="1" />
-                  <!-- line -->
-                  <polyline fill="none" stroke="var(--edu-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="0,120 66,108 133,95 200,88 266,70 333,55 400,42" />
-                  <!-- points -->
-                  <circle cx="0" cy="120" r="4" fill="var(--edu-primary)" />
-                  <circle cx="66" cy="108" r="4" fill="var(--edu-primary)" />
-                  <circle cx="133" cy="95" r="4" fill="var(--edu-primary)" />
-                  <circle cx="200" cy="88" r="4" fill="var(--edu-primary)" />
-                  <circle cx="266" cy="70" r="4" fill="var(--edu-primary)" />
-                  <circle cx="333" cy="55" r="4" fill="var(--edu-primary)" />
-                  <circle cx="400" cy="42" r="4" fill="var(--edu-primary)" />
-                </svg>
-                <div class="flex justify-between text-[10px] text-edu-muted-foreground mt-2">
-                  <span>2/28</span>
-                  <span>3/2</span>
-                  <span>3/4</span>
-                  <span>3/6</span>
-                  <span>3/8</span>
-                  <span>3/10</span>
-                  <span>3/12</span>
-                </div>
-              </div>
-            </div>
-            <div class="bg-edu-muted/40 rounded-xl p-4">
-              <p class="text-xs text-edu-muted-foreground mb-4">本周各题型练习量</p>
-              <div class="space-y-3">
-                <div>
-                  <div class="flex justify-between text-xs mb-1"><span class="text-edu-foreground">单选题</span><span class="text-edu-muted-foreground edu-number">42</span></div>
-                  <div class="h-2 rounded-full bg-edu-border overflow-hidden"><div class="h-full rounded-full bg-edu-primary" style="width: 84%"></div></div>
-                </div>
-                <div>
-                  <div class="flex justify-between text-xs mb-1"><span class="text-edu-foreground">多选题</span><span class="text-edu-muted-foreground edu-number">28</span></div>
-                  <div class="h-2 rounded-full bg-edu-border overflow-hidden"><div class="h-full rounded-full bg-edu-state-info" style="width: 56%"></div></div>
-                </div>
-                <div>
-                  <div class="flex justify-between text-xs mb-1"><span class="text-edu-foreground">判断题</span><span class="text-edu-muted-foreground edu-number">18</span></div>
-                  <div class="h-2 rounded-full bg-edu-border overflow-hidden"><div class="h-full rounded-full bg-edu-state-warning" style="width: 36%"></div></div>
-                </div>
-                <div>
-                  <div class="flex justify-between text-xs mb-1"><span class="text-edu-foreground">主观题</span><span class="text-edu-muted-foreground edu-number">12</span></div>
-                  <div class="h-2 rounded-full bg-edu-border overflow-hidden"><div class="h-full rounded-full bg-edu-state-success" style="width: 24%"></div></div>
-                </div>
-                <div>
-                  <div class="flex justify-between text-xs mb-1"><span class="text-edu-foreground">面试题</span><span class="text-edu-muted-foreground edu-number">22</span></div>
-                  <div class="h-2 rounded-full bg-edu-border overflow-hidden"><div class="h-full rounded-full bg-edu-state-error" style="width: 44%"></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Question bank type tabs (QB-02 / QB-03 / QB-11 / QB-12) -->
-      <section class="bank-tabs mb-6" aria-label="题库类型">
-        <div class="flex flex-wrap gap-2">
-          <button type="button" class="tab-btn active px-4 h-10 rounded-lg text-sm font-medium bg-edu-primary text-white flex items-center gap-1.5" data-tab="written">
-            <i data-lucide="pencil" class="w-4 h-4"></i>笔试题库
-          </button>
-          <button type="button" class="tab-btn px-4 h-10 rounded-lg text-sm font-medium border border-edu-border bg-edu-card text-edu-foreground hover:bg-edu-muted transition-colors flex items-center gap-1.5" data-tab="interview">
-            <i data-lucide="message-circle" class="w-4 h-4"></i>面试题库
-          </button>
-          <button type="button" class="tab-btn px-4 h-10 rounded-lg text-sm font-medium border border-edu-border bg-edu-card text-edu-foreground hover:bg-edu-muted transition-colors flex items-center gap-1.5" data-tab="past">
-            <i data-lucide="history" class="w-4 h-4"></i>历年真题回忆版
-          </button>
-          <button type="button" class="tab-btn px-4 h-10 rounded-lg text-sm font-medium border border-edu-border bg-edu-card text-edu-foreground hover:bg-edu-muted transition-colors flex items-center gap-1.5" data-tab="current">
-            <i data-lucide="flame" class="w-4 h-4"></i>时政热点题
-          </button>
-        </div>
-      </section>
-
-      <!-- Filter toolbar (REQ-029 / QB-01) -->
-      <section class="filter-bar mb-8" aria-label="筛选条件">
-        <div class="bg-edu-card border border-edu-border rounded-xl p-4 md:p-5 shadow-sm">
-          <div class="flex flex-col xl:flex-row xl:items-center gap-4">
-            <div class="flex items-center gap-2 text-edu-foreground font-medium shrink-0">
-              <i data-lucide="sliders-horizontal" class="w-4 h-4 text-edu-primary"></i>
-              <span>组合筛选</span>
-            </div>
-            <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              <div class="relative">
-                <i data-lucide="school" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-edu-muted-foreground"></i>
-                <select class="w-full h-10 pl-9 pr-8 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground focus:outline-none focus:ring-2 focus:ring-edu-primary/30 appearance-none cursor-pointer" aria-label="院校">
-                  <option>全部院校</option>
-                  <option>浙江大学</option>
-                  <option>浙江工业大学</option>
-                  <option>浙江师范大学</option>
-                  <option>杭州电子科技大学</option>
-                  <option>宁波大学</option>
-                  <option>杭州职业技术学院</option>
-                  <option>浙江金融职业学院</option>
-                </select>
-                <i data-lucide="chevron-down" class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-edu-muted-foreground pointer-events-none"></i>
-              </div>
-              <div class="relative">
-                <i data-lucide="book-open" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-edu-muted-foreground"></i>
-                <select class="w-full h-10 pl-9 pr-8 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground focus:outline-none focus:ring-2 focus:ring-edu-primary/30 appearance-none cursor-pointer" aria-label="科目">
-                  <option>全部科目</option>
-                  <option>数学</option>
-                  <option>语文</option>
-                  <option>英语</option>
-                  <option>逻辑推理</option>
-                  <option>语言表达</option>
-                  <option>数量关系</option>
-                  <option>综合素养</option>
-                  <option>时事政治</option>
-                </select>
-                <i data-lucide="chevron-down" class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-edu-muted-foreground pointer-events-none"></i>
-              </div>
-              <div class="relative">
-                <i data-lucide="layers" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-edu-muted-foreground"></i>
-                <select class="w-full h-10 pl-9 pr-8 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground focus:outline-none focus:ring-2 focus:ring-edu-primary/30 appearance-none cursor-pointer" aria-label="题型">
-                  <option>全部题型</option>
-                  <option>单选题</option>
-                  <option>多选题</option>
-                  <option>判断题</option>
-                  <option>主观题</option>
-                  <option>面试题</option>
-                </select>
-                <i data-lucide="chevron-down" class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-edu-muted-foreground pointer-events-none"></i>
-              </div>
-              <div class="relative">
-                <i data-lucide="bar-chart-2" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-edu-muted-foreground"></i>
-                <select class="w-full h-10 pl-9 pr-8 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground focus:outline-none focus:ring-2 focus:ring-edu-primary/30 appearance-none cursor-pointer" aria-label="难度">
-                  <option>全部难度</option>
-                  <option>易</option>
-                  <option>中</option>
-                  <option>难</option>
-                </select>
-                <i data-lucide="chevron-down" class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-edu-muted-foreground pointer-events-none"></i>
-              </div>
-            </div>
-            <div class="flex items-center gap-2 shrink-0">
-              <button type="button" class="px-4 h-10 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors flex items-center gap-1.5">
-                <i data-lucide="search" class="w-4 h-4"></i>查询
+              <button type="button" id="room-mic-btn" class="flex-1 inline-flex items-center justify-center gap-1.5 h-10 rounded-xl bg-white/5 border border-white/10 text-sm text-slate-200 hover:bg-white/10 transition-colors">
+                <i data-lucide="mic" class="w-4 h-4"></i>语音作答
               </button>
-              <button type="button" class="px-4 h-10 rounded-lg border border-edu-border bg-edu-card text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors">
-                重置
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Question card (single question mode) -->
-      <section class="question-card mb-8" aria-label="当前题目">
-        <div class="bg-edu-card border border-edu-border rounded-xl p-6 md:p-8 shadow-sm">
-          <!-- Question meta -->
-          <div class="flex flex-wrap items-center gap-3 mb-5">
-            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-primary-50 text-edu-primary-700 text-xs font-medium">
-              <i data-lucide="book-open" class="w-3.5 h-3.5"></i>数学
-            </span>
-            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium">
-              <i data-lucide="layers" class="w-3.5 h-3.5"></i>单选题
-            </span>
-            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium">
-              <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>中等
-            </span>
-            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-state-info-bg text-edu-state-info text-xs font-medium">
-              <i data-lucide="school" class="w-3.5 h-3.5"></i>浙江工业大学
-            </span>
-            <button type="button" class="ml-auto inline-flex items-center gap-1 text-xs font-medium text-edu-muted-foreground hover:text-edu-primary transition-colors" aria-label="收藏题目">
-              <i data-lucide="star" class="w-4 h-4"></i>收藏
-            </button>
-            <span class="text-edu-caption text-edu-muted-foreground">第 <span class="edu-number text-edu-foreground font-medium">12</span> 题 / 共 <span class="edu-number text-edu-foreground font-medium">120</span> 题</span>
-          </div>
-
-          <!-- Question stem -->
-          <div class="mb-6">
-            <h2 class="edu-h3 text-edu-foreground mb-3">【单选题】已知函数 f(x) = x² - 2x + 3，则 f(x) 的最小值为（ ）</h2>
-          </div>
-
-          <!-- Options (REQ-030 / QB-04) -->
-          <div class="options space-y-3 mb-6">
-            <label class="group flex items-start gap-4 p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary/40 hover:bg-edu-primary-50/40 transition-colors cursor-pointer">
-              <span class="mt-0.5 w-6 h-6 rounded-full border-2 border-edu-border bg-edu-card flex items-center justify-center text-xs font-semibold text-edu-muted-foreground group-hover:border-edu-primary group-hover:text-edu-primary transition-colors">A</span>
-              <input type="radio" name="answer" value="A" class="sr-only">
-              <span class="flex-1 text-edu-body text-edu-foreground">1</span>
-            </label>
-            <label class="group flex items-start gap-4 p-4 rounded-xl border border-edu-state-success bg-edu-state-success-bg/30 cursor-pointer">
-              <span class="mt-0.5 w-6 h-6 rounded-full border-2 border-edu-state-success bg-edu-state-success text-white flex items-center justify-center text-xs font-semibold">B</span>
-              <input type="radio" name="answer" value="B" class="sr-only" checked>
-              <span class="flex-1 text-edu-body text-edu-foreground">2</span>
-              <i data-lucide="check" class="w-5 h-5 text-edu-state-success shrink-0"></i>
-            </label>
-            <label class="group flex items-start gap-4 p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary/40 hover:bg-edu-primary-50/40 transition-colors cursor-pointer">
-              <span class="mt-0.5 w-6 h-6 rounded-full border-2 border-edu-border bg-edu-card flex items-center justify-center text-xs font-semibold text-edu-muted-foreground group-hover:border-edu-primary group-hover:text-edu-primary transition-colors">C</span>
-              <input type="radio" name="answer" value="C" class="sr-only">
-              <span class="flex-1 text-edu-body text-edu-foreground">3</span>
-            </label>
-            <label class="group flex items-start gap-4 p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary/40 hover:bg-edu-primary-50/40 transition-colors cursor-pointer">
-              <span class="mt-0.5 w-6 h-6 rounded-full border-2 border-edu-border bg-edu-card flex items-center justify-center text-xs font-semibold text-edu-muted-foreground group-hover:border-edu-primary group-hover:text-edu-primary transition-colors">D</span>
-              <input type="radio" name="answer" value="D" class="sr-only">
-              <span class="flex-1 text-edu-body text-edu-foreground">4</span>
-            </label>
-          </div>
-
-          <!-- Submit button -->
-          <div class="mb-6">
-            <button type="button" class="px-6 h-11 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors">提交答案</button>
-          </div>
-
-          <!-- Answer feedback (REQ-030 / QB-04 / REQ-031 / QB-05) -->
-          <div class="answer-feedback mb-6 rounded-xl border border-edu-state-success/30 bg-[var(--edu-state-success-bg)] p-5">
-            <div class="flex items-start gap-3 mb-3">
-              <div class="w-6 h-6 rounded-full bg-edu-state-success text-white flex items-center justify-center shrink-0">
-                <i data-lucide="check" class="w-4 h-4"></i>
-              </div>
-              <div>
-                <p class="font-semibold text-edu-foreground">回答正确</p>
-                <p class="edu-body-sm text-edu-muted-foreground mt-0.5">正确答案：<span class="font-medium text-edu-state-success">B</span></p>
-              </div>
-            </div>
-            <div class="pl-9 space-y-3">
-              <div>
-                <p class="text-sm font-semibold text-edu-foreground mb-1">详细解析</p>
-                <p class="edu-body-sm text-edu-muted-foreground leading-relaxed">f(x) = x² - 2x + 3 可通过配方法改写为 f(x) = (x - 1)² + 2。由于二次项系数为正，抛物线开口向上，函数在顶点 x = 1 处取得最小值，最小值为 2。因此正确选项为 B。此题考查二次函数的顶点式与最值问题，是三位一体综合素质测试中数学基础部分的常见考点。</p>
-              </div>
-              <div>
-                <p class="text-sm font-semibold text-edu-foreground mb-1">解题思路</p>
-                <p class="edu-body-sm text-edu-muted-foreground leading-relaxed">1）识别函数类型为二次函数；2）通过配方将其转化为顶点式 f(x) = a(x - h)² + k；3）根据开口方向判断最值类型（开口向上有最小值，开口向下有最大值）；4）读取顶点纵坐标即为最值。遇到含参数的二次函数最值问题时，还需注意给定区间对最值位置的限制。</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- AI review sample for interview questions (QB-10) -->
-          <div class="ai-review mb-6 rounded-xl border border-edu-primary/20 bg-edu-primary-50/40 p-5">
-            <div class="flex items-start gap-3 mb-3">
-              <div class="w-6 h-6 rounded-full bg-edu-primary text-white flex items-center justify-center shrink-0">
-                <i data-lucide="bot" class="w-4 h-4"></i>
-              </div>
-              <div>
-                <p class="font-semibold text-edu-foreground">AI 点评</p>
-                <p class="edu-body-sm text-edu-muted-foreground mt-0.5">针对面试题文字作答的多维度评分与改进建议</p>
-              </div>
-            </div>
-            <div class="pl-9 space-y-3">
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div class="bg-white rounded-lg p-3 text-center border border-edu-primary-100">
-                  <p class="text-xs text-edu-muted-foreground">表达清晰度</p>
-                  <p class="text-lg font-semibold text-edu-primary edu-number">85</p>
-                </div>
-                <div class="bg-white rounded-lg p-3 text-center border border-edu-primary-100">
-                  <p class="text-xs text-edu-muted-foreground">逻辑结构</p>
-                  <p class="text-lg font-semibold text-edu-primary edu-number">78</p>
-                </div>
-                <div class="bg-white rounded-lg p-3 text-center border border-edu-primary-100">
-                  <p class="text-xs text-edu-muted-foreground">专业认知</p>
-                  <p class="text-lg font-semibold text-edu-primary edu-number">72</p>
-                </div>
-                <div class="bg-white rounded-lg p-3 text-center border border-edu-primary-100">
-                  <p class="text-xs text-edu-muted-foreground">应变创新</p>
-                  <p class="text-lg font-semibold text-edu-primary edu-number">80</p>
-                </div>
-              </div>
-              <div>
-                <p class="text-sm font-semibold text-edu-foreground mb-1">改进建议</p>
-                <ul class="list-disc list-inside edu-body-sm text-edu-muted-foreground leading-relaxed space-y-1">
-                  <li>建议增加具体案例支撑，避免观点空泛；</li>
-                  <li>回答结尾可用一句话总结核心观点，增强记忆点；</li>
-                  <li>涉及专业概念时，适当展开解释，展示知识深度。</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Source tag (QB-11 / QB-12) -->
-          <div class="source-tag mb-6 flex flex-wrap gap-2">
-            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium">
-              <i data-lucide="tag" class="w-3.5 h-3.5"></i>来源：2025 年浙江工业大学三位一体综合素质测试真题回忆版
-            </span>
-            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium">
-              <i data-lucide="calendar" class="w-3.5 h-3.5"></i>入库时间：2026-01-15
-            </span>
-          </div>
-
-          <!-- Wrong note CTA (REQ-032 / QB-06) -->
-          <div class="wrong-note-cta flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-dashed border-edu-border bg-edu-muted/30">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-edu-state-error/10 text-edu-state-error flex items-center justify-center">
-                <i data-lucide="bookmark" class="w-4 h-4"></i>
-              </div>
-              <div>
-                <p class="text-sm font-medium text-edu-foreground">错题自动收录</p>
-                <p class="edu-caption text-edu-muted-foreground">答错题目将自动加入错题本，也可手动标记重点题目，方便后续针对性复习。</p>
-              </div>
-            </div>
-            <button type="button" class="shrink-0 px-4 h-9 rounded-lg border border-edu-state-error/30 text-edu-state-error bg-white text-sm font-medium hover:bg-edu-state-error hover:text-white transition-colors flex items-center justify-center gap-1.5">
-              <i data-lucide="plus" class="w-4 h-4"></i>加入错题本
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Bottom action: progress bar + navigation -->
-      <section class="progress-bar mb-12" aria-label="刷题进度与导航">
-        <div class="bg-edu-card border border-edu-border rounded-xl p-5 md:p-6 shadow-sm">
-          <div class="flex flex-col md:flex-row md:items-center gap-5">
-            <div class="flex-1">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-sm font-medium text-edu-foreground">今日刷题进度</span>
-                <span class="text-sm text-edu-muted-foreground"><span class="edu-number font-semibold text-edu-primary">12</span> / <span class="edu-number">30</span> 题</span>
-              </div>
-              <div class="h-2.5 w-full rounded-full bg-edu-muted overflow-hidden">
-                <div class="h-full rounded-full bg-edu-primary" style="width: 40%;"></div>
-              </div>
-              <p class="edu-caption text-edu-muted-foreground mt-2">连续坚持 5 天，正确率 78%</p>
-            </div>
-            <div class="flex items-center gap-3">
-              <button type="button" class="px-5 h-11 rounded-lg border border-edu-border bg-edu-card text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors flex items-center gap-1.5">
-                <i data-lucide="arrow-left" class="w-4 h-4"></i>上一题
-              </button>
-              <button type="button" class="px-5 h-11 rounded-lg border border-edu-border bg-edu-card text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors flex items-center gap-1.5">
-                <i data-lucide="star" class="w-4 h-4"></i>收藏
-              </button>
-              <button type="button" class="px-5 h-11 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors flex items-center gap-1.5">
+              <button type="button" id="room-next-btn" class="flex-1 inline-flex items-center justify-center gap-1.5 h-10 rounded-xl bg-teal-500 hover:bg-teal-600 text-white text-sm font-medium transition-colors">
                 下一题<i data-lucide="arrow-right" class="w-4 h-4"></i>
               </button>
             </div>
           </div>
-        </div>
-      </section>
 
-      <!-- Wrong notebook (REQ-032 / QB-06 / QB-07) -->
-      <section class="wrong-notebook mb-12" aria-label="错题本">
-        <div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-lg bg-edu-state-error/10 text-edu-state-error flex items-center justify-center">
-                <i data-lucide="book-x" class="w-4 h-4"></i>
-              </div>
-              <h2 class="edu-h3 text-edu-foreground">错题本</h2>
-              <span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 36 道</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <div class="flex items-center gap-2">
-                <select class="h-9 pl-3 pr-8 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground appearance-none cursor-pointer" aria-label="错题科目筛选">
-                  <option>全部科目</option>
-                  <option>数学</option>
-                  <option>逻辑推理</option>
-                  <option>语言表达</option>
-                  <option>时事政治</option>
-                </select>
-                <select class="h-9 pl-3 pr-8 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground appearance-none cursor-pointer" aria-label="错题难度筛选">
-                  <option>全部难度</option>
-                  <option>易</option>
-                  <option>中</option>
-                  <option>难</option>
-                </select>
-              </div>
-              <div class="flex items-center bg-edu-muted rounded-lg p-1">
-                <button type="button" class="px-3 h-7 rounded-md text-xs font-medium bg-white text-edu-foreground shadow-sm">列表</button>
-                <button type="button" class="px-3 h-7 rounded-md text-xs font-medium text-edu-muted-foreground hover:text-edu-foreground transition-colors">卡片</button>
-              </div>
-            </div>
-          </div>
-          <div class="space-y-3">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary/40 transition-colors">
-              <div class="flex-1">
-                <div class="flex items-center gap-2 mb-1">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-error-bg text-edu-state-error">数学</span>
-                  <span class="text-xs text-edu-muted-foreground">单选题 · 难</span>
-                </div>
-                <p class="text-sm text-edu-foreground font-medium">已知等差数列前 n 项和为 Sₙ，若 S₅ = 25，S₁₀ = 100，则公差 d 为？</p>
-              </div>
-              <div class="flex items-center gap-2 shrink-0">
-                <button type="button" class="px-3 h-8 rounded-lg border border-edu-border bg-white text-xs font-medium text-edu-foreground hover:bg-edu-muted transition-colors">重新练习</button>
-                <button type="button" class="px-3 h-8 rounded-lg bg-edu-primary text-white text-xs font-medium hover:bg-[#0f766e] transition-colors">查看解析</button>
-              </div>
-            </div>
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary/40 transition-colors">
-              <div class="flex-1">
-                <div class="flex items-center gap-2 mb-1">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-error-bg text-edu-state-error">逻辑推理</span>
-                  <span class="text-xs text-edu-muted-foreground">判断题 · 中</span>
-                </div>
-                <p class="text-sm text-edu-foreground font-medium">若命题"所有 A 都是 B"为真，则"有些 B 不是 A"一定为真。</p>
-              </div>
-              <div class="flex items-center gap-2 shrink-0">
-                <button type="button" class="px-3 h-8 rounded-lg border border-edu-border bg-white text-xs font-medium text-edu-foreground hover:bg-edu-muted transition-colors">重新练习</button>
-                <button type="button" class="px-3 h-8 rounded-lg bg-edu-primary text-white text-xs font-medium hover:bg-[#0f766e] transition-colors">查看解析</button>
-              </div>
-            </div>
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary/40 transition-colors">
-              <div class="flex-1">
-                <div class="flex items-center gap-2 mb-1">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-error-bg text-edu-state-error">语言表达</span>
-                  <span class="text-xs text-edu-muted-foreground">主观题 · 中</span>
-                </div>
-                <p class="text-sm text-edu-foreground font-medium">请结合材料，分析"躺平"现象对青年价值观的影响。</p>
-              </div>
-              <div class="flex items-center gap-2 shrink-0">
-                <button type="button" class="px-3 h-8 rounded-lg border border-edu-border bg-white text-xs font-medium text-edu-foreground hover:bg-edu-muted transition-colors">重新练习</button>
-                <button type="button" class="px-3 h-8 rounded-lg bg-edu-primary text-white text-xs font-medium hover:bg-[#0f766e] transition-colors">查看解析</button>
-              </div>
-            </div>
+          <div class="rounded-2xl bg-slate-900 border border-white/10 p-4">
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-2"><span>作答提示</span></div>
+            <ul class="text-xs text-slate-400 space-y-1 list-disc list-inside">
+              <li>建议先思考 10 秒再作答，结构清晰；</li>
+              <li>用「观点 + 案例 + 总结」三段式展开；</li>
+              <li>保持自然仪态，避免长时间停顿。</li>
+            </ul>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- Favorites (QB-15) -->
-      <section class="favorites mb-12" aria-label="题目收藏">
-        <div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">
-          <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-lg bg-edu-state-warning-bg text-edu-state-warning flex items-center justify-center">
-                <i data-lucide="star" class="w-4 h-4"></i>
-              </div>
-              <h2 class="edu-h3 text-edu-foreground">题目收藏</h2>
-              <span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 14 道</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <select class="h-9 pl-3 pr-8 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground appearance-none cursor-pointer" aria-label="收藏分类">
-                <option>全部分类</option>
-                <option>笔试题</option>
-                <option>面试题</option>
-                <option>历年真题</option>
-                <option>时政热点</option>
-              </select>
-            </div>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div class="p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-state-warning/50 transition-colors">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-warning-bg text-edu-state-warning">面试题</span>
-                <span class="text-xs text-edu-muted-foreground">综合素质</span>
-              </div>
-              <p class="text-sm text-edu-foreground font-medium line-clamp-2">如何看待"内卷"与"躺平"？请结合你的学习经历谈谈。</p>
-            </div>
-            <div class="p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-state-warning/50 transition-colors">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">笔试题</span>
-                <span class="text-xs text-edu-muted-foreground">逻辑推理</span>
-              </div>
-              <p class="text-sm text-edu-foreground font-medium line-clamp-2">五个人排队，A 不在两端，B 必须站在 C 前面，有多少种排法？</p>
-            </div>
-            <div class="p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-state-warning/50 transition-colors">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-info-bg text-edu-state-info">时政热点</span>
-                <span class="text-xs text-edu-muted-foreground">2026-02</span>
-              </div>
-              <p class="text-sm text-edu-foreground font-medium line-clamp-2">中央经济工作会议提出的"新质生产力"对教育有何启示？</p>
-            </div>
-            <div class="p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-state-warning/50 transition-colors">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">历年真题</span>
-                <span class="text-xs text-edu-muted-foreground">浙江师范大学 · 2025</span>
-              </div>
-              <p class="text-sm text-edu-foreground font-medium line-clamp-2">请描述一次你解决团队冲突的经历，并说明你的角色。</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Smart recommendation (QB-07) -->
-      <section class="smart-recommend" aria-label="智能推荐">
-        <div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">
-          <div class="flex items-center gap-2 mb-5">
-            <div class="w-8 h-8 rounded-lg bg-edu-primary-50 text-edu-primary flex items-center justify-center">
-              <i data-lucide="lightbulb" class="w-4 h-4"></i>
-            </div>
-            <h2 class="edu-h3 text-edu-foreground">智能推荐</h2>
-            <span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">基于错题本与练习记录</span>
-          </div>
-          <p class="text-sm text-edu-muted-foreground mb-4">系统检测到你在<span class="text-edu-foreground font-medium">逻辑推理 · 判断题</span>和<span class="text-edu-foreground font-medium">数学 · 数列</span>方面正确率较低，为你推荐以下同类强化题目：</p>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            <a href="#rec-1" class="group block p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary hover:shadow-sm transition-all">
-              <div class="flex items-center justify-between mb-2">
-                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-error-bg text-edu-state-error">逻辑推理</span>
-                <i data-lucide="arrow-right" class="w-4 h-4 text-edu-muted-foreground group-hover:text-edu-primary transition-colors"></i>
-              </div>
-              <p class="text-sm text-edu-foreground font-medium line-clamp-2">若"并非所有人都能通过初审"为真，则以下哪项必然为真？</p>
-            </a>
-            <a href="#rec-2" class="group block p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary hover:shadow-sm transition-all">
-              <div class="flex items-center justify-between mb-2">
-                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-error-bg text-edu-state-error">数学</span>
-                <i data-lucide="arrow-right" class="w-4 h-4 text-edu-muted-foreground group-hover:text-edu-primary transition-colors"></i>
-              </div>
-              <p class="text-sm text-edu-foreground font-medium line-clamp-2">等比数列 {aₙ} 中，a₁ = 2，q = 3，求前 4 项和。</p>
-            </a>
-            <a href="#rec-3" class="group block p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary hover:shadow-sm transition-all">
-              <div class="flex items-center justify-between mb-2">
-                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-error-bg text-edu-state-error">语言表达</span>
-                <i data-lucide="arrow-right" class="w-4 h-4 text-edu-muted-foreground group-hover:text-edu-primary transition-colors"></i>
-              </div>
-              <p class="text-sm text-edu-foreground font-medium line-clamp-2">下列句子中逻辑关系最清晰的一项是？</p>
-            </a>
-            <a href="#rec-4" class="group block p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary hover:shadow-sm transition-all">
-              <div class="flex items-center justify-between mb-2">
-                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-error-bg text-edu-state-error">逻辑推理</span>
-                <i data-lucide="arrow-right" class="w-4 h-4 text-edu-muted-foreground group-hover:text-edu-primary transition-colors"></i>
-              </div>
-              <p class="text-sm text-edu-foreground font-medium line-clamp-2">A、B、C 三人中有一人说谎，根据条件判断谁说谎。</p>
-            </a>
-            <a href="#rec-5" class="group block p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary hover:shadow-sm transition-all">
-              <div class="flex items-center justify-between mb-2">
-                <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-error-bg text-edu-state-error">数学</span>
-                <i data-lucide="arrow-right" class="w-4 h-4 text-edu-muted-foreground group-hover:text-edu-primary transition-colors"></i>
-              </div>
-              <p class="text-sm text-edu-foreground font-medium line-clamp-2">函数 y = |x - 2| + 1 的最小值为？</p>
-            </a>
-          </div>
-        </div>
-      </section>
+      <!-- 底部控制条 -->
+      <div class="shrink-0 border-t border-white/10 px-4 md:px-8 py-4 flex items-center justify-center gap-3">
+        <button type="button" id="room-cam-toggle" class="inline-flex items-center gap-2 px-4 h-11 rounded-xl bg-white/5 border border-white/10 text-sm text-slate-200 hover:bg-white/10 transition-colors">
+          <i data-lucide="video" class="w-4 h-4"></i>摄像头
+        </button>
+        <button type="button" onclick="endInterview()" class="inline-flex items-center gap-2 px-6 h-11 rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-semibold transition-colors">
+          <i data-lucide="phone-off" class="w-4 h-4"></i>结束面试并查看报告
+        </button>
+      </div>
     </div>
-  </main>
+  </div>
 
   <footer class="border-t border-edu-border bg-edu-muted/40">
     <div class="mx-auto max-w-7xl px-6 py-8">
@@ -813,9 +291,1214 @@
     </div>
   </footer>
 
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script>lucide.createIcons();</script>
-  <script src="assets/js/app.js" defer></script>
-  <script src="assets/js/pages.js" defer></script>
+  <script>
+  /* =======================================================================
+     练习中心（题库 + AI 面试 合并版）
+     ======================================================================= */
+
+  /* ---- 高职提招院校校测形式表：值为 true 表示校测含面试 ---- */
+  var GAOZHI_INTERVIEW_SCHOOLS = {
+    '金华职业技术学院': true,
+    '浙江师范高等专科学校': true,
+    '杭州职业技术学院': true,
+    '宁波卫生职业技术学院': true,
+    '绍兴职业技术学院': true
+  };
+
+  /* ---- 示例方案（当 localStorage 无真实方案时兜底，与「我的方案」列表一致） ---- */
+  var DEMO_PLANS = [
+    {
+      id: 'demo-zjut', name: '浙江工业大学 · 三位一体', planType: '三位一体', generatedAt: '2026-08-12 14:30', score: '优秀',
+      majors: [
+        { school: '浙江工业大学', major: '计算机类', needsInterview: true, testForm: '综合素质测试（含面试）' },
+        { school: '浙江工业大学', major: '电子信息类', needsInterview: true, testForm: '综合素质测试（含面试）' },
+        { school: '浙江工业大学', major: '机械工程', needsInterview: true, testForm: '综合素质测试（含面试）' },
+        { school: '浙江工业大学', major: '汉语言文学', needsInterview: true, testForm: '综合素质测试（含面试）' }
+      ]
+    },
+    {
+      id: 'demo-zjnu', name: '浙江师范大学 · 三位一体', planType: '三位一体', generatedAt: '2026-08-10 09:15', score: '良好',
+      majors: [
+        { school: '浙江师范大学', major: '汉语言文学', needsInterview: true, testForm: '综合素质测试（含面试）' },
+        { school: '浙江师范大学', major: '数学与应用数学', needsInterview: true, testForm: '综合素质测试（含面试）' },
+        { school: '浙江师范大学', major: '英语', needsInterview: true, testForm: '综合素质测试（含面试）' }
+      ]
+    },
+    {
+      id: 'demo-gaozhi', name: '宁波大学 · 高职提前招生', planType: '高职提招', generatedAt: '2026-08-08 16:45', score: '合格',
+      majors: [
+        { school: '金华职业技术学院', major: '计算机应用技术', needsInterview: true, testForm: '职业适应性测试（含面试）' },
+        { school: '杭州职业技术学院', major: '电子商务', needsInterview: true, testForm: '职业适应性测试（含面试）' },
+        { school: '浙江金融职业学院', major: '金融管理', needsInterview: false, testForm: '职业适应性测试（仅笔试）' },
+        { school: '宁波职业技术学院', major: '物流管理', needsInterview: false, testForm: '职业适应性测试（仅笔试）' }
+      ]
+    },
+    {
+      id: 'demo-gaozhi-written', name: '浙江金融职业学院 · 高职提招（笔试）', planType: '高职提招', generatedAt: '2026-08-05 10:20', score: '需优化',
+      majors: [
+        { school: '浙江金融职业学院', major: '金融管理', needsInterview: false, testForm: '职业适应性测试（仅笔试）' },
+        { school: '浙江金融职业学院', major: '会计', needsInterview: false, testForm: '职业适应性测试（仅笔试）' },
+        { school: '宁波职业技术学院', major: '物流管理', needsInterview: false, testForm: '职业适应性测试（仅笔试）' }
+      ]
+    }
+  ];
+
+  /* ---- 笔试题库（单选 / 多选） ---- */
+  var WRITTEN_POOL = [
+    { type: 'single', subject: '数学', difficulty: '中',
+      stem: '已知函数 f(x) = x² - 2x + 3，则 f(x) 的最小值为（ ）',
+      options: [{ k: 'A', t: '1' }, { k: 'B', t: '2' }, { k: 'C', t: '3' }, { k: 'D', t: '4' }], answer: ['B'],
+      analysis: 'f(x) = x² - 2x + 3 配方得 f(x) = (x - 1)² + 2。二次项系数为正，开口向上，在顶点 x = 1 处取得最小值 2，故选 B。',
+      tips: '① 识别为二次函数；② 配方化为顶点式；③ 由开口方向判断最值；④ 取顶点纵坐标。' },
+    { type: 'single', subject: '数学', difficulty: '易',
+      stem: '等差数列 {aₙ} 中，a₁ = 1，公差 d = 2，则 a₁₀ = （ ）',
+      options: [{ k: 'A', t: '17' }, { k: 'B', t: '18' }, { k: 'C', t: '19' }, { k: 'D', t: '20' }], answer: ['C'],
+      analysis: '由通项公式 aₙ = a₁ + (n - 1)d，得 a₁₀ = 1 + 9 × 2 = 19，故选 C。',
+      tips: '记住等差通项公式 aₙ = a₁ + (n−1)d，直接代入即可。' },
+    { type: 'single', subject: '数学', difficulty: '难',
+      stem: '等比数列 {aₙ} 中，a₁ = 2，公比 q = 3，则前 4 项和 S₄ = （ ）',
+      options: [{ k: 'A', t: '78' }, { k: 'B', t: '80' }, { k: 'C', t: '81' }, { k: 'D', t: '84' }], answer: ['B'],
+      analysis: '逐项相加：2 + 6 + 18 + 54 = 80；也可用公式 S₄ = a₁(1 − q⁴)/(1 − q) = 2 × (1 − 81)/(1 − 3) = 80，故选 B。',
+      tips: '项数较少时逐项相加更稳妥；项数多时用等比求和公式。' },
+    { type: 'single', subject: '逻辑推理', difficulty: '中',
+      stem: '若 A > B，且 B > C，则以下哪项必然成立？（ ）',
+      options: [{ k: 'A', t: 'A > C' }, { k: 'B', t: 'A < C' }, { k: 'C', t: 'A = C' }, { k: 'D', t: '无法确定' }], answer: ['A'],
+      analysis: '由不等式的传递性，A > B 且 B > C 可得 A > C，故选 A。',
+      tips: '不等号同向可传递，这是大小关系推理的基本性质。' },
+    { type: 'single', subject: '逻辑推理', difficulty: '难',
+      stem: '甲、乙、丙三人中只有一人说真话。甲说：“乙在说谎。”乙说：“丙在说谎。”丙说：“甲和乙都在说谎。”谁说的是真话？（ ）',
+      options: [{ k: 'A', t: '甲' }, { k: 'B', t: '乙' }, { k: 'C', t: '丙' }, { k: 'D', t: '无法确定' }], answer: ['C'],
+      analysis: '假设丙说真话，则甲、乙都说谎，与“只有一人说真话”一致；此时甲说“乙说谎”为假（即乙说真话）会矛盾。逐一枚举可验证，只有丙为真时自洽，故选 C。',
+      tips: '真假话题用“假设法”逐个代入，找到唯一自洽的情形。' },
+    { type: 'single', subject: '语言表达', difficulty: '易',
+      stem: '下列句子中没有语病的一项是（ ）',
+      options: [
+        { k: 'A', t: '通过这次活动，使我明白了团队合作的重要性。' },
+        { k: 'B', t: '学校采取了各种办法，防止校园欺凌事件不再发生。' },
+        { k: 'C', t: '阅读经典能够提升我们的思维能力和人文素养。' },
+        { k: 'D', t: '我们要认真克服并随时发现自己的缺点。' }
+      ], answer: ['C'],
+      analysis: 'A 项“通过……使……”导致主语残缺；B 项“防止……不再发生”否定不当；D 项“克服并发现”语序不当，应为“发现并克服”。C 项没有语病，故选 C。',
+      tips: '病句常见类型：成分残缺、否定不当、语序不当、搭配不当，逐项排查即可。' },
+    { type: 'single', subject: '数量关系', difficulty: '中',
+      stem: '某校校测合格率为 60%，今年有 1200 人报名，预计约有多少人入围？（ ）',
+      options: [{ k: 'A', t: '600 人' }, { k: 'B', t: '720 人' }, { k: 'C', t: '840 人' }, { k: 'D', t: '960 人' }], answer: ['B'],
+      analysis: '1200 × 60% = 720，预计约 720 人入围，故选 B。',
+      tips: '百分数计算先把百分数化为小数，再与总量相乘。' },
+    { type: 'single', subject: '时事政治', difficulty: '易',
+      stem: '关于“新质生产力”，下列说法正确的是（ ）',
+      options: [
+        { k: 'A', t: '以科技创新为核心驱动，强调高科技、高效能、高质量' },
+        { k: 'B', t: '仅指传统制造业的规模扩张' },
+        { k: 'C', t: '与绿色发展没有关系' },
+        { k: 'D', t: '主要依靠增加劳动力投入实现增长' }
+      ], answer: ['A'],
+      analysis: '新质生产力以科技创新为核心驱动力，具有高科技、高效能、高质量特征，并与绿色发展密切相关，故选 A。',
+      tips: '时政类题目抓住“创新驱动”“高质量发展”两个关键词。' },
+    { type: 'single', subject: '综合素养', difficulty: '中',
+      stem: '面试中遇到完全不熟悉的专业问题时，最恰当的做法是（ ）',
+      options: [
+        { k: 'A', t: '胡乱编造一个答案，避免冷场' },
+        { k: 'B', t: '直接回答“不知道”后沉默' },
+        { k: 'C', t: '诚实说明，并尝试从相关角度进行分析' },
+        { k: 'D', t: '转移话题，谈自己擅长的问题' }
+      ], answer: ['C'],
+      analysis: '考官更看重思维过程与诚实态度。坦诚说明并尝试从相关角度分析，能体现应变与思考能力，故选 C。',
+      tips: '遇到不会的问题：承认 + 迁移思考 + 表达学习意愿。' },
+    { type: 'single', subject: '英语', difficulty: '中',
+      stem: 'Choose the sentence with correct grammar.（ ）',
+      options: [
+        { k: 'A', t: 'He suggested me to take part in the activity.' },
+        { k: 'B', t: 'He suggested that I should take part in the activity.' },
+        { k: 'C', t: 'He suggested me taking part in the activity.' },
+        { k: 'D', t: 'He suggested to take part in the activity for me.' }
+      ], answer: ['B'],
+      analysis: 'suggest 后不接“sb. to do”，常用 “suggest that + 主语 + (should) do” 或 “suggest doing”。B 项符合搭配，故选 B。',
+      tips: '牢记 suggest 的两种正确结构：suggest doing / suggest that … (should) do。' },
+    { type: 'single', subject: '物理', difficulty: '中',
+      stem: '一物体做匀速直线运动，下列说法正确的是（ ）',
+      options: [
+        { k: 'A', t: '物体所受合力为零' },
+        { k: 'B', t: '物体一定不受任何力' },
+        { k: 'C', t: '物体的速度不断增大' },
+        { k: 'D', t: '物体的加速度不断增大' }
+      ], answer: ['A'],
+      analysis: '匀速直线运动是平衡状态，速度大小方向均不变，加速度为零，所受合力为零，故选 A。',
+      tips: '平衡状态 ⇔ 合力为零 ⇔ 静止或匀速直线运动。' },
+    { type: 'single', subject: '化学', difficulty: '易',
+      stem: '下列变化中属于化学变化的是（ ）',
+      options: [{ k: 'A', t: '冰雪融化' }, { k: 'B', t: '铁生锈' }, { k: 'C', t: '水分蒸发' }, { k: 'D', t: '玻璃破碎' }], answer: ['B'],
+      analysis: '铁生锈生成了新物质氧化铁，属于化学变化；其余均为物理变化，故选 B。',
+      tips: '判断依据：是否生成新物质。' },
+    { type: 'multi', subject: '逻辑推理', difficulty: '中',
+      stem: '下列关于命题推理的说法，正确的有（ ）',
+      options: [
+        { k: 'A', t: '原命题与其逆否命题等价' },
+        { k: 'B', t: '“有些 A 不是 B”与“所有 A 都是 B”可以同时为真' },
+        { k: 'C', t: '“并非所有 A 都是 B”等价于“有些 A 不是 B”' },
+        { k: 'D', t: '若“所有 A 都是 B”为真，则“有些 B 是 A”不一定为真' }
+      ], answer: ['A', 'C', 'D'],
+      analysis: 'A 项原命题与逆否命题等价，正确；B 项两者互为矛盾，不能同真，错误；C 项量词否定等价，正确；D 项当 A 为空集时“有些 B 是 A”为假，故“不一定为真”，正确。故答案为 A、C、D。',
+      tips: '量词否定：全称的否定是存在否定，存在的否定是全称否定。' },
+    { type: 'multi', subject: '时事政治', difficulty: '中',
+      stem: '关于“高质量发展”，下列表述正确的有（ ）',
+      options: [
+        { k: 'A', t: '要把发展质量问题摆在更为突出的位置' },
+        { k: 'B', t: '强调创新成为第一动力' },
+        { k: 'C', t: '坚持绿色成为普遍形态' },
+        { k: 'D', t: '以牺牲生态环境换取短期增长' }
+      ], answer: ['A', 'B', 'C'],
+      analysis: '高质量发展强调创新、协调、绿色、开放、共享，D 项与绿色发展理念相悖，故答案为 A、B、C。',
+      tips: '新发展理念五个关键词：创新、协调、绿色、开放、共享。' },
+    { type: 'multi', subject: '综合素养', difficulty: '中',
+      stem: '在小组合作学习中，下列做法有利于团队协作的有（ ）',
+      options: [
+        { k: 'A', t: '认真倾听他人观点后再表达意见' },
+        { k: 'B', t: '主动承担自己擅长的任务' },
+        { k: 'C', t: '遇到分歧时坚持己见，拒绝沟通' },
+        { k: 'D', t: '及时向同伴反馈进度与困难' }
+      ], answer: ['A', 'B', 'D'],
+      analysis: '倾听、分工、反馈都是有效协作行为；C 项拒绝沟通不利于团队合作，故答案为 A、B、D。',
+      tips: '团队协作三要素：倾听、分工、反馈。' },
+    { type: 'multi', subject: '数学', difficulty: '中',
+      stem: '下列函数中，在 R 上为增函数的有（ ）',
+      options: [
+        { k: 'A', t: 'y = x + 1' },
+        { k: 'B', t: 'y = x³' },
+        { k: 'C', t: 'y = -x' },
+        { k: 'D', t: 'y = x²' }
+      ], answer: ['A', 'B'],
+      analysis: 'y = x + 1 与 y = x³ 在 R 上单调递增；y = -x 在 R 上递减；y = x² 在 R 上不单调，故答案为 A、B。',
+      tips: '判断单调性要注意定义域；y = x² 在 R 上先减后增。' }
+  ];
+
+  /* ---- 面试题库 ---- */
+  var INTERVIEW_POOL = [
+    { topic: '自我介绍', question: '请用 1 分钟向考官介绍你自己，突出与报考专业相关的经历。', tips: '结构：基本信息 + 专业相关经历 + 报考理由，控制在 3 层意思内。' },
+    { topic: '专业认知', question: '你为什么报考本专业？谈谈你对这个专业的理解与未来设想。', tips: '从兴趣来源、专业内涵、职业方向三个角度组织答案。' },
+    { topic: '综合素质', question: '谈谈你对“内卷”与“躺平”的看法，并结合你的学习经历。', tips: '先界定概念，再表明立场，最后给出自己的行动选择。' },
+    { topic: '时事热点', question: '请谈谈“新质生产力”对青年学生成长发展的启示。', tips: '结合创新驱动、终身学习、跨学科能力展开。' },
+    { topic: '逻辑思维', question: '如果团队中两名成员产生严重分歧，你作为组长会如何处理？', tips: '按“倾听—找共识—定方案—跟进”四步回答。' },
+    { topic: '职业规划', question: '进入大学后的四年，你打算如何规划自己的学习与发展？', tips: '分学年阐述，体现目标清晰的成长路径。' },
+    { topic: '抗压能力', question: '请描述一次你面对挫折并走出困境的经历，你收获了什么？', tips: '用 STAR 法：情境、任务、行动、结果。' },
+    { topic: '创新实践', question: '请举例说明你参与过的一次创新或实践活动，你的收获是什么？', tips: '突出你的具体贡献与可迁移能力。' }
+  ];
+
+  /* ---- 面试基础视频课程 ---- */
+  var VIDEO_COURSES = [
+    { title: '面试礼仪与仪态基础', duration: '08:32',
+      desc: '从进场问候、坐姿、眼神交流到肢体语言，帮你建立良好的第一印象。',
+      cover: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20interview%20etiquette%20training%20cover%2C%20confident%20young%20Chinese%20student%20sitting%20upright%20for%20an%20interview%2C%20clean%20studio%20background%2C%20soft%20teal%20color%20tone%2C%20modern%20flat%20illustration%2C%20no%20text&image_size=landscape_4_3' },
+    { title: '自我介绍的结构化表达', duration: '12:10',
+      desc: '掌握“身份—优势—匹配”三段式模板，一分钟讲清楚你是谁、你适合什么。',
+      cover: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=structured%20self%20introduction%20coaching%20cover%2C%20confident%20student%20speaking%20into%20a%20microphone%2C%20minimal%20flat%20illustration%2C%20teal%20and%20white%20palette%2C%20no%20text&image_size=landscape_4_3' },
+    { title: '专业认知类问题答题框架', duration: '15:45',
+      desc: '拆解“专业理解 / 报考动机 / 发展规划”三类高频问题的答题逻辑。',
+      cover: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=mind%20map%20and%20answer%20framework%20for%20major%20related%20interview%20questions%2C%20clean%20flat%20vector%20illustration%2C%20teal%20accents%2C%20white%20background%2C%20no%20text&image_size=landscape_4_3' },
+    { title: '时事热点类问题快速破题', duration: '10:20',
+      desc: '教你用“背景—内涵—意义—行动”四步法快速组织时政类答题结构。',
+      cover: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=news%20and%20current%20affairs%20discussion%20cover%2C%20newspaper%20and%20globe%20icons%2C%20clean%20flat%20vector%20illustration%2C%20teal%20accent%2C%20white%20background%2C%20no%20text&image_size=landscape_4_3' },
+    { title: '无领导小组讨论入门', duration: '18:05',
+      desc: '了解无领导小组讨论的角色定位、发言时机与团队贡献方式。',
+      cover: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=group%20discussion%20round%20table%20with%20several%20students%2C%20clean%20flat%20illustration%2C%20teal%20palette%2C%20white%20background%2C%20no%20text&image_size=landscape_4_3' },
+    { title: '面试常见失误与避坑', duration: '06:40',
+      desc: '盘点紧张、跑题、答非所问等常见失误，并给出可操作的改进建议。',
+      cover: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=common%20interview%20mistakes%20concept%20cover%2C%20warning%20sign%20and%20checklist%20icons%2C%20flat%20vector%20illustration%2C%20teal%20and%20amber%20palette%2C%20no%20text&image_size=landscape_4_3' }
+  ];
+
+  /* =======================================================================
+     数据层
+     ======================================================================= */
+  var MAX_MAJORS = 10;
+  var PLAN_STORE_KEY = 'practice-selected-plan';
+  var PROGRESS_STORE_KEY = 'practice-progress';
+
+  var state = {
+    plan: null,
+    written: [],
+    interview: [],
+    wIndex: 0,
+    filter: { type: 'all', school: 'all', subject: 'all', difficulty: 'all' },
+    selected: [],
+    submitted: false,
+    interviewTarget: null,
+    room: { index: 0, timer: null, seconds: 0, questions: [] }
+  };
+
+  function readJSON(key) {
+    try { var v = JSON.parse(localStorage.getItem(key) || '[]'); return Array.isArray(v) ? v : []; }
+    catch (e) { return []; }
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function refreshIcons() { if (window.lucide) { try { lucide.createIcons(); } catch (e) {} } }
+
+  /* 将真实方案数据归一化为 majors 列表 */
+  function normalizeSanyi(items) {
+    return items.map(function (it) {
+      return {
+        school: it.schoolName || it.school || '',
+        major: it.groupName ? it.groupName : (it.majors || []).join('、'),
+        needsInterview: true,
+        testForm: '综合素质测试（含面试）'
+      };
+    }).filter(function (m) { return m.school; });
+  }
+  function normalizeGaozhi(items) {
+    return items.map(function (it) {
+      var school = it.school || it.schoolName || '';
+      var major = it.major || (it.majors || []).join('、') || '';
+      var needs = !!GAOZHI_INTERVIEW_SCHOOLS[school];
+      return { school: school, major: major, needsInterview: needs, testForm: needs ? '职业适应性测试（含面试）' : '职业适应性测试（仅笔试）' };
+    }).filter(function (m) { return m.school; });
+  }
+
+  /* 汇总所有可用方案：优先真实数据，否则用示例方案 */
+  function loadPlans() {
+    var plans = [];
+    var sanyi = normalizeSanyi(readJSON('edu_plan_selected_majors'));
+    if (sanyi.length) {
+      plans.push({ id: 'sanyi', name: '三位一体志愿方案', planType: '三位一体', generatedAt: '已保存', score: '', majors: sanyi, real: true });
+    }
+    var gaozhi = normalizeGaozhi(readJSON('gaozhi-saved-majors'));
+    if (gaozhi.length) {
+      plans.push({ id: 'gaozhi', name: '高职提招志愿方案', planType: '高职提招', generatedAt: '已保存', score: '', majors: gaozhi, real: true });
+    }
+    if (!plans.length) {
+      plans = DEMO_PLANS.map(function (p) {
+        return { id: p.id, name: p.name, planType: p.planType, generatedAt: p.generatedAt, score: p.score, majors: p.majors.slice(), real: false };
+      });
+    }
+    return plans;
+  }
+
+  /* 依据方案生成笔试题 */
+  function buildWritten(plan) {
+    var majors = plan.majors.slice(0, MAX_MAJORS);
+    var out = [];
+    majors.forEach(function (m, i) {
+      for (var k = 0; k < 3; k++) {
+        var base = WRITTEN_POOL[(i * 2 + k) % WRITTEN_POOL.length];
+        out.push({
+          id: plan.id + '-w-' + i + '-' + k, type: base.type, subject: base.subject, difficulty: base.difficulty,
+          stem: base.stem, options: base.options, answer: base.answer, analysis: base.analysis, tips: base.tips,
+          school: m.school, major: m.major
+        });
+      }
+    });
+    return out;
+  }
+
+  /* 依据方案生成面试题 */
+  function buildInterview(plan) {
+    var majors = plan.majors.slice(0, MAX_MAJORS);
+    var out = [];
+    majors.forEach(function (m, i) {
+      for (var k = 0; k < 2; k++) {
+        var base = INTERVIEW_POOL[(i + k) % INTERVIEW_POOL.length];
+        out.push({
+          id: plan.id + '-i-' + i + '-' + k, school: m.school, major: m.major,
+          topic: base.topic, question: base.question, tips: base.tips
+        });
+      }
+    });
+    return out;
+  }
+
+  /* ---- 进度 / 错题 / 收藏 持久化 ---- */
+  function loadAllProgress() {
+    try { return JSON.parse(localStorage.getItem(PROGRESS_STORE_KEY) || '{}') || {}; } catch (e) { return {}; }
+  }
+  function saveAllProgress(all) { localStorage.setItem(PROGRESS_STORE_KEY, JSON.stringify(all)); }
+  function getProg(planId) {
+    var all = loadAllProgress();
+    return all[planId] || { done: 0, correct: 0, wrong: [], fav: [], sessions: 0, scores: [] };
+  }
+  function setProg(planId, obj) {
+    var all = loadAllProgress();
+    all[planId] = obj;
+    saveAllProgress(all);
+  }
+
+  function planHasInterview(plan) { return plan.majors.some(function (m) { return m.needsInterview; }); }
+  function planWrittenCount(plan) { return Math.min(plan.majors.length, MAX_MAJORS) * 3; }
+  function planInterviewCount(plan) { return Math.min(plan.majors.length, MAX_MAJORS) * 2; }
+
+  /* =======================================================================
+     步骤一：方案选择门
+     ======================================================================= */
+  function renderGate() {
+    var plans = loadPlans();
+    var list = document.getElementById('plan-gate-list');
+    list.innerHTML = plans.map(function (p) {
+      var overLimit = p.majors.length > MAX_MAJORS;
+      var majors = p.majors.slice(0, MAX_MAJORS);
+      var hasInterview = planHasInterview(p);
+      var interviewSchools = majors.filter(function (m) { return m.needsInterview; }).length;
+      var chips = majors.slice(0, 4).map(function (m) {
+        return '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-edu-muted text-edu-muted-foreground text-[11px]">' + esc(m.school) + ' · ' + esc(m.major || '不限') + '</span>';
+      }).join('');
+      var more = majors.length > 4 ? '<span class="text-[11px] text-edu-muted-foreground">等 ' + majors.length + ' 条</span>' : '';
+      return '' +
+        '<div class="relative bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm hover:border-edu-primary transition-colors flex flex-col">' +
+          '<div class="flex items-start justify-between gap-3 mb-4">' +
+            '<div class="flex items-start gap-3">' +
+              '<div class="w-11 h-11 rounded-xl bg-edu-primary-50 text-edu-primary flex items-center justify-center shrink-0"><i data-lucide="school" class="w-5 h-5"></i></div>' +
+              '<div>' +
+                '<p class="font-semibold text-edu-foreground">' + esc(p.name) + '</p>' +
+                '<p class="edu-caption text-edu-muted-foreground mt-0.5">生成时间 ' + esc(p.generatedAt) + '</p>' +
+              '</div>' +
+            '</div>' +
+            (p.score ? '<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-edu-primary-100 text-edu-primary-700">' + esc(p.score) + '</span>' : '') +
+          '</div>' +
+          '<div class="flex flex-wrap items-center gap-2 mb-3">' +
+            '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">' + esc(p.planType) + '</span>' +
+            '<span class="text-xs text-edu-muted-foreground">志愿 ' + p.majors.length + ' 条</span>' +
+            (hasInterview
+              ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-warning-bg text-edu-state-warning">含面试 ' + interviewSchools + ' 所</span>'
+              : '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-info-bg text-edu-state-info">仅笔试</span>') +
+          '</div>' +
+          '<div class="flex flex-wrap gap-1.5 mb-4">' + chips + more + '</div>' +
+          (overLimit
+            ? '<div class="mb-4 flex items-start gap-2 p-3 rounded-lg bg-edu-state-warning-bg text-edu-state-warning text-xs"><i data-lucide="alert-triangle" class="w-4 h-4 shrink-0 mt-0.5"></i><span>该方案志愿超过 10 条上限，练习将只取前 10 条院校专业。</span></div>'
+            : '') +
+          '<div class="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-edu-border">' +
+            '<p class="edu-caption text-edu-muted-foreground">预计：笔试 ' + planWrittenCount(p) + ' 题' + (hasInterview ? ' · 面试 ' + planInterviewCount(p) + ' 题' : '') + '</p>' +
+            '<button type="button" data-plan-id="' + esc(p.id) + '" class="select-plan-btn inline-flex items-center gap-1.5 px-4 h-10 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors">开始练习<i data-lucide="arrow-right" class="w-4 h-4"></i></button>' +
+          '</div>' +
+        '</div>';
+    }).join('');
+
+    list.querySelectorAll('.select-plan-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { selectPlan(this.dataset.planId); });
+    });
+    refreshIcons();
+  }
+
+  function selectPlan(planId) {
+    var plans = loadPlans();
+    var plan = plans.filter(function (p) { return p.id === planId; })[0];
+    if (!plan) return;
+    state.plan = plan;
+    state.written = buildWritten(plan);
+    state.interview = buildInterview(plan);
+    state.wIndex = 0;
+    state.selected = [];
+    state.submitted = false;
+    state.filter = { type: 'all', school: 'all', subject: 'all', difficulty: 'all' };
+    var it = plan.majors.filter(function (m) { return m.needsInterview; });
+    state.interviewTarget = it.length ? (it[0].school + '|' + it[0].major) : null;
+    localStorage.setItem(PLAN_STORE_KEY, plan.id);
+    document.getElementById('plan-gate').classList.add('hidden');
+    document.getElementById('practice-home').classList.remove('hidden');
+    renderHome();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function switchPlan() {
+    document.getElementById('practice-home').classList.add('hidden');
+    document.getElementById('plan-gate').classList.remove('hidden');
+    renderGate();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* =======================================================================
+     步骤二：练习首页
+     ======================================================================= */
+  function renderHome() {
+    renderCurrentPlanBar();
+    renderHomeTop();
+    renderProgress();
+    renderWritten();
+    renderInterviewArea();
+    renderWrongArea();
+    renderFavArea();
+    renderSmartArea();
+    refreshIcons();
+  }
+
+  function renderCurrentPlanBar() {
+    var p = state.plan;
+    var hasInterview = planHasInterview(p);
+    var it = p.majors.filter(function (m) { return m.needsInterview; }).length;
+    document.getElementById('current-plan-bar').innerHTML = '' +
+      '<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5 rounded-2xl border border-edu-border bg-edu-card shadow-sm">' +
+        '<div class="flex items-center gap-4 min-w-0">' +
+          '<div class="w-12 h-12 rounded-xl bg-edu-primary-50 text-edu-primary flex items-center justify-center shrink-0"><i data-lucide="book-open-check" class="w-6 h-6"></i></div>' +
+          '<div class="min-w-0">' +
+            '<div class="flex items-center gap-2 flex-wrap">' +
+              '<p class="font-semibold text-edu-foreground truncate">' + esc(p.name) + '</p>' +
+              '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">' + esc(p.planType) + '</span>' +
+              (p.real ? '' : '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">示例方案</span>') +
+            '</div>' +
+            '<p class="edu-caption text-edu-muted-foreground mt-1">共 ' + p.majors.length + ' 条志愿 · 笔试 ' + state.written.length + ' 题' + (hasInterview ? ' · 面试 ' + it + ' 所' : ' · 无面试环节') + '</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="flex items-center gap-2 shrink-0">' +
+          '<button type="button" onclick="switchPlan()" class="inline-flex items-center gap-1.5 px-4 h-10 rounded-lg border border-edu-border text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors"><i data-lucide="repeat" class="w-4 h-4"></i>切换方案</button>' +
+          '<a href="user-center.html#plans" class="inline-flex items-center gap-1.5 px-4 h-10 rounded-lg border border-edu-border text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors"><i data-lucide="settings-2" class="w-4 h-4"></i>方案管理</a>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function renderHomeTop() {
+    var hasInterview = planHasInterview(state.plan);
+    // 今日推荐：取方案中前 2 道笔试题 + 1 道面试题
+    var recs = [];
+    state.written.slice(0, 2).forEach(function (q) {
+      recs.push({ kind: '笔试题', tag: q.subject, text: q.stem, target: 'written' });
+    });
+    if (hasInterview && state.interview.length) {
+      var iq = state.interview[0];
+      recs.push({ kind: '面试题', tag: iq.topic, text: iq.question, target: 'interview' });
+    }
+    var recHtml = recs.map(function (r) {
+      var isInterview = r.kind === '面试题';
+      return '' +
+        '<button type="button" onclick="gotoSection(\'' + r.target + '\')" class="group text-left block w-full bg-white border ' + (isInterview ? 'border-edu-primary-100' : 'border-edu-border') + ' rounded-xl p-4 hover:shadow-md hover:border-edu-primary transition-all">' +
+          '<div class="flex items-center gap-2 mb-2">' +
+            '<span class="px-2 py-0.5 rounded text-[11px] font-medium ' + (isInterview ? 'bg-edu-primary-50 text-edu-primary-700' : 'bg-edu-muted text-edu-muted-foreground') + '">' + esc(r.kind) + '</span>' +
+            '<span class="text-xs text-edu-muted-foreground">' + esc(r.tag) + '</span>' +
+          '</div>' +
+          '<p class="text-sm text-edu-foreground line-clamp-2 font-medium group-hover:text-edu-primary transition-colors">' + esc(r.text) + '</p>' +
+        '</button>';
+    }).join('');
+
+    document.getElementById('home-top').innerHTML = '' +
+      '<section class="lg:col-span-2">' +
+        '<div class="bg-gradient-to-br from-edu-primary-50 to-white border border-edu-primary-100 rounded-2xl p-5 md:p-6 shadow-sm">' +
+          '<div class="flex items-center justify-between mb-5">' +
+            '<div class="flex items-center gap-2">' +
+              '<div class="w-8 h-8 rounded-lg bg-edu-primary text-white flex items-center justify-center"><i data-lucide="sparkles" class="w-4 h-4"></i></div>' +
+              '<h2 class="edu-h3 text-edu-foreground">今日推荐练习</h2>' +
+            '</div>' +
+            '<span class="text-xs font-medium text-edu-primary bg-white border border-edu-primary-100 px-2.5 py-1 rounded-full">按方案智能生成</span>' +
+          '</div>' +
+          '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">' + recHtml + '</div>' +
+        '</div>' +
+      '</section>' +
+      '<section>' +
+        '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm h-full flex flex-col">' +
+          '<div class="flex items-center justify-between mb-4">' +
+            '<div class="flex items-center gap-2">' +
+              '<div class="w-8 h-8 rounded-lg bg-edu-state-success-bg text-edu-state-success flex items-center justify-center"><i data-lucide="calendar-check" class="w-4 h-4"></i></div>' +
+              '<h2 class="edu-h3 text-edu-foreground">每日打卡</h2>' +
+            '</div>' +
+            '<span class="text-xs font-medium text-edu-state-success bg-edu-state-success-bg px-2.5 py-1 rounded-full">连续 5 天</span>' +
+          '</div>' +
+          '<div class="flex-1">' +
+            '<div class="flex items-center justify-between mb-3"><span class="text-sm font-medium text-edu-foreground">2026 年 3 月</span><span class="text-xs text-edu-muted-foreground">今日已打卡</span></div>' +
+            '<div class="grid grid-cols-7 gap-1 text-center text-xs mb-1">' +
+              '<span class="text-edu-muted-foreground py-1">日</span><span class="text-edu-muted-foreground py-1">一</span><span class="text-edu-muted-foreground py-1">二</span><span class="text-edu-muted-foreground py-1">三</span><span class="text-edu-muted-foreground py-1">四</span><span class="text-edu-muted-foreground py-1">五</span><span class="text-edu-muted-foreground py-1">六</span>' +
+            '</div>' +
+            '<div class="grid grid-cols-7 gap-1 text-center text-xs">' +
+              '<span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>1</span>' +
+              '<span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>2</span>' +
+              '<span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>3</span>' +
+              '<span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>4</span>' +
+              '<span class="py-1.5 rounded-md bg-edu-state-success text-white flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>5</span>' +
+              '<span class="py-1.5 rounded-md bg-edu-primary text-white ring-2 ring-edu-primary-200 flex items-center justify-center gap-0.5"><i data-lucide="check" class="w-3 h-3"></i>6</span>' +
+              '<span class="py-1.5 text-edu-muted-foreground">7</span>' +
+              '<span class="py-1.5 text-edu-muted-foreground">8</span><span class="py-1.5 text-edu-muted-foreground">9</span><span class="py-1.5 text-edu-muted-foreground">10</span><span class="py-1.5 text-edu-muted-foreground">11</span><span class="py-1.5 text-edu-muted-foreground">12</span><span class="py-1.5 text-edu-muted-foreground">13</span><span class="py-1.5 text-edu-muted-foreground">14</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="mt-4 pt-4 border-t border-edu-border"><p class="text-xs text-edu-muted-foreground">连续打卡 7 天可获 <span class="text-edu-primary font-medium">“自律之星”</span> 勋章与 50 积分</p></div>' +
+        '</div>' +
+      '</section>';
+  }
+
+  function gotoSection(target) {
+    var el = document.getElementById(target === 'interview' ? 'interview-area' : 'written-area');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /* ---- 整体练习进度 ---- */
+  function renderProgress() {
+    var prog = getProg(state.plan.id);
+    var wTotal = state.written.length;
+    var wDone = Math.min(prog.done, wTotal);
+    var wRate = wDone ? Math.round(prog.correct / wDone * 100) : 0;
+    var wPct = wTotal ? Math.round(wDone / wTotal * 100) : 0;
+
+    var hasInterview = planHasInterview(state.plan);
+    var iTargets = state.plan.majors.filter(function (m) { return m.needsInterview; }).length;
+    var iDone = prog.sessions || 0;
+    var iAvg = (prog.scores && prog.scores.length) ? Math.round(prog.scores.reduce(function (a, b) { return a + b; }, 0) / prog.scores.length) : 0;
+    var iPct = iTargets ? Math.min(100, Math.round(iDone / iTargets * 100)) : 0;
+
+    var overall = wTotal + (hasInterview ? iTargets * 2 : 0);
+    var overallDone = wDone + (hasInterview ? iDone * 2 : 0);
+    var overallPct = overall ? Math.round(overallDone / overall * 100) : 0;
+
+    var ringOffset = 100 - overallPct;
+
+    var html = '' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex items-center justify-between mb-6">' +
+          '<div class="flex items-center gap-2">' +
+            '<div class="w-8 h-8 rounded-lg bg-edu-primary-50 text-edu-primary flex items-center justify-center"><i data-lucide="bar-chart-3" class="w-4 h-4"></i></div>' +
+            '<h2 class="edu-h3 text-edu-foreground">整体练习进度</h2>' +
+          '</div>' +
+          '<span class="text-xs text-edu-muted-foreground">含笔试与面试</span>' +
+        '</div>' +
+        '<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">' +
+          '<div class="flex items-center justify-center bg-edu-muted rounded-xl p-6">' +
+            '<div class="relative w-32 h-32">' +
+              '<svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">' +
+                '<path class="text-edu-primary-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>' +
+                '<path stroke-dasharray="' + overallPct + ', 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--edu-primary)" stroke-width="3" stroke-linecap="round"></path>' +
+              '</svg>' +
+              '<div class="absolute inset-0 flex flex-col items-center justify-center">' +
+                '<span class="text-2xl font-semibold text-edu-foreground edu-number">' + overallPct + '%</span>' +
+                '<span class="text-[11px] text-edu-muted-foreground mt-0.5">综合进度</span>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="bg-edu-muted rounded-xl p-5 flex flex-col">' +
+            '<div class="flex items-center justify-between mb-3">' +
+              '<div class="flex items-center gap-2"><i data-lucide="pencil" class="w-4 h-4 text-edu-primary"></i><p class="font-semibold text-edu-foreground">笔试练习</p></div>' +
+              '<span class="edu-caption text-edu-muted-foreground edu-number">' + wDone + ' / ' + wTotal + ' 题</span>' +
+            '</div>' +
+            '<div class="h-2.5 rounded-full bg-edu-border overflow-hidden mb-3"><div class="h-full rounded-full bg-edu-primary transition-all" style="width:' + wPct + '%"></div></div>' +
+            '<div class="mt-auto grid grid-cols-2 gap-3">' +
+              '<div><p class="text-xs text-edu-muted-foreground">正确率</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + wRate + '%</p></div>' +
+              '<div><p class="text-xs text-edu-muted-foreground">错题</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + (prog.wrong ? prog.wrong.length : 0) + '</p></div>' +
+            '</div>' +
+          '</div>' +
+          (hasInterview
+            ? '<div class="bg-edu-muted rounded-xl p-5 flex flex-col">' +
+                '<div class="flex items-center justify-between mb-3">' +
+                  '<div class="flex items-center gap-2"><i data-lucide="video" class="w-4 h-4 text-edu-state-warning"></i><p class="font-semibold text-edu-foreground">面试练习</p></div>' +
+                  '<span class="edu-caption text-edu-muted-foreground edu-number">' + iDone + ' / ' + iTargets + ' 场</span>' +
+                '</div>' +
+                '<div class="h-2.5 rounded-full bg-edu-border overflow-hidden mb-3"><div class="h-full rounded-full bg-edu-state-warning transition-all" style="width:' + iPct + '%"></div></div>' +
+                '<div class="mt-auto grid grid-cols-2 gap-3">' +
+                  '<div><p class="text-xs text-edu-muted-foreground">平均分</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + (iAvg || '--') + '</p></div>' +
+                  '<div><p class="text-xs text-edu-muted-foreground">已完成</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + iDone + '</p></div>' +
+                '</div>' +
+              '</div>'
+            : '<div class="bg-edu-muted rounded-xl p-5 flex flex-col items-center justify-center text-center">' +
+                '<div class="w-10 h-10 rounded-full bg-edu-state-info-bg text-edu-state-info flex items-center justify-center mb-2"><i data-lucide="info" class="w-5 h-5"></i></div>' +
+                '<p class="text-sm font-medium text-edu-foreground">本方案无面试环节</p>' +
+                '<p class="edu-caption text-edu-muted-foreground mt-1">方案内院校校测均为笔试，无需准备面试。</p>' +
+              '</div>') +
+        '</div>' +
+      '</div>';
+
+    document.getElementById('overall-progress').innerHTML = html;
+  }
+
+  /* ---- 笔试练习区域 ---- */
+  function filteredWritten() {
+    var f = state.filter;
+    return state.written.filter(function (q) {
+      if (f.type !== 'all' && q.type !== f.type) return false;
+      if (f.school !== 'all' && q.school !== f.school) return false;
+      if (f.subject !== 'all' && q.subject !== f.subject) return false;
+      if (f.difficulty !== 'all' && q.difficulty !== f.difficulty) return false;
+      return true;
+    });
+  }
+
+  function uniqueValues(key) {
+    var seen = {}, arr = [];
+    state.written.forEach(function (q) { if (!seen[q[key]]) { seen[q[key]] = 1; arr.push(q[key]); } });
+    return arr;
+  }
+
+  function selectHtml(name, value, options, label) {
+    var opts = '<option value="all">' + label + '</option>' + options.map(function (o) {
+      return '<option value="' + esc(o.v) + '"' + (o.v === value ? ' selected' : '') + '>' + esc(o.t) + '</option>';
+    }).join('');
+    return '<select data-filter="' + name + '" class="w-full h-10 pl-3 pr-8 rounded-lg border border-edu-border bg-edu-background text-sm text-edu-foreground focus:outline-none focus:ring-2 focus:ring-edu-primary/30 appearance-none cursor-pointer">' + opts + '</select>';
+  }
+
+  function renderWritten() {
+    var prog = getProg(state.plan.id);
+    var f = state.filter;
+    var typeOpts = [{ v: 'single', t: '单选题' }, { v: 'multi', t: '多选题' }];
+    var schoolOpts = uniqueValues('school').map(function (s) { return { v: s, t: s }; });
+    var subjectOpts = uniqueValues('subject').map(function (s) { return { v: s, t: s }; });
+    var diffOpts = ['易', '中', '难'].filter(function (d) { return uniqueValues('difficulty').indexOf(d) >= 0; }).map(function (d) { return { v: d, t: d }; });
+
+    var html = '' +
+      '<div class="flex items-center gap-2 mb-4">' +
+        '<i data-lucide="pencil" class="w-5 h-5 text-edu-primary"></i>' +
+        '<h2 class="edu-h2 text-edu-foreground">笔试练习</h2>' +
+        '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">依据方案院校专业出题</span>' +
+      '</div>' +
+      '<div class="bg-edu-card border border-edu-border rounded-xl p-4 md:p-5 shadow-sm mb-6">' +
+        '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">' +
+          '<div><label class="edu-caption text-edu-muted-foreground">题型</label><div class="mt-1">' + selectHtml('type', f.type, typeOpts, '全部题型') + '</div></div>' +
+          '<div><label class="edu-caption text-edu-muted-foreground">院校</label><div class="mt-1">' + selectHtml('school', f.school, schoolOpts, '全部院校') + '</div></div>' +
+          '<div><label class="edu-caption text-edu-muted-foreground">科目</label><div class="mt-1">' + selectHtml('subject', f.subject, subjectOpts, '全部科目') + '</div></div>' +
+          '<div><label class="edu-caption text-edu-muted-foreground">难度</label><div class="mt-1">' + selectHtml('difficulty', f.difficulty, diffOpts, '全部难度') + '</div></div>' +
+        '</div>' +
+      '</div>' +
+      '<div id="written-question-box"></div>';
+
+    document.getElementById('written-area').innerHTML = html;
+
+    document.querySelectorAll('#written-area select[data-filter]').forEach(function (sel) {
+      sel.addEventListener('change', function () {
+        state.filter[this.dataset.filter] = this.value;
+        state.wIndex = 0; state.selected = []; state.submitted = false;
+        renderWritten();
+        refreshIcons();
+      });
+    });
+
+    renderQuestionBox();
+  }
+
+  function renderQuestionBox() {
+    var box = document.getElementById('written-question-box');
+    if (!box) return;
+    var list = filteredWritten();
+    if (!list.length) {
+      box.innerHTML = '<div class="bg-edu-card border border-edu-border rounded-xl p-10 text-center"><div class="w-12 h-12 mx-auto rounded-full bg-edu-muted flex items-center justify-center mb-3"><i data-lucide="search-x" class="w-6 h-6 text-edu-muted-foreground"></i></div><p class="text-sm text-edu-muted-foreground">当前筛选条件下暂无题目，请调整筛选条件。</p></div>';
+      refreshIcons();
+      return;
+    }
+    if (state.wIndex >= list.length) state.wIndex = 0;
+    var q = list[state.wIndex];
+    var prog = getProg(state.plan.id);
+    var fav = (prog.fav || []).indexOf(q.id) >= 0;
+    var isMulti = q.type === 'multi';
+    var typeLabel = isMulti ? '多选题' : '单选题';
+    var diffLabel = q.difficulty === '易' ? '简单' : (q.difficulty === '难' ? '困难' : '中等');
+
+    var optionsHtml = q.options.map(function (o) {
+      var checked = state.selected.indexOf(o.k) >= 0;
+      var stateCls = 'border-edu-border bg-edu-background hover:border-edu-primary/40';
+      if (state.submitted) {
+        if (q.answer.indexOf(o.k) >= 0) stateCls = 'border-edu-state-success bg-edu-state-success-bg';
+        else if (checked) stateCls = 'border-edu-state-error bg-edu-state-error-bg';
+      } else if (checked) {
+        stateCls = 'border-edu-primary bg-edu-primary-50';
+      }
+      return '' +
+        '<label class="group flex items-start gap-4 p-4 rounded-xl border ' + stateCls + ' transition-colors ' + (state.submitted ? '' : 'cursor-pointer') + '">' +
+          '<span class="mt-0.5 w-6 h-6 ' + (isMulti ? 'rounded-md' : 'rounded-full') + ' border-2 border-edu-border bg-edu-card flex items-center justify-center text-xs font-semibold text-edu-muted-foreground shrink-0">' + o.k + '</span>' +
+          '<input type="' + (isMulti ? 'checkbox' : 'radio') + '" name="qopt" value="' + o.k + '" class="sr-only" ' + (checked ? 'checked' : '') + ' ' + (state.submitted ? 'disabled' : '') + '>' +
+          '<span class="flex-1 edu-body text-edu-foreground">' + esc(o.t) + '</span>' +
+          (state.submitted && q.answer.indexOf(o.k) >= 0 ? '<i data-lucide="check" class="w-5 h-5 text-edu-state-success shrink-0"></i>' : '') +
+        '</label>';
+    }).join('');
+
+    var correct = state.selected.slice().sort().join(',') === q.answer.slice().sort().join(',');
+    var feedbackHtml = '';
+    if (state.submitted) {
+      feedbackHtml = '' +
+        '<div class="mt-6 rounded-xl border p-5 ' + (correct ? 'border-edu-state-success bg-edu-state-success-bg' : 'border-edu-state-error bg-edu-state-error-bg') + '">' +
+          '<div class="flex items-start gap-3 mb-3">' +
+            '<div class="w-6 h-6 rounded-full ' + (correct ? 'bg-edu-state-success' : 'bg-edu-state-error') + ' text-white flex items-center justify-center shrink-0">' +
+              '<i data-lucide="' + (correct ? 'check' : 'x') + '" class="w-4 h-4"></i>' +
+            '</div>' +
+            '<div>' +
+              '<p class="font-semibold text-edu-foreground">' + (correct ? '回答正确' : '回答错误') + '</p>' +
+              '<p class="edu-body-sm text-edu-muted-foreground mt-0.5">正确答案：<span class="font-medium text-edu-state-success">' + q.answer.join('、') + '</span>　你的作答：<span class="font-medium ' + (correct ? 'text-edu-state-success' : 'text-edu-state-error') + '">' + (state.selected.length ? state.selected.join('、') : '未作答') + '</span></p>' +
+            '</div>' +
+          '</div>' +
+          '<div class="pl-9 space-y-3">' +
+            '<div><p class="text-sm font-semibold text-edu-foreground mb-1">详细解析</p><p class="edu-body-sm text-edu-muted-foreground leading-relaxed">' + esc(q.analysis) + '</p></div>' +
+            '<div><p class="text-sm font-semibold text-edu-foreground mb-1">解题思路</p><p class="edu-body-sm text-edu-muted-foreground leading-relaxed">' + esc(q.tips) + '</p></div>' +
+          '</div>' +
+        '</div>';
+    }
+
+    var submitBtn = state.submitted
+      ? '<button type="button" onclick="resetQuestion()" class="px-6 h-11 rounded-lg border border-edu-border bg-edu-card text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors">重做本题</button>'
+      : '<button type="button" onclick="submitAnswer()" class="px-6 h-11 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors">提交答案</button>';
+
+    box.innerHTML = '' +
+      '<div class="bg-edu-card border border-edu-border rounded-xl p-6 md:p-8 shadow-sm">' +
+        '<div class="flex flex-wrap items-center gap-3 mb-5">' +
+          '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-primary-50 text-edu-primary-700 text-xs font-medium"><i data-lucide="book-open" class="w-3.5 h-3.5"></i>' + esc(q.subject) + '</span>' +
+          '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium"><i data-lucide="layers" class="w-3.5 h-3.5"></i>' + typeLabel + '</span>' +
+          '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium"><i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>' + diffLabel + '</span>' +
+          '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-state-info-bg text-edu-state-info text-xs font-medium"><i data-lucide="school" class="w-3.5 h-3.5"></i>' + esc(q.school) + '</span>' +
+          (q.major ? '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium">' + esc(q.major) + '</span>' : '') +
+          '<button type="button" onclick="toggleFav()" class="ml-auto inline-flex items-center gap-1 text-xs font-medium ' + (fav ? 'text-edu-state-warning' : 'text-edu-muted-foreground hover:text-edu-primary') + ' transition-colors"><i data-lucide="star" class="w-4 h-4" ' + (fav ? 'fill="currentColor"' : '') + '></i>' + (fav ? '已收藏' : '收藏') + '</button>' +
+          '<span class="edu-caption text-edu-muted-foreground">第 <span class="edu-number text-edu-foreground font-medium">' + (state.wIndex + 1) + '</span> 题 / 共 <span class="edu-number text-edu-foreground font-medium">' + list.length + '</span> 题</span>' +
+        '</div>' +
+        '<h3 class="edu-h3 text-edu-foreground mb-3">【' + typeLabel + '】' + esc(q.stem) + '</h3>' +
+        (isMulti ? '<p class="edu-caption text-edu-muted-foreground mb-3">多选题：请选出所有正确选项。</p>' : '') +
+        '<div class="space-y-3 mb-6">' + optionsHtml + '</div>' +
+        '<div class="flex items-center gap-3 mb-6">' + submitBtn +
+          (!state.submitted ? '<span class="edu-caption text-edu-muted-foreground">作答后点击提交查看解析</span>' : '') +
+        '</div>' +
+        feedbackHtml +
+        '<div class="mt-6 flex flex-wrap gap-2">' +
+          '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium"><i data-lucide="tag" class="w-3.5 h-3.5"></i>来源：' + esc(q.school) + ' · ' + esc(q.major || '校测') + ' 题库</span>' +
+          '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium"><i data-lucide="calendar" class="w-3.5 h-3.5"></i>入库时间：2026-01-15</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="mt-6 bg-edu-card border border-edu-border rounded-xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex flex-col md:flex-row md:items-center gap-5">' +
+          '<div class="flex-1">' +
+            '<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-edu-foreground">本方案笔试进度</span><span class="text-sm text-edu-muted-foreground"><span class="edu-number font-semibold text-edu-primary">' + Math.min(prog.done, state.written.length) + '</span> / <span class="edu-number">' + state.written.length + '</span> 题</span></div>' +
+            '<div class="h-2.5 w-full rounded-full bg-edu-muted overflow-hidden"><div class="h-full rounded-full bg-edu-primary" style="width:' + (state.written.length ? Math.min(100, Math.round(Math.min(prog.done, state.written.length) / state.written.length * 100)) : 0) + '%"></div></div>' +
+          '</div>' +
+          '<div class="flex items-center gap-3">' +
+            '<button type="button" onclick="prevQuestion()" class="px-5 h-11 rounded-lg border border-edu-border bg-edu-card text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors inline-flex items-center gap-1.5"><i data-lucide="arrow-left" class="w-4 h-4"></i>上一题</button>' +
+            '<button type="button" onclick="nextQuestion()" class="px-5 h-11 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors inline-flex items-center gap-1.5">下一题<i data-lucide="arrow-right" class="w-4 h-4"></i></button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    box.querySelectorAll('input[name="qopt"]').forEach(function (input) {
+      input.addEventListener('change', function () {
+        var v = this.value;
+        if (isMulti) {
+          var idx = state.selected.indexOf(v);
+          if (idx >= 0) state.selected.splice(idx, 1); else state.selected.push(v);
+        } else {
+          state.selected = [v];
+        }
+        // 单选即时高亮，多选也即时高亮
+        renderQuestionBox();
+        refreshIcons();
+      });
+    });
+    refreshIcons();
+  }
+
+  function submitAnswer() {
+    if (!state.selected.length) { alert('请先选择答案'); return; }
+    state.submitted = true;
+    var list = filteredWritten();
+    var q = list[state.wIndex];
+    var correct = state.selected.slice().sort().join(',') === q.answer.slice().sort().join(',');
+    var prog = getProg(state.plan.id);
+    prog.done = (prog.done || 0) + 1;
+    if (correct) prog.correct = (prog.correct || 0) + 1;
+    prog.wrong = prog.wrong || [];
+    if (!correct && prog.wrong.indexOf(q.id) < 0) prog.wrong.push(q.id);
+    setProg(state.plan.id, prog);
+    renderQuestionBox();
+    renderProgress();
+    renderWrongArea();
+  }
+
+  function resetQuestion() {
+    state.submitted = false;
+    state.selected = [];
+    renderQuestionBox();
+  }
+
+  function goToIndex(i) {
+    state.wIndex = i;
+    state.selected = [];
+    state.submitted = false;
+    renderQuestionBox();
+  }
+  function prevQuestion() {
+    var list = filteredWritten();
+    goToIndex((state.wIndex - 1 + list.length) % list.length);
+  }
+  function nextQuestion() {
+    var list = filteredWritten();
+    goToIndex((state.wIndex + 1) % list.length);
+  }
+
+  function toggleFav() {
+    var list = filteredWritten();
+    var q = list[state.wIndex];
+    var prog = getProg(state.plan.id);
+    prog.fav = prog.fav || [];
+    var idx = prog.fav.indexOf(q.id);
+    if (idx >= 0) prog.fav.splice(idx, 1); else prog.fav.push(q.id);
+    setProg(state.plan.id, prog);
+    renderQuestionBox();
+    renderFavArea();
+  }
+
+  /* ---- 错题本 / 收藏 ---- */
+  function renderWrongArea() {
+    var prog = getProg(state.plan.id);
+    var ids = prog.wrong || [];
+    var items = ids.map(function (id) { return state.written.filter(function (q) { return q.id === id; })[0]; }).filter(Boolean);
+    var body;
+    if (!items.length) {
+      body = '<div class="p-8 text-center"><div class="w-12 h-12 mx-auto rounded-full bg-edu-muted flex items-center justify-center mb-3"><i data-lucide="check-circle-2" class="w-6 h-6 text-edu-state-success"></i></div><p class="text-sm text-edu-muted-foreground">暂无错题，继续保持！答错的题目会自动收录到这里。</p></div>';
+    } else {
+      body = '<div class="space-y-3">' + items.map(function (q) {
+        return '' +
+          '<div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary/40 transition-colors">' +
+            '<div class="flex-1 min-w-0">' +
+              '<div class="flex items-center gap-2 mb-1">' +
+                '<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-error-bg text-edu-state-error">' + esc(q.subject) + '</span>' +
+                '<span class="text-xs text-edu-muted-foreground">' + (q.type === 'multi' ? '多选题' : '单选题') + ' · ' + esc(q.difficulty) + ' · ' + esc(q.school) + '</span>' +
+              '</div>' +
+              '<p class="text-sm text-edu-foreground font-medium line-clamp-2">' + esc(q.stem) + '</p>' +
+            '</div>' +
+            '<div class="flex items-center gap-2 shrink-0">' +
+              '<button type="button" onclick="practiceWrong(\'' + esc(q.id) + '\')" class="px-3 h-8 rounded-lg border border-edu-border bg-white text-xs font-medium text-edu-foreground hover:bg-edu-muted transition-colors">重新练习</button>' +
+              '<button type="button" onclick="showWrongAnalysis(\'' + esc(q.id) + '\')" class="px-3 h-8 rounded-lg bg-edu-primary text-white text-xs font-medium hover:bg-[#0f766e] transition-colors">查看解析</button>' +
+            '</div>' +
+          '</div>';
+      }).join('') + '</div>';
+    }
+    document.getElementById('wrong-area').innerHTML = '' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex items-center justify-between mb-6">' +
+          '<div class="flex items-center gap-2">' +
+            '<div class="w-8 h-8 rounded-lg bg-edu-state-error-bg text-edu-state-error flex items-center justify-center"><i data-lucide="book-x" class="w-4 h-4"></i></div>' +
+            '<h2 class="edu-h3 text-edu-foreground">错题本</h2>' +
+            '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 ' + items.length + ' 道</span>' +
+          '</div>' +
+        '</div>' + body +
+      '</div>';
+    refreshIcons();
+  }
+
+  function practiceWrong(id) {
+    state.filter = { type: 'all', school: 'all', subject: 'all', difficulty: 'all' };
+    var list = filteredWritten();
+    var idx = list.map(function (q) { return q.id; }).indexOf(id);
+    state.wIndex = idx >= 0 ? idx : 0;
+    state.selected = []; state.submitted = false;
+    renderWritten();
+    gotoSection('written');
+  }
+  function showWrongAnalysis(id) {
+    var q = state.written.filter(function (x) { return x.id === id; })[0];
+    if (!q) return;
+    alert('【' + (q.type === 'multi' ? '多选题' : '单选题') + '】' + q.stem + '\n\n正确答案：' + q.answer.join('、') + '\n\n解析：' + q.analysis + '\n\n思路：' + q.tips);
+  }
+
+  function renderFavArea() {
+    var prog = getProg(state.plan.id);
+    var ids = prog.fav || [];
+    var items = ids.map(function (id) { return state.written.filter(function (q) { return q.id === id; })[0]; }).filter(Boolean);
+    var body;
+    if (!items.length) {
+      body = '<div class="p-8 text-center"><div class="w-12 h-12 mx-auto rounded-full bg-edu-muted flex items-center justify-center mb-3"><i data-lucide="star" class="w-6 h-6 text-edu-muted-foreground"></i></div><p class="text-sm text-edu-muted-foreground">还没有收藏的题目，点击题卡右上角「收藏」即可加入。</p></div>';
+    } else {
+      body = '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">' + items.map(function (q) {
+        return '' +
+          '<div class="p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-state-warning transition-colors">' +
+            '<div class="flex items-center gap-2 mb-2">' +
+              '<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-warning-bg text-edu-state-warning">' + (q.type === 'multi' ? '多选题' : '单选题') + '</span>' +
+              '<span class="text-xs text-edu-muted-foreground">' + esc(q.subject) + ' · ' + esc(q.school) + '</span>' +
+            '</div>' +
+            '<p class="text-sm text-edu-foreground font-medium line-clamp-2">' + esc(q.stem) + '</p>' +
+          '</div>';
+      }).join('') + '</div>';
+    }
+    document.getElementById('fav-area').innerHTML = '' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex items-center gap-2 mb-6">' +
+          '<div class="w-8 h-8 rounded-lg bg-edu-state-warning-bg text-edu-state-warning flex items-center justify-center"><i data-lucide="star" class="w-4 h-4"></i></div>' +
+          '<h2 class="edu-h3 text-edu-foreground">题目收藏</h2>' +
+          '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 ' + items.length + ' 道</span>' +
+        '</div>' + body +
+      '</div>';
+    refreshIcons();
+  }
+
+  /* ---- 智能推荐 ---- */
+  function renderSmartArea() {
+    var recs = state.written.slice(0, 5);
+    var hasInterview = planHasInterview(state.plan);
+    var cards = recs.map(function (q) {
+      return '' +
+        '<button type="button" onclick="practiceWrong(\'' + esc(q.id) + '\')" class="group text-left block p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary hover:shadow-sm transition-all">' +
+          '<div class="flex items-center justify-between mb-2">' +
+            '<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">' + esc(q.subject) + '</span>' +
+            '<i data-lucide="arrow-right" class="w-4 h-4 text-edu-muted-foreground group-hover:text-edu-primary transition-colors"></i>' +
+          '</div>' +
+          '<p class="text-sm text-edu-foreground font-medium line-clamp-2">' + esc(q.stem) + '</p>' +
+        '</button>';
+    }).join('');
+    document.getElementById('smart-area').innerHTML = '' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex items-center gap-2 mb-5">' +
+          '<div class="w-8 h-8 rounded-lg bg-edu-primary-50 text-edu-primary flex items-center justify-center"><i data-lucide="lightbulb" class="w-4 h-4"></i></div>' +
+          '<h2 class="edu-h3 text-edu-foreground">智能推荐</h2>' +
+          '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">基于错题本与练习记录</span>' +
+        '</div>' +
+        '<p class="text-sm text-edu-muted-foreground mb-4">系统根据你方案中的院校专业与错题分布，为你推荐以下同类强化题目' + (hasInterview ? '，面试薄弱项可前往面试练习区专项训练。' : '。') + '</p>' +
+        '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">' + cards + '</div>' +
+      '</div>';
+    refreshIcons();
+  }
+
+  /* =======================================================================
+     面试练习区域
+     ======================================================================= */
+  function renderInterviewArea() {
+    var plan = state.plan;
+    var area = document.getElementById('interview-area');
+    var targets = plan.majors.filter(function (m) { return m.needsInterview; });
+    if (!targets.length) {
+      /* 需求 3：方案仅含笔试时，不展示面试部分 */
+      area.innerHTML = '';
+      area.classList.add('hidden');
+      return;
+    }
+    area.classList.remove('hidden');
+
+    var targetHtml = targets.map(function (m) {
+      var key = m.school + '|' + m.major;
+      var active = state.interviewTarget === key;
+      return '' +
+        '<label class="relative cursor-pointer block">' +
+          '<input type="radio" name="interview-target" value="' + esc(key) + '" class="peer sr-only" ' + (active ? 'checked' : '') + '>' +
+          '<div class="p-4 rounded-lg border ' + (active ? 'border-edu-primary bg-edu-primary-50' : 'border-edu-border bg-edu-card') + ' shadow-sm transition-all peer-checked:border-edu-primary peer-checked:bg-edu-primary-50 hover:border-edu-primary">' +
+            '<div class="flex items-center justify-between gap-3">' +
+              '<div class="flex items-center gap-3">' +
+                '<div class="w-10 h-10 rounded-lg bg-edu-primary-100 text-edu-primary flex items-center justify-center"><i data-lucide="school" class="w-5 h-5"></i></div>' +
+                '<div>' +
+                  '<p class="font-semibold text-edu-foreground">' + esc(m.school) + '</p>' +
+                  '<p class="text-sm text-edu-muted-foreground">' + esc(m.major || '不限专业') + '</p>' +
+                '</div>' +
+              '</div>' +
+              '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-edu-state-warning-bg text-edu-state-warning">含面试</span>' +
+            '</div>' +
+            '<p class="text-xs text-edu-muted-foreground mt-2">' + esc(m.testForm) + '</p>' +
+          '</div>' +
+          '<div class="absolute top-3 right-3 w-5 h-5 rounded-full border border-edu-border bg-edu-card flex items-center justify-center peer-checked:border-edu-primary peer-checked:bg-edu-primary peer-checked:text-primary-foreground">' +
+            '<i data-lucide="check" class="w-3 h-3 opacity-0 peer-checked:opacity-100"></i>' +
+          '</div>' +
+        '</label>';
+    }).join('');
+
+    var courseHtml = VIDEO_COURSES.map(function (c, i) {
+      return '' +
+        '<button type="button" onclick="openVideoModal(' + i + ')" class="group text-left block bg-edu-card border border-edu-border rounded-xl overflow-hidden hover:shadow-md hover:border-edu-primary transition-all">' +
+          '<div class="relative aspect-video overflow-hidden bg-edu-muted">' +
+            '<img src="' + c.cover + '" alt="' + esc(c.title) + '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">' +
+            '<div class="absolute inset-0 bg-slate-900/25 group-hover:bg-slate-900/10 transition-colors"></div>' +
+            '<div class="absolute inset-0 flex items-center justify-center">' +
+              '<span class="w-12 h-12 rounded-full bg-white/90 text-edu-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform"><i data-lucide="play" class="w-5 h-5" style="fill:currentColor"></i></span>' +
+            '</div>' +
+            '<span class="absolute right-2 bottom-2 px-2 py-0.5 rounded bg-black/60 text-white text-[11px] edu-number">' + c.duration + '</span>' +
+          '</div>' +
+          '<div class="p-4">' +
+            '<p class="font-medium text-edu-foreground group-hover:text-edu-primary transition-colors">' + esc(c.title) + '</p>' +
+            '<p class="edu-caption text-edu-muted-foreground mt-1 line-clamp-2">' + esc(c.desc) + '</p>' +
+          '</div>' +
+        '</button>';
+    }).join('');
+
+    var historyRows = '' +
+      '<tr class="hover:bg-edu-muted/50"><td class="px-4 py-3.5 text-edu-muted-foreground">2026-08-14 19:32</td><td class="px-4 py-3.5 text-edu-foreground font-medium">浙江工业大学</td><td class="px-4 py-3.5 text-edu-muted-foreground">视频模式</td><td class="px-4 py-3.5"><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-edu-state-success-bg text-edu-state-success">82 / 100</span></td><td class="px-4 py-3.5 text-right"><a href="interview-report.html" class="inline-flex items-center gap-1 text-sm text-edu-primary hover:underline">回看报告<i data-lucide="external-link" class="w-3.5 h-3.5"></i></a></td></tr>' +
+      '<tr class="hover:bg-edu-muted/50"><td class="px-4 py-3.5 text-edu-muted-foreground">2026-08-12 20:15</td><td class="px-4 py-3.5 text-edu-foreground font-medium">浙江师范大学</td><td class="px-4 py-3.5 text-edu-muted-foreground">视频模式</td><td class="px-4 py-3.5"><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-edu-state-warning-bg text-edu-state-warning">76 / 100</span></td><td class="px-4 py-3.5 text-right"><a href="interview-report.html" class="inline-flex items-center gap-1 text-sm text-edu-primary hover:underline">回看报告<i data-lucide="external-link" class="w-3.5 h-3.5"></i></a></td></tr>';
+
+    area.innerHTML = '' +
+      '<div class="flex items-center gap-2 mb-4">' +
+        '<i data-lucide="video" class="w-5 h-5 text-edu-primary"></i>' +
+        '<h2 class="edu-h2 text-edu-foreground">面试练习</h2>' +
+        '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">数字人面对面视频面试</span>' +
+      '</div>' +
+      '<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">' +
+        '<div class="lg:col-span-2 bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
+          '<div class="flex items-center justify-between mb-4"><h3 class="edu-h3 text-edu-foreground">选择面试院校专业</h3><span class="edu-caption text-edu-muted-foreground">来自方案中含面试的院校</span></div>' +
+          '<div id="interview-target-list" class="space-y-3">' + targetHtml + '</div>' +
+        '</div>' +
+        '<div class="bg-gradient-to-br from-slate-900 to-teal-900 text-white rounded-2xl p-5 md:p-6 shadow-sm flex flex-col">' +
+          '<div class="flex items-center gap-2 mb-3">' +
+            '<div class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center"><i data-lucide="bot" class="w-5 h-5"></i></div>' +
+            '<div><p class="font-semibold">AI 数字人面试间</p><p class="text-xs text-white/70">面对面视频沟通</p></div>' +
+          '</div>' +
+          '<ul class="text-sm text-white/80 space-y-2 mb-5">' +
+            '<li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-300"></i>数字人考官实时提问与追问</li>' +
+            '<li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-300"></i>开启摄像头，模拟真实面试场景</li>' +
+            '<li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-300"></i>结束后生成五维评估报告</li>' +
+          '</ul>' +
+          '<div class="mt-auto">' +
+            '<button type="button" onclick="openInterviewRoom()" class="w-full inline-flex items-center justify-center gap-2 px-5 h-12 rounded-xl bg-teal-400 text-slate-900 font-semibold hover:bg-teal-300 transition-colors">' +
+              '<i data-lucide="video" class="w-5 h-5"></i>开始 AI 面试' +
+            '</button>' +
+            '<p class="text-[11px] text-white/60 text-center mt-2">免费用户可体验 1 次，VIP 不限次数</p>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="mb-6">' +
+        '<div class="flex items-center justify-between mb-4"><div class="flex items-center gap-2"><i data-lucide="graduation-cap" class="w-5 h-5 text-edu-primary"></i><h3 class="edu-h3 text-edu-foreground">面试基础视频课程</h3></div><a href="vip-pricing.html" class="text-sm text-edu-primary hover:underline">解锁全部课程</a></div>' +
+        '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">' + courseHtml + '</div>' +
+      '</div>' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex items-center gap-2 mb-4"><i data-lucide="history" class="w-5 h-5 text-edu-primary"></i><h3 class="edu-h3 text-edu-foreground">面试练习历史</h3></div>' +
+        '<div class="overflow-x-auto"><table class="w-full text-sm">' +
+          '<thead class="bg-edu-muted"><tr>' +
+            '<th class="text-left px-4 py-3 font-medium text-edu-foreground">时间</th>' +
+            '<th class="text-left px-4 py-3 font-medium text-edu-foreground">院校</th>' +
+            '<th class="text-left px-4 py-3 font-medium text-edu-foreground">模式</th>' +
+            '<th class="text-left px-4 py-3 font-medium text-edu-foreground">总分</th>' +
+            '<th class="text-right px-4 py-3 font-medium text-edu-foreground">操作</th>' +
+          '</tr></thead>' +
+          '<tbody class="divide-y divide-edu-border">' + historyRows + '</tbody>' +
+        '</table></div>' +
+      '</div>';
+
+    area.querySelectorAll('input[name="interview-target"]').forEach(function (input) {
+      input.addEventListener('change', function () { state.interviewTarget = this.value; });
+    });
+    refreshIcons();
+  }
+
+  /* =======================================================================
+     视频课程弹层
+     ======================================================================= */
+  function openVideoModal(i) {
+    var c = VIDEO_COURSES[i];
+    if (!c) return;
+    document.getElementById('video-modal-title').textContent = c.title;
+    document.getElementById('video-modal-desc').textContent = c.desc;
+    var v = document.getElementById('video-player');
+    v.poster = c.cover;
+    document.getElementById('video-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    try { v.currentTime = 0; v.play(); } catch (e) {}
+    refreshIcons();
+  }
+  function closeVideoModal() {
+    var v = document.getElementById('video-player');
+    try { v.pause(); } catch (e) {}
+    document.getElementById('video-modal').classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  /* =======================================================================
+     数字人 AI 面试间
+     ======================================================================= */
+  function openInterviewRoom() {
+    var key = state.interviewTarget;
+    var qs = state.interview.filter(function (q) {
+      return key ? (q.school + '|' + q.major) === key : true;
+    });
+    if (!qs.length) qs = state.interview.slice();
+    if (!qs.length) { alert('当前方案暂无可练习的面试题。'); return; }
+    state.room.questions = qs;
+    state.room.index = 0;
+    state.room.seconds = 0;
+    document.getElementById('room-target').textContent = key ? key.replace('|', ' · ') : 'AI 数字人面试间';
+    document.getElementById('room-answer').value = '';
+    document.getElementById('room-timer').textContent = '00:00';
+    updateRoomQuestion();
+    document.getElementById('interview-room').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    startTimer();
+    startCamera();
+    refreshIcons();
+  }
+
+  function startTimer() {
+    stopTimer();
+    state.room.timer = setInterval(function () {
+      state.room.seconds++;
+      var m = String(Math.floor(state.room.seconds / 60)).padStart(2, '0');
+      var s = String(state.room.seconds % 60).padStart(2, '0');
+      document.getElementById('room-timer').textContent = m + ':' + s;
+    }, 1000);
+  }
+  function stopTimer() { if (state.room.timer) { clearInterval(state.room.timer); state.room.timer = null; } }
+
+  function updateRoomQuestion() {
+    var q = state.room.questions[state.room.index];
+    if (!q) return;
+    document.getElementById('room-q-topic').textContent = q.topic + ' · ' + q.school;
+    document.getElementById('room-q-text').textContent = q.question;
+    document.getElementById('room-progress').textContent = (state.room.index + 1) + ' / ' + state.room.questions.length;
+  }
+
+  function roomNext() {
+    if (state.room.index < state.room.questions.length - 1) {
+      state.room.index++;
+      document.getElementById('room-answer').value = '';
+      document.getElementById('room-q-text').textContent = '好的，我们进入下一个问题。';
+      setTimeout(updateRoomQuestion, 500);
+    } else {
+      endInterview();
+    }
+  }
+
+  function startCamera() {
+    var v = document.getElementById('self-video');
+    var ph = document.getElementById('self-placeholder');
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      ph.classList.remove('hidden');
+      ph.innerHTML = '<p class="text-xs text-slate-400 px-4 text-center">当前浏览器不支持摄像头，可用文字方式作答。</p>';
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
+      .then(function (stream) {
+        window.__selfStream = stream;
+        v.srcObject = stream;
+        try { v.play(); } catch (e) {}
+        v.classList.remove('hidden');
+        ph.classList.add('hidden');
+      })
+      .catch(function () {
+        ph.classList.remove('hidden');
+        ph.innerHTML = '<div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center"><i data-lucide="video-off" class="w-6 h-6 text-slate-300"></i></div><p class="text-xs text-slate-400 mt-1">摄像头未开启或未授权</p><button type="button" onclick="startCamera()" class="text-xs px-3 py-1.5 rounded-lg bg-teal-500 hover:bg-teal-600 text-white transition-colors">重新开启</button>';
+        refreshIcons();
+      });
+  }
+  function stopCamera() {
+    if (window.__selfStream) {
+      window.__selfStream.getTracks().forEach(function (t) { t.stop(); });
+      window.__selfStream = null;
+    }
+    var v = document.getElementById('self-video');
+    if (v) { v.srcObject = null; v.classList.add('hidden'); }
+  }
+
+  function endInterview() {
+    stopTimer();
+    stopCamera();
+    document.getElementById('interview-room').classList.add('hidden');
+    document.body.style.overflow = '';
+    var prog = getProg(state.plan.id);
+    prog.sessions = (prog.sessions || 0) + 1;
+    prog.scores = prog.scores || [];
+    prog.scores.push(72 + Math.floor(Math.random() * 20));
+    setProg(state.plan.id, prog);
+    renderProgress();
+    window.location.href = 'interview-report.html';
+  }
+
+  /* ---- 房间按钮绑定 ---- */
+  var roomNextBtn = document.getElementById('room-next-btn');
+  if (roomNextBtn) roomNextBtn.addEventListener('click', roomNext);
+  var micBtn = document.getElementById('room-mic-btn');
+  if (micBtn) micBtn.addEventListener('click', function () { alert('语音作答将在正式版本接入语音识别，演示环境请使用文字作答。'); });
+  var camToggle = document.getElementById('room-cam-toggle');
+  if (camToggle) camToggle.addEventListener('click', function () {
+    if (window.__selfStream) {
+      stopCamera();
+      document.getElementById('self-placeholder').classList.remove('hidden');
+    } else {
+      startCamera();
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !document.getElementById('video-modal').classList.contains('hidden')) closeVideoModal();
+  });
+
+  /* =======================================================================
+     初始化
+     ======================================================================= */
+  function initPractice() {
+    var plans = loadPlans();
+    var savedId = localStorage.getItem(PLAN_STORE_KEY);
+    var savedPlan = savedId ? plans.filter(function (p) { return p.id === savedId; })[0] : null;
+    if (savedPlan) {
+      selectPlan(savedPlan.id);
+    } else {
+      document.getElementById('practice-home').classList.add('hidden');
+      document.getElementById('plan-gate').classList.remove('hidden');
+      renderGate();
+    }
+  }
+  initPractice();
+  lucide.createIcons();
+  </script>
 </body>
 </html>
