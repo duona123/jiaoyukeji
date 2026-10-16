@@ -202,7 +202,6 @@
       'use strict';
 
       var DATA = (window.SCHOOL_MAJOR_DATA || []).slice();
-      var PROFILES = window.MAJOR_PROFILES || {};
       var ALL_MAJORS = [];
       DATA.forEach(function (s) {
         (s.majors || []).forEach(function (m) {
@@ -283,7 +282,7 @@
 
       function majorCardHTML(m) {
         return '' +
-          '<a href="schools.html?school=' + encodeURIComponent(m.schoolId) + '&major=' + encodeURIComponent(m.name) + '" class="sm-card sm-card-hover block p-5 group">' +
+          '<a href="' + majorHref(m.schoolId, m.name) + '" class="sm-card sm-card-hover block p-5 group">' +
             '<div class="flex items-start justify-between gap-3">' +
               '<div class="min-w-0">' +
                 '<h3 class="font-semibold text-foreground">' + esc(m.name) + '</h3>' +
@@ -443,12 +442,18 @@
         return null;
       }
 
+      /* 专业详情统一指向 major-detail.html，「from=schools」用于返回院校 */
+      function majorHref(schoolId, majorName) {
+        return 'major-detail.html?school=' + encodeURIComponent(schoolId) +
+          '&major=' + encodeURIComponent(majorName) + '&from=schools';
+      }
+
       function showSchoolDetail(id) {
         var s = findSchool(id);
         if (!s) { renderNotfound('院校', '未找到该院校，可能链接已失效。'); return; }
 
         var rows = (s.majors || []).map(function (m) {
-          var href = 'schools.html?school=' + encodeURIComponent(s.id) + '&major=' + encodeURIComponent(m.name);
+          var href = majorHref(s.id, m.name);
           return '<tr class="major-row" data-href="' + href + '">' +
             '<td class="font-medium"><a href="' + href + '" class="text-primary hover:underline">' + esc(m.name) + '</a>' +
               (m.hot ? ' <span class="badge badge-brand">热门</span>' : '') + '</td>' +
@@ -541,83 +546,6 @@
         return keys.length ? keys.join(' / ') : '—';
       }
 
-      function profileOf(name) { return PROFILES[name] || null; }
-
-      function showMajorDetail(schoolId, majorName) {
-        var s = findSchool(schoolId);
-        if (!s) { renderNotfound('专业', '未找到该专业所属院校，可能链接已失效。'); return; }
-        var m = null;
-        (s.majors || []).forEach(function (x) { if (x.name === majorName) m = x; });
-        if (!m) { renderNotfound('专业', '未找到该专业，可能链接已失效。'); return; }
-
-        var pf = profileOf(m.name) || {};
-        var intro = m.intro || pf.intro || (m.name + '是' + s.name + '开设的' + (m.category || '') +
-          '类专业，学制 ' + (m.years || '—') + ' 年，选考科目要求为「' + (m.requiredSubjects || '不限') + '」。');
-        var courses = pf.courses || '以' + (m.category || '本') + '类核心课程为主，具体课程以院校培养方案为准。';
-        var careers = pf.careers || '毕业后可在相关行业从事对口岗位，或继续攻读更高层次学位。';
-
-        var schoolHref = 'schools.html?school=' + encodeURIComponent(s.id);
-        var others = (s.majors || []).filter(function (x) { return x.name !== m.name; });
-
-        var html = '' +
-          '<div class="flex items-center justify-between gap-3 mb-6 flex-wrap">' +
-            '<a href="' + schoolHref + '" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors">' +
-              '<i data-lucide="arrow-left" class="w-4 h-4"></i>返回院校</a>' +
-            crumb([{ text: s.name, href: schoolHref }, { text: '专业详情' }]) +
-          '</div>' +
-
-          '<section class="sm-card p-6 md:p-8 mb-6">' +
-            '<div class="flex flex-wrap items-center gap-2 mb-3">' +
-              '<span class="badge">' + esc(m.category) + '</span>' +
-              '<span class="badge">' + esc(m.years) + ' 年制</span>' +
-              '<span class="badge badge-info">选科 ' + esc(m.requiredSubjects) + '</span>' +
-              (m.hot ? '<span class="badge badge-brand">热门专业</span>' : '') +
-              '<span class="badge ' + (m.needsInterview ? 'badge-success' : '') + '">' + esc(testFormText(m)) + '</span>' +
-            '</div>' +
-            '<h1 class="edu-h2 text-foreground">' + esc(m.name) + '</h1>' +
-            '<p class="mt-2 text-sm text-muted-foreground">所属院校：<a href="' + schoolHref + '" class="text-primary hover:underline">' + esc(s.name) + '</a> · ' + esc(s.city) + ' · ' + esc(s.type) + ' · ' + esc(s.nature) + '</p>' +
-          '</section>' +
-
-          '<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">' +
-            '<article class="sm-card p-5"><div class="flex items-center gap-2 mb-3"><i data-lucide="layers" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">核心信息</h2></div>' +
-              kvList([['选科要求', m.requiredSubjects], ['学制', m.years + ' 年'], ['学费（元/年）', m.tuition], ['招生计划（人）', m.plan], ['校测方式', testFormText(m)], ['学科门类', m.category]]) + '</article>' +
-            '<article class="sm-card p-5 lg:col-span-2"><div class="flex items-center gap-2 mb-3"><i data-lucide="info" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">专业简介</h2></div>' +
-              '<p class="text-sm text-muted-foreground leading-relaxed">' + esc(intro) + '</p>' +
-              '<div class="mt-4 pt-4 border-t border-border grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">' +
-                '<div class="flex items-center gap-2 text-muted-foreground"><i data-lucide="map-pin" class="w-4 h-4 text-primary"></i>就读城市：' + esc(s.city) + '</div>' +
-                '<div class="flex items-center gap-2 text-muted-foreground"><i data-lucide="graduation-cap" class="w-4 h-4 text-primary"></i>办学层次：' + esc(s.type) + '（' + esc(s.level || s.nature) + '）</div>' +
-              '</div>' +
-            '</article>' +
-            '<article class="sm-card p-5"><div class="flex items-center gap-2 mb-3"><i data-lucide="book-open" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">主要课程</h2></div>' +
-              chipList(courses, '可能涉及的主要课程') + '</article>' +
-            '<article class="sm-card p-5 lg:col-span-2"><div class="flex items-center gap-2 mb-3"><i data-lucide="briefcase" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">就业方向</h2></div>' +
-              chipList(careers, '可能的就业方向') + '</article>' +
-          '</div>' +
-
-          '<section class="sm-card p-6">' +
-            '<div class="flex items-center gap-2 mb-4"><i data-lucide="list" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">' + esc(s.name) + ' · 其他招生专业</h2></div>' +
-            '<div class="flex flex-wrap gap-2">' +
-              (others.map(function (x) {
-                return '<a href="schools.html?school=' + encodeURIComponent(s.id) + '&major=' + encodeURIComponent(x.name) + '" class="chip">' + esc(x.name) + '</a>';
-              }).join('') || '<span class="text-sm text-muted-foreground">暂无其他专业</span>') +
-            '</div>' +
-          '</section>' +
-
-          '<p class="demo-note mt-6 text-center">以上数据为演示数据，仅用于原型展示，具体请以院校官方招生简章为准。</p>';
-
-        detailBody.innerHTML = html;
-        showDetail();
-        refreshIcons();
-      }
-
-      function chipList(text, fallback) {
-        var items = String(text || '').split(/[、,，;；]/).map(function (t) { return t.trim(); }).filter(Boolean);
-        if (!items.length) return '<p class="text-sm text-muted-foreground">' + esc(fallback) + '</p>';
-        return '<div class="flex flex-wrap gap-2">' + items.map(function (t) {
-          return '<span class="badge">' + esc(t) + '</span>';
-        }).join('') + '</div>';
-      }
-
       function renderNotfound(kind, msg) {
         detailBody.innerHTML = '<div class="flex items-center justify-between gap-3 mb-6 flex-wrap">' + backLink() + crumb([{ text: kind + '详情' }]) + '</div>' +
           '<div class="sm-card p-12 text-center"><i data-lucide="file-question" class="w-10 h-10 text-muted-foreground mx-auto mb-3"></i>' +
@@ -690,7 +618,7 @@
 
         var schoolId = params.get('school');
         var majorName = params.get('major');
-        if (schoolId && majorName) { showMajorDetail(schoolId, majorName); }
+        if (schoolId && majorName) { location.replace(majorHref(schoolId, majorName)); return; }
         else if (schoolId) { showSchoolDetail(schoolId); }
         else { renderList(); }
       }

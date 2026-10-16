@@ -66,13 +66,7 @@
   <main id="page-content" class="flex-1 bg-background">
     <div class="mx-auto max-w-7xl px-6 py-8">
       <!-- Breadcrumb -->
-      <nav class="flex items-center gap-2 text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
-        <a href="index.html" class="hover:text-primary transition-colors">首页</a>
-        <i data-lucide="chevron-right" class="w-4 h-4"></i>
-        <a href="plan-result.html" class="hover:text-primary transition-colors">志愿方案</a>
-        <i data-lucide="chevron-right" class="w-4 h-4"></i>
-        <span class="text-foreground">专业详情</span>
-      </nav>
+      <nav id="md-crumb" class="flex items-center gap-2 text-sm text-muted-foreground mb-6 flex-wrap" aria-label="Breadcrumb"></nav>
 
       <!-- Page Header -->
       <section class="mb-8">
@@ -85,8 +79,8 @@
             <p class="edu-body text-muted-foreground mt-2" id="page-school-name">浙江工业大学 · 专业详情</p>
           </div>
           <div class="flex items-center gap-3">
-            <a href="plan-result.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors" data-dom-id="back-to-plan">
-              <i data-lucide="arrow-left" class="w-4 h-4"></i>返回志愿方案
+            <a href="plan-result.html" id="md-back" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors" data-dom-id="back-to-plan">
+              <i data-lucide="arrow-left" class="w-4 h-4"></i><span id="md-back-label">返回志愿方案</span>
             </a>
             <button type="button" onclick="alert('已将该专业加入意向志愿清单，可在用户中心查看。')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-[var(--edu-primary-700)] transition-colors" data-dom-id="add-to-wishlist">
               <i data-lucide="heart" class="w-4 h-4"></i>加入意向志愿
@@ -100,41 +94,48 @@
         <h2 class="edu-h3 text-foreground mb-4 flex items-center gap-2">
           <i data-lucide="info" class="w-5 h-5 text-primary"></i>专业概况
         </h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="p-4 bg-muted/40 rounded-lg border border-border">
-            <p class="edu-caption text-muted-foreground">专业代码</p>
-            <p class="edu-body font-medium text-foreground edu-number" id="md-code">080201</p>
-          </div>
-          <div class="p-4 bg-muted/40 rounded-lg border border-border">
-            <p class="edu-caption text-muted-foreground">学科门类</p>
-            <p class="edu-body font-medium text-foreground" id="md-category">工学</p>
-          </div>
-          <div class="p-4 bg-muted/40 rounded-lg border border-border">
-            <p class="edu-caption text-muted-foreground">学制</p>
-            <p class="edu-body font-medium text-foreground" id="md-duration">4 年</p>
-          </div>
-          <div class="p-4 bg-muted/40 rounded-lg border border-border">
-            <p class="edu-caption text-muted-foreground">授予学位</p>
-            <p class="edu-body font-medium text-foreground" id="md-degree">工学学士</p>
-          </div>
-          <div class="p-4 bg-muted/40 rounded-lg border border-border">
-            <p class="edu-caption text-muted-foreground">选考科目要求</p>
-            <p class="edu-body font-medium text-foreground" id="md-subjects">物理</p>
-          </div>
-          <div class="p-4 bg-muted/40 rounded-lg border border-border">
-            <p class="edu-caption text-muted-foreground">学费</p>
-            <p class="edu-body font-medium text-foreground edu-number" id="md-fee">6000 元/年</p>
-          </div>
-          <div class="p-4 bg-muted/40 rounded-lg border border-border">
-            <p class="edu-caption text-muted-foreground">2026 招生计划</p>
-            <p class="edu-body font-medium text-foreground edu-number" id="md-plan">30 人</p>
-          </div>
-          <div class="p-4 bg-muted/40 rounded-lg border border-border">
-            <p class="edu-caption text-muted-foreground">招生类型</p>
-            <p class="edu-body font-medium text-foreground" id="md-type">三位一体</p>
-          </div>
-        </div>
+        <div id="md-overview" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+        <p id="md-forms" class="edu-caption text-muted-foreground mt-4"></p>
       </section>
+
+      <!-- 专业简介 / 主要课程 / 就业方向 / 开设该专业的院校 -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <article class="bg-card border border-border rounded-lg p-6 lg:col-span-2" style="box-shadow: var(--edu-shadow-1);">
+          <h2 class="edu-h3 text-foreground mb-4 flex items-center gap-2">
+            <i data-lucide="file-text" class="w-5 h-5 text-primary"></i>专业简介
+          </h2>
+          <p id="md-intro" class="edu-body text-muted-foreground leading-relaxed"></p>
+          <p class="edu-caption text-muted-foreground mt-4 pt-4 border-t border-border">专业简介、主要课程与就业方向为演示数据，具体以院校官方培养方案为准。</p>
+        </article>
+        <article class="bg-card border border-border rounded-lg p-6" style="box-shadow: var(--edu-shadow-1);">
+          <h2 class="edu-h3 text-foreground mb-4 flex items-center gap-2">
+            <i data-lucide="book-open" class="w-5 h-5 text-primary"></i>主要课程
+          </h2>
+          <div id="md-courses" class="flex flex-wrap gap-2"></div>
+        </article>
+        <article class="bg-card border border-border rounded-lg p-6 lg:col-span-2" style="box-shadow: var(--edu-shadow-1);">
+          <h2 class="edu-h3 text-foreground mb-4 flex items-center gap-2">
+            <i data-lucide="briefcase" class="w-5 h-5 text-primary"></i>就业方向
+          </h2>
+          <div id="md-careers" class="flex flex-wrap gap-2"></div>
+        </article>
+        <article class="bg-card border border-border rounded-lg p-6" style="box-shadow: var(--edu-shadow-1);">
+          <h2 class="edu-h3 text-foreground mb-4 flex items-center gap-2">
+            <i data-lucide="building-2" class="w-5 h-5 text-primary"></i>开设该专业的院校<span id="md-schools-count" class="edu-caption text-muted-foreground"></span>
+          </h2>
+          <div id="md-schools" class="flex flex-col gap-2"></div>
+        </article>
+      </div>
+
+      <!-- 本校其他招生专业 -->
+      <section id="md-others-section" class="bg-card border border-border rounded-lg p-6 mb-6" style="box-shadow: var(--edu-shadow-1);">
+        <h2 class="edu-h3 text-foreground mb-4 flex items-center gap-2">
+          <i data-lucide="list" class="w-5 h-5 text-primary"></i><span id="md-others-title">其他招生专业</span>
+        </h2>
+        <div id="md-others" class="flex flex-wrap gap-2"></div>
+      </section>
+
+      <p class="edu-caption text-muted-foreground mb-6 leading-relaxed">下列「报名要求 / 初审入围 / 综合测试 / 录取要求」四组数据来自学考规划侧的专业详情，按 2026 / 2025 / 2024 三年展示，为本页完整保留；其中近年数据为浙江工业大学·机械工程示例值，其余院校专业以官方招生简章为准。</p>
 
       <!-- 报名要求 -->
       <section class="bg-card border border-border rounded-lg p-6 mb-6" style="box-shadow: var(--edu-shadow-1);">
@@ -422,15 +423,147 @@
     </div>
   </footer>
 
+  <script src="assets/js/school-major-data.js"></script>
   <script>
-    (function() {
-      const params = new URLSearchParams(window.location.search);
-      const major = params.get('major') || '机械工程';
-      const school = params.get('school') || '浙江工业大学';
-      document.getElementById('page-major-name').textContent = major;
-      document.getElementById('page-school-name').textContent = school + ' · 专业详情';
+    (function () {
+      'use strict';
+      var params = new URLSearchParams(window.location.search);
+      var majorName = params.get('major') || '机械工程';
+      var schoolKey = params.get('school') || '浙江工业大学';
+      var from = params.get('from') || '';
 
-      lucide.createIcons();
+      var DATA = window.SCHOOL_MAJOR_DATA || [];
+      var PROFILES = window.MAJOR_PROFILES || {};
+
+      function esc(v) {
+        return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+      function $(id) { return document.getElementById(id); }
+      function setText(id, t) { var el = $(id); if (el) el.textContent = t; }
+      function setHTML(id, h) { var el = $(id); if (el) el.innerHTML = h; }
+
+      function findSchool(key) {
+        for (var i = 0; i < DATA.length; i++) {
+          if (DATA[i].id === key || DATA[i].name === key) return DATA[i];
+        }
+        return null;
+      }
+      var school = findSchool(schoolKey);
+      var major = null;
+      if (school) {
+        (school.majors || []).forEach(function (m) { if (m.name === majorName) major = m; });
+      }
+      var profile = PROFILES[majorName] || {};
+      var cat = major ? major.category : '';
+
+      function majorHref(sid, name) {
+        return 'major-detail.html?school=' + encodeURIComponent(sid) + '&major=' + encodeURIComponent(name) + '&from=schools';
+      }
+      function testFormText(m) {
+        if (!m) return '—';
+        if (m.needsWritten && m.needsInterview) return '笔试 + 面试';
+        if (m.needsWritten) return '仅笔试';
+        if (m.needsInterview) return '仅面试';
+        return '—';
+      }
+      function cell(label, value) {
+        return '<div class="p-4 bg-muted/40 rounded-lg border border-border">' +
+          '<p class="edu-caption text-muted-foreground">' + esc(label) + '</p>' +
+          '<p class="edu-body font-medium text-foreground">' + value + '</p></div>';
+      }
+      function chipsOf(text, fallback) {
+        var items = String(text || '').split(/[、,，;；]/).map(function (t) { return t.trim(); }).filter(Boolean);
+        if (!items.length) return '<p class="edu-body text-muted-foreground">' + esc(fallback) + '</p>';
+        return items.map(function (t) {
+          return '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-muted text-foreground border border-border">' + esc(t) + '</span>';
+        }).join('');
+      }
+      function majorChip(sid, name) {
+        return '<a href="' + majorHref(sid, name) + '" class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium border border-border text-foreground hover:border-primary hover:text-primary transition-colors">' + esc(name) + '</a>';
+      }
+
+      var schoolHref = school ? 'schools.html?school=' + encodeURIComponent(school.id) : 'schools.html';
+
+      /* 页头 */
+      document.title = majorName + ' · 专业详情 · 浙招智达';
+      setText('page-major-name', majorName);
+      setText('page-school-name', (school ? school.name : schoolKey) + ' · 专业详情');
+
+      /* 面包屑 + 返回按钮 */
+      var crumb = '<a href="index.html" class="hover:text-primary transition-colors">首页</a>' +
+        '<i data-lucide="chevron-right" class="w-4 h-4"></i>';
+      if (from === 'schools') {
+        crumb += '<a href="schools.html" class="hover:text-primary transition-colors">院校专业</a>';
+        if (school) {
+          crumb += '<i data-lucide="chevron-right" class="w-4 h-4"></i><a href="' + schoolHref + '" class="hover:text-primary transition-colors">' + esc(school.name) + '</a>';
+        }
+        var back = $('md-back');
+        if (back) back.setAttribute('href', schoolHref);
+        setText('md-back-label', '返回院校');
+      } else {
+        crumb += '<a href="plan-result.html" class="hover:text-primary transition-colors">志愿方案</a>';
+      }
+      crumb += '<i data-lucide="chevron-right" class="w-4 h-4"></i><span class="text-foreground">专业详情</span>';
+      setHTML('md-crumb', crumb);
+
+      /* 专业概况：合并两侧字段并去重 */
+      var degree = '—';
+      if (cat) degree = (school && school.type === '专科') ? '专科（无学位）' : (cat + '学士');
+      setHTML('md-overview',
+        cell('专业代码', '—') +
+        cell('学科门类', esc(cat || '—')) +
+        cell('学制', major ? esc(major.years + ' 年') : '—') +
+        cell('授予学位', esc(degree)) +
+        cell('选考科目要求', esc(major ? major.requiredSubjects : '—')) +
+        cell('学费', major ? esc(major.tuition + ' 元/年') : '—') +
+        cell('2026 招生计划', major ? esc(major.plan + ' 人') : '—') +
+        cell('招生类型', school ? esc((school.forms || []).join('、') || '—') : '—') +
+        cell('校测方式', esc(testFormText(major))) +
+        cell('报考热度', major ? (major.hot ? '热门' : '一般') : '—') +
+        cell('就读城市', school ? esc(school.city) : '—') +
+        cell('办学层次', school ? esc(school.type + (school.level ? '（' + school.level + '）' : '')) : '—')
+      );
+      setText('md-forms', school
+        ? '所属院校：' + school.name + ' · ' + school.city + ' · ' + school.type + ' · ' + school.nature + ' · 招生形式：' + ((school.forms || []).join('、') || '—')
+        : '暂未收录「' + schoolKey + '」的院校档案，院校侧字段暂以「—」展示。');
+
+      /* 专业简介 / 主要课程 / 就业方向 */
+      setText('md-intro', (major && major.intro) || profile.intro ||
+        (majorName + '是' + (school ? school.name : '相关院校') + '开设的' + (cat || '') + '类专业' +
+          (major ? '，学制 ' + major.years + ' 年，选考科目要求为「' + major.requiredSubjects + '」。' : '。')));
+      setHTML('md-courses', chipsOf(profile.courses, '以' + (cat || '本') + '类核心课程为主，具体以院校培养方案为准。'));
+      setHTML('md-careers', chipsOf(profile.careers, '毕业后可在相关行业从事对口岗位，或继续深造。'));
+
+      /* 开设该专业的其他院校 */
+      var openedBy = [];
+      DATA.forEach(function (s) {
+        if (school && s.id === school.id) return;
+        (s.majors || []).forEach(function (m) { if (m.name === majorName) openedBy.push(s); });
+      });
+      setText('md-schools-count', openedBy.length ? '（' + openedBy.length + '）' : '');
+      setHTML('md-schools', openedBy.length
+        ? openedBy.map(function (s) {
+            return '<a href="' + majorHref(s.id, majorName) + '" class="flex items-center justify-between gap-3 px-3 py-2 rounded-lg border border-border hover:border-primary transition-colors">' +
+              '<span class="text-sm font-medium text-foreground truncate">' + esc(s.name) + '</span>' +
+              '<span class="text-xs text-muted-foreground shrink-0">' + esc(s.city + ' · ' + s.type) + '</span></a>';
+          }).join('')
+        : '<p class="edu-body text-muted-foreground">暂无其他院校开设该专业。</p>');
+
+      /* 本校其他招生专业 */
+      if (school) {
+        setText('md-others-title', school.name + ' · 其他招生专业');
+        var others = (school.majors || []).filter(function (m) { return m.name !== majorName; });
+        setHTML('md-others', others.length
+          ? others.map(function (m) { return majorChip(school.id, m.name); }).join('')
+          : '<span class="edu-body text-muted-foreground">暂无其他专业</span>');
+      } else {
+        var sec = $('md-others-section');
+        if (sec && sec.parentNode) sec.parentNode.removeChild(sec);
+      }
+
+      if (window.lucide && typeof window.lucide.createIcons === 'function') window.lucide.createIcons();
     })();
   </script>
 

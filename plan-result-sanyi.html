@@ -7686,4 +7686,33 @@ body { font-family: var(--edu-font-sans); background-color: var(--edu-background
   <footer class="border-t border-border bg-muted/40"><div class="mx-auto max-w-7xl px-6 py-8"><div class="flex flex-col md:flex-row items-center justify-between gap-4"><div class="flex items-center gap-2 text-primary font-medium"><i data-lucide="graduation-cap" class="w-5 h-5"></i><span>浙招智达</span></div><p class="text-sm text-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p><div class="flex items-center gap-4 text-sm text-muted-foreground"><a href="#" class="hover:text-primary transition-colors">隐私政策</a><a href="#" class="hover:text-primary transition-colors">使用条款</a><a href="#" class="hover:text-primary transition-colors">联系我们</a></div></div></div></footer>
   <script src="assets/js/app.js" defer></script>
   <script src="assets/js/pages.js" defer></script>
+  <script>
+    /* 专业详情统一入口：为所有「专业详情」按钮补上院校+专业参数，统一指向 major-detail.html */
+    (function () {
+      function resolveMeta(btn) {
+        var block = btn.closest('.major-block');
+        if (!block) return null;
+        var input = block.querySelector('input[data-school]');
+        var school = input ? (input.getAttribute('data-school') || '').trim() : '';
+        var major = input ? (input.getAttribute('data-major') || '').trim() : '';
+        if (!major) {
+          var item = btn.closest('.group-major-item');
+          var head = item ? item.querySelector('h5') : block.querySelector('h4');
+          if (head) major = head.textContent.trim();
+        }
+        return { school: school, major: major };
+      }
+      function apply() {
+        document.querySelectorAll('.major-detail-btn').forEach(function (btn) {
+          var meta = resolveMeta(btn);
+          if (!meta || !meta.major) return;
+          var query = 'major=' + encodeURIComponent(meta.major) + '&from=plan';
+          if (meta.school) query = 'school=' + encodeURIComponent(meta.school) + '&' + query;
+          btn.setAttribute('href', 'major-detail.html?' + query);
+        });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply);
+      else apply();
+    })();
+  </script>
 </body></html>
