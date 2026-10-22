@@ -175,9 +175,8 @@
                 </h2>
                 <span class="text-xs text-edu-muted-foreground">已登录可跳过</span>
               </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- 手机号登录 / 注册：三种方式 Tab 切换 -->
-                <div class="space-y-4">
+              <!-- 手机号登录 / 注册：三种方式 Tab 切换 -->
+              <div class="space-y-4 max-w-md">
                   <div class="auth-tabs" role="tablist" aria-label="登录注册方式">
                     <button type="button" class="auth-tab is-active" role="tab" aria-selected="true" data-auth-tab="code">验证码登录</button>
                     <button type="button" class="auth-tab" role="tab" aria-selected="false" data-auth-tab="pwd">密码登录</button>
@@ -282,21 +281,6 @@
                       <p class="text-xs text-edu-muted-foreground text-center">已有账号？<button type="button" class="text-edu-primary hover:underline" data-auth-jump="code">直接登录</button></p>
                     </div>
                   </div>
-                </div>
-                <!-- 微信扫码 -->
-                <div class="space-y-4">
-                  <h3 class="text-sm font-semibold text-edu-foreground flex items-center gap-2">
-                    <i data-lucide="message-circle" class="w-4 h-4 text-edu-muted-foreground"></i>
-                    微信扫码一键登录
-                  </h3>
-                  <div class="flex flex-col items-center justify-center p-5 rounded-xl border border-dashed border-edu-border bg-edu-muted/30">
-                    <div class="w-32 h-32 rounded-lg bg-white border border-edu-border flex items-center justify-center mb-3">
-                      <i data-lucide="qr-code" class="w-20 h-20 text-edu-foreground"></i>
-                    </div>
-                    <p class="text-sm text-edu-muted-foreground text-center">微信扫一扫，一键登录</p>
-                    <p class="text-xs text-edu-muted-foreground text-center mt-1">首次登录后将引导绑定手机号</p>
-                  </div>
-                </div>
               </div>
             </div>
           </section>
