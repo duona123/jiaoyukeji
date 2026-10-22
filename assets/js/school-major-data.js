@@ -10,7 +10,7 @@ window.SCHOOL_MAJOR_DATA = [
     nature: "公办",
     category: "理工类",
     level: "省重点建设高校",
-    forms: ["三位一体"],
+    forms: ["三位一体", "高职提招"],
     featured: true,
     address: "浙江省杭州市潮王路18号",
     website: "https://www.zjut.edu.cn",
@@ -53,11 +53,12 @@ window.SCHOOL_MAJOR_DATA = [
         category: "工学",
         requiredSubjects: "物理+化学",
         plan: 20,
-        years: 4,
+        years: 3,
         tuition: 6325,
         needsInterview: true,
         needsWritten: false,
-        hot: false
+        hot: false,
+        form: "高职提招"
       },
       {
         name: "电气工程及其自动化",
@@ -75,11 +76,12 @@ window.SCHOOL_MAJOR_DATA = [
         category: "医学",
         requiredSubjects: "物理+化学",
         plan: 20,
-        years: 4,
+        years: 3,
         tuition: 6325,
         needsInterview: true,
         needsWritten: false,
-        hot: false
+        hot: false,
+        form: "高职提招"
       }
     ]
   },
@@ -92,7 +94,7 @@ window.SCHOOL_MAJOR_DATA = [
     nature: "公办",
     category: "师范类",
     level: "省重点建设高校",
-    forms: ["三位一体"],
+    forms: ["三位一体", "高职提招"],
     featured: true,
     address: "浙江省金华市迎宾大道688号",
     website: "https://www.zjnu.edu.cn",
@@ -146,22 +148,24 @@ window.SCHOOL_MAJOR_DATA = [
         category: "文学",
         requiredSubjects: "不限",
         plan: 20,
-        years: 4,
+        years: 3,
         tuition: 5300,
         needsInterview: true,
         needsWritten: false,
-        hot: true
+        hot: true,
+        form: "高职提招"
       },
       {
         name: "物理学",
         category: "理学",
         requiredSubjects: "物理",
         plan: 20,
-        years: 4,
+        years: 3,
         tuition: 5300,
         needsInterview: true,
         needsWritten: false,
-        hot: false
+        hot: false,
+        form: "高职提招"
       }
     ]
   },
@@ -174,7 +178,7 @@ window.SCHOOL_MAJOR_DATA = [
     nature: "公办",
     category: "综合类",
     level: "省重点建设高校",
-    forms: ["三位一体"],
+    forms: ["三位一体", "高职提招"],
     featured: true,
     address: "浙江省宁波市风华路818号",
     website: "https://www.nbu.edu.cn",
@@ -228,22 +232,24 @@ window.SCHOOL_MAJOR_DATA = [
         category: "法学",
         requiredSubjects: "不限",
         plan: 20,
-        years: 4,
+        years: 3,
         tuition: 5300,
         needsInterview: true,
         needsWritten: false,
-        hot: false
+        hot: false,
+        form: "高职提招"
       },
       {
         name: "通信工程",
         category: "工学",
         requiredSubjects: "物理",
         plan: 20,
-        years: 4,
+        years: 3,
         tuition: 6900,
         needsInterview: true,
         needsWritten: true,
-        hot: false
+        hot: false,
+        form: "高职提招"
       }
     ]
   },
@@ -1076,7 +1082,7 @@ window.SCHOOL_MAJOR_DATA = [
     nature: "公办",
     category: "综合类",
     level: "普通本科",
-    forms: ["三位一体"],
+    forms: ["三位一体", "高职提招"],
     featured: false,
     address: "浙江省温州市茶山高教园区",
     website: "https://www.wzu.edu.cn",
@@ -1130,22 +1136,24 @@ window.SCHOOL_MAJOR_DATA = [
         category: "教育学",
         requiredSubjects: "不限",
         plan: 20,
-        years: 4,
+        years: 3,
         tuition: 5300,
         needsInterview: true,
         needsWritten: false,
-        hot: false
+        hot: false,
+        form: "高职提招"
       },
       {
         name: "化学",
         category: "理学",
         requiredSubjects: "物理+化学",
         plan: 20,
-        years: 4,
+        years: 3,
         tuition: 5300,
         needsInterview: false,
         needsWritten: true,
-        hot: false
+        hot: false,
+        form: "高职提招"
       }
     ]
   },

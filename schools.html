@@ -489,19 +489,49 @@
         var s = findSchool(id);
         if (!s) { renderNotfound('院校', '未找到该院校，可能链接已失效。'); return; }
 
-        var rows = (s.majors || []).map(function (m) {
-          var href = majorHref(s.id, m.name);
-          return '<tr class="major-row" data-href="' + href + '">' +
-            '<td class="font-medium"><a href="' + href + '" class="text-primary hover:underline">' + esc(m.name) + '</a>' +
-              (m.hot ? ' <span class="badge badge-brand">热门</span>' : '') + '</td>' +
-            '<td class="text-muted-foreground">' + esc(m.category) + '</td>' +
-            '<td class="text-muted-foreground">' + esc(m.requiredSubjects) + '</td>' +
-            '<td class="text-center edu-number">' + num(m.plan) + '</td>' +
-            '<td class="text-center edu-number">' + esc(m.years) + ' 年</td>' +
-            '<td class="text-right edu-number">' + num(m.tuition) + '</td>' +
-            '<td class="whitespace-nowrap"><span class="badge ' + (m.needsInterview ? 'badge-success' : '') + '">' + esc(testFormText(m)) + '</span></td>' +
-            '</tr>';
-        }).join('');
+        /* 按招生形式（三位一体 / 高职提招）给每个专业打 form 标签，未标注的默认取院校首个招生形式 */
+        var formGroups = {};
+        (s.majors || []).forEach(function (m) {
+          var f = m.form || (s.forms && s.forms[0]) || '三位一体';
+          if (!formGroups[f]) formGroups[f] = [];
+          formGroups[f].push(m);
+        });
+        var formList = Object.keys(formGroups);
+
+        function majorRows(majors) {
+          return majors.map(function (m) {
+            var href = majorHref(s.id, m.name);
+            return '<tr class="major-row" data-href="' + href + '">' +
+              '<td class="font-medium"><a href="' + href + '" class="text-primary hover:underline">' + esc(m.name) + '</a>' +
+                (m.hot ? ' <span class="badge badge-brand">热门</span>' : '') + '</td>' +
+              '<td class="text-muted-foreground">' + esc(m.category) + '</td>' +
+              '<td class="text-muted-foreground">' + esc(m.requiredSubjects) + '</td>' +
+              '<td class="text-center edu-number">' + num(m.plan) + '</td>' +
+              '<td class="text-center edu-number">' + esc(m.years) + ' 年</td>' +
+              '<td class="text-right edu-number">' + num(m.tuition) + '</td>' +
+              '<td class="whitespace-nowrap"><span class="badge ' + (m.needsInterview ? 'badge-success' : '') + '">' + esc(testFormText(m)) + '</span></td>' +
+              '</tr>';
+          }).join('');
+        }
+        function majorTable(formName, majors) {
+          var badgeCls = formName === '三位一体' ? 'badge-brand' : 'badge-info';
+          var rows = majorRows(majors);
+          return '<article class="sm-card p-5">' +
+            '<div class="flex items-center gap-2 mb-4">' +
+              '<span class="badge ' + badgeCls + '">' + esc(formName) + '</span>' +
+              '<h3 class="text-base font-semibold text-foreground">' + esc(formName) + '专业（' + majors.length + '）</h3>' +
+            '</div>' +
+            '<div class="overflow-x-auto">' +
+              '<table class="sm-table"><thead><tr>' +
+                '<th>专业名称</th><th>学科门类</th><th>选科要求</th><th class="text-center">招生计划</th>' +
+                '<th class="text-center">学制</th><th class="text-right">学费（元/年）</th><th>校测方式</th>' +
+              '</tr></thead><tbody>' + (rows || '<tr><td colspan="7" class="text-center text-muted-foreground py-6">暂无专业数据</td></tr>') + '</tbody></table>' +
+            '</div>' +
+          '</article>';
+        }
+        var majorsSection = formList.length > 1
+          ? ('<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">' + formList.map(function (f) { return majorTable(f, formGroups[f]); }).join('') + '</div>')
+          : majorTable(formList[0] || '三位一体', formGroups[formList[0] || '三位一体']);
 
         var html = '' +
           '<div class="flex items-center justify-between gap-3 mb-6 flex-wrap">' + backLink() +
@@ -547,14 +577,9 @@
           '<section class="sm-card p-6">' +
             '<div class="flex flex-wrap items-center justify-between gap-3 mb-5">' +
               '<div class="flex items-center gap-2"><i data-lucide="list" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">招生专业（' + (s.majors || []).length + '）</h2></div>' +
-              '<p class="demo-note">点击任意专业可查看专业详情</p>' +
+              '<p class="demo-note">' + (formList.length > 1 ? '同时含「三位一体」与「高职提招」招生专业' : '点击任意专业可查看专业详情') + '</p>' +
             '</div>' +
-            '<div class="overflow-x-auto">' +
-              '<table class="sm-table"><thead><tr>' +
-                '<th>专业名称</th><th>学科门类</th><th>选科要求</th><th class="text-center">招生计划</th>' +
-                '<th class="text-center">学制</th><th class="text-right">学费（元/年）</th><th>校测方式</th>' +
-              '</tr></thead><tbody>' + (rows || '<tr><td colspan="7" class="text-center text-muted-foreground py-6">暂无专业数据</td></tr>') + '</tbody></table>' +
-            '</div>' +
+            majorsSection +
           '</section>' +
 
           renderGallery(s) +
