@@ -312,6 +312,8 @@
 
   /* 每日打卡：真实月历（有练习记录的日期自动填色，可点击切换右侧当日明细） */
   var _checkin = { year: 0, month: 0, selectedKey: '' };
+  /* 当日明细最多显示条数（与左侧日历高度对齐） */
+  var MAX_VISIBLE = 2;
   function renderCheckin() {
     seedDemoDailyLog();
     var n = new Date();
@@ -455,13 +457,13 @@
     });
     refreshIcons();
 
-    /* 当日明细最多显示 3 条，超出后容器内滚动（按真实渲染高度计算，兼容换行） */
+    /* 当日明细最多显示 MAX_VISIBLE 条，超出后容器内滚动（按真实渲染高度计算，兼容换行） */
     var box = document.querySelector('#home-top .day-items');
-    if (box && box.children.length > 3) {
+    if (box && box.children.length > MAX_VISIBLE) {
       var h = 0;
-      for (var i = 0; i < 3; i++) h += box.children[i].offsetHeight;
+      for (var i = 0; i < MAX_VISIBLE; i++) h += box.children[i].offsetHeight;
       var gap = parseFloat(getComputedStyle(box).rowGap) || 8;
-      box.style.maxHeight = (h + gap * 2) + 'px';
+      box.style.maxHeight = (h + gap * (MAX_VISIBLE - 1)) + 'px';
     }
   }
 
