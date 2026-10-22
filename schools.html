@@ -71,6 +71,31 @@
       .no-scrollbar::-webkit-scrollbar { display: none; }
       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       .demo-note { font-size: 12px; color: var(--edu-muted-foreground); }
+
+      /* 校园风光图片轮播 */
+      .gal-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+      @media (min-width: 640px) { .gal-grid { grid-template-columns: repeat(3, 1fr); } }
+      .gal-item { border: 1px solid var(--edu-border); border-radius: var(--edu-radius-lg); overflow: hidden; background: var(--edu-card); }
+      .gal-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 16px;
+        font-size: 14px; font-weight: 500; color: var(--edu-foreground); border-bottom: 1px solid var(--edu-border); }
+      .gal-head-l { display: flex; align-items: center; gap: 8px; }
+      .gal-stage { position: relative; aspect-ratio: 1 / 1; background: var(--edu-muted); overflow: hidden; }
+      .gal-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .18s ease; }
+      .gal-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 999px;
+        border: none; background: rgba(0,0,0,.42); color: #fff; display: flex; align-items: center; justify-content: center;
+        cursor: pointer; opacity: 0; transition: opacity .18s ease, background .18s ease; padding: 0; }
+      .gal-stage:hover .gal-nav { opacity: 1; }
+      .gal-nav:hover { background: rgba(0,0,0,.62); }
+      .gal-prev { left: 8px; }
+      .gal-next { right: 8px; }
+      @media (hover: none) { .gal-nav { opacity: 1; } }
+      .gal-dots { position: absolute; left: 0; right: 0; bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+      .gal-dot { width: 7px; height: 7px; border-radius: 999px; background: rgba(255,255,255,.55); cursor: pointer;
+        transition: width .18s ease, background .18s ease; }
+      .gal-dot.active { width: 16px; background: #fff; }
+      .gal-count { position: absolute; right: 8px; top: 8px; font-size: 11px; padding: 2px 8px; border-radius: 999px;
+        background: rgba(0,0,0,.45); color: #fff; letter-spacing: .02em; }
+      .gal-cap { padding: 10px 16px; font-size: 12px; color: var(--edu-muted-foreground); }
     </style>
 </head>
 <body class="min-h-screen font-sans antialiased flex flex-col bg-background text-foreground">
@@ -448,42 +473,133 @@
           '&major=' + encodeURIComponent(majorName) + '&from=schools';
       }
 
-      /* ---- 校园风光演示图（寝室 / 食堂 / 校园环境）----
+      /* ---- 校园风光演示图（寝室 / 食堂 / 校园环境，每类多图可切换）----
          使用 AI 生成图片服务按院校名+场景动态生成，统一用 square_hd 尺寸；
          URL 中 prompt 需要对整段中文做 encodeURIComponent，避免参数解析错误。 */
       var IMG_API = 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image';
       function imgUrl(prompt) { return IMG_API + '?prompt=' + encodeURIComponent(prompt) + '&image_size=square_hd'; }
       function campusGallery(schoolName) {
-        var clean = String(schoolName || '').replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, '').slice(0, 16);
+        var c = String(schoolName || '').replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, '').slice(0, 16);
         return [
-          { cat: '寝室',  icon: 'home',          prompt: clean + ' 学生宿舍内景 整洁明亮 木质家具 大窗户',                     sub: '学生宿舍' },
-          { cat: '食堂',  icon: 'utensils-crossed',prompt: clean + ' 学生食堂 宽敞明亮 多样窗口 现代简约风格',                   sub: '学生食堂' },
-          { cat: '校园环境', icon: 'trees',       prompt: clean + ' 校园环境 绿树成荫 教学楼 林荫道 学生活动',                 sub: '校园一景' }
+          {
+            cat: '寝室', icon: 'home', sub: '学生宿舍',
+            shots: [
+              { label: '四人间内景', prompt: c + ' 大学学生宿舍四人间 木质书桌 整洁明亮 大窗户 阳光' },
+              { label: '宿舍公共区', prompt: c + ' 学生宿舍公共休息区 沙发 洗衣房 现代简约' },
+              { label: '宿舍阳台', prompt: c + ' 学生宿舍阳台 晾衣架 窗外校园远景' }
+            ]
+          },
+          {
+            cat: '食堂', icon: 'utensils-crossed', sub: '学生食堂',
+            shots: [
+              { label: '食堂大厅', prompt: c + ' 大学学生食堂大厅 宽敞明亮 多个打饭窗口' },
+              { label: '美食档口', prompt: c + ' 学生食堂美食档口 各式菜品 热气腾腾' },
+              { label: '用餐区', prompt: c + ' 学生食堂用餐区 木质餐桌 绿植 学生用餐' }
+            ]
+          },
+          {
+            cat: '校园环境', icon: 'trees', sub: '校园一景',
+            shots: [
+              { label: '主教学楼', prompt: c + ' 校园主教学楼与中心广场 绿树成荫' },
+              { label: '林荫大道', prompt: c + ' 校园林荫大道 秋天落叶 学生骑车穿行' },
+              { label: '图书馆湖景', prompt: c + ' 校园图书馆与现代建筑 湖畔倒影 傍晚' }
+            ]
+          }
         ];
       }
+      /* 轮播状态：GAL.shots[组索引] = [图片URL...]，GAL.idx[组索引] = 当前张索引 */
+      var GAL = { shots: [], idx: [], meta: [] };
+      function galleryGo(gi, step) {
+        var arr = GAL.shots[gi];
+        if (!arr || arr.length < 2) return;
+        var n = arr.length;
+        var ni = ((GAL.idx[gi] + step) % n + n) % n;
+        gallerySet(gi, ni);
+      }
+      function gallerySet(gi, ni) {
+        var arr = GAL.shots[gi], meta = GAL.meta[gi];
+        if (!arr || !arr.length) return;
+        var n = arr.length;
+        ni = ((ni % n) + n) % n;
+        GAL.idx[gi] = ni;
+        var card = document.querySelector('[data-gal="' + gi + '"]');
+        if (!card) return;
+        var img = card.querySelector('.gal-img');
+        var count = card.querySelector('.gal-count');
+        var cap = card.querySelector('.gal-cap-txt');
+        var dots = card.querySelectorAll('.gal-dot');
+        if (img) {
+          img.style.opacity = '0';
+          setTimeout(function () {
+            img.src = arr[ni];
+            img.alt = meta.school + ' ' + meta.cat + ' · ' + meta.shots[ni].label;
+            img.style.opacity = '1';
+          }, 180);
+        }
+        if (count) count.textContent = (ni + 1) + ' / ' + n;
+        if (cap) cap.textContent = meta.school + ' · ' + meta.sub + ' · ' + meta.shots[ni].label;
+        Array.prototype.forEach.call(dots, function (d, i) {
+          d.className = 'gal-dot' + (i === ni ? ' active' : '');
+        });
+      }
+      window.galleryGo = galleryGo;
+      window.gallerySet = gallerySet;
+
       function renderGallery(s) {
         var items = campusGallery(s.name);
-        var html = '<section class="sm-card p-6">' +
+        GAL.shots = []; GAL.idx = []; GAL.meta = [];
+        items.forEach(function (it) {
+          GAL.shots.push(it.shots.map(function (sh) { return imgUrl(sh.prompt); }));
+          GAL.idx.push(0);
+          GAL.meta.push({ school: s.name, cat: it.cat, sub: it.sub, shots: it.shots });
+        });
+
+        var cards = items.map(function (it, gi) {
+          var urls = GAL.shots[gi];
+          var dots = urls.map(function (_, i) {
+            return '<span class="gal-dot' + (i === 0 ? ' active' : '') + '" data-gal-dot="' + gi + ':' + i + '"></span>';
+          }).join('');
+          var multi = urls.length > 1;
+          return '' +
+            '<article class="gal-item" data-gal="' + gi + '">' +
+              '<div class="gal-head">' +
+                '<span class="gal-head-l"><i data-lucide="' + it.icon + '" class="w-4 h-4 text-primary"></i>' + it.cat + '</span>' +
+                '<span class="demo-note">' + urls.length + ' 张</span>' +
+              '</div>' +
+              '<div class="gal-stage">' +
+                '<img class="gal-img" src="' + urls[0] + '" alt="' + esc(s.name) + ' ' + it.cat + ' · ' + it.shots[0].label + '" loading="lazy">' +
+                '<span class="gal-count">1 / ' + urls.length + '</span>' +
+                (multi ? '<button type="button" class="gal-nav gal-prev" data-gal-nav="' + gi + ':-1" aria-label="上一张">‹</button>' : '') +
+                (multi ? '<button type="button" class="gal-nav gal-next" data-gal-nav="' + gi + ':1" aria-label="下一张">›</button>' : '') +
+                (multi ? '<div class="gal-dots">' + dots + '</div>' : '') +
+              '</div>' +
+              '<p class="gal-cap"><span class="gal-cap-txt">' + esc(s.name) + ' · ' + it.sub + ' · ' + it.shots[0].label + '</span></p>' +
+            '</article>';
+        }).join('');
+
+        return '<section class="sm-card p-6">' +
           '<div class="flex flex-wrap items-center justify-between gap-3 mb-5">' +
             '<div class="flex items-center gap-2"><i data-lucide="images" class="w-5 h-5 text-primary"></i><h2 class="edu-h3 text-foreground">校园风光</h2></div>' +
-            '<p class="demo-note">寝室 · 食堂 · 校园环境 实拍演示（AI 生成，仅供参考）</p>' +
+            '<p class="demo-note">寝室 · 食堂 · 校园环境，每类可左右切换（AI 生成，仅供参考）</p>' +
           '</div>' +
-          '<div class="grid grid-cols-1 sm:grid-cols-3 gap-5">' + items.map(function (it) {
-            return '' +
-              '<article class="rounded-xl border border-border overflow-hidden bg-muted/30">' +
-                '<div class="flex items-center gap-2 px-4 py-3 text-sm font-medium text-foreground border-b border-border bg-card">' +
-                  '<i data-lucide="' + it.icon + '" class="w-4 h-4 text-primary"></i>' + it.cat +
-                '</div>' +
-                '<div class="aspect-square bg-muted flex items-center justify-center">' +
-                  '<img src="' + imgUrl(it.prompt) + '" alt="' + esc(s.name) + ' ' + it.cat + '" ' +
-                  'class="w-full h-full object-cover" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.innerHTML=\'<div class=\\\'w-full h-full flex items-center justify-center text-muted-foreground text-xs\\\'>图片加载中…</div>\'">' +
-                '</div>' +
-                '<p class="px-4 py-2.5 edu-caption text-muted-foreground">' + esc(s.name) + ' · ' + it.sub + '</p>' +
-              '</article>';
-          }).join('') + '</div>' +
+          '<div class="gal-grid">' + cards + '</div>' +
           '</section>';
-        return html;
       }
+
+      /* 轮播事件委托：箭头切换 / 圆点跳转 */
+      document.addEventListener('click', function (e) {
+        var nav = e.target.closest('[data-gal-nav]');
+        if (nav) {
+          var p = nav.getAttribute('data-gal-nav').split(':');
+          galleryGo(+p[0], +p[1]);
+          return;
+        }
+        var dot = e.target.closest('[data-gal-dot]');
+        if (dot) {
+          var q = dot.getAttribute('data-gal-dot').split(':');
+          gallerySet(+q[0], +q[1]);
+        }
+      });
 
       function showSchoolDetail(id) {
         var s = findSchool(id);
