@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>练习中心 · 笔试与 AI 面试</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--edu-background);
+    --color-foreground: var(--edu-foreground);
+    --color-card: var(--edu-card);
+    --color-card-foreground: var(--edu-card-foreground);
+    --color-popover: var(--edu-popover);
+    --color-popover-foreground: var(--edu-popover-foreground);
+    --color-primary: var(--edu-primary);
+    --color-primary-foreground: var(--edu-primary-foreground);
+    --color-muted: var(--edu-muted);
+    --color-muted-foreground: var(--edu-muted-foreground);
+    --color-border: var(--edu-border);
+    --color-input: var(--edu-input);
+    --color-ring: var(--edu-ring);
+    --radius-sm: var(--edu-radius-sm);
+    --radius-md: var(--edu-radius-md);
+    --radius-lg: var(--edu-radius-lg);
+  }
+  @layer base {
+    body { background: var(--edu-background); color: var(--edu-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+
+    <style>
+      /* ---- edu 令牌工具类兜底（不依赖 Tailwind 扫描） ---- */
+      .bg-edu-background{background-color:var(--edu-background);}
+      .bg-edu-card{background-color:var(--edu-card);}
+      .bg-edu-muted{background-color:var(--edu-muted);}
+      .text-edu-foreground{color:var(--edu-foreground);}
+      .text-edu-muted-foreground{color:var(--edu-muted-foreground);}
+      .border-edu-border{border-color:var(--edu-border);}
+      .bg-edu-primary{background-color:var(--edu-primary);}
+      .text-edu-primary{color:var(--edu-primary);}
+      .border-edu-primary{border-color:var(--edu-primary);}
+      .bg-edu-primary-50{background-color:var(--edu-primary-50);}
+      .bg-edu-primary-100{background-color:var(--edu-primary-100);}
+      .border-edu-primary-100{border-color:var(--edu-primary-100);}
+      .text-edu-primary-700{color:var(--edu-primary-700);}
+      .bg-edu-state-info{background-color:var(--edu-state-info);}
+      .bg-edu-state-info-bg{background-color:var(--edu-state-info-bg);}
+      .text-edu-state-info{color:var(--edu-state-info);}
+      .bg-edu-state-success{background-color:var(--edu-state-success);}
+      .bg-edu-state-success-bg{background-color:var(--edu-state-success-bg);}
+      .text-edu-state-success{color:var(--edu-state-success);}
+      .border-edu-state-success{border-color:var(--edu-state-success);}
+      .bg-edu-state-warning-bg{background-color:var(--edu-state-warning-bg);}
+      .text-edu-state-warning{color:var(--edu-state-warning);}
+      .border-edu-state-warning{border-color:var(--edu-state-warning);}
+      .bg-edu-state-error{background-color:var(--edu-state-error);}
+      .bg-edu-state-error-bg{background-color:var(--edu-state-error-bg);}
+      .text-edu-state-error{color:var(--edu-state-error);}
+      .border-edu-state-error{border-color:var(--edu-state-error);}
+      .hover\:bg-edu-muted:hover{background-color:var(--edu-muted);}
+      .hover\:text-edu-primary:hover{color:var(--edu-primary);}
+      .hover\:bg-\[\#0f766e\]:hover{background-color:#0f766e;}
+
+      /* ---- 数字人面试间动画 ---- */
+      @keyframes dhBreathe { 0%,100%{transform:scale(1);} 50%{transform:scale(1.025);} }
+      @keyframes dhWave { 0%,100%{height:6px;opacity:.5;} 50%{height:22px;opacity:1;} }
+      @keyframes dhFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+      .dh-breathe{animation:dhBreathe 4s ease-in-out infinite;}
+      .dh-float{animation:dhFloat 3.4s ease-in-out infinite;}
+      .dh-wave span{display:inline-block;width:3px;margin:0 2px;border-radius:2px;background:#5eead4;}
+      .dh-wave span:nth-child(1){animation:dhWave 1s ease-in-out infinite;}
+      .dh-wave span:nth-child(2){animation:dhWave 1s .15s ease-in-out infinite;}
+      .dh-wave span:nth-child(3){animation:dhWave 1s .3s ease-in-out infinite;}
+      .dh-wave span:nth-child(4){animation:dhWave 1s .45s ease-in-out infinite;}
+      .dh-wave span:nth-child(5){animation:dhWave 1s .6s ease-in-out infinite;}
+      .dh-wave.idle span{animation:none;height:8px;opacity:.28;}
+      @keyframes dhSpeak { 0%,100%{transform:scale(1.02);} 50%{transform:scale(1.045);} }
+      #room-dh-wrap.dh-speaking #room-dh-img{animation:dhSpeak 1.1s ease-in-out infinite;}
+      .mirror{transform:scaleX(-1);}
+      @media (prefers-reduced-motion: reduce){ .dh-breathe,.dh-float,.dh-wave span{animation:none;} #room-dh-wrap.dh-speaking #room-dh-img{animation:none;} }
+    </style>
+</head>
+<body class="bg-edu-background text-edu-foreground min-h-screen flex flex-col" style="font-family: Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;">
+  <header class="sticky top-0 z-50 w-full border-b border-edu-border bg-white/80 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-edu-primary font-semibold text-lg" data-dom-id="nav-logo">
+        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <span>浙招智达</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="home" data-dom-id="nav-home">首页</a>
+        <a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="ai-chat" data-dom-id="nav-ai-chat">智能问答</a>
+        <a href="direction.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="plan" data-dom-id="nav-plan">学考规划</a>
+        <a href="question-bank.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-primary bg-edu-muted transition-colors" data-nav-key="practice" data-dom-id="nav-practice">练习中心</a>
+        <a href="user-center.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="user" data-dom-id="nav-user">用户中心</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button type="button" data-theme-toggle class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" aria-label="切换主题"><i data-lucide="sun" class="w-4 h-4" data-icon-name="sun"></i><i data-lucide="moon" class="w-4 h-4 hidden" data-icon-name="moon"></i></button>
+        <a href="vip-pricing.html" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-edu-primary text-white hover:bg-[#0f766e] transition-colors" data-dom-id="nav-vip">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>VIP
+        </a>
+        <a href="user-center.html" class="w-8 h-8 rounded-full bg-edu-muted flex items-center justify-center text-edu-muted-foreground hover:text-edu-primary transition-colors" data-dom-id="nav-avatar">
+          <i data-lucide="user" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div><div id="nav-mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 z-40 border-b border-border bg-background px-4 py-3 flex-col gap-1 shadow-md"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">首页</a><a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">智能问答</a><a href="direction.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">学考规划</a><a href="question-bank.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">练习中心</a><a href="user-center.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors">用户中心</a><a href="vip-pricing.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary hover:bg-muted transition-colors">升级 VIP</a></div>
+  </header>
+
+  <main id="page-content" class="flex-1">
+    <div class="mx-auto max-w-7xl px-6 py-8 md:py-12">
+
+      <!-- ============ 步骤一：方案选择门 ============ -->
+      <section id="plan-gate" class="hidden" aria-label="选择练习方案">
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-edu-primary-50 text-edu-primary mb-4">
+            <i data-lucide="target" class="w-7 h-7"></i>
+          </div>
+          <h1 class="edu-h1 text-edu-foreground">选择练习方案</h1>
+          <p class="edu-body text-edu-muted-foreground mt-3 max-w-2xl mx-auto">练习题目将根据你的志愿方案自动生成：系统读取方案中的院校与专业，匹配对应的笔试真题与面试题。每个方案志愿最多取前 <span class="font-semibold text-edu-primary">10</span> 条。</p>
+        </div>
+        <div id="plan-gate-list" class="grid grid-cols-1 lg:grid-cols-2 gap-5"></div>
+      </section>
+
+      <!-- ============ 步骤二：练习首页 ============ -->
+      <div id="practice-home" class="hidden">
+
+        <!-- 当前方案条 -->
+        <section id="current-plan-bar" class="mb-6"></section>
+
+        <!-- 每日打卡 -->
+        <div id="home-top" class="mb-8"></div>
+
+        <!-- 整体练习进度 -->
+        <section id="overall-progress" class="mb-8" aria-label="整体练习进度"></section>
+
+        <!-- 笔试练习区域 -->
+        <section id="written-area" aria-label="笔试练习"></section>
+
+        <!-- 面试练习区域 -->
+        <section id="interview-area" class="mt-12" aria-label="面试练习"></section>
+
+        <!-- 错题本 / 题目收藏 / 智能推荐已移至笔试练习页（written-practice.html） -->
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-edu-border bg-edu-muted/40">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-edu-primary font-medium">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <span>浙招智达</span>
+        </div>
+        <p class="text-sm text-edu-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p>
+        <div class="flex items-center gap-4 text-sm text-edu-muted-foreground">
+          <a href="#" class="hover:text-edu-primary transition-colors">隐私政策</a>
+          <a href="#" class="hover:text-edu-primary transition-colors">使用条款</a>
+          <a href="#" class="hover:text-edu-primary transition-colors">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/practice-core.js?v=20261022"></script>
+  <script>
+  /* =======================================================================
+     练习中心（题库 + AI 面试 合并版）
+     ======================================================================= */
+
+  /* 数据层与无 UI 依赖的辅助函数已抽离到 assets/js/practice-core.js（普通全局脚本，先于本脚本加载） */
+  var state = {
+    plan: null,
+    written: [],
+    interview: [],
+    wIndex: 0,
+    filter: { type: 'all', school: 'all', subject: 'all', difficulty: 'all' },
+    selected: [],
+    submitted: false,
+    interviewTarget: null
+  };
+
+  /* =======================================================================
+     步骤一：方案选择门
+     ======================================================================= */
+  function renderGate() {
+    var plans = loadPlans();
+    var list = document.getElementById('plan-gate-list');
+    list.innerHTML = plans.map(function (p) {
+      var overLimit = p.majors.length > MAX_MAJORS;
+      var majors = p.majors.slice(0, MAX_MAJORS);
+      var hasInterview = planHasInterview(p);
+      var hasWritten = planHasWritten(p);
+      var interviewSchools = majors.filter(function (m) { return m.needsInterview; }).length;
+      var chips = majors.slice(0, 4).map(function (m) {
+        return '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-edu-muted text-edu-muted-foreground text-[11px]">' + esc(m.school) + ' · ' + esc(m.major || '不限') + '</span>';
+      }).join('');
+      var more = majors.length > 4 ? '<span class="text-[11px] text-edu-muted-foreground">等 ' + majors.length + ' 条</span>' : '';
+      return '' +
+        '<div class="relative bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm hover:border-edu-primary transition-colors flex flex-col">' +
+          '<div class="flex items-start justify-between gap-3 mb-4">' +
+            '<div class="flex items-start gap-3">' +
+              '<div class="w-11 h-11 rounded-xl bg-edu-primary-50 text-edu-primary flex items-center justify-center shrink-0"><i data-lucide="school" class="w-5 h-5"></i></div>' +
+              '<div>' +
+                '<p class="font-semibold text-edu-foreground">' + esc(p.name) + '</p>' +
+                '<p class="edu-caption text-edu-muted-foreground mt-0.5">生成时间 ' + esc(p.generatedAt) + '</p>' +
+              '</div>' +
+            '</div>' +
+            (p.score ? '<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-edu-primary-100 text-edu-primary-700">' + esc(p.score) + '</span>' : '') +
+          '</div>' +
+          '<div class="flex flex-wrap items-center gap-2 mb-3">' +
+            '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">' + esc(p.planType) + '</span>' +
+            '<span class="text-xs text-edu-muted-foreground">志愿 ' + p.majors.length + ' 条</span>' +
+            (hasInterview && !hasWritten
+              ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">仅面试 · ' + interviewSchools + ' 所</span>'
+              : (!hasInterview && hasWritten
+                ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-info-bg text-edu-state-info">仅笔试</span>'
+                : '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-warning-bg text-edu-state-warning">含面试 ' + interviewSchools + ' 所</span>')) +
+          '</div>' +
+          '<div class="flex flex-wrap gap-1.5 mb-4">' + chips + more + '</div>' +
+          (overLimit
+            ? '<div class="mb-4 flex items-start gap-2 p-3 rounded-lg bg-edu-state-warning-bg text-edu-state-warning text-xs"><i data-lucide="alert-triangle" class="w-4 h-4 shrink-0 mt-0.5"></i><span>该方案志愿超过 10 条上限，练习将只取前 10 条院校专业。</span></div>'
+            : '') +
+          '<div class="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-edu-border">' +
+            '<p class="edu-caption text-edu-muted-foreground">预计：笔试 ' + planWrittenCount(p) + ' 题' + (hasInterview ? ' · 面试 ' + planInterviewCount(p) + ' 题' : '') + '</p>' +
+            '<button type="button" data-plan-id="' + esc(p.id) + '" class="select-plan-btn inline-flex items-center gap-1.5 px-4 h-10 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors">开始练习<i data-lucide="arrow-right" class="w-4 h-4"></i></button>' +
+          '</div>' +
+        '</div>';
+    }).join('');
+
+    list.querySelectorAll('.select-plan-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { selectPlan(this.dataset.planId); });
+    });
+    refreshIcons();
+  }
+
+  function selectPlan(planId) {
+    var plans = loadPlans();
+    var plan = plans.filter(function (p) { return p.id === planId; })[0];
+    if (!plan) return;
+    state.plan = plan;
+    state.written = buildWritten(plan);
+    state.interview = buildInterview(plan);
+    state.wIndex = 0;
+    state.selected = [];
+    state.submitted = false;
+    state.filter = { type: 'all', school: 'all', subject: 'all', difficulty: 'all' };
+    var it = plan.majors.filter(function (m) { return m.needsInterview; });
+    state.interviewTarget = it.length ? (it[0].school + '|' + it[0].major) : null;
+    localStorage.setItem(PLAN_STORE_KEY, plan.id);
+    document.getElementById('plan-gate').classList.add('hidden');
+    document.getElementById('practice-home').classList.remove('hidden');
+    renderHome();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function switchPlan() {
+    document.getElementById('practice-home').classList.add('hidden');
+    document.getElementById('plan-gate').classList.remove('hidden');
+    renderGate();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* =======================================================================
+     步骤二：练习首页
+     ======================================================================= */
+  function renderHome() {
+    renderCurrentPlanBar();
+    renderCheckin();
+    renderProgress();
+    renderWritten();
+    renderInterviewArea();
+    refreshIcons();
+  }
+
+  function renderCurrentPlanBar() {
+    var p = state.plan;
+    var hasInterview = planHasInterview(p);
+    var it = p.majors.filter(function (m) { return m.needsInterview; }).length;
+    document.getElementById('current-plan-bar').innerHTML = '' +
+      '<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5 rounded-2xl border border-edu-border bg-edu-card shadow-sm">' +
+        '<div class="flex items-center gap-4 min-w-0">' +
+          '<div class="w-12 h-12 rounded-xl bg-edu-primary-50 text-edu-primary flex items-center justify-center shrink-0"><i data-lucide="book-open-check" class="w-6 h-6"></i></div>' +
+          '<div class="min-w-0">' +
+            '<div class="flex items-center gap-2 flex-wrap">' +
+              '<p class="font-semibold text-edu-foreground truncate">' + esc(p.name) + '</p>' +
+              '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">' + esc(p.planType) + '</span>' +
+              (p.real ? '' : '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">示例方案</span>') +
+            '</div>' +
+            '<p class="edu-caption text-edu-muted-foreground mt-1">共 ' + p.majors.length + ' 条志愿 · 笔试 ' + state.written.length + ' 题' + (hasInterview ? ' · 面试 ' + it + ' 所' : ' · 无面试环节') + '</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="flex items-center gap-2 shrink-0">' +
+          '<button type="button" onclick="switchPlan()" class="inline-flex items-center gap-1.5 px-4 h-10 rounded-lg border border-edu-border text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors"><i data-lucide="repeat" class="w-4 h-4"></i>切换方案</button>' +
+          '<a href="user-center.html#plans" class="inline-flex items-center gap-1.5 px-4 h-10 rounded-lg border border-edu-border text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors"><i data-lucide="settings-2" class="w-4 h-4"></i>方案管理</a>' +
+        '</div>' +
+      '</div>';
+  }
+
+  /* 每日打卡：真实月历（有练习记录的日期自动填色，可点击切换右侧当日明细） */
+  var _checkin = { year: 0, month: 0, selectedKey: '' };
+  function renderCheckin() {
+    seedDemoDailyLog();
+    var n = new Date();
+    if (!_checkin.year) { _checkin.year = n.getFullYear(); _checkin.month = n.getMonth(); _checkin.selectedKey = todayKey(); }
+    renderCheckinView();
+  }
+  function checkinPrevMonth() { _checkin.month--; if (_checkin.month < 0) { _checkin.month = 11; _checkin.year--; } renderCheckinView(); }
+  function checkinNextMonth() { _checkin.month++; if (_checkin.month > 11) { _checkin.month = 0; _checkin.year++; } renderCheckinView(); }
+  window.checkinPrevMonth = checkinPrevMonth;
+  window.checkinNextMonth = checkinNextMonth;
+
+  function renderCheckinView() {
+    var v = _checkin;
+    var all = getAllDailyLogs();
+
+    /* —— 日历格：真实首 weekday + 当月天数 —— */
+    var first = new Date(v.year, v.month, 1);
+    var daysInMonth = new Date(v.year, v.month + 1, 0).getDate();
+    var firstWeekday = first.getDay();
+    var weekdayHeader = ['日', '一', '二', '三', '四', '五', '六'].map(function (d) {
+      return '<span class="py-1">' + d + '</span>';
+    }).join('');
+
+    var cells = [];
+    for (var i = 0; i < firstWeekday; i++) cells.push('<span></span>');
+    for (var d = 1; d <= daysInMonth; d++) {
+      var k = dateKeyOf(v.year, v.month, d);
+      var hasLog = !!all[k];
+      var isToday = (k === todayKey());
+      var isSel = (k === v.selectedKey);
+      var cls = 'py-2 rounded-lg text-center text-xs flex items-center justify-center gap-0.5 transition-colors';
+      if (hasLog) {
+        cls += ' ' + (isSel
+          ? 'bg-edu-primary text-white ring-2 ring-edu-primary-200 cursor-pointer'
+          : 'bg-edu-state-success text-white hover:opacity-90 cursor-pointer');
+      } else {
+        cls += ' ' + (isToday
+          ? 'text-edu-primary font-semibold ring-1 ring-edu-primary-200 cursor-pointer'
+          : 'text-edu-muted-foreground hover:bg-edu-muted cursor-pointer');
+      }
+      cells.push('<button type="button" data-day-key="' + k + '" class="' + cls + '">' +
+        (hasLog ? '<i data-lucide="check" class="w-3 h-3"></i>' : '') + d + '</button>');
+    }
+
+    /* —— 统计：连续打卡天数（从今天往前回溯） —— */
+    var streak = 0;
+    var t = new Date();
+    while (all[dateKeyOf(t.getFullYear(), t.getMonth(), t.getDate())]) {
+      streak++; t.setDate(t.getDate() - 1);
+    }
+    var monthPrefix = dateKeyOf(v.year, v.month, 1).slice(0, 7);
+    var monthLogs = Object.keys(all).filter(function (k) { return k.slice(0, 7) === monthPrefix; });
+    var totalWritten = 0, totalInterview = 0;
+    Object.keys(all).forEach(function (k) { totalWritten += all[k].written || 0; totalInterview += all[k].interviews || 0; });
+
+    /* —— 勋章进度 —— */
+    var MEDAL_NEED = 7;
+    var prog = Math.min(100, Math.round(streak / MEDAL_NEED * 100));
+
+    /* —— 右侧：当日明细 —— */
+    var selLog = all[v.selectedKey] || null;
+    var dt = new Date(v.selectedKey.replace(/-/g, '/'));
+    var wd = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][dt.getDay()];
+    var dayLabel = v.selectedKey + '（' + wd + '）';
+    var rightHtml;
+    if (selLog && (selLog.written || selLog.interviews)) {
+      var items = (selLog.items || []).map(function (it) {
+        if (it.type === 'written') {
+          return '' +
+            '<div class="flex items-start gap-3 p-3 rounded-lg border border-edu-border hover:bg-edu-muted transition-colors">' +
+              '<div class="w-8 h-8 rounded-md bg-edu-muted text-edu-muted-foreground flex items-center justify-center shrink-0 text-[11px] font-semibold">' + (it.correct ? '✓' : '✗') + '</div>' +
+              '<div class="min-w-0 flex-1">' +
+                '<div class="flex items-center gap-2 mb-1"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">' + esc(it.subject) + '</span><span class="text-[11px] text-edu-muted-foreground">笔试</span></div>' +
+                '<p class="edu-caption text-edu-foreground leading-relaxed">' + esc(it.question || '') + '</p>' +
+              '</div>' +
+            '</div>';
+        }
+        return '' +
+          '<div class="flex items-start gap-3 p-3 rounded-lg border border-edu-border hover:bg-edu-muted transition-colors">' +
+            '<div class="w-8 h-8 rounded-md bg-edu-primary-50 text-edu-primary flex items-center justify-center shrink-0"><i data-lucide="mic" class="w-4 h-4"></i></div>' +
+            '<div class="min-w-0 flex-1">' +
+              '<div class="flex items-center gap-2 mb-1"><span class="text-xs font-medium text-edu-foreground">' + esc(it.school) + ' · ' + esc(it.major) + '</span><span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary text-white">' + esc(it.score) + ' 分</span></div>' +
+              '<p class="edu-caption text-edu-muted-foreground">面试时长 ' + esc(it.durationMin) + ' 分钟</p>' +
+            '</div>' +
+          '</div>';
+      }).join('');
+      var rate = selLog.written ? Math.round(selLog.correct / selLog.written * 100) : 0;
+      rightHtml = '' +
+        '<div class="flex items-center justify-between mb-3">' +
+          '<h3 class="text-sm font-semibold text-edu-foreground">当日练习 · ' + esc(dayLabel) + '</h3>' +
+          '<span class="edu-caption text-edu-muted-foreground">点击有记录的日期切换</span>' +
+        '</div>' +
+        '<div class="grid grid-cols-3 gap-3 mb-4">' +
+          '<div class="rounded-lg bg-edu-muted p-3 text-center"><p class="text-lg font-semibold text-edu-foreground">' + selLog.written + '</p><p class="edu-caption text-edu-muted-foreground mt-0.5">笔答题数</p></div>' +
+          '<div class="rounded-lg bg-edu-muted p-3 text-center"><p class="text-lg font-semibold text-edu-foreground">' + selLog.interviews + '</p><p class="edu-caption text-edu-muted-foreground mt-0.5">面试场次</p></div>' +
+          '<div class="rounded-lg bg-edu-muted p-3 text-center"><p class="text-lg font-semibold text-edu-foreground">' + (selLog.written ? rate + '%' : '—') + '</p><p class="edu-caption text-edu-muted-foreground mt-0.5">正确率</p></div>' +
+        '</div>' +
+        '<div class="space-y-2">' + items + '</div>';
+    } else {
+      rightHtml = '' +
+        '<div class="flex items-center justify-between mb-3">' +
+          '<h3 class="text-sm font-semibold text-edu-foreground">当日练习 · ' + esc(dayLabel) + '</h3>' +
+          '<span class="edu-caption text-edu-muted-foreground">点击有记录的日期查看</span>' +
+        '</div>' +
+        '<div class="py-14 text-center">' +
+          '<div class="w-14 h-14 rounded-full bg-edu-muted flex items-center justify-center mx-auto mb-3"><i data-lucide="calendar-days" class="w-6 h-6 text-edu-muted-foreground"></i></div>' +
+          '<p class="text-sm font-medium text-edu-foreground mb-1">' + esc(dayLabel) + '</p>' +
+          '<p class="edu-caption text-edu-muted-foreground">该日暂无练习记录</p>' +
+        '</div>';
+    }
+
+    /* —— 主渲染 —— */
+    document.getElementById('home-top').innerHTML = '' +
+      '<section class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm" aria-label="每日打卡">' +
+        '<div class="flex flex-wrap items-center justify-between gap-3 mb-5">' +
+          '<div class="flex items-center gap-3">' +
+            '<div class="w-10 h-10 rounded-xl bg-edu-state-success-bg text-edu-state-success flex items-center justify-center shrink-0"><i data-lucide="calendar-check" class="w-5 h-5"></i></div>' +
+            '<div>' +
+              '<h2 class="edu-h3 text-edu-foreground">每日打卡</h2>' +
+              '<p class="edu-caption text-edu-muted-foreground mt-0.5">有练习记录的日期自动标绿，点击查看当日明细</p>' +
+            '</div>' +
+          '</div>' +
+          '<div class="flex items-center gap-2">' +
+            '<span class="text-xs font-medium text-edu-state-warning bg-edu-state-warning-bg px-3 py-1.5 rounded-full inline-flex items-center gap-1"><i data-lucide="flame" class="w-3.5 h-3.5"></i>连续 ' + streak + ' 天</span>' +
+            '<span class="text-xs font-medium text-edu-state-success bg-edu-state-success-bg px-3 py-1.5 rounded-full inline-flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i>本月 ' + monthLogs.length + ' 天</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">' +
+          '<div class="lg:col-span-2">' +
+            '<div class="flex items-center justify-between mb-3">' +
+              '<div class="flex items-center gap-2">' +
+                '<button type="button" onclick="checkinPrevMonth()" class="w-8 h-8 rounded-lg hover:bg-edu-muted flex items-center justify-center text-edu-muted-foreground transition-colors"><i data-lucide="arrow-left" class="w-4 h-4"></i></button>' +
+                '<span class="text-sm font-medium text-edu-foreground">' + v.year + ' 年 ' + (v.month + 1) + ' 月</span>' +
+                '<button type="button" onclick="checkinNextMonth()" class="w-8 h-8 rounded-lg hover:bg-edu-muted flex items-center justify-center text-edu-muted-foreground transition-colors"><i data-lucide="arrow-right" class="w-4 h-4"></i></button>' +
+              '</div>' +
+              '<span class="edu-caption text-edu-muted-foreground">共 ' + monthLogs.length + ' 天有记录</span>' +
+            '</div>' +
+            '<div class="grid grid-cols-7 gap-1.5 text-center edu-caption text-edu-muted-foreground mb-1.5">' + weekdayHeader + '</div>' +
+            '<div class="grid grid-cols-7 gap-1.5 text-xs">' + cells.join('') + '</div>' +
+          '</div>' +
+          '<div class="flex flex-col gap-3 lg:border-l lg:border-edu-border lg:pl-6">' + rightHtml + '</div>' +
+        '</div>' +
+        '<div class="mt-5 pt-4 border-t border-edu-border">' +
+          '<div class="flex items-center justify-between mb-2">' +
+            '<span class="edu-caption text-edu-muted-foreground">距「自律之星」勋章还差 <span class="text-edu-primary font-semibold">' + Math.max(0, MEDAL_NEED - streak) + '</span> 天</span>' +
+            '<span class="edu-caption text-edu-muted-foreground">' + streak + ' / ' + MEDAL_NEED + '</span>' +
+          '</div>' +
+          '<div class="h-1.5 rounded-full bg-edu-muted overflow-hidden"><div class="h-full rounded-full bg-edu-state-success" style="width:' + prog + '%"></div></div>' +
+          '<p class="edu-caption text-edu-muted-foreground mt-2">连续打卡 ' + MEDAL_NEED + ' 天可获“自律之星”勋章与 50 积分 · 累计练习 ' + totalWritten + ' 题 / ' + totalInterview + ' 场</p>' +
+        '</div>' +
+      '</section>';
+
+    document.querySelectorAll('[data-day-key]').forEach(function (btn) {
+      btn.addEventListener('click', function () { _checkin.selectedKey = this.dataset.dayKey; renderCheckinView(); });
+    });
+    refreshIcons();
+  }
+
+  /* ---- 整体练习进度 ---- */
+  function renderProgress() {
+    var prog = getProg(state.plan.id);
+    var wTotal = state.written.length;
+    var wDone = Math.min(prog.done, wTotal);
+    var wRate = wDone ? Math.round(prog.correct / wDone * 100) : 0;
+    var wPct = wTotal ? Math.round(wDone / wTotal * 100) : 0;
+
+    var hasInterview = planHasInterview(state.plan);
+    var iTargets = state.plan.majors.filter(function (m) { return m.needsInterview; }).length;
+    var iDone = prog.sessions || 0;
+    var iAvg = (prog.scores && prog.scores.length) ? Math.round(prog.scores.reduce(function (a, b) { return a + b; }, 0) / prog.scores.length) : 0;
+    var iPct = iTargets ? Math.min(100, Math.round(iDone / iTargets * 100)) : 0;
+
+    var overall = wTotal + (hasInterview ? iTargets * 2 : 0);
+    var overallDone = wDone + (hasInterview ? iDone * 2 : 0);
+    var overallPct = overall ? Math.round(overallDone / overall * 100) : 0;
+
+    var ringOffset = 100 - overallPct;
+
+    var html = '' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex items-center justify-between mb-6">' +
+          '<div class="flex items-center gap-2">' +
+            '<div class="w-8 h-8 rounded-lg bg-edu-primary-50 text-edu-primary flex items-center justify-center"><i data-lucide="bar-chart-3" class="w-4 h-4"></i></div>' +
+            '<h2 class="edu-h3 text-edu-foreground">整体练习进度</h2>' +
+          '</div>' +
+          '<span class="text-xs text-edu-muted-foreground">含笔试与面试</span>' +
+        '</div>' +
+        '<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">' +
+          '<div class="flex items-center justify-center bg-edu-muted rounded-xl p-6">' +
+            '<div class="relative w-32 h-32">' +
+              '<svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">' +
+                '<path class="text-edu-primary-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>' +
+                '<path stroke-dasharray="' + overallPct + ', 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--edu-primary)" stroke-width="3" stroke-linecap="round"></path>' +
+              '</svg>' +
+              '<div class="absolute inset-0 flex flex-col items-center justify-center">' +
+                '<span class="text-2xl font-semibold text-edu-foreground edu-number">' + overallPct + '%</span>' +
+                '<span class="text-[11px] text-edu-muted-foreground mt-0.5">综合进度</span>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="bg-edu-muted rounded-xl p-5 flex flex-col">' +
+            '<div class="flex items-center justify-between mb-3">' +
+              '<div class="flex items-center gap-2"><i data-lucide="pencil" class="w-4 h-4 text-edu-primary"></i><p class="font-semibold text-edu-foreground">笔试练习</p></div>' +
+              '<span class="edu-caption text-edu-muted-foreground edu-number">' + wDone + ' / ' + wTotal + ' 题</span>' +
+            '</div>' +
+            '<div class="h-2.5 rounded-full bg-edu-border overflow-hidden mb-3"><div class="h-full rounded-full bg-edu-primary transition-all" style="width:' + wPct + '%"></div></div>' +
+            '<div class="mt-auto grid grid-cols-2 gap-3">' +
+              '<div><p class="text-xs text-edu-muted-foreground">正确率</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + wRate + '%</p></div>' +
+              '<div><p class="text-xs text-edu-muted-foreground">错题</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + (prog.wrong ? prog.wrong.length : 0) + '</p></div>' +
+            '</div>' +
+          '</div>' +
+          (hasInterview
+            ? '<div class="bg-edu-muted rounded-xl p-5 flex flex-col">' +
+                '<div class="flex items-center justify-between mb-3">' +
+                  '<div class="flex items-center gap-2"><i data-lucide="video" class="w-4 h-4 text-edu-state-warning"></i><p class="font-semibold text-edu-foreground">面试练习</p></div>' +
+                  '<span class="edu-caption text-edu-muted-foreground edu-number">' + iDone + ' / ' + iTargets + ' 场</span>' +
+                '</div>' +
+                '<div class="h-2.5 rounded-full bg-edu-border overflow-hidden mb-3"><div class="h-full rounded-full bg-edu-state-warning transition-all" style="width:' + iPct + '%"></div></div>' +
+                '<div class="mt-auto grid grid-cols-2 gap-3">' +
+                  '<div><p class="text-xs text-edu-muted-foreground">平均分</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + (iAvg || '--') + '</p></div>' +
+                  '<div><p class="text-xs text-edu-muted-foreground">已完成</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + iDone + '</p></div>' +
+                '</div>' +
+              '</div>'
+            : '<div class="bg-edu-muted rounded-xl p-5 flex flex-col items-center justify-center text-center">' +
+                '<div class="w-10 h-10 rounded-full bg-edu-state-info-bg text-edu-state-info flex items-center justify-center mb-2"><i data-lucide="info" class="w-5 h-5"></i></div>' +
+                '<p class="text-sm font-medium text-edu-foreground">本方案无面试环节</p>' +
+                '<p class="edu-caption text-edu-muted-foreground mt-1">方案内院校校测均为笔试，无需准备面试。</p>' +
+              '</div>') +
+        '</div>' +
+      '</div>';
+
+    document.getElementById('overall-progress').innerHTML = html;
+  }
+
+  /* ---- 笔试练习区域（入口卡片，完整练习已迁移至 written-practice.html） ---- */
+  function renderWritten() {
+    var area = document.getElementById('written-area');
+    var hasWritten = state.written.length > 0;
+    if (!hasWritten) {
+      area.innerHTML = '';
+      area.classList.add('hidden');
+      return;
+    }
+    area.classList.remove('hidden');
+
+    var prog = getProg(state.plan.id);
+    var done = prog.done || 0;
+    var correct = prog.correct || 0;
+    var rate = done ? Math.round(correct / done * 100) : 0;
+    var wrong = (prog.wrong || []).length;
+    var total = state.written.length;
+
+    var html = '' +
+      '<div class="flex items-center gap-2 mb-4">' +
+        '<i data-lucide="pencil" class="w-5 h-5 text-edu-primary"></i>' +
+        '<h2 class="edu-h2 text-edu-foreground">笔试练习</h2>' +
+        '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">依据方案院校专业出题</span>' +
+      '</div>' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex flex-col md:flex-row md:items-center gap-6">' +
+          '<div class="flex-1 min-w-0">' +
+            '<p class="edu-body text-edu-muted-foreground">练习将在新页面进行：错题本、题目收藏与智能推荐均已整合到该页面，完成后进度会自动同步回本页。</p>' +
+            '<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5">' +
+              '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">题目总数</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + total + '</p></div>' +
+              '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">已完成</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + Math.min(done, total) + '</p></div>' +
+              '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">正确率</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + (done ? rate + '%' : '--') + '</p></div>' +
+              '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">错题数</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + wrong + '</p></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="shrink-0 md:w-56">' +
+            '<a href="written-practice.html" target="_blank" rel="noopener" class="w-full inline-flex items-center justify-center gap-1.5 px-5 h-12 rounded-xl bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors"><i data-lucide="pencil" class="w-4 h-4"></i>开始笔试练习</a>' +
+            '<p class="edu-caption text-edu-muted-foreground mt-2 text-center">在新页面完成练习，进度自动同步</p>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    document.getElementById('written-area').innerHTML = html;
+    refreshIcons();
+  }
+
+  /* 错题本 / 题目收藏 / 智能推荐：已迁移至笔试练习页 written-practice.html */
+
+
+  /* =======================================================================
+     面试练习区域
+     ======================================================================= */
+  /* =======================================================================
+     面试练习区域（概览 + 入口，完整面试已迁移至 interview-practice.html）
+     ======================================================================= */
+  function renderInterviewArea() {
+    var plan = state.plan;
+    var area = document.getElementById('interview-area');
+    var targets = plan.majors.filter(function (m) { return m.needsInterview; });
+    if (!targets.length) {
+      area.innerHTML = '';
+      area.classList.add('hidden');
+      return;
+    }
+    area.classList.remove('hidden');
+
+    var prog = getProg(plan.id);
+    var iDone = prog.sessions || 0;
+    var iAvg = (prog.scores && prog.scores.length) ? Math.round(prog.scores.reduce(function (a, b) { return a + b; }, 0) / prog.scores.length) : 0;
+
+    area.innerHTML = '' +
+      '<div class="flex items-center gap-2 mb-4">' +
+        '<i data-lucide="video" class="w-5 h-5 text-edu-primary"></i>' +
+        '<h2 class="edu-h2 text-edu-foreground">面试练习</h2>' +
+        '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">数字人面对面视频面试</span>' +
+      '</div>' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex flex-col md:flex-row md:items-center gap-6">' +
+          '<div class="flex-1 min-w-0">' +
+            '<p class="edu-body text-edu-muted-foreground">AI 数字人面对面面试将在新页面进行：面试基础视频课程、练习历史与院校选择均已整合到该页面。完成后自动生成五维评估报告，进度会同步回本页。</p>' +
+            '<div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5">' +
+              '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">可面试院校</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + targets.length + '</p></div>' +
+              '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">已完成场次</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + iDone + '</p></div>' +
+              '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">平均分</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + (iAvg || '--') + '</p></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="shrink-0 md:w-56">' +
+            '<a href="interview-practice.html" target="_blank" rel="noopener" class="w-full inline-flex items-center justify-center gap-1.5 px-5 h-12 rounded-xl bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors"><i data-lucide="video" class="w-4 h-4"></i>开始 AI 面试练习</a>' +
+            '<p class="edu-caption text-edu-muted-foreground mt-2 text-center">新页面内可看课程 / 回顾历史</p>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    refreshIcons();
+  }
+
+  /* =======================================================================
+     面试视频课程 / 历史相关函数：已迁移至 interview-practice.html
+     ======================================================================= */
+  /* 原 openVideoModal / closeVideoModal / interviewHistoryMeta / scoreBadgeCls / interviewHistoryRows 均已移走 */
+
+  /* =======================================================================
+     初始化
+     ======================================================================= */
+  function initPractice() {
+    var plans = loadPlans();
+    var savedId = localStorage.getItem(PLAN_STORE_KEY);
+    var savedPlan = savedId ? plans.filter(function (p) { return p.id === savedId; })[0] : null;
+    if (savedPlan) {
+      selectPlan(savedPlan.id);
+    } else if (plans.length) {
+      /* 无已选方案时，默认选中第一个（演示方案或真实方案），让用户直接看到练习首页的完整入口 */
+      selectPlan(plans[0].id);
+    } else {
+      document.getElementById('practice-home').classList.add('hidden');
+      document.getElementById('plan-gate').classList.remove('hidden');
+      renderGate();
+    }
+  }
+  initPractice();
+  lucide.createIcons();
+  </script>
+</body>
+</html>
