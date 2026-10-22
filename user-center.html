@@ -53,6 +53,30 @@
 
       .plan-item.is-hidden { display: none; }
       .tl-item.is-hidden { display: none; }
+
+      /* ---- 登录/注册：三种方式 Tab 切换 ---- */
+      .auth-tabs { display: flex; gap: 4px; padding: 4px; border-radius: 10px; background: var(--edu-muted); }
+      .auth-tab { flex: 1 1 0; min-width: 0; padding: 8px 6px; border-radius: 7px; border: none; background: transparent;
+        color: var(--edu-muted-foreground); font-size: 13px; font-weight: 500; line-height: 1.4; white-space: nowrap;
+        cursor: pointer; transition: background .15s ease, color .15s ease, box-shadow .15s ease; }
+      .auth-tab:hover { color: var(--edu-foreground); }
+      .auth-tab.is-active { background: var(--edu-card); color: var(--edu-primary);
+        box-shadow: 0 1px 3px rgba(15, 23, 42, .10); }
+      .auth-panel { display: block; }
+      .auth-panel.is-hidden { display: none; }
+
+      /* 密码可见性切换按钮 */
+      .pwd-wrap { position: relative; }
+      .pwd-wrap input { padding-right: 40px; }
+      .pwd-eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px;
+        display: flex; align-items: center; justify-content: center; border: none; background: transparent;
+        color: var(--edu-muted-foreground); cursor: pointer; border-radius: 6px; padding: 0; }
+      .pwd-eye:hover { color: var(--edu-foreground); background: var(--edu-muted); }
+      .pwd-eye svg { width: 16px; height: 16px; }
+
+      .auth-field-error { display: none; margin-top: 4px; font-size: 11px; color: #dc2626; }
+      .auth-field-error.is-shown { display: block; }
+      input.auth-invalid { border-color: #dc2626 !important; }
     </style>
 </head>
 <body class="bg-edu-background text-edu-foreground min-h-screen flex flex-col" style="font-family: Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;">
@@ -152,26 +176,111 @@
                 <span class="text-xs text-edu-muted-foreground">已登录可跳过</span>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- 手机号登录 -->
+                <!-- 手机号登录 / 注册：三种方式 Tab 切换 -->
                 <div class="space-y-4">
-                  <h3 class="text-sm font-semibold text-edu-foreground flex items-center gap-2">
-                    <i data-lucide="smartphone" class="w-4 h-4 text-edu-muted-foreground"></i>
-                    手机号 + 短信验证码
-                  </h3>
-                  <div class="space-y-3">
-                    <div>
-                      <label class="block text-xs font-medium text-edu-muted-foreground mb-1">手机号</label>
-                      <input type="tel" placeholder="请输入 11 位手机号" class="w-full px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm focus:outline-none focus:ring-2 focus:ring-edu-ring" />
-                    </div>
-                    <div>
-                      <label class="block text-xs font-medium text-edu-muted-foreground mb-1">短信验证码</label>
-                      <div class="flex gap-2">
-                        <input type="text" placeholder="6 位验证码" maxlength="6" class="flex-1 px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm focus:outline-none focus:ring-2 focus:ring-edu-ring" />
-                        <button type="button" class="px-3 py-2 rounded-lg text-xs font-medium bg-edu-primary text-white hover:bg-[#0f766e] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">获取验证码</button>
+                  <div class="auth-tabs" role="tablist" aria-label="登录注册方式">
+                    <button type="button" class="auth-tab is-active" role="tab" aria-selected="true" data-auth-tab="code">验证码登录</button>
+                    <button type="button" class="auth-tab" role="tab" aria-selected="false" data-auth-tab="pwd">密码登录</button>
+                    <button type="button" class="auth-tab" role="tab" aria-selected="false" data-auth-tab="reg">手机号注册</button>
+                  </div>
+
+                  <!-- ① 手机号 + 短信验证码：登录 / 注册 -->
+                  <div class="auth-panel" role="tabpanel" data-auth-panel="code">
+                    <h3 class="text-sm font-semibold text-edu-foreground flex items-center gap-2 mb-3">
+                      <i data-lucide="smartphone" class="w-4 h-4 text-edu-muted-foreground"></i>
+                      手机号 + 短信验证码
+                    </h3>
+                    <div class="space-y-3">
+                      <div>
+                        <label class="block text-xs font-medium text-edu-muted-foreground mb-1">手机号</label>
+                        <input type="tel" id="auth-code-phone" placeholder="请输入 11 位手机号" maxlength="11" class="w-full px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm focus:outline-none focus:ring-2 focus:ring-edu-ring" />
+                        <p class="auth-field-error" data-error-for="auth-code-phone">请输入 11 位有效手机号</p>
                       </div>
-                      <p class="mt-1.5 text-xs text-edu-muted-foreground">验证码 60 秒内有效；每日每手机号限发 5 次。</p>
+                      <div>
+                        <label class="block text-xs font-medium text-edu-muted-foreground mb-1">短信验证码</label>
+                        <div class="flex gap-2">
+                          <input type="text" id="auth-code-code" placeholder="6 位验证码" maxlength="6" class="flex-1 px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm focus:outline-none focus:ring-2 focus:ring-edu-ring" />
+                          <button type="button" data-send-code class="px-3 py-2 rounded-lg text-xs font-medium bg-edu-primary text-white hover:bg-[#0f766e] transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap">获取验证码</button>
+                        </div>
+                        <p class="mt-1.5 text-xs text-edu-muted-foreground">验证码 60 秒内有效；每日每手机号限发 5 次。</p>
+                      </div>
+                      <button type="button" data-auth-submit="code" class="w-full px-4 py-2.5 rounded-lg text-sm font-medium bg-edu-primary text-white hover:bg-[#0f766e] transition-colors">登录 / 注册</button>
+                      <p class="text-xs text-edu-muted-foreground text-center">未注册的手机号验证后将自动创建账号</p>
                     </div>
-                    <button type="button" class="w-full px-4 py-2.5 rounded-lg text-sm font-medium bg-edu-primary text-white hover:bg-[#0f766e] transition-colors">登录 / 注册</button>
+                  </div>
+
+                  <!-- ② 手机号 + 密码：登录 -->
+                  <div class="auth-panel is-hidden" role="tabpanel" data-auth-panel="pwd">
+                    <h3 class="text-sm font-semibold text-edu-foreground flex items-center gap-2 mb-3">
+                      <i data-lucide="key-round" class="w-4 h-4 text-edu-muted-foreground"></i>
+                      手机号 + 密码登录
+                    </h3>
+                    <div class="space-y-3">
+                      <div>
+                        <label class="block text-xs font-medium text-edu-muted-foreground mb-1">手机号</label>
+                        <input type="tel" id="auth-pwd-phone" placeholder="请输入 11 位手机号" maxlength="11" class="w-full px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm focus:outline-none focus:ring-2 focus:ring-edu-ring" />
+                        <p class="auth-field-error" data-error-for="auth-pwd-phone">请输入 11 位有效手机号</p>
+                      </div>
+                      <div>
+                        <label class="block text-xs font-medium text-edu-muted-foreground mb-1">登录密码</label>
+                        <div class="pwd-wrap">
+                          <input type="password" id="auth-pwd-value" placeholder="请输入密码" class="w-full px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm focus:outline-none focus:ring-2 focus:ring-edu-ring" />
+                          <button type="button" class="pwd-eye" data-toggle-pwd="auth-pwd-value" aria-label="显示密码">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                          </button>
+                        </div>
+                        <p class="auth-field-error" data-error-for="auth-pwd-value">请输入密码</p>
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <label class="flex items-center gap-1.5 text-xs text-edu-muted-foreground cursor-pointer">
+                          <input type="checkbox" id="auth-pwd-remember" class="w-3.5 h-3.5 rounded border-edu-border accent-[var(--edu-primary)]" checked />
+                          记住手机号
+                        </label>
+                        <a href="#security" class="text-xs text-edu-primary hover:underline">忘记密码？</a>
+                      </div>
+                      <button type="button" data-auth-submit="pwd" class="w-full px-4 py-2.5 rounded-lg text-sm font-medium bg-edu-primary text-white hover:bg-[#0f766e] transition-colors">登录</button>
+                      <p class="text-xs text-edu-muted-foreground text-center">还没有账号？<button type="button" class="text-edu-primary hover:underline" data-auth-jump="reg">立即注册</button></p>
+                    </div>
+                  </div>
+
+                  <!-- ③ 手机号注册 -->
+                  <div class="auth-panel is-hidden" role="tabpanel" data-auth-panel="reg">
+                    <h3 class="text-sm font-semibold text-edu-foreground flex items-center gap-2 mb-3">
+                      <i data-lucide="user-plus" class="w-4 h-4 text-edu-muted-foreground"></i>
+                      手机号注册
+                    </h3>
+                    <div class="space-y-3">
+                      <div>
+                        <label class="block text-xs font-medium text-edu-muted-foreground mb-1">手机号</label>
+                        <input type="tel" id="auth-reg-phone" placeholder="请输入 11 位手机号" maxlength="11" class="w-full px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm focus:outline-none focus:ring-2 focus:ring-edu-ring" />
+                        <p class="auth-field-error" data-error-for="auth-reg-phone">请输入 11 位有效手机号</p>
+                      </div>
+                      <div>
+                        <label class="block text-xs font-medium text-edu-muted-foreground mb-1">短信验证码</label>
+                        <div class="flex gap-2">
+                          <input type="text" id="auth-reg-code" placeholder="6 位验证码" maxlength="6" class="flex-1 px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm focus:outline-none focus:ring-2 focus:ring-edu-ring" />
+                          <button type="button" data-send-code class="px-3 py-2 rounded-lg text-xs font-medium bg-edu-primary text-white hover:bg-[#0f766e] transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap">获取验证码</button>
+                        </div>
+                        <p class="auth-field-error" data-error-for="auth-reg-code">请输入 6 位验证码</p>
+                      </div>
+                      <div>
+                        <label class="block text-xs font-medium text-edu-muted-foreground mb-1">设置密码</label>
+                        <div class="pwd-wrap">
+                          <input type="password" id="auth-reg-pwd" placeholder="8-20 位，含字母和数字" maxlength="20" class="w-full px-3 py-2 rounded-lg border border-edu-border bg-edu-background text-sm focus:outline-none focus:ring-2 focus:ring-edu-ring" />
+                          <button type="button" class="pwd-eye" data-toggle-pwd="auth-reg-pwd" aria-label="显示密码">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                          </button>
+                        </div>
+                        <p class="auth-field-error" data-error-for="auth-reg-pwd">密码需 8-20 位，且同时包含字母和数字</p>
+                      </div>
+                      <label class="flex items-start gap-1.5 text-xs text-edu-muted-foreground cursor-pointer">
+                        <input type="checkbox" id="auth-reg-agree" class="w-3.5 h-3.5 mt-0.5 rounded border-edu-border accent-[var(--edu-primary)]" />
+                        <span>我已阅读并同意<a href="#" class="text-edu-primary hover:underline">《用户协议》</a>与<a href="#" class="text-edu-primary hover:underline">《隐私政策》</a></span>
+                      </label>
+                      <p class="auth-field-error" data-error-for="auth-reg-agree">请先阅读并同意用户协议与隐私政策</p>
+                      <button type="button" data-auth-submit="reg" class="w-full px-4 py-2.5 rounded-lg text-sm font-medium bg-edu-primary text-white hover:bg-[#0f766e] transition-colors">注册</button>
+                      <p class="text-xs text-edu-muted-foreground text-center">已有账号？<button type="button" class="text-edu-primary hover:underline" data-auth-jump="code">直接登录</button></p>
+                    </div>
                   </div>
                 </div>
                 <!-- 微信扫码 -->
@@ -1423,6 +1532,149 @@
       window.tlSwitchPlan = switchPlan;
       if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
       else init();
+    })();
+  </script>
+
+  <!-- 登录/注册：三种方式切换 + 表单校验 -->
+  <script>
+    (function () {
+      var PANELS = ['code', 'pwd', 'reg'];
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('[data-auth-tab]'));
+      var panels = Array.prototype.slice.call(document.querySelectorAll('[data-auth-panel]'));
+      if (!tabs.length) return;
+
+      function activate(name) {
+        if (PANELS.indexOf(name) === -1) name = 'code';
+        tabs.forEach(function (t) {
+          var on = t.getAttribute('data-auth-tab') === name;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        panels.forEach(function (p) {
+          p.classList.toggle('is-hidden', p.getAttribute('data-auth-panel') !== name);
+        });
+        /* 切换后清空该面板的校验提示 */
+        var cur = document.querySelector('[data-auth-panel="' + name + '"]');
+        if (cur) {
+          cur.querySelectorAll('.auth-field-error.is-shown').forEach(function (e) { e.classList.remove('is-shown'); });
+          cur.querySelectorAll('input.auth-invalid').forEach(function (i) { i.classList.remove('auth-invalid'); });
+        }
+      }
+
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () { activate(this.getAttribute('data-auth-tab')); });
+      });
+
+      /* 「立即注册」「直接登录」相互跳转 */
+      document.querySelectorAll('[data-auth-jump]').forEach(function (b) {
+        b.addEventListener('click', function () { activate(this.getAttribute('data-auth-jump')); });
+      });
+
+      /* 密码可见性切换 */
+      document.querySelectorAll('[data-toggle-pwd]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var input = document.getElementById(this.getAttribute('data-toggle-pwd'));
+          if (!input) return;
+          var toText = input.type === 'password';
+          input.type = toText ? 'text' : 'password';
+          this.setAttribute('aria-label', toText ? '隐藏密码' : '显示密码');
+          this.innerHTML = '<i data-lucide="' + (toText ? 'eye-off' : 'eye') + '" class="w-4 h-4"></i>';
+          if (window.lucide) try { lucide.createIcons(); } catch (e) {}
+        });
+      });
+
+      /* 校验辅助 */
+      function markInvalid(input, invalid) {
+        if (!input) return;
+        input.classList.toggle('auth-invalid', !!invalid);
+        var err = document.querySelector('[data-error-for="' + input.id + '"]');
+        if (err) err.classList.toggle('is-shown', !!invalid);
+      }
+      function isPhone(v) { return /^1[3-9]\d{9}$/.test(v.trim()); }
+      function isCode(v) { return /^\d{6}$/.test(v.trim()); }
+      function isPwd(v) { return v.length >= 8 && v.length <= 20 && /[A-Za-z]/.test(v) && /\d/.test(v); }
+
+      /* 获取验证码：60 秒倒计时（静态原型仅做交互演示） */
+      document.querySelectorAll('[data-send-code]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (this.disabled) return;
+          var self = this;
+          var left = 60;
+          self.disabled = true;
+          self.textContent = left + ' 秒后重发';
+          var timer = setInterval(function () {
+            left--;
+            if (left <= 0) {
+              clearInterval(timer);
+              self.disabled = false;
+              self.textContent = '获取验证码';
+            } else {
+              self.textContent = left + ' 秒后重发';
+            }
+          }, 1000);
+        });
+      });
+
+      /* 提交：分面板校验 */
+      document.querySelectorAll('[data-auth-submit]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var kind = this.getAttribute('data-auth-submit');
+          var ok = true;
+
+          if (kind === 'code') {
+            var p1 = document.getElementById('auth-code-phone');
+            var c1 = document.getElementById('auth-code-code');
+            markInvalid(p1, !isPhone(p1.value)); if (!isPhone(p1.value)) ok = false;
+            markInvalid(c1, !isCode(c1.value)); if (!isCode(c1.value)) ok = false;
+          } else if (kind === 'pwd') {
+            var p2 = document.getElementById('auth-pwd-phone');
+            var v2 = document.getElementById('auth-pwd-value');
+            markInvalid(p2, !isPhone(p2.value)); if (!isPhone(p2.value)) ok = false;
+            markInvalid(v2, v2.value.length < 6); if (v2.value.length < 6) ok = false;
+          } else if (kind === 'reg') {
+            var p3 = document.getElementById('auth-reg-phone');
+            var c3 = document.getElementById('auth-reg-code');
+            var v3 = document.getElementById('auth-reg-pwd');
+            var a3 = document.getElementById('auth-reg-agree');
+            markInvalid(p3, !isPhone(p3.value)); if (!isPhone(p3.value)) ok = false;
+            markInvalid(c3, !isCode(c3.value)); if (!isCode(c3.value)) ok = false;
+            markInvalid(v3, !isPwd(v3.value)); if (!isPwd(v3.value)) ok = false;
+            var agreeErr = document.querySelector('[data-error-for="auth-reg-agree"]');
+            if (agreeErr) agreeErr.classList.toggle('is-shown', !a3.checked);
+            if (!a3.checked) ok = false;
+          }
+
+          if (!ok) return;
+
+          var label = this.textContent;
+          this.disabled = true;
+          this.textContent = '处理中…';
+          var self = this;
+          setTimeout(function () {
+            self.disabled = false;
+            self.textContent = label;
+            window.location.hash = '#profile';
+          }, 500);
+        });
+      });
+
+      /* 输入时即时清除错误 */
+      document.querySelectorAll('.auth-panel input').forEach(function (inp) {
+        inp.addEventListener('input', function () {
+          if (this.classList.contains('auth-invalid')) markInvalid(this, false);
+          if (this.type === 'checkbox') {
+            var e = document.querySelector('[data-error-for="' + this.id + '"]');
+            if (e && this.checked) e.classList.remove('is-shown');
+          }
+        });
+        if (inp.type === 'checkbox') {
+          inp.addEventListener('change', function () {
+            if (!this.checked) return;
+            var e = document.querySelector('[data-error-for="' + this.id + '"]');
+            if (e) e.classList.remove('is-shown');
+          });
+        }
+      });
     })();
   </script>
 </body>
