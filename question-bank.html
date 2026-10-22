@@ -84,6 +84,13 @@
       #room-dh-wrap.dh-speaking #room-dh-img{animation:dhSpeak 1.1s ease-in-out infinite;}
       .mirror{transform:scaleX(-1);}
       @media (prefers-reduced-motion: reduce){ .dh-breathe,.dh-float,.dh-wave span{animation:none;} #room-dh-wrap.dh-speaking #room-dh-img{animation:none;} }
+
+      /* ---- 每日打卡：当日练习明细最多显示 3 条，超出可滚动 ---- */
+      .day-items { overflow-y: auto; overscroll-behavior: contain; }
+      .day-items::-webkit-scrollbar { width: 6px; }
+      .day-items::-webkit-scrollbar-thumb { background: var(--edu-border); border-radius: 3px; }
+      .day-items::-webkit-scrollbar-thumb:hover { background: var(--edu-muted-foreground); }
+      .day-items::-webkit-scrollbar-track { background: transparent; }
     </style>
 </head>
 <body class="bg-edu-background text-edu-foreground min-h-screen flex flex-col" style="font-family: Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;">
@@ -357,12 +364,6 @@
     }
     var monthPrefix = dateKeyOf(v.year, v.month, 1).slice(0, 7);
     var monthLogs = Object.keys(all).filter(function (k) { return k.slice(0, 7) === monthPrefix; });
-    var totalWritten = 0, totalInterview = 0;
-    Object.keys(all).forEach(function (k) { totalWritten += all[k].written || 0; totalInterview += all[k].interviews || 0; });
-
-    /* —— 勋章进度 —— */
-    var MEDAL_NEED = 7;
-    var prog = Math.min(100, Math.round(streak / MEDAL_NEED * 100));
 
     /* —— 右侧：当日明细 —— */
     var selLog = all[v.selectedKey] || null;
@@ -402,7 +403,7 @@
           '<div class="rounded-lg bg-edu-muted p-3 text-center"><p class="text-lg font-semibold text-edu-foreground">' + selLog.interviews + '</p><p class="edu-caption text-edu-muted-foreground mt-0.5">面试场次</p></div>' +
           '<div class="rounded-lg bg-edu-muted p-3 text-center"><p class="text-lg font-semibold text-edu-foreground">' + (selLog.written ? rate + '%' : '—') + '</p><p class="edu-caption text-edu-muted-foreground mt-0.5">正确率</p></div>' +
         '</div>' +
-        '<div class="space-y-2">' + items + '</div>';
+        '<div class="space-y-2 day-items pr-1">' + items + '</div>';
     } else {
       rightHtml = '' +
         '<div class="flex items-center justify-between mb-3">' +
@@ -447,20 +448,21 @@
           '</div>' +
           '<div class="flex flex-col gap-3 lg:border-l lg:border-edu-border lg:pl-6">' + rightHtml + '</div>' +
         '</div>' +
-        '<div class="mt-5 pt-4 border-t border-edu-border">' +
-          '<div class="flex items-center justify-between mb-2">' +
-            '<span class="edu-caption text-edu-muted-foreground">距「自律之星」勋章还差 <span class="text-edu-primary font-semibold">' + Math.max(0, MEDAL_NEED - streak) + '</span> 天</span>' +
-            '<span class="edu-caption text-edu-muted-foreground">' + streak + ' / ' + MEDAL_NEED + '</span>' +
-          '</div>' +
-          '<div class="h-1.5 rounded-full bg-edu-muted overflow-hidden"><div class="h-full rounded-full bg-edu-state-success" style="width:' + prog + '%"></div></div>' +
-          '<p class="edu-caption text-edu-muted-foreground mt-2">连续打卡 ' + MEDAL_NEED + ' 天可获“自律之星”勋章与 50 积分 · 累计练习 ' + totalWritten + ' 题 / ' + totalInterview + ' 场</p>' +
-        '</div>' +
       '</section>';
 
     document.querySelectorAll('[data-day-key]').forEach(function (btn) {
       btn.addEventListener('click', function () { _checkin.selectedKey = this.dataset.dayKey; renderCheckinView(); });
     });
     refreshIcons();
+
+    /* 当日明细最多显示 3 条，超出后容器内滚动（按真实渲染高度计算，兼容换行） */
+    var box = document.querySelector('#home-top .day-items');
+    if (box && box.children.length > 3) {
+      var h = 0;
+      for (var i = 0; i < 3; i++) h += box.children[i].offsetHeight;
+      var gap = parseFloat(getComputedStyle(box).rowGap) || 8;
+      box.style.maxHeight = (h + gap * 2) + 'px';
+    }
   }
 
   /* ---- 整体练习进度 ---- */
