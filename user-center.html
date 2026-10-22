@@ -175,8 +175,9 @@
                 </h2>
                 <span class="text-xs text-edu-muted-foreground">已登录可跳过</span>
               </div>
-              <!-- 手机号登录 / 注册：三种方式 Tab 切换 -->
-              <div class="space-y-4 max-w-md">
+              <!-- 手机号登录 / 注册：左侧三种方式 Tab 切换，右侧权益说明 -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              <div class="space-y-4 w-full max-w-md mx-auto md:mx-0">
                   <div class="auth-tabs" role="tablist" aria-label="登录注册方式">
                     <button type="button" class="auth-tab is-active" role="tab" aria-selected="true" data-auth-tab="code">验证码登录</button>
                     <button type="button" class="auth-tab" role="tab" aria-selected="false" data-auth-tab="pwd">密码登录</button>
@@ -281,6 +282,36 @@
                       <p class="text-xs text-edu-muted-foreground text-center">已有账号？<button type="button" class="text-edu-primary hover:underline" data-auth-jump="code">直接登录</button></p>
                     </div>
                   </div>
+              </div>
+
+              <!-- 右侧：登录后可同步的权益说明（桌面端可见，用于平衡版面） -->
+              <div class="hidden md:flex flex-col justify-center rounded-xl border border-edu-border bg-edu-muted/30 p-6">
+                <h3 class="text-sm font-semibold text-edu-foreground flex items-center gap-2">
+                  <i data-lucide="sparkles" class="w-4 h-4 text-edu-primary"></i>
+                  登录后可同步
+                </h3>
+                <ul class="mt-4 space-y-3">
+                  <li class="flex items-start gap-2 text-sm text-edu-muted-foreground">
+                    <i data-lucide="check" class="w-4 h-4 text-edu-primary flex-shrink-0 mt-0.5"></i>
+                    <span>保存志愿方案与个人时间轴，跨设备随时查看</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-edu-muted-foreground">
+                    <i data-lucide="check" class="w-4 h-4 text-edu-primary flex-shrink-0 mt-0.5"></i>
+                    <span>同步练习记录、错题与面试报告</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-edu-muted-foreground">
+                    <i data-lucide="check" class="w-4 h-4 text-edu-primary flex-shrink-0 mt-0.5"></i>
+                    <span>接收院校报名截止与校测时间提醒</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-edu-muted-foreground">
+                    <i data-lucide="check" class="w-4 h-4 text-edu-primary flex-shrink-0 mt-0.5"></i>
+                    <span>管理 VIP 权益、订单与账号安全设置</span>
+                  </li>
+                </ul>
+                <p class="mt-5 pt-4 border-t border-edu-border text-xs text-edu-muted-foreground leading-relaxed">
+                  首次登录将自动创建账号；如遇验证码收不到等问题，可通过右下角在线客服联系我们。
+                </p>
+              </div>
               </div>
             </div>
           </section>
