@@ -318,7 +318,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/practice-core.js?v=20261023"></script>
+  <script src="assets/js/practice-core.js?v=20261023b"></script>
   <script>
   /* =======================================================================
      AI 面试练习（interview-practice.html）
@@ -350,7 +350,7 @@
               (all || p.real ? '' : '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">示例方案</span>') +
             '</div>' +
             '<p class="edu-caption text-edu-muted-foreground mt-1">' + (all
-              ? '全量题库 · 共 ' + planInterviewCount(p) + ' 类面试题'
+              ? esc(bankScopeLabel('interview') || '全量题库') + ' · 共 ' + planInterviewCount(p) + ' 题'
               : '共 ' + p.majors.length + ' 条志愿 · 含面试 ' + it + ' 所') + '</p>' +
           '</div>' +
         '</div>' +
@@ -427,7 +427,7 @@
     var area = document.getElementById('iv-area');
     var plan = state.plan;
     var targets = isAllPlan(plan)
-      ? [{ school: ALL_PLAN_SCHOOL, major: ALL_PLAN_MAJOR }]
+      ? allPlanInterviewTargets(state.interview)
       : plan.majors.filter(function (m) { return m.needsInterview; });
 
     var header = '<div class="flex items-center gap-2 mb-4">' +
@@ -1237,7 +1237,8 @@
     state.plan = plan;
     state.interview = buildInterview(plan);
     if (isAllPlan(plan)) {
-      state.interviewTarget = ALL_PLAN_SCHOOL + '|' + ALL_PLAN_MAJOR;
+      var tgs = allPlanInterviewTargets(state.interview);
+      state.interviewTarget = tgs[0].school + '|' + tgs[0].major;
     } else {
       var it = plan.majors.filter(function (m) { return m.needsInterview; });
       state.interviewTarget = it.length ? (it[0].school + '|' + it[0].major) : null;

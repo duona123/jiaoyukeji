@@ -202,6 +202,181 @@ var INTERVIEW_POOL = [
   { topic: '创新实践', question: '请举例说明你参与过的一次创新或实践活动，你的收获是什么？', tips: '突出你的具体贡献与可迁移能力。' }
 ];
 
+/* ---- 题库分类树（综合练习按此分类罗列全部题库） ---- */
+var WRITTEN_BANKS = [
+  { key: 'xueke', name: '学科类', icon: 'atom', banks: [
+    { key: 'physics', name: '物理题' },
+    { key: 'chemistry', name: '化学题' },
+    { key: 'biology', name: '生物题' },
+    { key: 'tech', name: '通用技术' },
+    { key: 'it', name: '信息技术' },
+    { key: 'english', name: '英语题', banks: [
+      { key: 'en-read', name: '阅读理解' },
+      { key: 'en-cloze', name: '完形填空' }
+    ] }
+  ] },
+  { key: 'changshi', name: '常识类', icon: 'book-open', banks: [
+    { key: 'history', name: '历史题' },
+    { key: 'geo', name: '地理题' },
+    { key: 'law', name: '法律题' },
+    { key: 'politics', name: '时政题' }
+  ] },
+  { key: 'cangong', name: '参公类', icon: 'briefcase', banks: [
+    { key: 'quant', name: '数量关系' },
+    { key: 'logic', name: '逻辑判断' },
+    { key: 'data', name: '资料分析' },
+    { key: 'verbal', name: '言语理解' }
+  ] }
+];
+
+var INTERVIEW_BANKS = [
+  { key: 'iv-hot', name: '时政热点', icon: 'newspaper' },
+  { key: 'iv-self', name: '自我介绍', icon: 'user-round' },
+  { key: 'iv-major', name: '专业相关', icon: 'graduation-cap' }
+];
+
+/* 既有题目按学科归入对应分类；未列出的学科默认归入「言语理解」 */
+var SUBJECT_BANK = {
+  '数学': 'quant', '数量关系': 'data', '逻辑推理': 'logic', '语言表达': 'verbal', '综合素养': 'verbal',
+  '时事政治': 'politics', '英语': 'en-cloze', '物理': 'physics', '化学': 'chemistry'
+};
+WRITTEN_POOL.forEach(function (q) { if (!q.bank) q.bank = SUBJECT_BANK[q.subject] || 'verbal'; });
+
+/* 补齐分类树中尚无题目的题库 */
+WRITTEN_POOL = WRITTEN_POOL.concat([
+  { bank: 'biology', type: 'single', subject: '生物', difficulty: '易',
+    stem: '绿色植物进行光合作用的主要场所是（ ）',
+    options: [{ k: 'A', t: '线粒体' }, { k: 'B', t: '叶绿体' }, { k: 'C', t: '细胞核' }, { k: 'D', t: '液泡' }], answer: ['B'],
+    analysis: '叶绿体含叶绿素，是光合作用的场所；线粒体是有氧呼吸的主要场所；细胞核是遗传信息库。',
+    tips: '细胞器功能对应：叶绿体—光合作用，线粒体—呼吸作用。' },
+  { bank: 'tech', type: 'single', subject: '通用技术', difficulty: '中',
+    stem: '设计便携式台灯时，为提高结构稳定性，下列做法最有效的是（ ）',
+    options: [{ k: 'A', t: '增大底座面积并降低重心' }, { k: 'B', t: '减小底座厚度' }, { k: 'C', t: '把灯臂加长' }, { k: 'D', t: '减轻底座重量' }], answer: ['A'],
+    analysis: '结构稳定性取决于重心高低与支撑面大小：重心越低、支撑面越大越稳定，故选 A。',
+    tips: '稳定三要素：重心位置、支撑面大小、结构形状。' },
+  { bank: 'it', type: 'single', subject: '信息技术', difficulty: '易',
+    stem: '二进制数 1011 转换为十进制数是（ ）',
+    options: [{ k: 'A', t: '9' }, { k: 'B', t: '10' }, { k: 'C', t: '11' }, { k: 'D', t: '13' }], answer: ['C'],
+    analysis: '1×2³ + 0×2² + 1×2¹ + 1×2⁰ = 8 + 0 + 2 + 1 = 11，故选 C。',
+    tips: '二进制转十进制：按位权展开求和。' },
+  { bank: 'en-read', type: 'single', subject: '英语·阅读理解', difficulty: '中',
+    stem: 'Read the passage and choose the best answer.\n\n"Many students feel nervous before an interview. The key is to prepare well: learn about the school, practise your self-introduction, and arrive early."\n\nWhat is the main idea of the passage?（ ）',
+    options: [
+      { k: 'A', t: 'Interviews are always difficult.' },
+      { k: 'B', t: 'Good preparation helps reduce interview nervousness.' },
+      { k: 'C', t: 'Students should never feel nervous.' },
+      { k: 'D', t: 'Arriving late is acceptable.' }
+    ], answer: ['B'],
+    analysis: '文段主旨句为 "The key is to prepare well"，随后列举了解学校、练自我介绍、提前到场三项准备工作，故答案选 B。',
+    tips: '主旨题优先定位主题句，常在段首或段末。' },
+  { bank: 'history', type: 'single', subject: '历史', difficulty: '中',
+    stem: '我国古代科举制度正式创立于（ ）',
+    options: [{ k: 'A', t: '汉朝' }, { k: 'B', t: '隋朝' }, { k: 'C', t: '唐朝' }, { k: 'D', t: '宋朝' }], answer: ['B'],
+    analysis: '隋炀帝设进士科，标志科举制正式创立；唐朝进一步完善，宋朝规模扩大，故选 B。',
+    tips: '科举制：隋创立、唐完善、清光绪年间废除。' },
+  { bank: 'geo', type: 'single', subject: '地理', difficulty: '易',
+    stem: '浙江省的地形特征通常概括为（ ）',
+    options: [{ k: 'A', t: '以平原为主' }, { k: 'B', t: '七山一水两分田' }, { k: 'C', t: '以高原为主' }, { k: 'D', t: '以盆地为主' }], answer: ['B'],
+    analysis: '浙江山地丘陵约占七成、水域约一成、耕地约两成，故称“七山一水两分田”，选 B。',
+    tips: '浙江地貌：浙北平原、浙西丘陵、浙东沿海丘陵与岛屿。' },
+  { bank: 'law', type: 'single', subject: '法律', difficulty: '中',
+    stem: '根据《中华人民共和国未成年人保护法》，对未成年人的保护不包括（ ）',
+    options: [{ k: 'A', t: '家庭保护' }, { k: 'B', t: '学校保护' }, { k: 'C', t: '网络保护' }, { k: 'D', t: '舆论监督保护' }], answer: ['D'],
+    analysis: '未成年人保护法确立家庭、学校、社会、网络、政府、司法六大保护，“舆论监督保护”不在其中，故选 D。',
+    tips: '六大保护：家庭、学校、社会、网络、政府、司法。' },
+  { bank: 'data', type: 'single', subject: '资料分析', difficulty: '中',
+    stem: '某校 2025 年三位一体报名 1500 人，2026 年报名 1800 人，则同比增长率为（ ）',
+    options: [{ k: 'A', t: '15%' }, { k: 'B', t: '20%' }, { k: 'C', t: '25%' }, { k: 'D', t: '30%' }], answer: ['B'],
+    analysis: '增长率 =（本期 − 基期）÷ 基期 =（1800 − 1500）÷ 1500 = 300 ÷ 1500 = 20%，故选 B。',
+    tips: '增长率公式牢记：（本期 − 基期）÷ 基期 × 100%。' },
+  { bank: 'physics', type: 'single', subject: '物理', difficulty: '中',
+    stem: '两个阻值分别为 2 Ω 和 4 Ω 的电阻串联接入电路，总电阻为（ ）',
+    options: [{ k: 'A', t: '1.33 Ω' }, { k: 'B', t: '2 Ω' }, { k: 'C', t: '4 Ω' }, { k: 'D', t: '6 Ω' }], answer: ['D'],
+    analysis: '串联电路总电阻等于各电阻之和：2 Ω + 4 Ω = 6 Ω，故选 D。',
+    tips: '串联电阻相加；并联用“倒数和再取倒数”。' }
+]);
+
+/* 面试题按主题归入三类 */
+var TOPIC_BANK = {
+  '自我介绍': 'iv-self', '专业认知': 'iv-major', '综合素质': 'iv-hot', '时事热点': 'iv-hot',
+  '逻辑思维': 'iv-major', '职业规划': 'iv-major', '抗压能力': 'iv-major', '创新实践': 'iv-major'
+};
+INTERVIEW_POOL.forEach(function (q) { if (!q.bank) q.bank = TOPIC_BANK[q.topic] || 'iv-major'; });
+
+INTERVIEW_POOL = INTERVIEW_POOL.concat([
+  { bank: 'iv-self', topic: '自我介绍', question: '请用三个关键词概括你自己，并结合具体事例说明理由。', tips: '每个关键词配一个 20 字内的事例，避免只堆形容词。' },
+  { bank: 'iv-hot', topic: '时事热点', question: '人工智能快速发展，你认为它对中学生的学习方式会带来哪些影响？', tips: '从学习工具、思维方式、自我管理三个层面辩证作答。' }
+]);
+
+/* ---- 题库分类查询 / 选择题组 ---- */
+var BANK_SCOPE_KEY = 'practice-bank-scope';
+var IV_SCOPE_KEY = 'practice-interview-scope';
+
+function bankAddress(kind, key) {
+  if (kind === 'interview') {
+    var b = INTERVIEW_BANKS.filter(function (x) { return x.key === key; })[0];
+    return b ? { cat: ALL_PLAN_SCHOOL, name: b.name } : null;
+  }
+  var found = null;
+  WRITTEN_BANKS.forEach(function (cat) {
+    (cat.banks || []).forEach(function (b) {
+      if (b.banks) {
+        b.banks.forEach(function (sb) { if (sb.key === key) found = { cat: cat.name, group: b.name, name: sb.name }; });
+      } else if (b.key === key) found = { cat: cat.name, name: b.name };
+    });
+  });
+  return found;
+}
+
+function writtenBankLeaves() {
+  var out = [];
+  WRITTEN_BANKS.forEach(function (cat) {
+    (cat.banks || []).forEach(function (b) {
+      if (b.banks) {
+        b.banks.forEach(function (sb) {
+          out.push({ key: sb.key, cat: cat.name, catKey: cat.key, group: b.name, name: sb.name });
+        });
+      } else {
+        out.push({ key: b.key, cat: cat.name, catKey: cat.key, name: b.name });
+      }
+    });
+  });
+  out.forEach(function (x) {
+    x.count = WRITTEN_POOL.filter(function (q) { return q.bank === x.key; }).length;
+  });
+  return out;
+}
+
+function interviewBankLeaves() {
+  return INTERVIEW_BANKS.map(function (b) {
+    return {
+      key: b.key, name: b.name, icon: b.icon,
+      count: INTERVIEW_POOL.filter(function (q) { return q.bank === b.key; }).length
+    };
+  });
+}
+
+function getBankScope(kind) {
+  var key = kind === 'interview' ? IV_SCOPE_KEY : BANK_SCOPE_KEY;
+  try {
+    var v = JSON.parse(localStorage.getItem(key) || 'null');
+    return (v && v.bank) ? v : null;
+  } catch (e) { return null; }
+}
+function setBankScope(kind, bankKey) {
+  var key = kind === 'interview' ? IV_SCOPE_KEY : BANK_SCOPE_KEY;
+  if (!bankKey) { localStorage.removeItem(key); return; }
+  var addr = bankAddress(kind, bankKey);
+  if (!addr) { localStorage.removeItem(key); return; }
+  localStorage.setItem(key, JSON.stringify({ bank: bankKey, cat: addr.cat, name: addr.name, group: addr.group || '' }));
+}
+/* 当前题组名称，如「学科类 · 物理题」；未选择题组时为 null */
+function bankScopeLabel(kind) {
+  var s = getBankScope(kind);
+  if (!s) return null;
+  return s.group ? (s.cat + ' · ' + s.group + ' / ' + s.name) : (s.cat + ' · ' + s.name);
+}
+
 /* ---- 面试基础视频课程 ---- */
 var VIDEO_COURSES = [
   { title: '面试礼仪与仪态基础', duration: '08:32',
@@ -307,14 +482,30 @@ function planInterviewTargets(plan) {
   return plan.majors.filter(function (m) { return m.needsInterview; }).length;
 }
 
-/* 依据方案生成笔试题 */
+/* 综合练习的面试目标：按当前面试题组派生唯一目标 */
+function allPlanInterviewTargets(items) {
+  var seen = {}, out = [];
+  (items || []).forEach(function (q) {
+    var key = (q.school || '') + '|' + (q.major || '');
+    if (seen[key]) return;
+    seen[key] = 1;
+    out.push({ school: q.school || ALL_PLAN_SCHOOL, major: q.major || ALL_PLAN_MAJOR, testForm: '综合练习 · 全量面试题' });
+  });
+  if (!out.length) out.push({ school: ALL_PLAN_SCHOOL, major: ALL_PLAN_MAJOR, testForm: '综合练习 · 全量面试题' });
+  return out;
+}
+
+/* 依据方案生成笔试题；综合练习下按已选题组过滤 */
 function buildWritten(plan) {
   if (isAllPlan(plan)) {
-    return WRITTEN_POOL.map(function (base, i) {
+    var scope = getBankScope('written');
+    var pool = scope ? WRITTEN_POOL.filter(function (q) { return q.bank === scope.bank; }) : WRITTEN_POOL;
+    var addr = scope ? bankAddress('written', scope.bank) : null;
+    return pool.map(function (base, i) {
       return {
-        id: ALL_PLAN_ID + '-w-' + i, type: base.type, subject: base.subject, difficulty: base.difficulty,
+        id: ALL_PLAN_ID + '-w-' + (scope ? scope.bank + '-' : '') + i, type: base.type, subject: base.subject, difficulty: base.difficulty,
         stem: base.stem, options: base.options, answer: base.answer, analysis: base.analysis, tips: base.tips,
-        school: ALL_PLAN_SCHOOL, major: ALL_PLAN_MAJOR
+        school: addr ? addr.cat : ALL_PLAN_SCHOOL, major: addr ? addr.name : ALL_PLAN_MAJOR
       };
     });
   }
@@ -342,10 +533,13 @@ function buildWritten(plan) {
 function buildInterview(plan, opts) {
   opts = opts || {};
   if (isAllPlan(plan) && !opts.school) {
-    return INTERVIEW_POOL.map(function (base, i) {
+    var ivScope = getBankScope('interview');
+    var ivPool = ivScope ? INTERVIEW_POOL.filter(function (q) { return q.bank === ivScope.bank; }) : INTERVIEW_POOL;
+    var ivAddr = ivScope ? bankAddress('interview', ivScope.bank) : null;
+    return ivPool.map(function (base, i) {
       return {
-        id: ALL_PLAN_ID + '-i-' + i,
-        school: ALL_PLAN_SCHOOL, major: ALL_PLAN_MAJOR,
+        id: ALL_PLAN_ID + '-i-' + (ivScope ? ivScope.bank + '-' : '') + i,
+        school: ivAddr ? ivAddr.cat : ALL_PLAN_SCHOOL, major: ivAddr ? ivAddr.name : ALL_PLAN_MAJOR,
         topic: base.topic, question: base.question, tips: base.tips
       };
     });
@@ -357,7 +551,15 @@ function buildInterview(plan, opts) {
     })[0] || majors.filter(function (m) { return m.school === opts.school; })[0] ||
       { school: opts.school, major: opts.major || '' };
     var prefix = plan.id + '-q-' + (opts.major || 'all');
-    return weightedInterviewQuestions(target, opts.count || 6, opts.ratioKey, prefix);
+    var scopedPool = null;
+    if (isAllPlan(plan)) {
+      var sc = getBankScope('interview');
+      if (sc) {
+        scopedPool = INTERVIEW_POOL.filter(function (q) { return q.bank === sc.bank; });
+        target = { school: opts.school, major: sc.name };
+      }
+    }
+    return weightedInterviewQuestions(target, opts.count || 6, opts.ratioKey, prefix, scopedPool);
   }
   var out = [];
   majors.forEach(function (m, i) {
@@ -373,7 +575,8 @@ function buildInterview(plan, opts) {
 }
 
 /* 按题型配比抽题：高权重题型出现次数更多，权重用尽后按题库顺序补齐 */
-function weightedInterviewQuestions(target, count, ratioKey, idPrefix) {
+function weightedInterviewQuestions(target, count, ratioKey, idPrefix, pool) {
+  var source = (pool && pool.length) ? pool : INTERVIEW_POOL;
   var weights = TOPIC_WEIGHTS[ratioKey] || TOPIC_WEIGHTS.balanced;
   var out = [];
   function makeItem(base, idx) {
@@ -390,8 +593,8 @@ function weightedInterviewQuestions(target, count, ratioKey, idPrefix) {
   var guard = 0;
   while (out.length < count && guard++ < 50) {
     var picked = false;
-    for (var i = 0; i < INTERVIEW_POOL.length && out.length < count; i++) {
-      var base = INTERVIEW_POOL[i];
+    for (var i = 0; i < source.length && out.length < count; i++) {
+      var base = source[i];
       if (usedCount(base.topic) >= (weights[base.topic] || 1)) continue;
       out.push(makeItem(base, out.length));
       picked = true;
@@ -400,7 +603,7 @@ function weightedInterviewQuestions(target, count, ratioKey, idPrefix) {
   }
   var k = 0;
   while (out.length < count && k < 30) {
-    out.push(makeItem(INTERVIEW_POOL[k % INTERVIEW_POOL.length], out.length));
+    out.push(makeItem(source[k % source.length], out.length));
     k++;
   }
   return out;
@@ -497,8 +700,20 @@ function seedDemoDailyLog(force) {
 
 function planHasInterview(plan) { return isAllPlan(plan) ? true : plan.majors.some(function (m) { return m.needsInterview; }); }
 function planHasWritten(plan) { return isAllPlan(plan) ? true : plan.majors.some(function (m) { return m.needsWritten !== false; }); }
-function planWrittenCount(plan) { return isAllPlan(plan) ? WRITTEN_POOL.length : plan.majors.filter(function (m) { return m.needsWritten !== false; }).length * 3; }
-function planInterviewCount(plan) { return isAllPlan(plan) ? INTERVIEW_POOL.length : Math.min(plan.majors.length, MAX_MAJORS) * 2; }
+function planWrittenCount(plan) {
+  if (isAllPlan(plan)) {
+    var s = getBankScope('written');
+    return s ? WRITTEN_POOL.filter(function (q) { return q.bank === s.bank; }).length : WRITTEN_POOL.length;
+  }
+  return plan.majors.filter(function (m) { return m.needsWritten !== false; }).length * 3;
+}
+function planInterviewCount(plan) {
+  if (isAllPlan(plan)) {
+    var s = getBankScope('interview');
+    return s ? INTERVIEW_POOL.filter(function (q) { return q.bank === s.bank; }).length : INTERVIEW_POOL.length;
+  }
+  return Math.min(plan.majors.length, MAX_MAJORS) * 2;
+}
 
 /* 读取当前已选方案；planId 为空时取 localStorage 中记录的那个 */
 function resolvePlan(planId) {

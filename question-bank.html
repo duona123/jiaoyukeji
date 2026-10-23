@@ -91,6 +91,13 @@
       .day-items::-webkit-scrollbar-thumb { background: var(--edu-border); border-radius: 3px; }
       .day-items::-webkit-scrollbar-thumb:hover { background: var(--edu-muted-foreground); }
       .day-items::-webkit-scrollbar-track { background: transparent; }
+
+      /* ---- 题库分类：题组选择芯片 ---- */
+      .bank-chip { display:inline-flex; align-items:center; gap:6px; padding:5px 10px; border-radius:8px; font-size:12px; line-height:1.2; border:1px solid var(--edu-border); background:var(--edu-card); color:var(--edu-foreground); cursor:pointer; transition:all .15s ease; }
+      .bank-chip:hover { border-color: var(--edu-primary); color: var(--edu-primary); }
+      .bank-chip.is-on { background: var(--edu-primary); border-color: var(--edu-primary); color:#fff; }
+      .bank-chip.is-on .bank-chip-num { background: rgba(255,255,255,.22); color:#fff; }
+      .bank-chip-num { display:inline-flex; align-items:center; justify-content:center; min-width:16px; height:16px; padding:0 4px; border-radius:8px; background: var(--edu-muted); color: var(--edu-muted-foreground); font-size:11px; }
     </style>
 </head>
 <body class="bg-edu-background text-edu-foreground min-h-screen flex flex-col" style="font-family: Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;">
@@ -146,6 +153,9 @@
         <!-- 整体练习进度 -->
         <section id="overall-progress" class="mb-8" aria-label="整体练习进度"></section>
 
+        <!-- 题库分类（仅综合练习显示） -->
+        <section id="bank-area" class="mb-8 hidden" aria-label="题库分类"></section>
+
         <!-- 笔试练习区域 -->
         <section id="written-area" aria-label="笔试练习"></section>
 
@@ -175,7 +185,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/practice-core.js?v=20261023"></script>
+  <script src="assets/js/practice-core.js?v=20261023b"></script>
   <script>
   /* =======================================================================
      练习中心（题库 + AI 面试 合并版）
@@ -283,7 +293,8 @@
     state.submitted = false;
     state.filter = { type: 'all', school: 'all', subject: 'all', difficulty: 'all' };
     if (isAllPlan(plan)) {
-      state.interviewTarget = ALL_PLAN_SCHOOL + '|' + ALL_PLAN_MAJOR;
+      var tgs = allPlanInterviewTargets(state.interview);
+      state.interviewTarget = tgs[0].school + '|' + tgs[0].major;
     } else {
       var it = plan.majors.filter(function (m) { return m.needsInterview; });
       state.interviewTarget = it.length ? (it[0].school + '|' + it[0].major) : null;
@@ -309,10 +320,112 @@
     renderCurrentPlanBar();
     renderCheckin();
     renderProgress();
+    renderBankArea();
     renderWritten();
     renderInterviewArea();
     refreshIcons();
   }
+
+  /* =======================================================================
+     题库分类（综合练习：按分类罗列全部笔试题库 / 面试题库）
+     ======================================================================= */
+  function bankChip(kind, key, name, count, active) {
+    return '<button type="button" onclick="qbPickBank(\'' + kind + '\',\'' + key + '\')" class="bank-chip' + (active ? ' is-on' : '') + '">' +
+      '<span>' + esc(name) + '</span>' +
+      '<span class="bank-chip-num">' + count + '</span>' +
+    '</button>';
+  }
+  function renderBankArea() {
+    var area = document.getElementById('bank-area');
+    if (!state.plan || !isAllPlan(state.plan)) {
+      area.innerHTML = '';
+      area.classList.add('hidden');
+      return;
+    }
+    area.classList.remove('hidden');
+
+    var wScope = getBankScope('written');
+    var iScope = getBankScope('interview');
+    var wTotal = WRITTEN_POOL.length, iTotal = INTERVIEW_POOL.length;
+
+    var writtenHtml = '' +
+      '<div class="flex flex-wrap items-center justify-between gap-3 mb-3">' +
+        '<div class="flex items-center gap-2">' +
+          '<i data-lucide="pencil" class="w-5 h-5 text-edu-primary"></i>' +
+          '<h3 class="edu-h2 text-edu-foreground">笔试题库</h3>' +
+          '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 ' + wTotal + ' 题 · ' + writtenBankLeaves().length + ' 个分类</span>' +
+        '</div>' +
+        '<button type="button" onclick="qbPickBank(\'written\',\'\')" class="bank-chip' + (wScope ? '' : ' is-on') + '">全部题库<span class="bank-chip-num">' + wTotal + '</span></button>' +
+      '</div>';
+
+    var leaves = writtenBankLeaves();
+    WRITTEN_BANKS.forEach(function (cat) {
+      var catLeaves = leaves.filter(function (x) { return x.catKey === cat.key; });
+      if (!catLeaves.length) return;
+      var catCount = catLeaves.reduce(function (a, b) { return a + b.count; }, 0);
+      var chips = '';
+      cat.banks.forEach(function (b) {
+        if (b.banks) {
+          chips += '<div class="flex items-center gap-1.5 mr-1"><span class="text-xs text-edu-muted-foreground">' + esc(b.name) + '</span>' +
+            b.banks.map(function (sb) {
+              var lf = leaves.filter(function (x) { return x.key === sb.key; })[0];
+              return bankChip('written', sb.key, sb.name, lf ? lf.count : 0, wScope && wScope.bank === sb.key);
+            }).join('') + '</div>';
+        } else {
+          var lf2 = leaves.filter(function (x) { return x.key === b.key; })[0];
+          chips += bankChip('written', b.key, b.name, lf2 ? lf2.count : 0, wScope && wScope.bank === b.key);
+        }
+      });
+      writtenHtml += '' +
+        '<div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 py-3 border-t border-edu-border">' +
+          '<div class="shrink-0 sm:w-28 flex items-center gap-1.5">' +
+            '<i data-lucide="' + cat.icon + '" class="w-4 h-4 text-edu-primary"></i>' +
+            '<span class="text-sm font-semibold text-edu-foreground">' + esc(cat.name) + '</span>' +
+            '<span class="text-xs text-edu-muted-foreground">' + catCount + '</span>' +
+          '</div>' +
+          '<div class="flex flex-wrap items-center gap-2">' + chips + '</div>' +
+        '</div>';
+    });
+
+    var interviewHtml = '' +
+      '<div class="flex flex-wrap items-center justify-between gap-3 mb-3">' +
+        '<div class="flex items-center gap-2">' +
+          '<i data-lucide="video" class="w-5 h-5 text-edu-primary"></i>' +
+          '<h3 class="edu-h2 text-edu-foreground">面试题库</h3>' +
+          '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 ' + iTotal + ' 题 · ' + interviewBankLeaves().length + ' 个分类</span>' +
+        '</div>' +
+        '<button type="button" onclick="qbPickBank(\'interview\',\'\')" class="bank-chip' + (iScope ? '' : ' is-on') + '">全部题库<span class="bank-chip-num">' + iTotal + '</span></button>' +
+      '</div>' +
+      '<div class="flex flex-wrap items-center gap-2 pt-3 border-t border-edu-border">' +
+        interviewBankLeaves().map(function (b) {
+          return bankChip('interview', b.key, b.name, b.count, iScope && iScope.bank === b.key);
+        }).join('') +
+      '</div>';
+
+    area.innerHTML = '' +
+      '<div class="flex items-center gap-2 mb-4">' +
+        '<i data-lucide="library" class="w-5 h-5 text-edu-primary"></i>' +
+        '<h2 class="edu-h2 text-edu-foreground">题库分类</h2>' +
+        '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">综合练习 · 按分类选择题组</span>' +
+      '</div>' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm mb-4">' + writtenHtml + '</div>' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' + interviewHtml + '</div>';
+  }
+
+  /* 选择题组：空 key 表示回到全部题库 */
+  window.qbPickBank = function (kind, key) {
+    setBankScope(kind, key || null);
+    state.written = buildWritten(state.plan);
+    state.interview = buildInterview(state.plan);
+    if (kind === 'interview') {
+      var iv = state.interview;
+      state.interviewTarget = iv.length ? (iv[0].school + '|' + iv[0].major) : null;
+    }
+    renderBankArea();
+    renderWritten();
+    renderInterviewArea();
+    refreshIcons();
+  };
 
   function renderCurrentPlanBar() {
     var p = state.plan;
@@ -330,7 +443,7 @@
               ((all || p.real) ? '' : '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">示例方案</span>') +
             '</div>' +
             '<p class="edu-caption text-edu-muted-foreground mt-1">' + (all
-              ? '全量题库 · 笔试 ' + state.written.length + ' 题 · 面试 ' + state.interview.length + ' 题'
+              ? '笔试 ' + esc(bankScopeLabel('written') || '全量题库') + ' ' + state.written.length + ' 题 · 面试 ' + esc(bankScopeLabel('interview') || '全量题库') + ' ' + state.interview.length + ' 题'
               : '共 ' + p.majors.length + ' 条志愿 · 笔试 ' + state.written.length + ' 题' + (hasInterview ? ' · 面试 ' + it + ' 所' : ' · 无面试环节')) + '</p>' +
           '</div>' +
         '</div>' +
@@ -591,17 +704,20 @@
     var rate = done ? Math.round(correct / done * 100) : 0;
     var wrong = (prog.wrong || []).length;
     var total = state.written.length;
+    var wLabel = isAllPlan(state.plan) ? bankScopeLabel('written') : null;
 
     var html = '' +
       '<div class="flex items-center gap-2 mb-4">' +
         '<i data-lucide="pencil" class="w-5 h-5 text-edu-primary"></i>' +
         '<h2 class="edu-h2 text-edu-foreground">笔试练习</h2>' +
-        '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">依据方案院校专业出题</span>' +
+        '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">' + (wLabel ? esc(wLabel) : '依据方案院校专业出题') + '</span>' +
       '</div>' +
       '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
         '<div class="flex flex-col md:flex-row md:items-center gap-6">' +
           '<div class="flex-1 min-w-0">' +
-            '<p class="edu-body text-edu-muted-foreground">练习将在新页面进行：错题本、题目收藏与智能推荐均已整合到该页面，完成后进度会自动同步回本页。</p>' +
+            '<p class="edu-body text-edu-muted-foreground">' + (wLabel
+              ? '当前题组：' + esc(wLabel) + '，共 ' + total + ' 题。可在上方「题库分类」切换其他题组，或点「全部题库」恢复全量。'
+              : '练习将在新页面进行：错题本、题目收藏与智能推荐均已整合到该页面，完成后进度会自动同步回本页。') + '</p>' +
             '<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5">' +
               '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">题目总数</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + total + '</p></div>' +
               '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">已完成</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + Math.min(done, total) + '</p></div>' +
@@ -633,7 +749,7 @@
     var plan = state.plan;
     var area = document.getElementById('interview-area');
     var all = isAllPlan(plan);
-    var targets = all ? [{ school: ALL_PLAN_SCHOOL, major: ALL_PLAN_MAJOR }] : plan.majors.filter(function (m) { return m.needsInterview; });
+    var targets = all ? allPlanInterviewTargets(state.interview) : plan.majors.filter(function (m) { return m.needsInterview; });
     if (!targets.length) {
       area.innerHTML = '';
       area.classList.add('hidden');
@@ -656,7 +772,7 @@
           '<div class="flex-1 min-w-0">' +
             '<p class="edu-body text-edu-muted-foreground">AI 数字人面对面面试将在新页面进行：面试基础视频课程、练习历史与院校选择均已整合到该页面。完成后自动生成五维评估报告，进度会同步回本页。</p>' +
             '<div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5">' +
-              '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">可面试院校</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + targets.length + '</p></div>' +
+              '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">' + (all ? '可面试题组' : '可面试院校') + '</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + targets.length + '</p></div>' +
               '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">已完成场次</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + iDone + '</p></div>' +
               '<div class="rounded-xl bg-edu-muted p-4"><p class="text-xs text-edu-muted-foreground">平均分</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + (iAvg || '--') + '</p></div>' +
             '</div>' +
