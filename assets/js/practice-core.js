@@ -282,8 +282,42 @@ function loadPlans() {
   return plans;
 }
 
+/* ---- 综合练习：不绑定具体方案，题目覆盖全量题库 ---- */
+var ALL_PLAN_ID = 'comprehensive';
+var ALL_PLAN_SCHOOL = '综合练习';
+var ALL_PLAN_MAJOR = '全量题库';
+
+function getAllPracticePlan() {
+  return {
+    id: ALL_PLAN_ID,
+    name: '综合练习 · 全量题库',
+    planType: '综合',
+    generatedAt: '不限方案',
+    score: '',
+    majors: [],
+    real: false,
+    isAll: true
+  };
+}
+function isAllPlan(plan) { return !!(plan && plan.isAll); }
+
+/* 面试可练目标数：综合练习按 1 场（全量题目）计 */
+function planInterviewTargets(plan) {
+  if (isAllPlan(plan)) return 1;
+  return plan.majors.filter(function (m) { return m.needsInterview; }).length;
+}
+
 /* 依据方案生成笔试题 */
 function buildWritten(plan) {
+  if (isAllPlan(plan)) {
+    return WRITTEN_POOL.map(function (base, i) {
+      return {
+        id: ALL_PLAN_ID + '-w-' + i, type: base.type, subject: base.subject, difficulty: base.difficulty,
+        stem: base.stem, options: base.options, answer: base.answer, analysis: base.analysis, tips: base.tips,
+        school: ALL_PLAN_SCHOOL, major: ALL_PLAN_MAJOR
+      };
+    });
+  }
   /* 只对明确需要笔试的专业出题；未显式标注 needsWritten 的专业默认需要笔试（兼容既有方案） */
   var majors = plan.majors.slice(0, MAX_MAJORS).filter(function (m) {
     return m.needsWritten !== false;
@@ -307,6 +341,15 @@ function buildWritten(plan) {
    —— 传 opts.school：按面试配置（时长折算题量 + 题型配比）生成一场面试的题目序列 */
 function buildInterview(plan, opts) {
   opts = opts || {};
+  if (isAllPlan(plan) && !opts.school) {
+    return INTERVIEW_POOL.map(function (base, i) {
+      return {
+        id: ALL_PLAN_ID + '-i-' + i,
+        school: ALL_PLAN_SCHOOL, major: ALL_PLAN_MAJOR,
+        topic: base.topic, question: base.question, tips: base.tips
+      };
+    });
+  }
   var majors = plan.majors.slice(0, MAX_MAJORS);
   if (opts.school) {
     var target = majors.filter(function (m) {
@@ -452,16 +495,17 @@ function seedDemoDailyLog(force) {
   localStorage.setItem(DAILY_LOG_KEY, JSON.stringify(Object.assign(all, demoLogs)));
 }
 
-function planHasInterview(plan) { return plan.majors.some(function (m) { return m.needsInterview; }); }
-function planHasWritten(plan) { return plan.majors.some(function (m) { return m.needsWritten !== false; }); }
-function planWrittenCount(plan) { return plan.majors.filter(function (m) { return m.needsWritten !== false; }).length * 3; }
-function planInterviewCount(plan) { return Math.min(plan.majors.length, MAX_MAJORS) * 2; }
+function planHasInterview(plan) { return isAllPlan(plan) ? true : plan.majors.some(function (m) { return m.needsInterview; }); }
+function planHasWritten(plan) { return isAllPlan(plan) ? true : plan.majors.some(function (m) { return m.needsWritten !== false; }); }
+function planWrittenCount(plan) { return isAllPlan(plan) ? WRITTEN_POOL.length : plan.majors.filter(function (m) { return m.needsWritten !== false; }).length * 3; }
+function planInterviewCount(plan) { return isAllPlan(plan) ? INTERVIEW_POOL.length : Math.min(plan.majors.length, MAX_MAJORS) * 2; }
 
 /* 读取当前已选方案；planId 为空时取 localStorage 中记录的那个 */
 function resolvePlan(planId) {
-  var plans = loadPlans();
   var id = planId || localStorage.getItem(PLAN_STORE_KEY);
   if (!id) return null;
+  if (id === ALL_PLAN_ID) return getAllPracticePlan();
+  var plans = loadPlans();
   return plans.filter(function (p) { return p.id === id; })[0] || null;
 }
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN" class="light" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -175,7 +175,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/practice-core.js?v=20261022"></script>
+  <script src="assets/js/practice-core.js?v=20261023"></script>
   <script>
   /* =======================================================================
      练习中心（题库 + AI 面试 合并版）
@@ -199,7 +199,32 @@
   function renderGate() {
     var plans = loadPlans();
     var list = document.getElementById('plan-gate-list');
-    list.innerHTML = plans.map(function (p) {
+
+    /* 综合状态：不绑定方案，直接做全量题库 */
+    var allCard = '' +
+      '<div class="relative bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm hover:border-edu-primary transition-colors flex flex-col">' +
+        '<div class="flex items-start justify-between gap-3 mb-4">' +
+          '<div class="flex items-start gap-3">' +
+            '<div class="w-11 h-11 rounded-xl bg-edu-primary text-white flex items-center justify-center shrink-0"><i data-lucide="layers" class="w-5 h-5"></i></div>' +
+            '<div>' +
+              '<p class="font-semibold text-edu-foreground">综合练习 · 全量题库</p>' +
+              '<p class="edu-caption text-edu-muted-foreground mt-0.5">不绑定志愿方案 · 覆盖全部题目</p>' +
+            '</div>' +
+          '</div>' +
+          '<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-edu-primary text-white">综合</span>' +
+        '</div>' +
+        '<div class="flex flex-wrap items-center gap-2 mb-3">' +
+          '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">全量题</span>' +
+          '<span class="text-xs text-edu-muted-foreground">笔试 ' + WRITTEN_POOL.length + ' 题 · 面试 ' + INTERVIEW_POOL.length + ' 题</span>' +
+        '</div>' +
+        '<p class="edu-caption text-edu-muted-foreground mb-4">不受志愿方案限制，按全量题库组题，适合跨院校、跨专业的综合模考与查漏补缺。</p>' +
+        '<div class="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-edu-border">' +
+          '<p class="edu-caption text-edu-muted-foreground">无需选择方案</p>' +
+          '<button type="button" data-plan-id="' + ALL_PLAN_ID + '" class="select-plan-btn inline-flex items-center gap-1.5 px-4 h-10 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors">开始练习<i data-lucide="arrow-right" class="w-4 h-4"></i></button>' +
+        '</div>' +
+      '</div>';
+
+    list.innerHTML = allCard + plans.map(function (p) {
       var overLimit = p.majors.length > MAX_MAJORS;
       var majors = p.majors.slice(0, MAX_MAJORS);
       var hasInterview = planHasInterview(p);
@@ -248,8 +273,7 @@
   }
 
   function selectPlan(planId) {
-    var plans = loadPlans();
-    var plan = plans.filter(function (p) { return p.id === planId; })[0];
+    var plan = resolvePlan(planId);
     if (!plan) return;
     state.plan = plan;
     state.written = buildWritten(plan);
@@ -258,8 +282,12 @@
     state.selected = [];
     state.submitted = false;
     state.filter = { type: 'all', school: 'all', subject: 'all', difficulty: 'all' };
-    var it = plan.majors.filter(function (m) { return m.needsInterview; });
-    state.interviewTarget = it.length ? (it[0].school + '|' + it[0].major) : null;
+    if (isAllPlan(plan)) {
+      state.interviewTarget = ALL_PLAN_SCHOOL + '|' + ALL_PLAN_MAJOR;
+    } else {
+      var it = plan.majors.filter(function (m) { return m.needsInterview; });
+      state.interviewTarget = it.length ? (it[0].school + '|' + it[0].major) : null;
+    }
     localStorage.setItem(PLAN_STORE_KEY, plan.id);
     document.getElementById('plan-gate').classList.add('hidden');
     document.getElementById('practice-home').classList.remove('hidden');
@@ -289,7 +317,8 @@
   function renderCurrentPlanBar() {
     var p = state.plan;
     var hasInterview = planHasInterview(p);
-    var it = p.majors.filter(function (m) { return m.needsInterview; }).length;
+    var all = isAllPlan(p);
+    var it = planInterviewTargets(p);
     document.getElementById('current-plan-bar').innerHTML = '' +
       '<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5 rounded-2xl border border-edu-border bg-edu-card shadow-sm">' +
         '<div class="flex items-center gap-4 min-w-0">' +
@@ -298,9 +327,11 @@
             '<div class="flex items-center gap-2 flex-wrap">' +
               '<p class="font-semibold text-edu-foreground truncate">' + esc(p.name) + '</p>' +
               '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">' + esc(p.planType) + '</span>' +
-              (p.real ? '' : '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">示例方案</span>') +
+              ((all || p.real) ? '' : '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">示例方案</span>') +
             '</div>' +
-            '<p class="edu-caption text-edu-muted-foreground mt-1">共 ' + p.majors.length + ' 条志愿 · 笔试 ' + state.written.length + ' 题' + (hasInterview ? ' · 面试 ' + it + ' 所' : ' · 无面试环节') + '</p>' +
+            '<p class="edu-caption text-edu-muted-foreground mt-1">' + (all
+              ? '全量题库 · 笔试 ' + state.written.length + ' 题 · 面试 ' + state.interview.length + ' 题'
+              : '共 ' + p.majors.length + ' 条志愿 · 笔试 ' + state.written.length + ' 题' + (hasInterview ? ' · 面试 ' + it + ' 所' : ' · 无面试环节')) + '</p>' +
           '</div>' +
         '</div>' +
         '<div class="flex items-center gap-2 shrink-0">' +
@@ -476,7 +507,7 @@
     var wPct = wTotal ? Math.round(wDone / wTotal * 100) : 0;
 
     var hasInterview = planHasInterview(state.plan);
-    var iTargets = state.plan.majors.filter(function (m) { return m.needsInterview; }).length;
+    var iTargets = planInterviewTargets(state.plan);
     var iDone = prog.sessions || 0;
     var iAvg = (prog.scores && prog.scores.length) ? Math.round(prog.scores.reduce(function (a, b) { return a + b; }, 0) / prog.scores.length) : 0;
     var iPct = iTargets ? Math.min(100, Math.round(iDone / iTargets * 100)) : 0;
@@ -601,7 +632,8 @@
   function renderInterviewArea() {
     var plan = state.plan;
     var area = document.getElementById('interview-area');
-    var targets = plan.majors.filter(function (m) { return m.needsInterview; });
+    var all = isAllPlan(plan);
+    var targets = all ? [{ school: ALL_PLAN_SCHOOL, major: ALL_PLAN_MAJOR }] : plan.majors.filter(function (m) { return m.needsInterview; });
     if (!targets.length) {
       area.innerHTML = '';
       area.classList.add('hidden');
@@ -650,7 +682,7 @@
   function initPractice() {
     var plans = loadPlans();
     var savedId = localStorage.getItem(PLAN_STORE_KEY);
-    var savedPlan = savedId ? plans.filter(function (p) { return p.id === savedId; })[0] : null;
+    var savedPlan = resolvePlan(savedId);
     if (savedPlan) {
       selectPlan(savedPlan.id);
     } else if (plans.length) {

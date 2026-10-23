@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN" class="light" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -158,7 +158,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/practice-core.js?v=20261022"></script>
+  <script src="assets/js/practice-core.js?v=20261023"></script>
   <script>
   /* =======================================================================
      笔试练习页（独立页面）
@@ -234,9 +234,11 @@
             '<div class="flex items-center gap-2 flex-wrap">' +
               '<p class="font-semibold text-edu-foreground truncate">' + esc(p.name) + '</p>' +
               '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">' + esc(p.planType) + '</span>' +
-              (p.real ? '' : '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">示例方案</span>') +
+              (isAllPlan(p) || p.real ? '' : '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">示例方案</span>') +
             '</div>' +
-            '<p class="edu-caption text-edu-muted-foreground mt-1">共 ' + p.majors.length + ' 条志愿 · 笔试 ' + state.written.length + ' 题</p>' +
+            '<p class="edu-caption text-edu-muted-foreground mt-1">' + (isAllPlan(p)
+              ? '全量题库 · 笔试 ' + state.written.length + ' 题'
+              : '共 ' + p.majors.length + ' 条志愿 · 笔试 ' + state.written.length + ' 题') + '</p>' +
           '</div>' +
         '</div>' +
         '<div class="flex items-center gap-2 shrink-0">' +

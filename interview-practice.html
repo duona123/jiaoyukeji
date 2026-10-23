@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN" class="light" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -318,7 +318,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/practice-core.js?v=20261022"></script>
+  <script src="assets/js/practice-core.js?v=20261023"></script>
   <script>
   /* =======================================================================
      AI 面试练习（interview-practice.html）
@@ -337,7 +337,8 @@
   /* ---- 当前方案信息条 ---- */
   function renderPlanBar() {
     var p = state.plan;
-    var it = p.majors.filter(function (m) { return m.needsInterview; }).length;
+    var all = isAllPlan(p);
+    var it = planInterviewTargets(p);
     document.getElementById('iv-plan-bar').innerHTML = '' +
       '<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5 rounded-2xl border border-edu-border bg-edu-card shadow-sm">' +
         '<div class="flex items-center gap-4 min-w-0">' +
@@ -346,9 +347,11 @@
             '<div class="flex items-center gap-2 flex-wrap">' +
               '<p class="font-semibold text-edu-foreground truncate">' + esc(p.name) + '</p>' +
               '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">' + esc(p.planType) + '</span>' +
-              (p.real ? '' : '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">示例方案</span>') +
+              (all || p.real ? '' : '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-muted text-edu-muted-foreground">示例方案</span>') +
             '</div>' +
-            '<p class="edu-caption text-edu-muted-foreground mt-1">共 ' + p.majors.length + ' 条志愿 · 含面试 ' + it + ' 所</p>' +
+            '<p class="edu-caption text-edu-muted-foreground mt-1">' + (all
+              ? '全量题库 · 共 ' + planInterviewCount(p) + ' 类面试题'
+              : '共 ' + p.majors.length + ' 条志愿 · 含面试 ' + it + ' 所') + '</p>' +
           '</div>' +
         '</div>' +
         '<div class="flex items-center gap-2 shrink-0">' +
@@ -423,7 +426,9 @@
   function renderInterviewArea() {
     var area = document.getElementById('iv-area');
     var plan = state.plan;
-    var targets = plan.majors.filter(function (m) { return m.needsInterview; });
+    var targets = isAllPlan(plan)
+      ? [{ school: ALL_PLAN_SCHOOL, major: ALL_PLAN_MAJOR }]
+      : plan.majors.filter(function (m) { return m.needsInterview; });
 
     var header = '<div class="flex items-center gap-2 mb-4">' +
         '<i data-lucide="video" class="w-5 h-5 text-edu-primary"></i>' +
@@ -1231,8 +1236,12 @@
     }
     state.plan = plan;
     state.interview = buildInterview(plan);
-    var it = plan.majors.filter(function (m) { return m.needsInterview; });
-    state.interviewTarget = it.length ? (it[0].school + '|' + it[0].major) : null;
+    if (isAllPlan(plan)) {
+      state.interviewTarget = ALL_PLAN_SCHOOL + '|' + ALL_PLAN_MAJOR;
+    } else {
+      var it = plan.majors.filter(function (m) { return m.needsInterview; });
+      state.interviewTarget = it.length ? (it[0].school + '|' + it[0].major) : null;
+    }
     document.getElementById('iv-main').classList.remove('hidden');
     renderPlanBar();
     renderInterviewArea();
