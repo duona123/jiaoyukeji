@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>试卷结果 · 笔试练习</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--edu-background);
+    --color-foreground: var(--edu-foreground);
+    --color-card: var(--edu-card);
+    --color-card-foreground: var(--edu-card-foreground);
+    --color-popover: var(--edu-popover);
+    --color-popover-foreground: var(--edu-popover-foreground);
+    --color-primary: var(--edu-primary);
+    --color-primary-foreground: var(--edu-primary-foreground);
+    --color-muted: var(--edu-muted);
+    --color-muted-foreground: var(--edu-muted-foreground);
+    --color-border: var(--edu-border);
+    --color-input: var(--edu-input);
+    --color-ring: var(--edu-ring);
+    --radius-sm: var(--edu-radius-sm);
+    --radius-md: var(--edu-radius-md);
+    --radius-lg: var(--edu-radius-lg);
+  }
+  @layer base {
+    body { background: var(--edu-background); color: var(--edu-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+
+    <style>
+      /* ---- edu 令牌工具类兜底（不依赖 Tailwind 扫描） ---- */
+      .bg-edu-background{background-color:var(--edu-background);}
+      .bg-edu-card{background-color:var(--edu-card);}
+      .bg-edu-muted{background-color:var(--edu-muted);}
+      .text-edu-foreground{color:var(--edu-foreground);}
+      .text-edu-muted-foreground{color:var(--edu-muted-foreground);}
+      .border-edu-border{border-color:var(--edu-border);}
+      .bg-edu-primary{background-color:var(--edu-primary);}
+      .text-edu-primary{color:var(--edu-primary);}
+      .border-edu-primary{border-color:var(--edu-primary);}
+      .bg-edu-primary-50{background-color:var(--edu-primary-50);}
+      .bg-edu-primary-100{background-color:var(--edu-primary-100);}
+      .border-edu-primary-100{border-color:var(--edu-primary-100);}
+      .text-edu-primary-700{color:var(--edu-primary-700);}
+      .bg-edu-state-info{background-color:var(--edu-state-info);}
+      .bg-edu-state-info-bg{background-color:var(--edu-state-info-bg);}
+      .text-edu-state-info{color:var(--edu-state-info);}
+      .bg-edu-state-success{background-color:var(--edu-state-success);}
+      .bg-edu-state-success-bg{background-color:var(--edu-state-success-bg);}
+      .text-edu-state-success{color:var(--edu-state-success);}
+      .border-edu-state-success{border-color:var(--edu-state-success);}
+      .bg-edu-state-warning-bg{background-color:var(--edu-state-warning-bg);}
+      .text-edu-state-warning{color:var(--edu-state-warning);}
+      .border-edu-state-warning{border-color:var(--edu-state-warning);}
+      .bg-edu-state-error{background-color:var(--edu-state-error);}
+      .bg-edu-state-error-bg{background-color:var(--edu-state-error-bg);}
+      .text-edu-state-error{color:var(--edu-state-error);}
+      .border-edu-state-error{border-color:var(--edu-state-error);}
+      .hover\:bg-edu-muted:hover{background-color:var(--edu-muted);}
+      .hover\:text-edu-primary:hover{color:var(--edu-primary);}
+      .hover\:bg-\[\#0f766e\]:hover{background-color:#0f766e;}
+
+      /* ---- 解析折叠 ---- */
+      .res-analysis summary::-webkit-details-marker { display: none; }
+      .res-analysis summary { list-style: none; }
+      .res-analysis[open] summary .res-caret { transform: rotate(180deg); }
+      .res-caret { transition: transform .15s ease; }
+    </style>
+</head>
+<body class="bg-edu-background text-edu-foreground min-h-screen flex flex-col" style="font-family: Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;">
+  <header class="sticky top-0 z-50 w-full border-b border-edu-border bg-white/80 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-edu-primary font-semibold text-lg" data-dom-id="nav-logo">
+        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <span>浙招智达</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="home">首页</a>
+        <a href="ai-chat.html" class="px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-muted transition-colors" data-nav-key="ai-chat">智能问答</a>
+        <a href="direction.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="plan">学考规划</a>
+        <a href="question-bank.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-primary bg-edu-muted transition-colors" data-nav-key="practice">练习中心</a>
+        <a href="user-center.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-edu-foreground hover:bg-edu-muted transition-colors" data-nav-key="user">用户中心</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button type="button" data-theme-toggle class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" aria-label="切换主题"><i data-lucide="sun" class="w-4 h-4" data-icon-name="sun"></i><i data-lucide="moon" class="w-4 h-4 hidden" data-icon-name="moon"></i></button>
+        <a href="vip-pricing.html" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-edu-primary text-white hover:bg-[#0f766e] transition-colors" data-dom-id="nav-vip">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>VIP
+        </a>
+        <a href="user-center.html" class="w-8 h-8 rounded-full bg-edu-muted flex items-center justify-center text-edu-muted-foreground hover:text-edu-primary transition-colors" data-dom-id="nav-avatar">
+          <i data-lucide="user" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <div class="mx-auto max-w-5xl px-6 py-8 md:py-12">
+
+      <!-- 空状态：找不到试卷 -->
+      <section id="res-empty" class="hidden" aria-label="无试卷结果">
+        <div class="bg-edu-card border border-edu-border rounded-2xl p-10 text-center shadow-sm">
+          <div class="w-14 h-14 mx-auto rounded-2xl bg-edu-primary-50 text-edu-primary flex items-center justify-center mb-4">
+            <i data-lucide="file-question" class="w-7 h-7"></i>
+          </div>
+          <h1 class="edu-h2 text-edu-foreground">未找到试卷结果</h1>
+          <p class="edu-body text-edu-muted-foreground mt-3 max-w-xl mx-auto">可能尚未选择练习方案，或该试卷已不在当前方案中。请返回笔试练习重新选择试卷。</p>
+          <a href="written-practice.html" class="mt-6 inline-flex items-center gap-1.5 px-5 h-11 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>返回笔试练习
+          </a>
+        </div>
+      </section>
+
+      <div id="res-main" class="hidden">
+        <section id="res-head" class="mb-6" aria-label="试卷信息"></section>
+        <section id="res-summary" class="mb-8" aria-label="本次提交统计"></section>
+        <section id="res-list" aria-label="逐题明细"></section>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-edu-border bg-edu-muted/40">
+    <div class="mx-auto max-w-7xl px-6 py-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-edu-primary font-medium">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          <span>浙招智达</span>
+        </div>
+        <p class="text-sm text-edu-muted-foreground">© 2026 浙江三一/高职提招智能体 · 让升学更简单</p>
+        <div class="flex items-center gap-4 text-sm text-edu-muted-foreground">
+          <a href="#" class="hover:text-edu-primary transition-colors">隐私政策</a>
+          <a href="#" class="hover:text-edu-primary transition-colors">使用条款</a>
+          <a href="#" class="hover:text-edu-primary transition-colors">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/practice-core.js?v=20261023b"></script>
+  <script>
+  /* =======================================================================
+     试卷结果页（written-result.html）
+     —— 读取 ?paper=<school|major>&plan=<planId>，从 practice-progress 取作答明细
+     ======================================================================= */
+  var state = {
+    plan: null,
+    paper: null,
+    prog: null
+  };
+
+  function statusOf(q) {
+    var ans = state.prog.answered || {};
+    if (ans[q.id] === 'correct') return 'correct';
+    if (ans[q.id] === 'wrong') return 'wrong';
+    return 'todo';
+  }
+
+  function collectStats() {
+    var st = { total: state.paper.questions.length, done: 0, correct: 0, wrong: 0, todo: 0, rate: 0 };
+    state.paper.questions.forEach(function (q) {
+      var s = statusOf(q);
+      if (s === 'todo') { st.todo++; return; }
+      st.done++;
+      if (s === 'correct') st.correct++; else st.wrong++;
+    });
+    st.rate = st.total ? Math.round(st.correct / st.total * 100) : 0;
+    return st;
+  }
+
+  function renderHead() {
+    var paper = state.paper;
+    var back = 'written-practice.html?paper=' + encodeURIComponent(paper.key) + '&plan=' + encodeURIComponent(state.plan.id);
+    document.getElementById('res-head').innerHTML = '' +
+      '<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5 rounded-2xl border border-edu-border bg-edu-card shadow-sm">' +
+        '<div class="flex items-center gap-4 min-w-0">' +
+          '<div class="w-12 h-12 rounded-xl bg-edu-primary-50 text-edu-primary flex items-center justify-center shrink-0"><i data-lucide="clipboard-check" class="w-6 h-6"></i></div>' +
+          '<div class="min-w-0">' +
+            '<div class="flex items-center gap-2 flex-wrap">' +
+              '<h1 class="edu-h2 text-edu-foreground">试卷结果</h1>' +
+              '<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-edu-primary-50 text-edu-primary-700">已提交</span>' +
+            '</div>' +
+            '<p class="edu-caption text-edu-muted-foreground mt-1">' + esc(paper.school) + ' · ' + esc(paper.major || '校测') + ' · 练习方案：' + esc(state.plan.name) + '</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="flex items-center gap-2 shrink-0">' +
+          '<a href="written-practice.html" class="inline-flex items-center gap-1.5 px-4 h-10 rounded-lg border border-edu-border text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors"><i data-lucide="arrow-left" class="w-4 h-4"></i>返回试卷列表</a>' +
+          '<a href="' + esc(back) + '" class="inline-flex items-center gap-1.5 px-4 h-10 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors"><i data-lucide="rotate-ccw" class="w-4 h-4"></i>重新练习</a>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function statCard(icon, label, value, toneCls, iconCls) {
+    return '' +
+      '<div class="rounded-xl border border-edu-border bg-edu-card p-4 shadow-sm">' +
+        '<div class="flex items-center gap-2 mb-2">' +
+          '<span class="w-7 h-7 rounded-lg ' + toneCls + ' flex items-center justify-center"><i data-lucide="' + icon + '" class="w-4 h-4 ' + iconCls + '"></i></span>' +
+          '<p class="text-xs text-edu-muted-foreground">' + label + '</p>' +
+        '</div>' +
+        '<p class="text-2xl font-semibold text-edu-foreground edu-number">' + value + '</p>' +
+      '</div>';
+  }
+
+  function renderSummary() {
+    var st = collectStats();
+    document.getElementById('res-summary').innerHTML = '' +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
+        '<div class="flex flex-wrap items-center justify-between gap-3 mb-4">' +
+          '<div class="flex items-center gap-2">' +
+            '<i data-lucide="bar-chart-3" class="w-5 h-5 text-edu-primary"></i>' +
+            '<h2 class="edu-h3 text-edu-foreground">本次提交统计</h2>' +
+          '</div>' +
+          '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">正确率 ' + st.rate + '%</span>' +
+        '</div>' +
+        '<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">' +
+          statCard('clipboard-list', '总完成题目', st.done + ' / ' + st.total, 'bg-edu-primary-100', 'text-edu-primary') +
+          statCard('check', '总正确题', st.correct, 'bg-edu-state-success-bg', 'text-edu-state-success') +
+          statCard('x', '总错误题', st.wrong, 'bg-edu-state-error-bg', 'text-edu-state-error') +
+          statCard('clock', '总未完成题', st.todo, 'bg-edu-state-warning-bg', 'text-edu-state-warning') +
+        '</div>' +
+        '<div class="mt-5">' +
+          '<div class="h-2.5 w-full rounded-full bg-edu-muted overflow-hidden flex">' +
+            '<div class="h-full bg-edu-state-success" style="width:' + (st.total ? Math.round(st.correct / st.total * 100) : 0) + '%"></div>' +
+            '<div class="h-full bg-edu-state-error" style="width:' + (st.total ? Math.round(st.wrong / st.total * 100) : 0) + '%"></div>' +
+          '</div>' +
+          '<p class="edu-caption text-edu-muted-foreground mt-2">正确 ' + st.correct + ' 题 · 错误 ' + st.wrong + ' 题 · 未完成 ' + st.todo + ' 题</p>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function statusBadge(s) {
+    if (s === 'correct') return '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-edu-state-success-bg text-edu-state-success"><i data-lucide="check" class="w-3.5 h-3.5"></i>正确</span>';
+    if (s === 'wrong') return '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-edu-state-error-bg text-edu-state-error"><i data-lucide="x" class="w-3.5 h-3.5"></i>错误</span>';
+    return '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-edu-state-warning-bg text-edu-state-warning"><i data-lucide="clock" class="w-3.5 h-3.5"></i>未完成</span>';
+  }
+
+  function renderQuestionCard(q, i) {
+    var s = statusOf(q);
+    var picks = (state.prog.picks || {})[q.id] || [];
+    var isMulti = q.type === 'multi';
+    var typeLabel = isMulti ? '多选题' : '单选题';
+    var diffLabel = q.difficulty === '易' ? '简单' : (q.difficulty === '难' ? '困难' : '中等');
+    var pickText = picks.length ? picks.join('、') : (s === 'todo' ? '未作答' : '已作答');
+    var pickCls = s === 'correct' ? 'text-edu-state-success' : (s === 'wrong' ? 'text-edu-state-error' : 'text-edu-state-warning');
+
+    var optionsHtml = q.options.map(function (o) {
+      var isRight = q.answer.indexOf(o.k) >= 0;
+      var isPick = picks.indexOf(o.k) >= 0;
+      var cls = 'border-edu-border bg-edu-background';
+      if (isRight) cls = 'border-edu-state-success bg-edu-state-success-bg';
+      else if (isPick) cls = 'border-edu-state-error bg-edu-state-error-bg';
+      var mark = isRight ? '<i data-lucide="check" class="w-4 h-4 text-edu-state-success shrink-0"></i>'
+        : (isPick ? '<i data-lucide="x" class="w-4 h-4 text-edu-state-error shrink-0"></i>' : '');
+      return '' +
+        '<div class="flex items-start gap-3 p-3 rounded-lg border ' + cls + '">' +
+          '<span class="mt-0.5 w-5 h-5 rounded-md border border-edu-border bg-edu-card flex items-center justify-center text-[11px] font-semibold text-edu-muted-foreground shrink-0">' + o.k + '</span>' +
+          '<span class="flex-1 edu-body-sm text-edu-foreground">' + esc(o.t) + '</span>' +
+          mark +
+        '</div>';
+    }).join('');
+
+    return '' +
+      '<div class="bg-edu-card border border-edu-border rounded-xl p-5 md:p-6 shadow-sm mb-4">' +
+        '<div class="flex items-start justify-between gap-3 mb-3">' +
+          '<div class="flex items-center gap-2 flex-wrap min-w-0">' +
+            '<span class="w-7 h-7 rounded-lg bg-edu-muted text-edu-muted-foreground flex items-center justify-center text-xs font-semibold edu-number shrink-0">' + (i + 1) + '</span>' +
+            '<span class="inline-flex items-center px-2 py-0.5 rounded-md bg-edu-primary-50 text-edu-primary-700 text-xs font-medium">' + esc(q.subject) + '</span>' +
+            '<span class="inline-flex items-center px-2 py-0.5 rounded-md bg-edu-muted text-edu-muted-foreground text-xs font-medium">' + typeLabel + ' · ' + diffLabel + '</span>' +
+          '</div>' +
+          statusBadge(s) +
+        '</div>' +
+        '<p class="edu-body text-edu-foreground font-medium mb-3">' + esc(q.stem) + '</p>' +
+        '<div class="space-y-2">' + optionsHtml + '</div>' +
+        '<div class="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">' +
+          '<p class="text-edu-muted-foreground">正确答案：<span class="font-semibold text-edu-state-success">' + q.answer.join('、') + '</span></p>' +
+          '<p class="text-edu-muted-foreground">你的作答：<span class="font-semibold ' + pickCls + '">' + esc(pickText) + '</span></p>' +
+        '</div>' +
+        '<details class="res-analysis mt-4 rounded-lg border border-edu-border bg-edu-muted">' +
+          '<summary class="flex items-center justify-between gap-2 px-4 py-2.5 cursor-pointer text-sm font-medium text-edu-foreground">' +
+            '<span class="inline-flex items-center gap-1.5"><i data-lucide="book-open" class="w-4 h-4 text-edu-primary"></i>查看解析与解题思路</span>' +
+            '<i data-lucide="chevron-down" class="w-4 h-4 res-caret text-edu-muted-foreground"></i>' +
+          '</summary>' +
+          '<div class="px-4 pb-4 pt-1 space-y-2">' +
+            '<p class="edu-body-sm text-edu-muted-foreground leading-relaxed"><span class="font-medium text-edu-foreground">详细解析：</span>' + esc(q.analysis) + '</p>' +
+            '<p class="edu-body-sm text-edu-muted-foreground leading-relaxed"><span class="font-medium text-edu-foreground">解题思路：</span>' + esc(q.tips) + '</p>' +
+          '</div>' +
+        '</details>' +
+      '</div>';
+  }
+
+  function renderList() {
+    var items = state.paper.questions.map(function (q, i) { return renderQuestionCard(q, i); }).join('');
+    document.getElementById('res-list').innerHTML = '' +
+      '<div class="flex items-center gap-2 mb-4">' +
+        '<i data-lucide="list-checks" class="w-5 h-5 text-edu-primary"></i>' +
+        '<h2 class="edu-h3 text-edu-foreground">逐题明细</h2>' +
+        '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 ' + state.paper.questions.length + ' 题</span>' +
+      '</div>' + items;
+  }
+
+  function init() {
+    var params = new URLSearchParams(location.search);
+    var plan = resolvePlan(params.get('plan'));
+    if (!plan) {
+      document.getElementById('res-empty').classList.remove('hidden');
+      refreshIcons();
+      return;
+    }
+    var written = buildWritten(plan);
+    var map = {}, order = [];
+    written.forEach(function (q) {
+      var key = q.school + '|' + q.major;
+      if (!map[key]) { map[key] = { key: key, school: q.school, major: q.major, questions: [] }; order.push(key); }
+      map[key].questions.push(q);
+    });
+    var key = params.get('paper');
+    var paper = map[key] || map[order[0]];
+    if (!paper) {
+      document.getElementById('res-empty').classList.remove('hidden');
+      refreshIcons();
+      return;
+    }
+    state.plan = plan;
+    state.paper = paper;
+    state.prog = getProg(plan.id);
+
+    document.getElementById('res-main').classList.remove('hidden');
+    renderHead();
+    renderSummary();
+    renderList();
+    refreshIcons();
+  }
+  init();
+  lucide.createIcons();
+  </script>
+</body>
+</html>

@@ -138,6 +138,23 @@
         </section>
       </div>
 
+      <!-- 提交试卷确认弹框 -->
+      <div id="wp-submit-modal" class="hidden fixed inset-0 z-50 items-center justify-center bg-slate-900/50 px-4" role="dialog" aria-modal="true" aria-labelledby="wp-submit-title">
+        <div class="w-full max-w-md rounded-2xl bg-edu-card border border-edu-border shadow-xl p-6">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-edu-primary-50 text-edu-primary flex items-center justify-center shrink-0"><i data-lucide="clipboard-check" class="w-5 h-5"></i></div>
+            <div class="min-w-0">
+              <h2 id="wp-submit-title" class="edu-h3 text-edu-foreground">确认提交试卷？</h2>
+              <p id="wp-submit-desc" class="edu-body-sm text-edu-muted-foreground mt-2"></p>
+            </div>
+          </div>
+          <div class="mt-6 flex items-center justify-end gap-3">
+            <button type="button" onclick="closeSubmitModal()" class="px-5 h-10 rounded-lg border border-edu-border bg-edu-card text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors">继续作答</button>
+            <button type="button" onclick="confirmSubmitPaper()" class="px-5 h-10 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors">确认提交</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 
@@ -377,8 +394,9 @@
             '<p class="edu-caption text-edu-muted-foreground mt-1">第 <span class="edu-number text-edu-foreground font-medium">' + (state.qIndex + 1) + '</span> 题 / 共 <span class="edu-number text-edu-foreground font-medium">' + state.paperList.length + '</span> 题' + (q && q.school ? ' · 来源：' + esc(q.school) + ' 校测题库' : '') + '</p>' +
           '</div>' +
         '</div>' +
-        '<div class="shrink-0">' +
+        '<div class="flex items-center gap-2 shrink-0">' +
           '<button type="button" onclick="backToList()" class="inline-flex items-center gap-1.5 px-4 h-10 rounded-lg border border-edu-border text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors"><i data-lucide="arrow-left" class="w-4 h-4"></i>返回试卷列表</button>' +
+          '<button type="button" onclick="openSubmitModal()" class="inline-flex items-center gap-1.5 px-4 h-10 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors"><i data-lucide="clipboard-check" class="w-4 h-4"></i>完成练习</button>' +
         '</div>' +
       '</div>';
   }
@@ -481,7 +499,8 @@
           '</div>' +
           '<div class="flex items-center gap-3">' +
             '<button type="button" onclick="prevQuestion()" class="px-5 h-11 rounded-lg border border-edu-border bg-edu-card text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors inline-flex items-center gap-1.5"><i data-lucide="arrow-left" class="w-4 h-4"></i>上一题</button>' +
-            '<button type="button" onclick="nextQuestion()" class="px-5 h-11 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors inline-flex items-center gap-1.5">下一题<i data-lucide="arrow-right" class="w-4 h-4"></i></button>' +
+            '<button type="button" onclick="nextQuestion()" class="px-5 h-11 rounded-lg border border-edu-border bg-edu-card text-edu-foreground text-sm font-medium hover:bg-edu-muted transition-colors inline-flex items-center gap-1.5">下一题<i data-lucide="arrow-right" class="w-4 h-4"></i></button>' +
+            '<button type="button" onclick="openSubmitModal()" class="px-5 h-11 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors inline-flex items-center gap-1.5"><i data-lucide="clipboard-check" class="w-4 h-4"></i>提交试卷</button>' +
           '</div>' +
         '</div>' +
       '</div>';
@@ -515,6 +534,8 @@
     var answered = prog.answered || {};
     answered[q.id] = correct ? 'correct' : 'wrong';
     prog.answered = answered;
+    prog.picks = prog.picks || {};
+    prog.picks[q.id] = state.selected.slice().sort();
     var ids = Object.keys(answered);
     prog.done = ids.length;
     prog.correct = ids.filter(function (id) { return answered[id] === 'correct'; }).length;
@@ -534,6 +555,34 @@
     state.submitted = false;
     state.selected = [];
     renderQuizView();
+  }
+
+  /* ---- 完成练习 / 提交试卷 ---- */
+  function openSubmitModal() {
+    var paper = paperByKey(state.paperKey);
+    if (!paper) return;
+    var st = paperStats(paper);
+    var left = st.total - st.answered;
+    var desc = document.getElementById('wp-submit-desc');
+    desc.innerHTML = '本试卷共 <span class="edu-number font-semibold text-edu-foreground">' + st.total + '</span> 题，已作答 <span class="edu-number font-semibold text-edu-foreground">' + st.answered + '</span> 题' +
+      (left ? '，还有 <span class="edu-number font-semibold text-edu-state-warning">' + left + '</span> 题未作答。' : '，已全部作答。') +
+      '<span class="block mt-2">提交后将进入试卷结果页，未作答题目按「未完成」统计，确认提交吗？</span>';
+    var modal = document.getElementById('wp-submit-modal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    refreshIcons();
+  }
+  function closeSubmitModal() {
+    var modal = document.getElementById('wp-submit-modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+  function confirmSubmitPaper() {
+    if (!state.paperKey) return;
+    location.href = 'written-result.html?paper=' + encodeURIComponent(state.paperKey) +
+      '&plan=' + encodeURIComponent(state.plan.id);
   }
 
   function goToIndex(i) {
