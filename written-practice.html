@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN" class="light" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -175,7 +175,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/practice-core.js?v=20261023b"></script>
+  <script src="assets/js/practice-core.js?v=20261023c"></script>
   <script>
   /* =======================================================================
      笔试练习页（独立页面）
@@ -542,6 +542,14 @@
     prog.wrong = ids.filter(function (id) { return answered[id] === 'wrong'; });
     setProg(state.plan.id, prog);
 
+    /* 同步全局错题本 / 收藏夹：答错收录，答对则从错题本、收藏练习中移出 */
+    if (correct) {
+      removeQuestionFromBook('wrong', q);
+      removeQuestionFromBook('fav', q);
+    } else {
+      addToBook('wrong', q);
+    }
+
     /* 写入每日练习日志（支撑练习中心的打卡日历 / 按日详情） */
     addDailyLog(todayKey(), {
       written: 1, correct: correct ? 1 : 0,
@@ -602,7 +610,8 @@
     var prog = getProg(state.plan.id);
     prog.fav = prog.fav || [];
     var idx = prog.fav.indexOf(q.id);
-    if (idx >= 0) prog.fav.splice(idx, 1); else prog.fav.push(q.id);
+    if (idx >= 0) { prog.fav.splice(idx, 1); removeQuestionFromBook('fav', q); }
+    else { prog.fav.push(q.id); addToBook('fav', q); }
     setProg(state.plan.id, prog);
     renderQuizView();
   }
@@ -684,69 +693,43 @@
     alert('【' + (q.type === 'multi' ? '多选题' : '单选题') + '】' + q.stem + '\n\n正确答案：' + q.answer.join('、') + '\n\n解析：' + q.analysis + '\n\n思路：' + q.tips);
   }
 
-  /* ---- 错题本 ---- */
+  /* ---- 错题本：只展示总数，点击进入错题练习 ---- */
   function renderWpWrongArea() {
-    var prog = getProg(state.plan.id);
-    var ids = prog.wrong || [];
-    var items = ids.map(function (id) { return state.written.filter(function (q) { return q.id === id; })[0]; }).filter(Boolean);
-    var body;
-    if (!items.length) {
-      body = '<div class="p-8 text-center"><div class="w-12 h-12 mx-auto rounded-full bg-edu-muted flex items-center justify-center mb-3"><i data-lucide="check-circle-2" class="w-6 h-6 text-edu-state-success"></i></div><p class="text-sm text-edu-muted-foreground">暂无错题，继续保持！答错的题目会自动收录到这里。</p></div>';
-    } else {
-      body = '<div class="space-y-3">' + items.map(function (q) {
-        return '' +
-          '<div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-primary/40 transition-colors">' +
-            '<div class="flex-1 min-w-0">' +
-              '<div class="flex items-center gap-2 mb-1">' +
-                '<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-error-bg text-edu-state-error">' + esc(q.subject) + '</span>' +
-                '<span class="text-xs text-edu-muted-foreground">' + (q.type === 'multi' ? '多选题' : '单选题') + ' · ' + esc(q.difficulty) + ' · ' + esc(q.school) + '</span>' +
-              '</div>' +
-              '<p class="text-sm text-edu-foreground font-medium line-clamp-2">' + esc(q.stem) + '</p>' +
-            '</div>' +
-            '<div class="flex items-center gap-2 shrink-0">' +
-              '<button type="button" onclick="wpPracticeQuestion(\'' + esc(q.id) + '\')" class="px-3 h-8 rounded-lg border border-edu-border bg-white text-xs font-medium text-edu-foreground hover:bg-edu-muted transition-colors">重新练习</button>' +
-              '<button type="button" onclick="wpShowAnalysis(\'' + esc(q.id) + '\')" class="px-3 h-8 rounded-lg bg-edu-primary text-white text-xs font-medium hover:bg-[#0f766e] transition-colors">查看解析</button>' +
-            '</div>' +
-          '</div>';
-      }).join('') + '</div>';
-    }
+    var count = bookCount('wrong');
+    var btn = count
+      ? '<a href="written-review.html?type=wrong" class="shrink-0 inline-flex items-center justify-center gap-1.5 px-5 h-11 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors"><i data-lucide="play" class="w-4 h-4"></i>进入错题练习</a>'
+      : '<span class="shrink-0 inline-flex items-center justify-center gap-1.5 px-5 h-11 rounded-lg bg-edu-muted text-edu-muted-foreground text-sm font-medium cursor-not-allowed">暂无可练习错题</span>';
     document.getElementById('wp-wrong-area').innerHTML = '' +
-      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
-        '<div class="flex items-center gap-2 mb-6">' +
-          '<div class="w-8 h-8 rounded-lg bg-edu-state-error-bg text-edu-state-error flex items-center justify-center"><i data-lucide="book-x" class="w-4 h-4"></i></div>' +
-          '<h2 class="edu-h3 text-edu-foreground">错题本</h2>' +
-          '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 ' + items.length + ' 道</span>' +
-        '</div>' + body +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm flex flex-col sm:flex-row sm:items-center gap-4">' +
+        '<div class="w-11 h-11 rounded-xl bg-edu-state-error-bg text-edu-state-error flex items-center justify-center shrink-0"><i data-lucide="book-x" class="w-5 h-5"></i></div>' +
+        '<div class="flex-1 min-w-0">' +
+          '<div class="flex items-center gap-2 flex-wrap">' +
+            '<h2 class="edu-h3 text-edu-foreground">错题本</h2>' +
+            '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 <span class="edu-number font-semibold text-edu-foreground">' + count + '</span> 道错题</span>' +
+          '</div>' +
+          '<p class="edu-caption text-edu-muted-foreground mt-1">所有方案答错的题目统一收录，答对后自动移出，也可在练习中主动删除。</p>' +
+        '</div>' +
+        btn +
       '</div>';
   }
 
-  /* ---- 题目收藏 ---- */
+  /* ---- 收藏练习：只展示总数，点击进入收藏练习 ---- */
   function renderWpFavArea() {
-    var prog = getProg(state.plan.id);
-    var ids = prog.fav || [];
-    var items = ids.map(function (id) { return state.written.filter(function (q) { return q.id === id; })[0]; }).filter(Boolean);
-    var body;
-    if (!items.length) {
-      body = '<div class="p-8 text-center"><div class="w-12 h-12 mx-auto rounded-full bg-edu-muted flex items-center justify-center mb-3"><i data-lucide="star" class="w-6 h-6 text-edu-muted-foreground"></i></div><p class="text-sm text-edu-muted-foreground">还没有收藏的题目，练习时点击题目卡右上角「收藏」即可加入。</p></div>';
-    } else {
-      body = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">' + items.map(function (q) {
-        return '' +
-          '<div onclick="wpPracticeQuestion(\'' + esc(q.id) + '\')" class="cursor-pointer p-4 rounded-xl border border-edu-border bg-edu-background hover:border-edu-state-warning transition-colors">' +
-            '<div class="flex items-center gap-2 mb-2">' +
-              '<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-edu-state-warning-bg text-edu-state-warning">' + (q.type === 'multi' ? '多选题' : '单选题') + '</span>' +
-              '<span class="text-xs text-edu-muted-foreground">' + esc(q.subject) + ' · ' + esc(q.school) + '</span>' +
-            '</div>' +
-            '<p class="text-sm text-edu-foreground font-medium line-clamp-2">' + esc(q.stem) + '</p>' +
-          '</div>';
-      }).join('') + '</div>';
-    }
+    var count = bookCount('fav');
+    var btn = count
+      ? '<a href="written-review.html?type=fav" class="shrink-0 inline-flex items-center justify-center gap-1.5 px-5 h-11 rounded-lg bg-edu-primary text-white text-sm font-medium hover:bg-[#0f766e] transition-colors"><i data-lucide="play" class="w-4 h-4"></i>进入收藏练习</a>'
+      : '<span class="shrink-0 inline-flex items-center justify-center gap-1.5 px-5 h-11 rounded-lg bg-edu-muted text-edu-muted-foreground text-sm font-medium cursor-not-allowed">暂无收藏题目</span>';
     document.getElementById('wp-fav-area').innerHTML = '' +
-      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm">' +
-        '<div class="flex items-center gap-2 mb-6">' +
-          '<div class="w-8 h-8 rounded-lg bg-edu-state-warning-bg text-edu-state-warning flex items-center justify-center"><i data-lucide="star" class="w-4 h-4"></i></div>' +
-          '<h2 class="edu-h3 text-edu-foreground">题目收藏</h2>' +
-          '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 ' + items.length + ' 道</span>' +
-        '</div>' + body +
+      '<div class="bg-edu-card border border-edu-border rounded-2xl p-5 md:p-6 shadow-sm flex flex-col sm:flex-row sm:items-center gap-4">' +
+        '<div class="w-11 h-11 rounded-xl bg-edu-state-warning-bg text-edu-state-warning flex items-center justify-center shrink-0"><i data-lucide="star" class="w-5 h-5"></i></div>' +
+        '<div class="flex-1 min-w-0">' +
+          '<div class="flex items-center gap-2 flex-wrap">' +
+            '<h2 class="edu-h3 text-edu-foreground">收藏练习</h2>' +
+            '<span class="text-xs text-edu-muted-foreground bg-edu-muted px-2 py-0.5 rounded-full">共 <span class="edu-number font-semibold text-edu-foreground">' + count + '</span> 道收藏题</span>' +
+          '</div>' +
+          '<p class="edu-caption text-edu-muted-foreground mt-1">所有方案收藏的题目统一收录，答对后自动移出，也可在练习中主动取消收藏。</p>' +
+        '</div>' +
+        btn +
       '</div>';
   }
 

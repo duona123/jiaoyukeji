@@ -406,6 +406,9 @@ var MAX_MAJORS = 10;
 var PLAN_STORE_KEY = 'practice-selected-plan';
 var PROGRESS_STORE_KEY = 'practice-progress';
 var DAILY_LOG_KEY = 'practice-daily-log';
+/* 全局错题本 / 收藏夹：跨方案统一收录，与单方案的 prog.wrong / prog.fav 并存 */
+var WRONG_BOOK_KEY = 'practice-wrong-book';
+var FAV_BOOK_KEY = 'practice-fav-book';
 
 function readJSON(key) {
   try { var v = JSON.parse(localStorage.getItem(key) || '[]'); return Array.isArray(v) ? v : []; }
@@ -623,6 +626,40 @@ function setProg(planId, obj) {
   all[planId] = obj;
   saveAllProgress(all);
 }
+
+/* ---- 全局错题本 / 收藏夹 ----
+   —— 结构：{ <题目指纹>: { key, type, subject, difficulty, stem, options, answer, analysis, tips, school, major, addedAt } }
+   —— 指纹用「科目 + 题干」生成，同一道题即使来自不同方案也只收录一次 */
+function bookKeyOf(q) { return String(q.subject || '') + '|' + String(q.stem || ''); }
+function loadBook(kind) {
+  var key = kind === 'fav' ? FAV_BOOK_KEY : WRONG_BOOK_KEY;
+  try { return JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch (e) { return {}; }
+}
+function saveBook(kind, obj) {
+  var key = kind === 'fav' ? FAV_BOOK_KEY : WRONG_BOOK_KEY;
+  localStorage.setItem(key, JSON.stringify(obj));
+}
+function addToBook(kind, q) {
+  if (!q) return;
+  var book = loadBook(kind);
+  var key = bookKeyOf(q);
+  book[key] = {
+    key: key, type: q.type, subject: q.subject, difficulty: q.difficulty,
+    stem: q.stem, options: q.options, answer: q.answer, analysis: q.analysis, tips: q.tips,
+    school: q.school, major: q.major, addedAt: Date.now()
+  };
+  saveBook(kind, book);
+}
+function removeFromBook(kind, key) {
+  var book = loadBook(kind);
+  if (book[key]) { delete book[key]; saveBook(kind, book); }
+}
+function removeQuestionFromBook(kind, q) { removeFromBook(kind, bookKeyOf(q)); }
+function bookList(kind) {
+  var book = loadBook(kind);
+  return Object.keys(book).map(function (k) { return book[k]; }).sort(function (a, b) { return (b.addedAt || 0) - (a.addedAt || 0); });
+}
+function bookCount(kind) { return Object.keys(loadBook(kind)).length; }
 
 /* ---- 每日练习日志（独立 store，支撑打卡日历 / 按日详情）----
    每条日志结构：{ written, correct, interviews, items: [{type:'written'|'interview', subject|school, question|major, correct|score, ...}] }

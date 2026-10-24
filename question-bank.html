@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN" class="light" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -185,7 +185,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/practice-core.js?v=20261023b"></script>
+  <script src="assets/js/practice-core.js?v=20261023c"></script>
   <script>
   /* =======================================================================
      练习中心（题库 + AI 面试 合并版）
@@ -661,7 +661,7 @@
             '<div class="h-2.5 rounded-full bg-edu-border overflow-hidden mb-3"><div class="h-full rounded-full bg-edu-primary transition-all" style="width:' + wPct + '%"></div></div>' +
             '<div class="mt-auto grid grid-cols-2 gap-3">' +
               '<div><p class="text-xs text-edu-muted-foreground">正确率</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + wRate + '%</p></div>' +
-              '<div><p class="text-xs text-edu-muted-foreground">错题</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + (prog.wrong ? prog.wrong.length : 0) + '</p></div>' +
+              '<div><p class="text-xs text-edu-muted-foreground">错题</p><p class="text-xl font-semibold text-edu-foreground edu-number">' + bookCount('wrong') + '</p></div>' +
             '</div>' +
           '</div>' +
           (hasInterview
@@ -702,7 +702,7 @@
     var done = prog.done || 0;
     var correct = prog.correct || 0;
     var rate = done ? Math.round(correct / done * 100) : 0;
-    var wrong = (prog.wrong || []).length;
+    var wrong = bookCount('wrong');
     var total = state.written.length;
     var wLabel = isAllPlan(state.plan) ? bankScopeLabel('written') : null;
 
